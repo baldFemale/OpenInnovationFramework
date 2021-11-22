@@ -31,3 +31,13 @@ def numberToBase(n, b):
         digits.append(int(n % b))
         n //= b
     return "".join([str(cur) for cur in digits[::-1]])
+
+# Generates the full permutation of bytecode: [000], [001], ..., [111]
+# from itertools import product
+# state_num = 2
+# remain_length = 4
+# x1 = []
+# x2 = [i for i in product(range(state_num), repeat=remain_length)]
+# for i in range(pow(state_num, remain_length)):
+#     x1.append(numberToBase(i, state_num))
+# print(x1, '\n', x2)
