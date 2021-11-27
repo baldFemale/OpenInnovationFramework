@@ -23,7 +23,6 @@ def solutuionIntegration(stateA, stateB, decisionA, decisionB, landscape):
                     result[cur] = stateA[cur]
     return result
 
-
 def numberToBase(n, b):
     if n == 0:
         return "0"
