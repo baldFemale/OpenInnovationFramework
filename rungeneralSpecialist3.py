@@ -1,4 +1,4 @@
-from generalSpecialist2 import *
+from generalSpecialist3 import *
 import multiprocessing
 import pickle
 
@@ -11,6 +11,8 @@ state_num = 4
 teamup = True
 learn_probability = 0.1
 IM_type = "random"
+
+overlap = 1
 
 knowledge_type = "high"
 knowledge_num = []
@@ -27,11 +29,12 @@ elif knowledge_type == "low":
     specialist_num = [0, 2, 1]
 
 # to_file
-file_path = "./output_multistate_generalistSpecialist_{teamup}_{knowledge_type}_{lr}_{IM_type}".format(
+file_path = "./output_multistate_temporaldivision_generalistSpecialist_{teamup}_{knowledge_type}_{lr}_{IM_type}_{overlap}".format(
     teamup=teamup,
     lr=learn_probability,
     knowledge_type=knowledge_type,
     IM_type=IM_type,
+    overlap=overlap,
 )
 
 
@@ -40,8 +43,8 @@ if __name__ == '__main__':
     return_dic = manager.dict()
     print(
         """
-        def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num, specialist_num,
-               lr=0.1, state_num=2):
+        def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num,
+               specialist_num, lr=0.1, state_num=2, overlap=1):
         """
     )
 
@@ -54,8 +57,8 @@ if __name__ == '__main__':
 
             p = multiprocessing.Process(
                 target=simulation, args=(
-                    return_dic, index, 10, k, IM_type, land_num, period, agentNum, teamup, timing, knowledge_num, specialist_num,
-                    learn_probability, state_num,
+                    return_dic, index, 10, k, IM_type, land_num, period, agentNum, teamup, timing, knowledge_num,
+                    specialist_num,learn_probability, state_num, overlap,
                 )
             )
 

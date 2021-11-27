@@ -1,94 +1,20 @@
 # from MultiStateLandScape import *
 from MultiStateInfluentialLandscape import *
+from generalSpecialist2 import Agent
 from tools import *
 
-# the results might be determined by the way we calculate cognition
-# we overvalue generalist
-# I want to make it a fair comparison & learning from specialist and generalist should be different -> need to specify
-# bit different in MultiStateLandScape class
-# target -> specialist works well in complex problems
-# Influence matrix also matters -> when specialist happen to cover the influential decisions -> good performance
+# specialist and generalist have different roles
+# or temporary task division
+# A first search the landscape and let B get involved
 
 
-class Agent:
-
-    def __init__(self, N, knowledge_num, specialist_num, lr=0, landscape=None, state_num=2):
-
-        self.N = N
-        self.state_num = state_num
-        self.state = np.random.choice([cur for cur in range(2)], self.N).tolist()
-        self.decision_space = np.random.choice(self.N, knowledge_num, replace=False).tolist()
-        self.knowledge_space = list(self.decision_space)
-        self.specialist_decision_space = np.random.choice(self.decision_space, specialist_num, replace=False).tolist()
-        self.specialist_knowledge_space = list(self.specialist_decision_space)
-        self.generalist_knowledge_space = [
-            cur for cur in self.decision_space if cur not in self.specialist_knowledge_space
-        ]
-
-        self.generalist_map_dic = defaultdict(lambda: defaultdict(int))
-
-        for cur in self.generalist_knowledge_space:
-            self.generalist_map_dic[cur][0] = np.random.choice([0, 1])
-            self.generalist_map_dic[cur][1] = np.random.choice([2, 3])
-
-        self.lr = lr
-
-        self.landscape = landscape
-
-    def independent_search(self, ):
-
-        # local area
-
-        temp_state = list(self.state)
-
-        c = np.random.choice(self.decision_space)
-
-        if c in self.specialist_knowledge_space:
-            current_state = temp_state[c]
-            new_state = np.random.choice([cur for cur in range(self.state_num) if cur != current_state])
-            temp_state[c] = new_state
-
-        else:
-            focal_flag = temp_state[c]//2
-            focal_flag = focal_flag^1
-            temp_state[c] = self.generalist_map_dic[c][focal_flag]
-
-        cognitive_state = self.change_state_to_cog_state(self.state)
-        # print("knowledge", self.generalist_knowledge_space, self.specialist_knowledge_space)
-        # print("current", self.state, cognitive_state)
-        cognitive_temp_state = self.change_state_to_cog_state(temp_state)
-        # print("next", temp_state, cognitive_temp_state)
-
-        if self.landscape.query_cog_fitness_gst(
-            cognitive_state, self.generalist_knowledge_space, self.specialist_knowledge_space
-        ) > self.landscape.query_cog_fitness_gst(
-            cognitive_temp_state, self.generalist_knowledge_space, self.specialist_knowledge_space
-        ):
-            return list(self.state)
-        else:
-            return list(temp_state)
-
-    def change_state_to_cog_state(self, state):
-        temp_state = []
-        for cur in range(len(state)):
-            if cur in self.generalist_knowledge_space:
-                temp_state.append(state[cur]//2)
-            else:
-                temp_state.append(state[cur])
-        return temp_state
-
-    def learn(self, target_):
-        pass
-
-
-def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num, specialist_num,
-               lr=0.1, state_num=2, ):
+def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num,
+               specialist_num, lr=0.1, state_num=2, overlap=1):
     """
     default: random formation
-    three types of agents:
-        0-1/3 G
-        1/3-2/3 S
-        2/3-1 T
+    two types of agents:
+        0-1/2 G
+        1/2-1 S
 
     """
 
@@ -116,12 +42,10 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
                 agents.append(Agent(N, knowledge_num, specialist_num, lr, landscape, state_num))
         else:
             for cur in range(agentNum):
-                if cur < agentNum//3:
+                if cur < agentNum//2:
                     agents.append(Agent(N, knowledge_num[0], specialist_num[0], lr, landscape, state_num))
-                elif cur < 2*agentNum//3:
-                    agents.append(Agent(N, knowledge_num[1], specialist_num[1], lr, landscape, state_num))
                 else:
-                    agents.append(Agent(N, knowledge_num[2], specialist_num[2], lr, landscape, state_num))
+                    agents.append(Agent(N, knowledge_num[1], specialist_num[1], lr, landscape, state_num))
 
         # print([agents[i].decision_space for i in range(agentNum)])
         # print([agents[i].specialist_decision_space for i in range(agentNum)])
@@ -138,19 +62,42 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
                 rank = np.random.choice([cur for cur in range(agentNum)], agentNum, replace=False)
                 for i in range(agentNum):
 
+                    if rank[i] >= agentNum//2:
+                        continue
+
                     if teams[rank[i]] is None or teams[rank[i]] != rank[i]:
                         continue
+
+                    cognitive_temp_state = agents[rank[i]].change_state_to_cog_state(agents[rank[i]].state)
+
+                    fitness_contribution = agents[rank[i]].landscape.query_cog_fitness_contribution_gst(
+                        cognitive_temp_state,
+                        agents[rank[i]].generalist_knowledge_space,
+                        agents[rank[i]].specialist_knowledge_space,
+                    )
+
+                    decision_contribution = [
+                        (fitness_contribution[cur], cur) for cur in agents[rank[i]].decision_space
+                    ]
+                    decision_contribution.sort(key=lambda x: -x[0])
+
+                    sorted_decision = [d[1] for d in decision_contribution]
 
                     for j in range(agentNum):
                         if i == j or teams[rank[j]] is None or teams[rank[j]] != rank[j]:
                             continue
 
+                        if rank[j] < agentNum//2:
+                            continue
+
+                        if not overlap_calculation(sorted_decision, agents[rank[j]].decision_space, overlap):
+                            continue
+
                         teams[rank[i]] = rank[j]
                         teams[rank[j]] = None
 
-                        integrated_solution = solutuionIntegration(
-                            agents[rank[i]].state, agents[rank[j]].state, agents[rank[i]].decision_space, agents[rank[j]].decision_space, landscape
-                        )
+                        # no integration & keep using the current state
+                        integrated_solution = agents[rank[i]].state
 
                         agents[rank[i]].state = list(integrated_solution)
                         agents[rank[j]].state = list(integrated_solution)

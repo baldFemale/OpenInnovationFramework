@@ -1,21 +1,31 @@
-from generalSpecialist2 import *
+from generalSpecialist5 import *
 import multiprocessing
 import pickle
 
-N = 10
+N = 8
 land_num = 400
-period = 30
+period = 50
 agentNum = 100
 state_num = 4
 
 teamup = False
-learn_probability = 0.1
+learn_probability = None
 
-IM_type = "random"
+IM_type = "influential"
 
-# total elements (16, 24, 32)
-knowledge_num = [8, 4, 6, 10, 6, 9, 10, 8, 9]
-specialist_num = [0, 4, 2, 2, 6, 3, 6, 8, 7]
+# GST
+knowledge_list = [
+    [4, 4, ],
+    [2, 2, 2, 2],
+    [3, 3, 2,],
+    [4, 4, 4],
+    [2, 2, 2, 2, 2, 2],
+    [3, 3, 3, 3],
+    [4, 4, 4, 4],
+    [2, 2, 2, 2, 2, 2, 2, 2],
+    [3, 3, 3, 3, 2, 2],
+
+]
 
 # to_file
 file_path = "./output_multistate_generalistSpecialist_individual_{lr}_{IM_type}".format(
@@ -29,8 +39,8 @@ if __name__ == '__main__':
     return_dic = manager.dict()
     print(
         """
-        def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num, specialist_num,
-               lr=0.1, state_num=2, ):
+        def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing,
+               knowledge_list, lr=0.1, state_num=4):
         """
     )
 
@@ -39,12 +49,12 @@ if __name__ == '__main__':
     index = 0
 
     for knowledge_index in range(9):
-        for k in range(0, 91, 18):
+        for k in [0, 14, 28, 42, 56]:
 
             p = multiprocessing.Process(
                 target=simulation, args=(
-                    return_dic, index, 10, k, IM_type, land_num, period, agentNum, teamup, 0, knowledge_num[knowledge_index], specialist_num[knowledge_index],
-                    learn_probability, state_num,
+                    return_dic, index, N, k, IM_type, land_num, period, agentNum, teamup, 0,
+                    [knowledge_list[knowledge_index]], learn_probability, state_num,
                 )
             )
 
