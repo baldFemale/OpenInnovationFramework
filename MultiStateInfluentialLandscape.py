@@ -20,13 +20,17 @@ class LandScape:
         self.IM, self.IM_dic = None, None
         self.FC = None
         self.cache = {}
-        self.contribution_cache = {}
+        self.contribution_cache = {}  # the original 1D fitness list before averaging: 1 by len(state)
         self.cog_cache = {}
 
         self.fitness_to_rank_dict = None
         self.rank_to_fitness_dict = None
 
     def create_influence_matrix(self):
+        """
+        Generate different IM structure
+        How many structures in the literature?
+        """
         IM = np.eye(self.N)
 
         if self.IM_type == "random":
@@ -61,6 +65,11 @@ class LandScape:
         self.FC = FC
 
     def calculate_fitness(self, state):
+        """
+        Param state: the decision string
+        Return: 1. the average fitness across state bits: 1 by 1
+                    2. the original 1D fitness list: 1 by len(state)
+        """
         res = []
         for i in range(len(state)):
             dependency = self.IM_dic[i]
