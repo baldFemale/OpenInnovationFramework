@@ -11,7 +11,7 @@ class Agent:
         self.state_num = state_num
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.decision_space = np.random.choice(self.N, len(state_list), replace=False).tolist()
-        self.state_list = []
+        self.state_list = []  # state_depth_list
         for cur in range(self.N):
             if cur not in self.decision_space:
                 self.state_list.append(0)
@@ -22,7 +22,7 @@ class Agent:
         self.variance = variance
         self.fixed_variance = fixed_variance
 
-        self.cache = self.landscape.contribution_cache
+        self.cache = self.landscape.contribution_cache  # the original 1D fitness list: 1 by len(state)
         self.cog_cache = {}
 
         for i in range(pow(self.state_num,self.N)):
@@ -39,6 +39,10 @@ class Agent:
             self.cog_cache[bit] = temp_contribution_list
 
     def query_cog_fitness(self, state):
+        """
+        State: the decision string
+        Return: the cognitive average fitness with or without the uncertainty
+        """
         bit = "".join([str(cur) for cur in state])
 
         res_fitness = []
@@ -48,12 +52,16 @@ class Agent:
                 res_fitness.append(contribution[cur])
             return np.mean(res_fitness)
         else:
-            contribution = self.cache[bit]
+            contribution = self.cache[bit]  # the original 1D fitness list before averaging: 1 by len(state)
             for cur in self.decision_space:
+                # There are some uncertainty when introducing a specific decision bit regarding the knowledge depth
                 res_fitness.append(np.random.normal(contribution[cur], self.variance/(1+self.state_list[cur])))
             return np.mean(res_fitness)
 
     def independent_search(self, ):
+        """
+        Randomly select one decision bit to change
+        """
 
         # local area
 

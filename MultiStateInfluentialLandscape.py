@@ -20,13 +20,17 @@ class LandScape:
         self.IM, self.IM_dic = None, None
         self.FC = None
         self.cache = {}
-        self.contribution_cache = {}
+        self.contribution_cache = {}  # the original 1D fitness list before averaging: 1 by len(state)
         self.cog_cache = {}
 
         self.fitness_to_rank_dict = None
         self.rank_to_fitness_dict = None
 
     def create_influence_matrix(self):
+        """
+        Generate different IM structure
+        How many structures in the literature?
+        """
         IM = np.eye(self.N)
 
         if self.IM_type == "random":
@@ -61,6 +65,11 @@ class LandScape:
         self.FC = FC
 
     def calculate_fitness(self, state):
+        """
+        Param state: the decision string
+        Return: 1. the average fitness across state bits: 1 by 1
+                    2. the original 1D fitness list: 1 by len(state)
+        """
         res = []
         for i in range(len(state)):
             dependency = self.IM_dic[i]
@@ -82,6 +91,11 @@ class LandScape:
             self.contribution_cache[bit] = fitness_contribution
 
     def rank_dict(self, cache):
+        """
+        Sort the cache fitness value and corresponding rank
+        What's the goal of this rank-value dict?
+        Return: two dict caches
+        """
         value_list = sorted(list(cache.values()), key=lambda x:-x)
         fitness_to_rank_dict = {}
         rank_to_fitness_dict = {}
@@ -108,14 +122,23 @@ class LandScape:
         self.cog_cache = {}
 
     def query_fitness(self, state):
+        """
+        Query the average fitness from the landscape cache for each decision string
+        """
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bit]
 
     def query_fitness_contribution(self, state):
+        """
+        Query the fitness list from the contribution cache for each decision string
+        """
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.contribution_cache[bit]
 
     def query_cog_fitness(self, state, knowledge_sapce, ):
+        """
+        Generate the cognitive fitness from the cache landscape
+        """
         remainder = [cur for cur in range(self.N) if cur not in knowledge_sapce]
         regular_expression = "".join(str(state[i]) if i in knowledge_sapce else "*" for i in range(len(state)))
         if regular_expression in self.cog_cache:
@@ -138,6 +161,16 @@ class LandScape:
         return res
 
     def query_cog_fitness_gst(self, state, general_space, special_space, bit_difference=1):
+        """
+        Parameters:
+            state: the decision string
+            general_space: the domain coverage of generalist
+            special_space: the domain coverage of specialist
+            bit_difference: ??
+
+        Return:
+            what's the goal of this function? to differentiate it from query_cog_fitness()
+        """
 
         # print(state)
 
@@ -176,6 +209,16 @@ class LandScape:
         return res/len(alternative)
 
     def query_cog_fitness_contribution_gst(self, state, general_space, special_space, bit_difference=1):
+        """
+        Parameters:
+            state: the decision string
+            general_space: the domain coverage of generalist
+            special_space: the domain coverage of specialist
+            bit_difference: ??
+
+        Return:
+            The cognitive contribution list for each decision bit?
+        """
 
         alternative = []
 
@@ -214,11 +257,27 @@ class LandScape:
                 res[cur].append(contribution[cur])
 
         return [np.mean(x) for x in res]
+        # a frequent exchange between numpy and list will cost much time.
+        # return [sum(x)/len(x) for x in res]
 
     def query_cog_fitness_tree(
             self, state, decision, knowledge_tree_list, tree_depth, learned_decision=None,
             teammate_decision=None, teammate_knowledge_tree_list=None,
     ):
+        """
+        Parameters:
+            state: the decision string
+            decision:
+            knowledge_tree_list:
+            tree_depth:
+            learned_decision:
+            teammate_decision:
+            teammate_knowledge_tree_list:
+            state_num? do we need to multi-way tree
+
+        Return:
+
+        """
 
         if teammate_decision is None:
 
