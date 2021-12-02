@@ -1,3 +1,7 @@
+from scipy.stats import beta
+import numpy as np
+
+
 def solutuionIntegration(stateA, stateB, decisionA, decisionB, landscape):
 
     if landscape.query_fitness(stateA)>landscape.query_fitness(stateB):
@@ -59,3 +63,21 @@ def stateNumToDepth(stateNum, ):
     dic = {pow(2, cur): cur for cur in range(10)}
     return dic[stateNum]+1
 
+
+def generate_knowledge(decision_order, b, decision_num):
+    n = len(decision_order)
+    bin_width = 1.0 / n
+    cdf_v = [cur * bin_width for cur in range(n + 1)]
+
+    cdf = [beta.ppf(x, 1, b) for x in cdf_v][::-1]
+    ppf = [cdf[cur] - cdf[cur + 1] for cur in range(n)]
+
+    decision = np.random.choice(decision_order, decision_num, replace=False, p=ppf).tolist()
+    return decision
+
+
+def random_combine_proposal(temp_state_i, temp_state_j):
+    res = []
+    for cur in range(len(temp_state_i)):
+        res.append(np.random.choice([temp_state_i[cur], temp_state_j[cur]]))
+    return list(res)

@@ -277,6 +277,7 @@ class LandScape:
                     team_index = teammate_decision.index(cur)
                     node = teammate_knowledge_tree_list[team_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
                     team_node_alternative = teammate_knowledge_tree_list[team_index].node_map_leaves_list[node]
+                    team_node_alternative = [x-(pow(2, tree_depth-1) -1) for x in team_node_alternative]
 
                     alternatives.append(
                         focal_node_alternative if len(

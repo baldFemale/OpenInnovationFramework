@@ -163,7 +163,7 @@ class Agent:
 
 
 def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing,
-               knowledge_list, lr=0.1, state_num=4):
+               knowledge_list, lr=0.1, state_num=4, negotiation_round=2, negotiation_priority=["s", "g", "t"]):
 
     """
     :param return_dic:
@@ -178,6 +178,7 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
     :param teamup_timing: as the current focus is not timing, maybe set as 0
     :param knowledge_list: a list of changeable state list, e.g., [[4, 4], [2, 2, 2, 2]
     :param state_num:
+    :param negotiation_round: liaison, decision power, no negotiation
     :return:
     """
 
@@ -185,6 +186,7 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
     team_list = []
     ress_knowledge = []
     ress_decision = []
+    ress_landscape = []
 
     for repeat in range(land_num):
 
@@ -276,72 +278,170 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
                             )
                             agents[teams[i]].learned_decision.append(new_knowledge_B)
 
-                    # A's proposal
-                    temp_state = agents[i].independent_search(
-                        agents[teams[i]].decision_space, agents[teams[i]].knowledge_tree_list
-                    )
+                    if negotiation_round==2:
 
-                    # B's evaluation
-                    if landscape.query_cog_fitness_tree(
-                        temp_state,
-                        agents[teams[i]].decision_space,
-                        agents[teams[i]].knowledge_tree_list,
-                        agents[teams[i]].tree_depth,
-                        agents[teams[i]].learned_decision,
-                        agents[i].decision_space,
-                        agents[i].knowledge_tree_list,
-                    ) > landscape.query_cog_fitness_tree(
-                        agents[teams[i]].state,
-                        agents[teams[i]].decision_space,
-                        agents[teams[i]].knowledge_tree_list,
-                        agents[teams[i]].tree_depth,
-                        agents[teams[i]].learned_decision,
-                        agents[i].decision_space,
-                        agents[i].knowledge_tree_list,
-                    ):
-                        pass
-                    else:
-                        temp_state = agents[i].state
+                        # A's proposal
+                        temp_state = agents[i].independent_search(
+                            agents[teams[i]].decision_space, agents[teams[i]].knowledge_tree_list
+                        )
 
-                    agents[teams[i]].state = list(temp_state)
-                    agents[i].state = list(temp_state)
+                        # B's evaluation
+                        if landscape.query_cog_fitness_tree(
+                            temp_state,
+                            agents[teams[i]].decision_space,
+                            agents[teams[i]].knowledge_tree_list,
+                            agents[teams[i]].tree_depth,
+                            agents[teams[i]].learned_decision,
+                            agents[i].decision_space,
+                            agents[i].knowledge_tree_list,
+                        ) > landscape.query_cog_fitness_tree(
+                            agents[teams[i]].state,
+                            agents[teams[i]].decision_space,
+                            agents[teams[i]].knowledge_tree_list,
+                            agents[teams[i]].tree_depth,
+                            agents[teams[i]].learned_decision,
+                            agents[i].decision_space,
+                            agents[i].knowledge_tree_list,
+                        ):
+                            pass
+                        else:
+                            temp_state = agents[i].state
 
-                    # B's proposal
-                    B_temp_state = agents[teams[i]].independent_search(
-                        agents[i].decision_space, agents[i].knowledge_tree_list,
-                    )
+                        agents[teams[i]].state = list(temp_state)
+                        agents[i].state = list(temp_state)
 
-                    # A's evaluation
-                    if landscape.query_cog_fitness_tree(
-                        B_temp_state,
-                        agents[i].decision_space,
-                        agents[i].knowledge_tree_list,
-                        agents[i].tree_depth,
-                        agents[i].learned_decision,
-                        agents[teams[i]].decision_space,
-                        agents[teams[i]].knowledge_tree_list,
-                    ) > landscape.query_cog_fitness_tree(
-                        agents[i].state,
-                        agents[i].decision_space,
-                        agents[i].knowledge_tree_list,
-                        agents[i].tree_depth,
-                        agents[i].learned_decision,
-                        agents[teams[i]].decision_space,
-                        agents[teams[i]].knowledge_tree_list,
-                    ):
-                        pass
-                    else:
-                        B_temp_state = agents[teams[i]].state
+                        # B's proposal
+                        B_temp_state = agents[teams[i]].independent_search(
+                            agents[i].decision_space, agents[i].knowledge_tree_list,
+                        )
 
-                    agents[i].state = list(B_temp_state)
-                    agents[teams[i]].state = list(B_temp_state)
+                        # A's evaluation
+                        if landscape.query_cog_fitness_tree(
+                            B_temp_state,
+                            agents[i].decision_space,
+                            agents[i].knowledge_tree_list,
+                            agents[i].tree_depth,
+                            agents[i].learned_decision,
+                            agents[teams[i]].decision_space,
+                            agents[teams[i]].knowledge_tree_list,
+                        ) > landscape.query_cog_fitness_tree(
+                            agents[i].state,
+                            agents[i].decision_space,
+                            agents[i].knowledge_tree_list,
+                            agents[i].tree_depth,
+                            agents[i].learned_decision,
+                            agents[teams[i]].decision_space,
+                            agents[teams[i]].knowledge_tree_list,
+                        ):
+                            pass
+                        else:
+                            B_temp_state = agents[teams[i]].state
+
+                        agents[i].state = list(B_temp_state)
+                        agents[teams[i]].state = list(B_temp_state)
+                    elif negotiation_round==0:
+                        temp_state_i = agents[i].independent_search(
+                            agents[teams[i]].decision_space, agents[teams[i]].knowledge_tree_list
+                        )
+                        temp_state_j = agents[teams[i]].independent_search(
+                            agents[i].decision_space, agents[i].knowledge_tree_list
+                        )
+
+                        integrated_solution = random_combine_proposal(temp_state_i, temp_state_j)
+                        agents[i].state = list(integrated_solution)
+                        agents[teams[i]].state = list(integrated_solution)
+                    elif negotiation_round==1:
+                        # where priority comes from
+                        index_i = int(i//(agentNum//len(knowledge_list)))
+                        index_j = int(teams[i]//(agentNum//len(knowledge_list)))
+                        type_i = ["s", "g", "t"][index_i]
+                        type_j = ["s", "g", "t"][index_j]
+
+                        if negotiation_priority.index(type_i) >= negotiation_priority.index(type_j):
+                            # i should obey j
+                            # A's proposal
+                            temp_state = agents[i].independent_search(
+                                agents[teams[i]].decision_space, agents[teams[i]].knowledge_tree_list
+                            )
+
+                            # B's evaluation
+                            if landscape.query_cog_fitness_tree(
+                                    temp_state,
+                                    agents[teams[i]].decision_space,
+                                    agents[teams[i]].knowledge_tree_list,
+                                    agents[teams[i]].tree_depth,
+                                    agents[teams[i]].learned_decision,
+                                    agents[i].decision_space,
+                                    agents[i].knowledge_tree_list,
+                            ) > landscape.query_cog_fitness_tree(
+                                agents[teams[i]].state,
+                                agents[teams[i]].decision_space,
+                                agents[teams[i]].knowledge_tree_list,
+                                agents[teams[i]].tree_depth,
+                                agents[teams[i]].learned_decision,
+                                agents[i].decision_space,
+                                agents[i].knowledge_tree_list,
+                            ):
+                                pass
+                            else:
+                                temp_state = agents[i].state
+
+                            agents[teams[i]].state = list(temp_state)
+                            agents[i].state = list(temp_state)
+
+                            # B's proposal
+                            B_temp_state = agents[teams[i]].independent_search(
+                                agents[i].decision_space, agents[i].knowledge_tree_list,
+                            )
+                            agents[i].state = list(B_temp_state)
+                            agents[teams[i]].state = list(B_temp_state)
+                        else:
+                            # j should follow i
+                            temp_state = agents[teams[i]].independent_search(
+                                agents[i].decision_space, agents[i].knowledge_tree_list
+                            )
+
+                            # A's evaluation
+                            if landscape.query_cog_fitness_tree(
+                                    temp_state,
+                                    agents[i].decision_space,
+                                    agents[i].knowledge_tree_list,
+                                    agents[i].tree_depth,
+                                    agents[i].learned_decision,
+                                    agents[teams[i]].decision_space,
+                                    agents[teams[i]].knowledge_tree_list,
+                            ) > landscape.query_cog_fitness_tree(
+                                agents[i].state,
+                                agents[i].decision_space,
+                                agents[i].knowledge_tree_list,
+                                agents[i].tree_depth,
+                                agents[i].learned_decision,
+                                agents[teams[i]].decision_space,
+                                agents[teams[i]].knowledge_tree_list,
+                            ):
+                                pass
+                            else:
+                                temp_state = agents[teams[i]].state
+
+                            agents[teams[i]].state = list(temp_state)
+                            agents[i].state = list(temp_state)
+
+                            # A's proposal
+                            A_temp_state = agents[i].independent_search(
+                                agents[teams[i]].decision_space, agents[teams[i]].knowledge_tree_list,
+                            )
+                            agents[i].state = list(A_temp_state)
+                            agents[teams[i]].state = list(A_temp_state)
+
+
 
             tempFitness = [landscape.query_fitness(agents[i].state) for i in range(agentNum)]
-            print(np.mean(tempFitness))
+            # print(np.mean(tempFitness))
 
             res_fitness.append(tempFitness)
 
         ress_fitness.append(res_fitness)
         team_list.append(teams)
+        ress_landscape.append(landscape)
 
-    return_dic[idx] = (ress_fitness, team_list, ress_knowledge, ress_decision)
+    return_dic[idx] = (ress_fitness, team_list, ress_knowledge, ress_decision, ress_landscape)
