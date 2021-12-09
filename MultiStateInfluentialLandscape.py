@@ -6,7 +6,7 @@ from itertools import product
 
 class LandScape:
 
-    def __init__(self, N, K, IM_type, state_num=4):
+    def __init__(self, N, K, IM_type, IM_random_ratio=None, state_num=4):
         """
         :param N:
         :param K: range from 0 - N^2-N
@@ -16,6 +16,7 @@ class LandScape:
         self.N = N
         self.K = K
         self.IM_type = IM_type
+        self.IM_random_ratio = IM_random_ratio
         self.state_num = state_num
         self.IM, self.IM_dic = None, None
         self.FC = None
@@ -39,9 +40,34 @@ class LandScape:
         elif self.IM_type == "influential":
             cells = [i*self.N+j for j in range(self.N) for i in range(self.N) if i != j]
             choices = cells[:self.K]
+
+            if self.IM_random_ratio is not None:
+                remain_choice = np.random.choice(
+                    choices, int(len(choices) * self.IM_random_ratio), replace=False
+                ).tolist()
+                random_choice = np.random.choice(
+                    [i * self.N + j for j in range(self.N) for i in range(self.N) if i != j and i * self.N + j not in remain_choice],
+                    self.K - len(remain_choice),
+                    replace=False
+                ).tolist()
+
+                choices = remain_choice + random_choice
+
         elif self.IM_type == "dependent":
             cells = [i*self.N+j for i in range(self.N) for j in range(self.N) if i != j]
             choices = cells[:self.K]
+
+            if self.IM_random_ratio is not None:
+                remain_choice = np.random.choice(
+                    choices, int(len(choices) * self.IM_random_ratio), replace=False
+                ).tolist()
+                random_choice = np.random.choice(
+                    [i * self.N + j for j in range(self.N) for i in range(self.N) if i != j and i * self.N + j not in remain_choice],
+                    self.K - len(remain_choice),
+                    replace=False
+                ).tolist()
+
+                choices = remain_choice + random_choice
 
         for c in choices:
             IM[c // self.N][c % self.N] = 1
@@ -297,6 +323,7 @@ class LandScape:
 
             res = 0
             alternatives = list(product(*alternatives))
+            # print(len(alternatives))
             for alter in alternatives:
                 alter = list(alter)
                 res += self.query_fitness(alter)
@@ -346,6 +373,7 @@ class LandScape:
 
             res = 0
             alternatives = list(product(*alternatives))
+            # print(len(alternatives))
             for alter in alternatives:
                 alter = list(alter)
                 res += self.query_fitness(alter)

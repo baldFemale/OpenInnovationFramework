@@ -8,8 +8,12 @@
 #
 # 1. Need to figure out how mutual learning takes place, learning should occur
 # even within overlap
-#
 ##############################################################################
+
+########################### Generalsit ######################################
+#
+# 1. Have some disadvantages in diversity -> different cognition ~
+#
 
 from MultiStateInfluentialLandscape import *
 from tools import *
@@ -47,17 +51,28 @@ class KnowledgeBinaryTree:
         cur = 0
         head = TreeNode(cur, None, None)
         queue = [head]
+        last_width = pow(2, self.depth-1)
+        random_val_list = np.random.choice(last_width, last_width, replace=False).tolist()
 
         while cur < pow(2, self.depth)-1-1:
             node = queue.pop(0)
             cur += 1
-            left_child = TreeNode(cur, None, None)
-            node.left = left_child
-            queue.append(left_child)
-            cur += 1
-            right_child = TreeNode(cur, None, None)
-            node.right = right_child
-            queue.append(right_child)
+            if cur >= pow(2, self.depth-1)-1:
+                left_child = TreeNode(pow(2, self.depth-1)-1+random_val_list[cur-pow(2, self.depth-1)+1], None, None)
+                node.left = left_child
+                queue.append(left_child)
+                cur += 1
+                right_child = TreeNode(pow(2, self.depth-1)-1+random_val_list[cur-pow(2, self.depth-1)+1], None, None)
+                node.right = right_child
+                queue.append(right_child)
+            else:
+                left_child = TreeNode(cur, None, None)
+                node.left = left_child
+                queue.append(left_child)
+                cur += 1
+                right_child = TreeNode(cur, None, None)
+                node.right = right_child
+                queue.append(right_child)
         return head
 
     def search_map_leaf(self, node_list, remain_depth=0):
@@ -131,7 +146,6 @@ class Agent:
 
         self.learned_decision = []
 
-
     def independent_search(self, teammate_decision=None, teammate_knowledge_tree_list=None):
         """
         random choice from all possible alternatives
@@ -145,6 +159,8 @@ class Agent:
             cur for cur in node_list if self.knowledge_tree_list[index].node_map_leaf_list[cur] - (
                     pow(2, self.tree_depth - 1) - 1) != self.state[d]
         ]
+
+        # print(len(self.decision_space), len(alternatives))
 
         alter = np.random.choice(alternatives)
         temp_state = list(self.state)
@@ -162,7 +178,7 @@ class Agent:
             return list(self.state)
 
 
-def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing,
+def simulation(return_dic, idx, N, k, IM_type, IM_random_ratio, land_num, period, agentNum, teamup, teamup_timing,
                knowledge_list, lr=0.1, state_num=4, negotiation_round=2, negotiation_priority=["s", "g", "t"]):
 
     """
@@ -171,6 +187,7 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
     :param N:
     :param k:
     :param IM_type:
+    :param IM_random_ratio:
     :param land_num:
     :param period:
     :param agentNum:
@@ -196,16 +213,21 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
 
         np.random.seed(None)
 
-        landscape = LandScape(N, k, IM_type, state_num=state_num)
+        landscape = LandScape(N, k, IM_type, IM_random_ratio, state_num=state_num)
         landscape.initialize()
 
+        defaultstate = np.random.choice(state_num, N).tolist()
+
         agents = []
+
+        # print(len(knowledge_list))
 
         unit_length = agentNum//len(knowledge_list)
 
         for cur in range(agentNum):
             index = cur//unit_length
             agents.append(Agent(N, knowledge_list[index], landscape, state_num))
+            agents[-1].state = adoptDefault(agents[-1].state, agents[-1].decision_space, defaultstate)
 
         ress_knowledge.append([list(agent.changeable_state) for agent in agents])
         ress_decision.append([list(agent.decision_space) for agent in agents])
@@ -432,8 +454,6 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
                             )
                             agents[i].state = list(A_temp_state)
                             agents[teams[i]].state = list(A_temp_state)
-
-
 
             tempFitness = [landscape.query_fitness(agents[i].state) for i in range(agentNum)]
             # print(np.mean(tempFitness))

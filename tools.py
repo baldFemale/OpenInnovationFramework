@@ -81,3 +81,13 @@ def random_combine_proposal(temp_state_i, temp_state_j):
     for cur in range(len(temp_state_i)):
         res.append(np.random.choice([temp_state_i[cur], temp_state_j[cur]]))
     return list(res)
+
+
+def adoptDefault(state, decision, defaultState):
+    res = list(state)
+    for i in range(len(state)):
+        if i in decision:
+            continue
+        else:
+            res[i] = defaultState[i]
+    return res
