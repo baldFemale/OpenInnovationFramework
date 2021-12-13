@@ -156,7 +156,7 @@ class LandScape:
 
     def query_fitness_contribution(self, state):
         """
-        Query the fitness list from the contribution cache for each decision string
+        Query the fitness list from the detailed contribution cache for each decision string
         """
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.contribution_cache[bit]
@@ -164,8 +164,10 @@ class LandScape:
     def query_cog_fitness(self, state, knowledge_sapce, ):
         """
         Generate the cognitive fitness from the cache landscape
+        For those outside the knowledge space, taking their average as the cognitive fitness (i.e., mean bluring)
         """
         remainder = [cur for cur in range(self.N) if cur not in knowledge_sapce]
+        #  using '*' to blur unknown knowledge
         regular_expression = "".join(str(state[i]) if i in knowledge_sapce else "*" for i in range(len(state)))
         if regular_expression in self.cog_cache:
             return self.cog_cache[regular_expression]
@@ -173,6 +175,7 @@ class LandScape:
         remain_length = len(remainder)
         res = 0
         for i in range(pow(self.state_num, remain_length)):
+            # mapping i into bit, as the tail of the state string
             bit = numberToBase(i, self.state_num)
             if len(bit)<remain_length:
                 bit = "0"*(remain_length-len(bit))+bit
@@ -210,7 +213,8 @@ class LandScape:
                 for i in range(pow(2, bit_difference)):
                     bit_string = bin(i)[2:]
                     bit_string = "0"*(bit_difference-len(bit_string)) + bit_string
-                    bit_string = str(state[cur]) + bit_string
+                    bit_string = str(state[cur]) + bit_string  # '11' + '000...' + 'bin(i)' (e.g., 5->101)
+                    # what about '11' + '000...' + 'bin(i)' + '000...' ?
                     temp.append(int(bit_string, 2))
                 alternative.append(list(temp))
             else:
@@ -299,7 +303,7 @@ class LandScape:
             learned_decision:
             teammate_decision:
             teammate_knowledge_tree_list:
-            state_num? do we need to multi-way tree
+            state_num? do we need multi-way tree
 
         Return:
 

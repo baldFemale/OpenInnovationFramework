@@ -1,13 +1,38 @@
-# from MultiStateLandScape import *
-from MultiStateInfluentialLandscape import *
+# -*- coding: utf-8 -*-
+# @Time     : 11/25/2021 18:58
+# @Author   : Junyi
+# @FileName: Agents.py
+# @Software  : PyCharm
+# Observing PEP 8 coding style
+from MultiStateLandScape import *
 from tools import *
 
-# the results might be determined by the way we calculate cognition
-# we overvalue generalist
-# I want to make it a fair comparison & learning from specialist and generalist should be different -> need to specify
-# bit different in MultiStateLandScape class
-# target -> specialist works well in complex problems
-# Influence matrix also matters -> when specialist happen to cover the influential decisions -> good performance
+
+class Agent:
+    def __init__(self, N, knowledge_num, state_num=2):
+        self.N = N
+        self.state_num = state_num
+        self.state = np.random.choice([cur for cur in range(2)], self.N).tolist()
+        self.decision_space = np.random.choice(self.N, knowledge_num, replace=False).tolist()
+        self.knowledge_space = list(self.decision_space)
+
+class Specialist(Agent):
+    def __init__(self, specialist_num, lr=0, landscape=None, state_num=2):
+        self.N = N
+        self.state_num = state_num
+        self.state = np.random.choice([cur for cur in range(2)], self.N).tolist()
+        self.decision_space = np.random.choice(self.N, knowledge_num, replace=False).tolist()
+        self.knowledge_space = list(self.decision_space)
+        self.specialist_decision_space = np.random.choice(self.decision_space, specialist_num, replace=False).tolist()
+        self.specialist_knowledge_space = list(self.specialist_decision_space)
+        self.generalist_knowledge_space = [
+            cur for cur in self.decision_space if cur not in self.specialist_knowledge_space
+        ]
+
+        self.generalist_map_dic = defaultdict(lambda: defaultdict(int))
+
+
+class
 
 
 class Agent:
@@ -81,7 +106,7 @@ class Agent:
         pass
 
 
-def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamup, teamup_timing, knowledge_num, specialist_num,
+def simulation(return_dic, idx, N, k, land_num, period, agentNum, teamup, teamup_timing, knowledge_num, specialist_num,
                lr=0.1, state_num=2, ):
     """
     default: random formation
@@ -89,12 +114,12 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
         0-1/3 G
         1/3-2/3 S
         2/3-1 T
+
     """
 
     ress_fitness = []
     team_list = []
-    general_knowledge_list = []
-    special_knowledge_list = []
+    knowledge_list = []
 
     for repeat in range(land_num):
 
@@ -104,8 +129,7 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
 
         np.random.seed(None)
 
-        # landscape = LandScape(N, k, None, None, state_num=state_num)
-        landscape = LandScape(N, k, IM_type, state_num=state_num)
+        landscape = LandScape(N, k, None, None, state_num=state_num)
         landscape.initialize()
 
         agents = []
@@ -124,9 +148,6 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
 
         # print([agents[i].decision_space for i in range(agentNum)])
         # print([agents[i].specialist_decision_space for i in range(agentNum)])
-
-        special_knowledge_list.append([list(agent.specialist_knowledge_space) for agent in agents])
-        general_knowledge_list.append([list(agent.generalist_knowledge_space) for agent in agents])
 
         teams = {i: i for i in range(agentNum)}
 
@@ -290,14 +311,6 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
 
         ress_fitness.append(res_fitness)
         team_list.append(teams)
+        knowledge_list.append([agents[i].decision_space for i in range(agentNum)])
 
-    return_dic[idx] = (ress_fitness, team_list, general_knowledge_list, special_knowledge_list)
-
-
-
-
-
-
-
-
-
+    return_dic[idx] = (ress_fitness, team_list, knowledge_list)

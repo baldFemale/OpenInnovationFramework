@@ -69,8 +69,6 @@ def simulation(return_dic, idx, N, k, land_num, period, agentNum, teamup, teamup
 
     for repeat in range(land_num):
 
-        print(repeat)
-
         res_fitness = []
 
         np.random.seed(None)

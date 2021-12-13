@@ -2,10 +2,10 @@ from generalSpecialist import *
 import multiprocessing
 import pickle
 
-N = 12
-land_num = 400
-period = 30
-agentNum = 300
+N = 10
+land_num = 10
+period = 20
+agentNum = 100
 
 teamup = True
 learn_probability = 0.1
@@ -35,8 +35,8 @@ if __name__ == '__main__':
 
     index = 0
 
-    for timing in range(0, 33, 3):
-        for k in range(0, 12, 2):
+    for timing in range(0, 20, 4):
+        for k in range(0, 8, 2):
 
             p = multiprocessing.Process(
                 target=simulation, args=(
