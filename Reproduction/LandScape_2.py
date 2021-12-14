@@ -66,11 +66,11 @@ class LandScape():
         #         state = np.array(state)
         state = np.tile(state, (self.N, 1))  # Copying N rows of state
         index_matrix = state[self.IM_np.astype("bool")].reshape(self.N, -1)  # masked matrix
-        # print('index_matrix_1', index_matrix)
+        print('index_matrix_1', index_matrix)
         # A matrix operation for int-bin transformation
         # e.g., [0 1 0 1 0 1 0] -> 42
         index_matrix = index_matrix.dot(self.state_num ** np.arange(index_matrix.shape[1])[::-1])
-        # print('index_matrix', index_matrix)
+        print('index_matrix', index_matrix)
         res = np.average(self.FC_np[np.arange(self.N), index_matrix])
         return res
 

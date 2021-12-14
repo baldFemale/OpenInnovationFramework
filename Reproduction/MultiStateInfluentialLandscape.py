@@ -200,8 +200,6 @@ class LandScape:
             what's the goal of this function? to differentiate it from query_cog_fitness()
         """
 
-        # print(state)
-
         alternative = []
 
         for cur in range(self.N):
@@ -213,7 +211,7 @@ class LandScape:
                     bit_string = bin(i)[2:]
                     bit_string = "0"*(bit_difference-len(bit_string)) + bit_string
                     bit_string = str(state[cur]) + bit_string  # '11' + '000...' + 'bin(i)' (e.g., 5->101)
-                    # what about '11' + '000...' + 'bin(i)' + '000...' ?
+                    # what if '11' + '000...' + 'bin(i)' + '000...' ?
                     temp.append(int(bit_string, 2))
                 alternative.append(list(temp))
             else:
@@ -239,16 +237,13 @@ class LandScape:
 
     def query_cog_fitness_contribution_gst(self, state, general_space, special_space, bit_difference=1):
         """
-        Parameters:
-            state: the decision string
-            general_space: the domain coverage of generalist
-            special_space: the domain coverage of specialist
-            bit_difference: ??
 
-        Return:
-            The cognitive contribution list for each decision bit?
+        :param state:
+        :param general_space:
+        :param special_space:
+        :param bit_difference:
+        :return:
         """
-
         alternative = []
 
         for cur in range(self.N):
@@ -268,7 +263,7 @@ class LandScape:
                     temp.append(i)
                 alternative.append(list(temp))
 
-        res = [[] for cur in range(len(state))]
+        res = [[] for _ in range(len(state))]
         alternative = list(product(*alternative))
 
         for alter in alternative:
@@ -285,9 +280,9 @@ class LandScape:
             for cur in range(len(state)):
                 res[cur].append(contribution[cur])
 
-        return [np.mean(x) for x in res]
+        # return [np.mean(x) for x in res]
         # a frequent exchange between numpy and list will cost much time.
-        # return [sum(x)/len(x) for x in res]
+        return [sum(x)/len(x) for x in res]
 
     def query_cog_fitness_tree(
             self, state, decision, knowledge_tree_list, tree_depth, learned_decision=None,
