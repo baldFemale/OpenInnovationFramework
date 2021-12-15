@@ -148,60 +148,58 @@ class LandScape:
 
     def query_fitness(self, state):
         """
-        Query the average fitness from the landscape cache for each decision string
+        Query the average fitness from the landscape cache for *intact* decision string
         """
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bit]
 
     def query_fitness_contribution(self, state):
         """
-        Query the fitness list from the detailed contribution cache for each decision string
+        Query the fitness list from the detailed contribution cache for *intact* decision string
         """
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.contribution_cache[bit]
 
-    def query_cog_fitness(self, state, knowledge_sapce, ):
+    def query_cog_fitness(self, state, knowledge_space):
         """
-        Generate the cognitive fitness from the cache landscape
-        For those outside the knowledge space, taking their average as the cognitive fitness (i.e., mean bluring)
+        Generate the cognitive fitness from the cache landscape  for *masked* decision string
+        For those outside the knowledge space, taking their average as the cognitive fitness (i.e., mean blurring)
+        :param state: masked decision string with some unknown elements ('*')
+        :param knowledge_space: the manageable element positions
+        :return: the cognitive fitness given a *masked* decision string (NOT for GST)
         """
-        remainder = [cur for cur in range(self.N) if cur not in knowledge_sapce]
+        unknown_space = [cur for cur in range(self.N) if cur not in knowledge_space]
         #  using '*' to blur unknown knowledge
-        regular_expression = "".join(str(state[i]) if i in knowledge_sapce else "*" for i in range(len(state)))
+        regular_expression = "".join(str(state[i]) if i in knowledge_space else "*" for i in range(len(state)))
         if regular_expression in self.cog_cache:
             return self.cog_cache[regular_expression]
 
-        remain_length = len(remainder)
+        remain_length = len(unknown_space)
         res = 0
         for i in range(pow(self.state_num, remain_length)):
             # mapping i into bit, as the tail of the state string
             bit = numberToBase(i, self.state_num)
-            if len(bit)<remain_length:
+            if len(bit) < remain_length:
                 bit = "0"*(remain_length-len(bit))+bit
             temp_state = list(state)
 
             for j in range(remain_length):
-                temp_state[remainder[j]] = int(bit[j])
+                temp_state[unknown_space[j]] = int(bit[j])
             res += self.query_fitness(temp_state)
         res = 1.0*res/pow(self.state_num, remain_length)
         self.cog_cache[regular_expression] = res
-
         return res
 
     def query_cog_fitness_gst(self, state, general_space, special_space, bit_difference=1):
         """
-        Parameters:
-            state: the decision string
-            general_space: the domain coverage of generalist
-            special_space: the domain coverage of specialist
-            bit_difference: ??
-
-        Return:
-            what's the goal of this function? to differentiate it from query_cog_fitness()
+        *masked* elements in the width -> agents cannot know everything; *masked* elements in the depth -> GST
+        :param state: the
+        :param general_space:
+        :param special_space:
+        :param bit_difference:
+        :return: the cognitive fitness for 1) GST Agent, 2）masked elements
         """
-
         alternative = []
-
         for cur in range(self.N):
             if cur in special_space:
                 continue
@@ -219,8 +217,9 @@ class LandScape:
                 for i in range(self.state_num):
                     temp.append(i)
                 alternative.append(list(temp))
-
+        print('alternative: ', alternative)
         res = 0
+        # full permutation
         alternative = list(product(*alternative))
 
         for alter in alternative:
@@ -237,7 +236,6 @@ class LandScape:
 
     def query_cog_fitness_contribution_gst(self, state, general_space, special_space, bit_difference=1):
         """
-
         :param state:
         :param general_space:
         :param special_space:
@@ -377,3 +375,11 @@ class LandScape:
                 res += self.query_fitness(alter)
 
             return res / len(alternatives)
+
+
+if __name__ == '__main__':
+    # test code
+    print('testing')
+    landscape = LandScape(N=10, K=5, IM_type='random', IM_random_ratio=None, state_num=4)
+    landscape.initialize()
+    landscape.query_cog_fitness_gst(state='2234000000', general_space=[0,1], special_space=[2,3])
