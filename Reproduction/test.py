@@ -70,3 +70,6 @@ import random
 #     j = int(next_step)%10
 #     print(i,j)
 
+generalist_domain = None
+for i in generalist_domain:
+    print(x)
