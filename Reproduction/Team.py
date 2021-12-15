@@ -28,6 +28,7 @@ class Team:
 
 
 if __name__ == '__main__':
+    # Test Example
     from Agent import Agent
     from MultiStateInfluentialLandscape import landscape
     landscape = landscape(N=8, K=4, IM_type="random", IM_random_ratio=None, state_num=4)

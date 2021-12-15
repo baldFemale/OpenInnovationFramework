@@ -11,7 +11,7 @@ from tools import *
 
 class Agent:
 
-    def __init__(self, N, knowledge_num=None, lr=0, landscape=None, state_num=4):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5):
         self.landscape = landscape
         self.N = N
         self.name = "None"
@@ -22,20 +22,22 @@ class Agent:
         # masked state string -> using '*' to represent the agent perceived state
         self.cog_state = None
 
-        self.knowledge_domain = np.random.choice(self.N, knowledge_num, replace=False).tolist()
+        self.knowledge_domain = None
+        self.generalist_num = None
+        self.specialist_num = None
         self.specialist_knowledge_domain = None
         self.generalist_knowledge_domain = None  # G_domain + S_domain =knowledge_domain
-        self.generalist_map_dic = defaultdict(lambda: defaultdict(int))
-        self.gs_ratio = None  # generalist know half of the knowledge compared to specialist
+        self.gs_ratio = gs_ratio  # generalist know half of the knowledge compared to specialist
         self.lr = lr
         self.decision_space = []  # all manageable elements' index: ['02', '03', '11', '13', '30', '31']
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
         # decision_space will not change over time, while freedom_space will change due to the current state occupation
 
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
-            raise ValueError("Agent-Landscape mismatch.")
+            raise ValueError("Agent-Landscape mismatch. Please check your N and state number")
 
-    def type(self, name=None, specialist_num=None, gs_ratio=0.5):
+
+    def type(self, name=None, specialist_num=0, generalist_num=0, element_num=None, gs_ratio=0.5):
         """
         Allocate one certain type to the agent
         :param name: the agent role
@@ -45,9 +47,28 @@ class Agent:
         """
         self.name = name
         self.gs_ratio = gs_ratio
-        valid_types = ['generalist', 'specialist', 'T_shape', "None"]
+        self.generalist_num = generalist_num
+        self.specialist_num = specialist_num
+        domain_number = self.generalist_num + self.specialist_num
+        valid_types = ['generalist', 'specialist', 'T shape', "None"]
         if name not in valid_types:
-            raise ValueError("Only support 4 types: generalist, specialist, T_shape, and None.")
+            raise ValueError("Only support 4 types: generalist, specialist, T shape, and None.")
+        if (self.name == "Generalist") & (specialist_num != 0):
+            raise ValueError("Generalist cannot have specialist number")
+        if (self.name == "Specialist") & (generalist_num != 0):
+            raise ValueError("Generalist cannot have specialist number")
+        if (self.name == "T shape") & (generalist_num*specialist_num == 0):
+            raise ValueError("T shape mush have both generalist number and specialist number")
+        if element_num % int(self.gs_ratio*self.state_num) != 0:
+            raise ValueError("Element number ({0}) cannot be exactly divided by {1}".format(element_num, int(self.gs_ratio*self.state_num)))
+        if element_num < int(self.gs_ratio*self.state_num) * domain_number:
+            raise ValueError("Element number ({0}) is not greater than {1}, which is the minimum for generalist type".format(element_num, int(self.gs_ratio*self.state_num) * domain_number))
+
+        self.knowledge_domain = np.random.choice(self.N, domain_number, replace=False).tolist()
+        if element_num:
+            self.element_num = element_num  # record the total number of element that agents can change
+        else:
+            self.element_num = int(self.state_num * self.generalist_num * self.gs_ratio + self.state_num * self.specialist_num)
 
         self.specialist_knowledge_domain = np.random.choice(self.knowledge_domain, specialist_num, replace=False).tolist()
         self.generalist_knowledge_domain = [
@@ -77,6 +98,9 @@ class Agent:
                 self.decision_space += [str(cur) + str(j) for j in random_half_depth]
         else:
             pass
+
+        state_occupation = [str(i) + str(j) for i,j in enumerate(self.state)]
+        self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
     def random_select_gst(self):
         """
@@ -122,21 +146,22 @@ class Agent:
         :return: masked state list
         """
 
+
     def learn(self, target_):
         pass
 
     def describe(self):
-        print("*********Agent information********* \n")
+        print("*********Agent information********* ")
         print("Agent type: ", self.name)
-        print("N: ",self.N)
+        print("N: ", self.N)
         print("State number: ", self.state_num)
-        print("Current state string: ", self.state)
-        print("Knowledge/Manageable space: ", self.knowledge_domain)
-        print("Specialist knowledge space: ", self.specialist_knowledge_domain)
-        print("Specialist knowledge space: ", self.generalist_knowledge_domain)
-        print('Generalist mapping rule', self.generalist_map_dic)
+        print("Current state list: ", self.state)
+        print("Knowledge/Manageable domain: ", self.knowledge_domain)
+        print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
+        print("Generalist knowledge domain: ", self.generalist_knowledge_domain)
+        print("Element number: ", self.element_num)
         print("Learning rate: ", self.lr)
-        print("G/S knowledge rate: ", self.gs_ratio)
+        print("G/S knowledge ratio: ", self.gs_ratio)
         print("Decision space: ", self.decision_space)
         print("Freedom space: ", self.freedom_space)
         print("********************************")
@@ -145,6 +170,7 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     from MultiStateInfluentialLandscape import LandScape
-    landscape = LandScape(N=8, K=4, IM_type="random", IM_random_ratio=None, state_num=4)
-    agent = Agent(N=8, knowledge_num=4, specialist_num=2, lr=0, landscape=landscape, state_num=4)
-    print(agent.generalist_map_dic)
+    landscape = LandScape(N=10, K=4, IM_type="random", IM_random_ratio=None, state_num=4)
+    agent = Agent(N=10, lr=0, landscape=landscape, state_num=4)
+    agent.type(name="T shape", generalist_num=4,element_num=24,specialist_num=2)
+    agent.describe()
