@@ -42,6 +42,7 @@ class Agent:
         temp_state = list(self.state)
 
         c = np.random.choice(self.decision_space)
+        # Here is a problem: the probability is not equally distributed regarding the depth
 
         if c in self.specialist_knowledge_space:
             current_state = temp_state[c]

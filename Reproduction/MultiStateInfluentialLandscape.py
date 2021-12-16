@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 from collections import defaultdict
 from tools import *
@@ -6,26 +8,109 @@ from itertools import product
 
 class LandScape:
 
-    def __init__(self, N, K, IM_type, IM_random_ratio=None, state_num=4):
-        """
-        :param N:
-        :param K: range from 0 - N^2-N
-        :param type: three types {random, influential, dependent}
-        :param state_num:
-        """
+    def __init__(self, N, state_num=4):
         self.N = N
-        self.K = K
-        self.IM_type = IM_type
-        self.IM_random_ratio = IM_random_ratio
+        self.K = None
+        self.k = None
+        self.IM_type = None
         self.state_num = state_num
-        self.IM, self.IM_dic = None, None
+        self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
-        self.cache = {}
-        self.contribution_cache = {}  # the original 1D fitness list before averaging: 1 by len(state)
+        self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
+        self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}
-
         self.fitness_to_rank_dict = None
         self.rank_to_fitness_dict = None
+
+    def describe(self):
+        print("*********LandScape information********* ")
+        print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
+        print("Influential matrix type: ", self.IM_type)
+        print("Influential matrix: \n", self.IM)
+        print("********************************")
+
+    def type(self, IM_type="None", K=0, k=0, factor_num=None, influential_num=0):
+        """
+        Characterize the influential matrix
+        :param IM_type: "random", "dependent",
+        :param K: mutual excitation dependency (undirected links)
+        :param k: single-way dependency (directed links); k=2K for mutual dependency
+        :return: the influential matrix (self.IM); and the dependency rule (self.IM_dict)
+        """
+        if K * k != 0:
+            raise ValueError("K is for mutual/undirected excitation dependency (i.e., Traditional Mutual & Diagonal Mutual), "
+                             "while k is for a new design regarding the total number of links, "
+                             "a directed dependency (i.e., Influential Directed & Random Directed)."
+                             "These two parameter cannot co-exist")
+        valid_IM_type = ["None", "Traditional Mutual", "Diagonal Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+        if IM_type not in valid_IM_type:
+            raise ValueError("Only support {0}".format(valid_IM_type))
+        if (IM_type in ["Traditional Mutual", "Diagonal Mutual"]) & (K == 0):
+            raise ValueError("Mismatch between K {0} and IM_type {1}".format(K, IM_type))
+        if (IM_type in ["Influential Directed", "Random Directed", "Factor Directed"]) & (k == 0):
+            raise ValueError("Mismatch between k {0} and IM_type {1}".format(k, IM_type))
+        if (IM_type == "None") & (K+k != 0):
+            raise ValueError("Need a IM type. Current (default) IM type ({0}) mismatch with K ({1}) = 0 and k ({2}) = 0".format(IM_type,K,k))
+
+        self.IM_type = IM_type
+        self.K = K
+        self.k = k
+        if K:
+            if self.IM_type == "Traditional Mutual":
+                # traditional setting for mutual excitation dependency
+                for i in range(self.N):
+                    probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
+                    ids = np.random.choice(self.N, self.K, p=probs, replace=False)
+                    for index in ids:
+                        self.IM[i][index] = 1
+            elif self.IM_type == "Diagonal Mutual":
+                pass
+
+        if k:
+            if self.IM_type == "Random Directed":
+                cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
+                choices = np.random.choice(cells, self.k, replace=False).tolist()
+                for each in choices:
+                    self.IM[each // self.N][each % self.N] = 1
+            elif self.IM_type == "Factor Directed":
+                if not factor_num:
+                    factor_num = 2
+                    raise Warning("Factor Directed type need defined factor_num. Current default number is 2")
+                factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
+                for cur_i in range(self.N):
+                    for cur_j in range(self.N):
+                        if (cur_j in factor_columns) & (k > 0):
+                            self.IM[cur_i][cur_j] = 1
+                            k -= 1
+                if k > 0:
+                    zero_positions = np.argwhere(self.IM == 0)
+                    fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
+                    fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
+                    for indexs in fill_with_one_positions:
+                        self.IM[indexs[0]][indexs[1]] = 1
+
+
+
+
+            elif self.IM_type == "Influential Directed":
+                pass
+
+            print("IM", self.IM)
+            print("dependency:", self.dependency_map)
+            for i in range(self.N):
+                temp = []
+                for j in range(self.N):
+                    if (i != j) & (self.IM[i][j] == 1):
+                        temp.append(j)
+                self.dependency_map[i] = temp
+
+            print("dependency: ", self.dependency_map)
+
+
+
+
+
+
 
     def create_influence_matrix(self):
         """
@@ -84,10 +169,9 @@ class LandScape:
     def create_fitness_config(self,):
         FC = defaultdict(dict)
         for row in range(len(self.IM)):
-
             k = int(sum(self.IM[row]))
-            for i in range(pow(self.state_num, k)):
-                FC[row][i] = np.random.uniform(0, 1)
+            for column in range(pow(self.state_num, k)):
+                FC[row][column] = np.random.uniform(0, 1)
         self.FC = FC
 
     def calculate_fitness(self, state):
@@ -98,12 +182,12 @@ class LandScape:
         """
         res = []
         for i in range(len(state)):
-            dependency = self.IM_dic[i]
+            dependency = self.dependency_map[i]
             bin_index = "".join([str(state[j]) for j in dependency])
-
             bin_index = str(state[i]) + bin_index
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
+
         return np.mean(res), res
 
     def store_cache(self,):
@@ -130,8 +214,8 @@ class LandScape:
         return fitness_to_rank_dict, rank_to_fitness_dict
 
     def initialize(self, first_time=True, norm=True):
-        if first_time:
-            self.create_influence_matrix()
+        # if first_time:
+        #     self.create_influence_matrix()
         self.create_fitness_config()
         self.store_cache()
 
@@ -378,8 +462,9 @@ class LandScape:
 
 
 if __name__ == '__main__':
-    # test code
-    print('testing')
-    landscape = LandScape(N=10, K=5, IM_type='random', IM_random_ratio=None, state_num=4)
+    # Test Example
+    landscape = LandScape(N=6, IM_type='random', IM_random_ratio=None, state_num=4)
+    landscape.type( IM_type="Factor Directed", k=5, factor_num=2)
     landscape.initialize()
-    landscape.query_cog_fitness_gst(state='2234000000', general_space=[0,1], special_space=[2,3])
+    landscape.describe()
+    # landscape.query_cog_fitness_gst(state='2234000000', general_space=[0,1], special_space=[2,3])

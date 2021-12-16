@@ -22,6 +22,9 @@ class LandScape():
         :param IM_random_ratio:
         :param state_num:
         """
+        if state_num >= N:
+            raise ValueError("The depth of state cannot be greater than its width")
+
         self.N = N
         self.K = K
         self.IM_type = IM_type

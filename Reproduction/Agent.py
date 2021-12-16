@@ -36,8 +36,7 @@ class Agent:
 
         self.first_search = True
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
-            raise ValueError("Agent-Landscape mismatch. Please check your N and state number")
-
+            raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
     def type(self, name=None, specialist_num=0, generalist_num=0, element_num=0, gs_ratio=0.5):
         """
@@ -47,20 +46,21 @@ class Agent:
         :param gs_ratio: the ratio of knowledge between G and S
         :return: Updating the agent characters
         """
+        valid_types = ['generalist', 'specialist', 'T shape', "None"]
+        if name not in valid_types:
+            raise ValueError("Only support 4 types: generalist, specialist, T shape, and None.")
+        if (name == "Generalist") & (specialist_num != 0):
+            raise ValueError("Generalist cannot have specialist number")
+        if (name == "Specialist") & (generalist_num != 0):
+            raise ValueError("Generalist cannot have specialist number")
+        if (name == "T shape") & (generalist_num*specialist_num == 0):
+            raise ValueError("T shape mush have both generalist number and specialist number")
+
         self.name = name
         self.gs_ratio = gs_ratio
         self.generalist_num = generalist_num
         self.specialist_num = specialist_num
         domain_number = self.generalist_num + self.specialist_num
-        valid_types = ['generalist', 'specialist', 'T shape', "None"]
-        if name not in valid_types:
-            raise ValueError("Only support 4 types: generalist, specialist, T shape, and None.")
-        if (self.name == "Generalist") & (specialist_num != 0):
-            raise ValueError("Generalist cannot have specialist number")
-        if (self.name == "Specialist") & (generalist_num != 0):
-            raise ValueError("Generalist cannot have specialist number")
-        if (self.name == "T shape") & (generalist_num*specialist_num == 0):
-            raise ValueError("T shape mush have both generalist number and specialist number")
 
         self.knowledge_domain = np.random.choice(self.N, domain_number, replace=False).tolist()
         if element_num:
@@ -92,29 +92,29 @@ class Agent:
 
         if self.name == "Specialist":
             for cur in self.specialist_knowledge_domain:
-                self.decision_space += [str(cur) + str(j) for j in range(self.state_num)]
+                self.decision_space += [cur*self.N+j for j in range(self.state_num)]
                 self.decision_space_dict[cur] = list(range(self.state_num))
         elif self.name == "Generalist":
             for cur in self.generalist_knowledge_domain:
                 full_states = list(range(self.state_num))
                 random.shuffle(full_states)
                 random_half_depth = full_states[:int(self.state_num*self.gs_ratio)]
-                self.decision_space += [str(cur) + str(j) for j in random_half_depth]
+                self.decision_space += [cur*self.N+j for j in random_half_depth]
                 self.decision_space_dict[cur] = random_half_depth
         elif self.name == 'T shape':
             for cur in self.specialist_knowledge_domain:
-                self.decision_space += [str(cur) + str(j) for j in range(self.state_num)]
+                self.decision_space += [cur*self.N+j for j in range(self.state_num)]
                 self.decision_space_dict[cur] = list(range(self.state_num))
             for cur in self.generalist_knowledge_domain:
                 full_states = list(range(self.state_num))
                 random.shuffle(full_states)
                 random_half_depth = full_states[:int(self.state_num*self.gs_ratio)]
-                self.decision_space += [str(cur) + str(j) for j in random_half_depth]
+                self.decision_space += [cur*self.N+j for j in random_half_depth]
                 self.decision_space_dict[cur] = random_half_depth
         else:
             pass
 
-        state_occupation = [str(i) + str(j) for i,j in enumerate(self.state)]
+        state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
     def random_select_gst(self):
@@ -124,10 +124,10 @@ class Agent:
         """
         if len(self.decision_space) == 0:
             raise ValueError("Haven't initialize the decision space; Need to run type() function first")
-        state_occupation = [str(i) + str(j) for i,j in enumerate(self.state)]
+        state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
         next_step = int(random.choice(self.freedom_space))
-        cur_i, cur_j = next_step // 10, next_step % 10
+        cur_i, cur_j = next_step // self.N, next_step % self.N
         return cur_i, cur_j
 
     def independent_search(self,):
@@ -135,44 +135,46 @@ class Agent:
         Greedy search in the neighborhood (one-bit stride)
         :return: Updating the state list heading for a higher cognitive fitness
         """
+        # Adjust the random initialization of state list
         if self.first_search:
             for i in range(self.N):
+                # unknown domain depth will be randomly adjusted to the familiar depth
                 if str(i) + str(self.state[i]) not in self.decision_space:
                     self.state[i] = random.choice(self.decision_space_dict[i])
+                # unknown domain will not change, or not have a chance to be updated
+                # if i not in self.knowledge_domain:
+                #     pass
         self.first_search = False
-        current_state = self.state.copy()
+        next_state = self.state.copy()
         updated_position, updated_value = self.random_select_gst()
-        self.state[updated_position] = updated_value
+        next_state[updated_position] = updated_value
 
-        cognitive_updated_state = self.change_state_to_cog_state(self.state)
-        cognitive_current_state = self.change_state_to_cog_state(current_state)
+        # we don't need to mask the state string, since the unknown domain will not change
+        # cognitive_updated_state = self.change_state_to_cog_state(self.state)
+        # cognitive_current_state = self.change_state_to_cog_state(current_state)
 
-        if self.landscape.query_cog_fitness_gst(
-            cognitive_updated_state, self.generalist_knowledge_domain, self.specialist_knowledge_domain
-        ) > self.landscape.query_cog_fitness_gst(
-            cognitive_current_state, self.generalist_knowledge_domain, self.specialist_knowledge_domain
-        ):
-            pass
+        # For individual level:
+        # the state list is still intact, so we can query the full cache
+        # Only when it is team level should we use cognitive fitness to overcome the unknown element. (both unknown depths and unknown domains)
+        if self.landscape.query_fitness(next_state) > self.landscape.query_fitness(self.state):
+            self.state = next_state
         else:
-            self.state = current_state  # roll back
+            pass
 
-    def change_state_to_cog_state(self, state):
-        """
-        There are two kinds of unknown elements:
-            1) unknown in the width (outside of knowledge domain)-> masked with '*'
-            2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
-                For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
-        :param state: the intact state list
-        :return: masked state list
-        """
-        temp_state = self.state.copy()
-        for i in range(self.N):
-            if i not in self.knowledge_domain:
-                temp_state[i] = '*'
-        return temp_state
-
-
-
+    # def change_state_to_cog_state(self, state):
+    #     """
+    #     There are two kinds of unknown elements:
+    #         1) unknown in the width (outside of knowledge domain)-> masked with '*'
+    #         2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
+    #             For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
+    #     :param state: the intact state list
+    #     :return: masked state list
+    #     """
+    #     temp_state = self.state.copy()
+    #     for i in range(self.N):
+    #         if i not in self.knowledge_domain:
+    #             temp_state[i] = '*'
+    #     return temp_state
 
     def learn(self, target_):
         pass
@@ -198,7 +200,7 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     from MultiStateInfluentialLandscape import LandScape
-    landscape = LandScape(N=10, K=4, IM_type="random", IM_random_ratio=None, state_num=4)
+    landscape = LandScape(N=10, IM_type="random", IM_random_ratio=None, state_num=4)
     agent = Agent(N=10, lr=0, landscape=landscape, state_num=4)
     agent.type(name="T shape", generalist_num=4,specialist_num=2)
     agent.describe()

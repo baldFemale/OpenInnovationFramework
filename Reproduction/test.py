@@ -70,6 +70,30 @@ import random
 #     j = int(next_step)%10
 #     print(i,j)
 
-generalist_domain = None
-for i in generalist_domain:
-    print(x)
+# state = [3, 3, 2, 1, 0, 0, 2, 3, 3, 2]
+# print(state)
+# generalist_knowledge_space = [1, 5, 0, 6]
+# def change_state_to_cog_state(state):
+#     temp_state = []
+#     for cur in range(len(state)):
+#         if cur in generalist_knowledge_space:
+#             temp_state.append(state[cur] // 2)
+#         else:
+#             temp_state.append(state[cur])
+#     return temp_state
+#
+# result = change_state_to_cog_state(state=state)
+# print(result)
+# IM = np.array([[0,2,0],[2,0,0],[1,1,0]])
+# zero_positions = np.argwhere(IM == 0).tolist()
+# fill_with_one_positions = np.random.choice(len(zero_positions), 2, replace=False)
+# fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
+# # fill_with_one_positions = zero_positions[fill_with_one_positions]
+# print(zero_positions)
+# print(fill_with_one_positions)
+
+
+state_num =4
+bin_index = '20303'
+x = int(bin_index, state_num)
+print(x)
