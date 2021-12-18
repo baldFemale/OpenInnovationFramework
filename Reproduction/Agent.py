@@ -46,9 +46,9 @@ class Agent:
         :param gs_ratio: the ratio of knowledge between G and S
         :return: Updating the agent characters
         """
-        valid_types = ['generalist', 'specialist', 'T shape', "None"]
+        valid_types = ['Generalist', 'Specialist', 'T shape', "None"]
         if name not in valid_types:
-            raise ValueError("Only support 4 types: generalist, specialist, T shape, and None.")
+            raise ValueError("Only support 4 types: Generalist, Specialist, T shape, and None.")
         if (name == "Generalist") & (specialist_num != 0):
             raise ValueError("Generalist cannot have specialist number")
         if (name == "Specialist") & (generalist_num != 0):
@@ -130,17 +130,21 @@ class Agent:
         cur_i, cur_j = next_step // self.N, next_step % self.N
         return cur_i, cur_j
 
-    def independent_search(self,):
+    def independent_search(self):
         """
         Greedy search in the neighborhood (one-bit stride)
-        :return: Updating the state list heading for a higher cognitive fitness
+        :return: Updating the state list toward a higher cognitive fitness
+                    the next fitness value as the footprint
         """
         # Adjust the random initialization of state list
         if self.first_search:
+            print("first search")
             for i in range(self.N):
-                # unknown domain depth will be randomly adjusted to the familiar depth
-                if str(i) + str(self.state[i]) not in self.decision_space:
-                    self.state[i] = random.choice(self.decision_space_dict[i])
+                if i in self.knowledge_domain:
+                    # unknown domain depth will be randomly adjusted to the familiar depth
+                    if i*self.state_num+self.state[i] not in self.decision_space:
+                        print("Initial state adjustment")
+                        self.state[i] = random.choice(self.decision_space_dict[i])
                 # unknown domain will not change, or not have a chance to be updated
                 # if i not in self.knowledge_domain:
                 #     pass
@@ -156,10 +160,13 @@ class Agent:
         # For individual level:
         # the state list is still intact, so we can query the full cache
         # Only when it is team level should we use cognitive fitness to overcome the unknown element. (both unknown depths and unknown domains)
-        if self.landscape.query_fitness(next_state) > self.landscape.query_fitness(self.state):
+        next_fitness = self.landscape.query_fitness(next_state)
+        current_fitness = self.landscape.query_fitness(self.state)
+        if next_fitness > current_fitness:
             self.state = next_state
+            return next_fitness
         else:
-            pass
+            return current_fitness
 
     # def change_state_to_cog_state(self, state):
     #     """
@@ -200,7 +207,19 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     from MultiStateInfluentialLandscape import LandScape
-    landscape = LandScape(N=10, IM_type="random", IM_random_ratio=None, state_num=4)
+    landscape = LandScape(N=10, state_num=4)
+    landscape.type(IM_type="Random Directed", K=0, k=22)
+    landscape.initialize()
+
     agent = Agent(N=10, lr=0, landscape=landscape, state_num=4)
     agent.type(name="T shape", generalist_num=4,specialist_num=2)
     agent.describe()
+    agent.independent_search()
+    agent.describe()
+
+# does this search space or freedom space is too small and easy to memory for individuals??
+# because if we limit their knowledge, their search space is also limited.
+# Compared to the original setting of full-known knowledge, their search space is limited.
+# Thus, we can increase the knowledge number to make it comparable to the original full-knowledge setting.
+# [0, 0, 1, 3, 3, 3, 2, 0, 1, 0]
+# [2, 1, 1, 1, 3, 3, 0, 3, 1, 0]

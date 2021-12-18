@@ -92,8 +92,8 @@ import random
 # print(zero_positions)
 # print(fill_with_one_positions)
 
-
-state_num =4
-bin_index = '20303'
-x = int(bin_index, state_num)
-print(x)
+from collections import defaultdict
+# decision_space_dict = {}
+decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
+for i in range(10):
+    print(decision_space_dict[i])
