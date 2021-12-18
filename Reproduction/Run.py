@@ -4,3 +4,6 @@
 # @FileName: Run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
+import random
+
+random.seed(1010)
