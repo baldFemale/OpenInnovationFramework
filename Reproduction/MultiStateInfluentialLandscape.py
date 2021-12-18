@@ -18,18 +18,19 @@ class LandScape:
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
-        self.cog_cache = {}
+        self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None
         self.rank_to_fitness_dict = None
 
     def describe(self):
         print("*********LandScape information********* ")
-        print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
+        print("LandScape shape of (N={0}, K={1}, k={2}, state number={3})".format(self.N, self.K, self.k, self.state_num))
         print("Influential matrix type: ", self.IM_type)
         print("Influential matrix: \n", self.IM)
+        print("Influential dependency map: ", self.dependency_map)
         print("********************************")
 
-    def type(self, IM_type="None", K=0, k=0, factor_num=None, influential_num=0):
+    def type(self, IM_type="None", K=0, k=0, factor_num=0, influential_num=0):
         """
         Characterize the influential matrix
         :param IM_type: "random", "dependent",
@@ -45,10 +46,20 @@ class LandScape:
         valid_IM_type = ["None", "Traditional Mutual", "Diagonal Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
         if IM_type not in valid_IM_type:
             raise ValueError("Only support {0}".format(valid_IM_type))
-        if (IM_type in ["Traditional Mutual", "Diagonal Mutual"]) & (K == 0):
-            raise ValueError("Mismatch between K {0} and IM_type {1}".format(K, IM_type))
-        if (IM_type in ["Influential Directed", "Random Directed", "Factor Directed"]) & (k == 0):
-            raise ValueError("Mismatch between k {0} and IM_type {1}".format(k, IM_type))
+        if (IM_type in ["Traditional Mutual", "Diagonal Mutual"]):
+            if K == 0:
+                raise ValueError("Mismatch between K={0} and IM_type={1}".format(K, IM_type))
+            if k != 0:
+                raise ValueError("k ({0}) is for directed or single-way dependency, rather than {1}".format(k, IM_type))
+        if (IM_type in ["Influential Directed", "Random Directed", "Factor Directed"]):
+            if k == 0:
+                raise ValueError("Mismatch between k={0} and IM_type={1}".format(k, IM_type))
+            if K != 0:
+                raise ValueError("K ({0}) is for undirected or double-way dependency, rather than {1}".format(K, IM_type))
+        if (IM_type == 'Factor Directed') & (influential_num != 0):
+            raise ValueError("Factor Directed: influential_num != 0")
+        if (IM_type == 'Influential Directed') & (factor_num != 0):
+            raise ValueError("Influential Directed cannot have factor_num != 0")
         if (IM_type == "None") & (K+k != 0):
             raise ValueError("Need a IM type. Current (default) IM type ({0}) mismatch with K ({1}) = 0 and k ({2}) = 0".format(IM_type,K,k))
 
@@ -74,8 +85,8 @@ class LandScape:
                     self.IM[each // self.N][each % self.N] = 1
             elif self.IM_type == "Factor Directed":
                 if not factor_num:
-                    factor_num = 2
-                    raise Warning("Factor Directed type need defined factor_num. Current default number is 2")
+                    factor_num = self.k // self.N
+                    print("Factor Directed type need defined factor_num. Current default number is {0}.".format(factor_num))
                 factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
                 for cur_i in range(self.N):
                     for cur_j in range(self.N):
@@ -89,82 +100,29 @@ class LandScape:
                     for indexs in fill_with_one_positions:
                         self.IM[indexs[0]][indexs[1]] = 1
 
-
-
-
             elif self.IM_type == "Influential Directed":
-                pass
-
-            print("IM", self.IM)
-            print("dependency:", self.dependency_map)
+                if not influential_num:
+                    influential_num = self.k // self.N
+                    print("Influential Directed type need defined influential_num. Current default number is {0}.".format(
+                        influential_num))
+                influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
+                for cur_i in range(self.N):
+                    for cur_j in range(self.N):
+                        if (cur_i in influential_rows) & (k > 0):
+                            self.IM[cur_i][cur_j] = 1
+                            k -= 1
+                if k > 0:
+                    zero_positions = np.argwhere(self.IM == 0)
+                    fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
+                    fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
+                    for indexs in fill_with_one_positions:
+                        self.IM[indexs[0]][indexs[1]] = 1
             for i in range(self.N):
                 temp = []
                 for j in range(self.N):
                     if (i != j) & (self.IM[i][j] == 1):
                         temp.append(j)
                 self.dependency_map[i] = temp
-
-            print("dependency: ", self.dependency_map)
-
-
-
-
-
-
-
-    def create_influence_matrix(self):
-        """
-        Generate different IM structure
-        How many structures in the literature?
-        """
-        IM = np.eye(self.N)
-
-        if self.IM_type == "random":
-            cells = [i*self.N+j for i in range(self.N) for j in range(self.N) if i != j]
-            choices = np.random.choice(cells, self.K, replace=False).tolist()
-        elif self.IM_type == "influential":
-            cells = [i*self.N+j for j in range(self.N) for i in range(self.N) if i != j]
-            choices = cells[:self.K]
-
-            if self.IM_random_ratio is not None:
-                remain_choice = np.random.choice(
-                    choices, int(len(choices) * self.IM_random_ratio), replace=False
-                ).tolist()
-                random_choice = np.random.choice(
-                    [i * self.N + j for j in range(self.N) for i in range(self.N) if i != j and i * self.N + j not in remain_choice],
-                    self.K - len(remain_choice),
-                    replace=False
-                ).tolist()
-
-                choices = remain_choice + random_choice
-
-        elif self.IM_type == "dependent":
-            cells = [i*self.N+j for i in range(self.N) for j in range(self.N) if i != j]
-            choices = cells[:self.K]
-
-            if self.IM_random_ratio is not None:
-                remain_choice = np.random.choice(
-                    choices, int(len(choices) * self.IM_random_ratio), replace=False
-                ).tolist()
-                random_choice = np.random.choice(
-                    [i * self.N + j for j in range(self.N) for i in range(self.N) if i != j and i * self.N + j not in remain_choice],
-                    self.K - len(remain_choice),
-                    replace=False
-                ).tolist()
-
-                choices = remain_choice + random_choice
-
-        for c in choices:
-            IM[c // self.N][c % self.N] = 1
-
-        IM_dic = defaultdict(list)
-        for i in range(len(IM)):
-            for j in range(len(IM[0])):
-                if i == j or IM[i][j] == 0:
-                    continue
-                else:
-                    IM_dic[i].append(j)
-        self.IM, self.IM_dic = IM, IM_dic
 
     def create_fitness_config(self,):
         FC = defaultdict(dict)
@@ -213,9 +171,12 @@ class LandScape:
             rank_to_fitness_dict[index+1] = value
         return fitness_to_rank_dict, rank_to_fitness_dict
 
-    def initialize(self, first_time=True, norm=True):
-        # if first_time:
-        #     self.create_influence_matrix()
+    def initialize(self, norm=True):
+        """
+        Cache the fitness value
+        :param norm: normalization
+        :return: fitness cache
+        """
         self.create_fitness_config()
         self.store_cache()
 
@@ -223,12 +184,9 @@ class LandScape:
         if norm:
             normalizor = max(self.cache.values())
             min_normalizor = min(self.cache.values())
-
             for k in self.cache.keys():
                 self.cache[k] = (self.cache[k]-min_normalizor)/(normalizor-min_normalizor)
-
         self.fitness_to_rank_dict, self.rank_to_fitness_dict = self.rank_dict(self.cache)
-        self.cog_cache = {}
 
     def query_fitness(self, state):
         """
@@ -463,8 +421,8 @@ class LandScape:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = LandScape(N=6, IM_type='random', IM_random_ratio=None, state_num=4)
-    landscape.type( IM_type="Factor Directed", k=5, factor_num=2)
+    landscape = LandScape(N=6, state_num=4)
+    # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
+    landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.initialize()
     landscape.describe()
-    # landscape.query_cog_fitness_gst(state='2234000000', general_space=[0,1], special_space=[2,3])

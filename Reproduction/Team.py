@@ -13,12 +13,12 @@ class Team:
 
     def __init__(self, members, ):
         self.members = members  # agent member
+        self.agent_num = len(members)
         self.decision_space = []
         self.freedom_space = []
         for agent in members:
             self.decision_space += agent.decision_space
         self.decision_space = list(set(self.decision_space))
-
         self.state = []  # the joint state list for team members to search
 
 
