@@ -95,5 +95,24 @@ import random
 from collections import defaultdict
 # decision_space_dict = {}
 decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
-for i in range(10):
-    print(decision_space_dict[i])
+# for i in range(10):
+#     print(decision_space_dict[i])
+
+# landscape_dict = {"Random Directed": {N:}}
+
+# def test(N, state_num, k, name):
+#     print(N, state_num, k, name)
+#
+#
+# param = {"N": 10, "state_num": 4, "k": 22, "name": "Random Directed"}
+#
+# test(**param)
+from collections import defaultdict
+
+
+x = 0
+
+if x:
+    print("x=0")
+else:
+    print("x=1")

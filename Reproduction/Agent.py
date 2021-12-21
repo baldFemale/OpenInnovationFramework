@@ -33,8 +33,8 @@ class Agent:
         self.decision_space_dict = {}
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
         # decision_space will not change over time, while freedom_space will change due to the current state occupation
-
-        self.first_search = True
+        self.fitness = None
+        self.first_time = True
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
@@ -112,7 +112,21 @@ class Agent:
                 self.decision_space += [cur*self.N+j for j in random_half_depth]
                 self.decision_space_dict[cur] = random_half_depth
         else:
+            print("Unknown type")
             pass
+
+        if self.first_time:
+            for i in range(self.N):
+                if i in self.knowledge_domain:
+                    # unknown domain depth will be randomly adjusted to the familiar depth
+                    if i*self.state_num+self.state[i] not in self.decision_space:
+                        print("Initial state adjustment")
+                        self.state[i] = random.choice(self.decision_space_dict[i])
+                # unknown domain will not change, or doesn't have a chance to be updated
+                # if i not in self.knowledge_domain:
+                #     pass
+        self.fitness = self.landscape.query_fitness(self.state)
+        self.first_time = False
 
         state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
@@ -137,18 +151,7 @@ class Agent:
                     the next fitness value as the footprint
         """
         # Adjust the random initialization of state list
-        if self.first_search:
-            print("first search")
-            for i in range(self.N):
-                if i in self.knowledge_domain:
-                    # unknown domain depth will be randomly adjusted to the familiar depth
-                    if i*self.state_num+self.state[i] not in self.decision_space:
-                        print("Initial state adjustment")
-                        self.state[i] = random.choice(self.decision_space_dict[i])
-                # unknown domain will not change, or not have a chance to be updated
-                # if i not in self.knowledge_domain:
-                #     pass
-        self.first_search = False
+
         next_state = self.state.copy()
         updated_position, updated_value = self.random_select_gst()
         next_state[updated_position] = updated_value
@@ -164,8 +167,10 @@ class Agent:
         current_fitness = self.landscape.query_fitness(self.state)
         if next_fitness > current_fitness:
             self.state = next_state
+            self.fitness = next_fitness
             return next_fitness
         else:
+            self.fitness = current_fitness
             return current_fitness
 
     # def change_state_to_cog_state(self, state):

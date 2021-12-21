@@ -1,6 +1,4 @@
-import random
-
-import numpy as np
+# -*- coding: utf-8 -*-
 from collections import defaultdict
 from tools import *
 from itertools import product
@@ -66,7 +64,7 @@ class LandScape:
         self.IM_type = IM_type
         self.K = K
         self.k = k
-        if K:
+        if K != 0:
             if self.IM_type == "Traditional Mutual":
                 # traditional setting for mutual excitation dependency
                 for i in range(self.N):
@@ -77,7 +75,7 @@ class LandScape:
             elif self.IM_type == "Diagonal Mutual":
                 pass
 
-        if k:
+        if k != 0:
             if self.IM_type == "Random Directed":
                 cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
                 choices = np.random.choice(cells, self.k, replace=False).tolist()
@@ -241,6 +239,7 @@ class LandScape:
         :param bit_difference:
         :return: the cognitive fitness for 1) GST Agent, 2）masked elements
         """
+
         alternative = []
         for cur in range(self.N):
             if cur in special_space:

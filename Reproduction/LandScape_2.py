@@ -176,10 +176,10 @@ if __name__ == '__main__':
             res = []
             landscape = LandScape(N, k, None, None)
             landscape.initialize_np()
-            for repeat in range(200):
+            for repeat in range(200):  # agent repeation
                 fitness = []
                 agent = Agent(N, landscape)
-                for step in range(100):
+                for step in range(100):  # search iteration
                     agent.adaptation_np()
                     fitness.append(agent.fitness_np)
                 res.append(fitness)

@@ -5,81 +5,98 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import pickle
+from MultiStateInfluentialLandscape import LandScape
+from Agent import Agent
+from collections import defaultdict
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Simulator:
+    def __init__(self, N=0, state_num=0):
+        self.N = N
+        self.state_num = state_num
+        self.landscape = None
+        self.agent = None
+        self.fitness = []
 
-    def __init__(self, landscape=None, agent=None, agents=None):
-        self.landscape = landscape
-        self.agent = agent  # for individual search
-        self.agents = agents  # for team-level coordination
-        if agents:
-            self.agent_num = len(agents)
-        else:
-            self.agent_num = 1
-        self.agent_iteration = None  # repeat the agent or team search
-        self.landscape_iteration = None
-        self.period = None  # the max iteration of agent search toward convergence
-        self.fitness_list = []  # the returned performance path
-        if (agent != None) and (agents != None):
-            raise ValueError("Agent is for individual search; Agents is for team search!")
+    def set_landscape(self, K=0, k=0, IM_type=None,factor_num=0, influential_num=0):
+        self.landscape = LandScape(N=self.N, state_num=self.state_num)
+        self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
+        self.landscape.initialize()
+        self.landscape.describe()
 
-    def type(self, agent_iteration=2, landscape_iteration=2, period=100):
-        """
-        Setting the simulator iteration features (loop number)
-        """
-        self.agent_iteration = agent_iteration
-        self.landscape_iteration = landscape_iteration
-        self.period = period
-
-    def describe(self):
-        print("*********Simulator information********* ")
-        if self.agent_num == 1:
-            print("Coordination form: Individual Search")
-        else:
-            print("Coordination form: Team Search with {0} members.".format(self.agent_num))
-        print("Max convergence period: ", self.period)
-        print("Landscape Iteration: ", self.landscape_iteration)
-        print("Agent(s) Iteration: ".format(self.agent_iteration))
+    def set_agent(self, N=0, name="None", state_num=0, lr=0, generalist_num=0, specialist_num=0):
+        self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+        self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+        self.agent.describe()
 
     def individual_run(self):
+        """
+        Given the iteration parameters, conduct the individual search
+        :return: the fitness list [L1[A1, A2, ... AN], L2, ..., LN]
+        """
+        if self.team_level:
+            raise ValueError("This is only for individual level search")
         fitness_landscape = []
         for landscape_loop in range(self.landscape_iteration):
+
+            N = self.landscape_dict[landscape_loop][0]
+            landscape = LandScape(N=N, state_num=state_num)
+            landscape.type(IM_type="Random Directed", k=66)
+            landscape.initialize()
+
             fitness_agent = []
             for agent_loop in range(self.agent_iteration):
                 print("Current landscape iteration: {0}; Agent iteration: {1}".format(self.landscape_iteration, self.agent_iteration))
-                for search_loop in range(self.period):
+                for search_loop in range(self.search_iteration):
                     print("Search Loop: ", search_loop)
                     temp_fitness = self.agent.independent_search()
                     fitness_agent.append(temp_fitness)
             fitness_landscape.append(fitness_agent)
 
-        file_name = self.agent.name + '_N' + str(self.agent.N) + '_K' + str(self.landscape.K) + '_k' + str(self.landscape.k) + '_E' + str(self.agent.element_num)
-        with open(file_name,'w') as out_file:
+        file_name = self.agent.name + '_N' + str(self.agent.N) + '_K' + str(self.landscape.K) + \
+                    '_k' + str(self.landscape.k) + '_E' + str(self.agent.element_num)
+        with open(file_name, 'wb') as out_file:
             pickle.dump(fitness_landscape, out_file)
+        return fitness_landscape
 
 
 if __name__ == '__main__':
     # Test Example
-    from MultiStateInfluentialLandscape import LandScape
-    from Agent import Agent
-
     N = 10
     state_num = 4
-    landscape_iteration = 2
-    agent_iteration = 2
-    k_list = [2]
+    landscape_iteration = 5
+    agent_iteration = 200
+    search_iteration = 200
+    k_list = [23, 33, 43]
+    K_list = [2, 4, 6]
+    agent_name = ["Generalist", "Specialist", "T shape"]
+    IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+    generalist_list = [6, 0, 4]
+    specialist_list = [0, 3, 2]
 
-    landscape = LandScape(N=N,state_num=state_num)
-    landscape.type(IM_type="Random Directed", k=22)
-    generalist = Agent(N=N, landscape=landscape)
-    generalist.type(name="Generalist", generalist_num=4)
-    generalist.describe()
-    # specialist = Agent(N=N, landscape=landscape)
-    # T_shape = Agent(N=N, landscape=landscape)
-    # T_shape.type(name="T shape", generalist_num=2, specialist_num=2)
-    simulator = Simulator(landscape=landscape, agent=generalist)
-    simulator.type(agent_iteration=2, landscape_iteration=2, period=20)
-    simulator.individual_run()
+    # state = 10, E = 12 (=2*6; 4*3; 2*4+ 4*2)
+    for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
+        simulator = Simulator(N=N, state_num=state_num)
+        fitness_landscape = []
+        for landscape_loop in range(landscape_iteration):
+            simulator.set_landscape(k=43, IM_type="Random Directed",factor_num=0, influential_num=0)
+            fitness_agent = []
+            for agent_loop in range(agent_iteration):
+                simulator.set_agent(name="Generalist", lr=0, generalist_num=generalist_num, specialist_num=specialist_num)
+                fitness_search = []
+                for search_loop in range(search_iteration):
+                    temp_fitness = simulator.agent.independent_search()
+                    fitness_search.append(temp_fitness)
+                fitness_agent.append(fitness_search)
+                print("Current landscape iteration: {0}; Agent iteration: {1}".format(landscape_loop, agent_loop))
+            fitness_landscape.append(fitness_agent)
 
+        file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(simulator.agent.element_num)
+        with open(file_name, 'wb') as out_file:
+            pickle.dump(fitness_landscape, out_file)
 
+        # plt.plot(np.mean(np.mean(np.array(fitness_landscape), axis=0), axis=0))
+        # plt.legend()
+        # plt.show()
