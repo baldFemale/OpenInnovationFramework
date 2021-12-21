@@ -41,10 +41,10 @@ class LandScape:
                              "while k is for a new design regarding the total number of links, "
                              "a directed dependency (i.e., Influential Directed & Random Directed)."
                              "These two parameter cannot co-exist")
-        valid_IM_type = ["None", "Traditional Mutual", "Diagonal Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+        valid_IM_type = ["None", "Traditional Directed", "Diagonal Mutual", "Random Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
         if IM_type not in valid_IM_type:
             raise ValueError("Only support {0}".format(valid_IM_type))
-        if (IM_type in ["Traditional Mutual", "Diagonal Mutual"]):
+        if (IM_type in ["Traditional Directed", "Diagonal Mutual", "Random Mutual"]):
             if K == 0:
                 raise ValueError("Mismatch between K={0} and IM_type={1}".format(K, IM_type))
             if k != 0:
@@ -53,7 +53,9 @@ class LandScape:
             if k == 0:
                 raise ValueError("Mismatch between k={0} and IM_type={1}".format(k, IM_type))
             if K != 0:
-                raise ValueError("K ({0}) is for undirected or double-way dependency, rather than {1}".format(K, IM_type))
+                raise ValueError("K ({0}) is for undirected or double-way dependency, "
+                                 "or fixed number for each row/column,"
+                                 " rather than {1}".format(K, IM_type))
         if (IM_type == 'Factor Directed') & (influential_num != 0):
             raise ValueError("Factor Directed: influential_num != 0")
         if (IM_type == 'Influential Directed') & (factor_num != 0):
@@ -65,14 +67,17 @@ class LandScape:
         self.K = K
         self.k = k
         if K != 0:
-            if self.IM_type == "Traditional Mutual":
-                # traditional setting for mutual excitation dependency
+            if self.IM_type == "Traditional Directed":
+                # each row has a fixed number of dependency (i.e., K)
                 for i in range(self.N):
                     probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
                     ids = np.random.choice(self.N, self.K, p=probs, replace=False)
                     for index in ids:
                         self.IM[i][index] = 1
             elif self.IM_type == "Diagonal Mutual":
+                pass
+            elif self.IM_type == "Random Mutual":
+                # select some dependencies, and such dependencies will be mutual.
                 pass
 
         if k != 0:
@@ -115,12 +120,13 @@ class LandScape:
                     fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
                     for indexs in fill_with_one_positions:
                         self.IM[indexs[0]][indexs[1]] = 1
-            for i in range(self.N):
-                temp = []
-                for j in range(self.N):
-                    if (i != j) & (self.IM[i][j] == 1):
-                        temp.append(j)
-                self.dependency_map[i] = temp
+
+        for i in range(self.N):
+            temp = []
+            for j in range(self.N):
+                if (i != j) & (self.IM[i][j] == 1):
+                    temp.append(j)
+            self.dependency_map[i] = temp
 
     def create_fitness_config(self,):
         FC = defaultdict(dict)
@@ -422,6 +428,7 @@ if __name__ == '__main__':
     # Test Example
     landscape = LandScape(N=6, state_num=4)
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
-    landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
+    # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
+    landscape.type(IM_type="Traditional Directed", K=2)
     landscape.initialize()
     landscape.describe()

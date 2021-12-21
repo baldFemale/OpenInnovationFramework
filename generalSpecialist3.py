@@ -246,6 +246,3 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
 
 
 
-
-
-
