@@ -27,7 +27,7 @@ class Simulator:
         self.landscape.initialize()
         self.landscape.describe()
 
-    def set_agent(self, N=0, name="None", state_num=0, lr=0, generalist_num=0, specialist_num=0):
+    def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
         self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
         self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
         self.agent.describe()
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     state_num = 4
     landscape_iteration = 5
     agent_iteration = 200
-    search_iteration = 200
+    search_iteration = 100
     k_list = [23, 33, 43]
     K_list = [2, 4, 6, 8, 10]
     agent_name = ["Generalist", "Specialist", "T shape", "T shape"]

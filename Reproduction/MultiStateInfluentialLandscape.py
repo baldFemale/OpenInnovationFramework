@@ -71,9 +71,13 @@ class LandScape:
                 # each row has a fixed number of dependency (i.e., K)
                 for i in range(self.N):
                     probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
-                    ids = np.random.choice(self.N, self.K, p=probs, replace=False)
-                    for index in ids:
-                        self.IM[i][index] = 1
+                    if self.K < self.N:
+                        ids = np.random.choice(self.N, self.K, p=probs, replace=False)
+                        for index in ids:
+                            self.IM[i][index] = 1
+                    else:  # full dependency
+                        for index in range(self.N):
+                            self.IM[i][index] = 1
             elif self.IM_type == "Diagonal Mutual":
                 pass
             elif self.IM_type == "Random Mutual":

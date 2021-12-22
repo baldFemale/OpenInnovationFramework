@@ -31,15 +31,17 @@ class Evaluator():
 
         data = []
         for each_file in data_files:
-            with open(each_file,'rb') as infile:
-                temp = pickle.load(infile)
-                data.append(temp)
+            if ".png" not in each_file:
+                with open(each_file,'rb') as infile:
+                    print(each_file)
+                    temp = pickle.load(infile)
+                    data.append(temp)
 
         # individual level comparison
-        agent_name = ["Generalist", "Specialist", "T shape"]
+        agent_name = ["Generalist", "Specialist", "T shape 22", "T shape 41"]
         figure, axis = plt.subplots()
         for name, each_data in zip(agent_name,data):
-            print(len(each_data), len(each_data[0]), len(each_data[0][0]))
+            # print(len(each_data), len(each_data[0]), len(each_data[0][0]))
             # landscape_iteraton=5;     agent_iteration = 200; search_iteration = 200
             axis.plot(np.mean(np.mean(np.array(each_data), axis=0), axis=0), label="{}".format(name))
 
@@ -52,16 +54,19 @@ class Evaluator():
                 flag += 1
             if flag == 2:
                 self.title += each
-            print(flag)
 
         axis.set_title(self.title)  # Add a title to the axes.
         plt.legend()
+        output = output_path + "\\" + self.title + ".png"
+        plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
+
 
 if __name__ == '__main__':
     # Test Example
-    data_path = r"C:\Python_Workplace\OpenInnovationFramework\Reproduction\output"
-    output_path = r"C:\Python_Workplace\OpenInnovationFramework\Reproduction\output"
-    evaluator = Evaluator()
+    data_path = r"C:\Python_Workplace\OpenInnovationFramework\Reproduction\output5"
+    # data_path = r"..\output2"
+    output_path = r"C:\Python_Workplace\OpenInnovationFramework\Reproduction\output5"
+    evaluator = Evaluator(data_path=data_path, output_path=output_path)
     evaluator.evaluate()
 
