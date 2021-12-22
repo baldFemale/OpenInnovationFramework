@@ -11,30 +11,40 @@ from tools import *
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, team_flag=False):
         self.landscape = landscape
         self.N = N
         self.name = "None"
         self.state_num = state_num
         # intact state string -> may be outside of the agent's capability
         # -> Does this initialization matter? Or we may start from the manageable elements
-        self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
+        if team_flag:
+            self.state = [0] * self.N  # wait for team assignment
+        else:
+            self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         # masked state string -> using '*' to represent the agent perceived state
-        self.cog_state = None
+        self.cog_state = [0] * self.N  # this is for the team search (used in Team() class)
 
         self.knowledge_domain = None
         self.generalist_num = None
         self.specialist_num = None
         self.specialist_knowledge_domain = None
         self.generalist_knowledge_domain = None  # G_domain + S_domain =knowledge_domain
+
         self.gs_ratio = gs_ratio  # generalist know half of the knowledge compared to specialist
         self.lr = lr
+
         self.decision_space = []  # all manageable elements' index: ['02', '03', '11', '13', '30', '31']
         self.decision_space_dict = {}
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
         # decision_space will not change over time, while freedom_space will change due to the current state occupation
-        self.fitness = None
-        self.first_time = True
+        self.fitness = None  # store the fitness value for each step in search
+
+        self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
+        self.team_flag = team_flag  # flag for the team optimization
+
+        if not self.landscape:
+            raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
@@ -115,7 +125,7 @@ class Agent:
             print("Unknown type")
             pass
 
-        if self.first_time:
+        if (self.first_time) & (not self.team_flag):
             for i in range(self.N):
                 if i in self.knowledge_domain:
                     # unknown domain depth will be randomly adjusted to the familiar depth
@@ -125,7 +135,7 @@ class Agent:
                 # unknown domain will not change, or doesn't have a chance to be updated
                 # if i not in self.knowledge_domain:
                 #     pass
-        self.fitness = self.landscape.query_fitness(self.state)
+        self.fitness = self.landscape.query_fitness(self.state)  # the initialization of fitness
         self.first_time = False
 
         state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
@@ -197,6 +207,8 @@ class Agent:
         print("N: ", self.N)
         print("State number: ", self.state_num)
         print("Current state list: ", self.state)
+        print("Current cognitive state: ", self.cog_state)
+        print("Current fitness: ", self.fitness)
         print("Knowledge/Manageable domain: ", self.knowledge_domain)
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
         print("Generalist knowledge domain: ", self.generalist_knowledge_domain)

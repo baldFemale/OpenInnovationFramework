@@ -38,13 +38,17 @@ def numberToBase(n, b):
 
 # Generates the full permutation of bytecode: [000], [001], ..., [111]
 # from itertools import product
-# state_num = 2
+# state_num = 4
 # remain_length = 4
 # x1 = []
 # x2 = [i for i in product(range(state_num), repeat=remain_length)]
+# for each in x2:
+#     bit = ''.join([str(i) for i in each])
+#     print(bit)
 # for i in range(pow(state_num, remain_length)):
 #     x1.append(numberToBase(i, state_num))
 # print(x1, '\n', x2)
+
 
 
 def overlap_calculation(sorted_decision, teammate_decision, overlap=1):

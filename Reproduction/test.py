@@ -109,10 +109,7 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # test(**param)
 from collections import defaultdict
 
-
-x = 0
-
-if x:
-    print("x=0")
-else:
-    print("x=1")
+x = defaultdict(list)
+for i in range(10):
+    x[i] = i
+print(x)

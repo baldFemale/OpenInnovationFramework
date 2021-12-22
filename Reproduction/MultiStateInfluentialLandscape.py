@@ -157,14 +157,12 @@ class LandScape:
         return np.mean(res), res
 
     def store_cache(self,):
-        for i in range(pow(self.state_num,self.N)):
-            bit = numberToBase(i, self.state_num)
-            if len(bit)<self.N:
-                bit = "0"*(self.N-len(bit))+bit
-            state = [int(cur) for cur in bit]
+        all_states = [state for state in product(range(self.state_num), repeat=self.N)]
+        for index, state in enumerate(all_states):
             fitness, fitness_contribution = self.calculate_fitness(state)
-            self.cache[bit] = fitness
-            self.contribution_cache[bit] = fitness_contribution
+            bits = ''.join([str(bit) for bit in state])
+            self.cache[bits] = fitness
+            self.contribution_cache[bits] = fitness_contribution
 
     def rank_dict(self, cache):
         """
@@ -200,8 +198,8 @@ class LandScape:
         """
         Query the average fitness from the landscape cache for *intact* decision string
         """
-        bit = "".join([str(state[i]) for i in range(len(state))])
-        return self.cache[bit]
+        bits = "".join([str(state[i]) for i in range(len(state))])
+        return self.cache[bits]
 
     def query_fitness_contribution(self, state):
         """

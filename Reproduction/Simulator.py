@@ -6,9 +6,7 @@
 # Observing PEP 8 coding style
 import pickle
 import random
-
-import numpy as np
-
+import time
 from MultiStateInfluentialLandscape import LandScape
 from Agent import Agent
 
@@ -65,8 +63,9 @@ class Simulator:
 
 if __name__ == '__main__':
     # Test Example
+    start_time = time.time()
     random.seed(1024)
-    N = 10
+    N = 12
     state_num = 4
     landscape_iteration = 5
     agent_iteration = 200
@@ -101,7 +100,8 @@ if __name__ == '__main__':
                         '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
             with open(file_name, 'wb') as out_file:
                 pickle.dump(fitness_landscape, out_file)
-
+    end_time = time.time()
+    print("Time used: ", end_time-start_time)
         # plt.plot(np.mean(np.mean(np.array(fitness_landscape), axis=0), axis=0))
         # plt.legend()
         # plt.show()
