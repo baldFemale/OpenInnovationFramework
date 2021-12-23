@@ -13,12 +13,16 @@ import numpy as np
 
 
 class Simulator:
-    def __init__(self, N=0, state_num=0):
+    def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200):
         self.N = N
         self.state_num = state_num
-        self.landscape = None
-        self.agent = None
+        self.landscape = None  # update this value after landscape setting
+        self.agent = None  # update this value after agent setting
         self.fitness = []
+        self.team_level = False
+        self.landscape_iteration = landscape_iteration
+        self.agent_iteration = agent_iteration
+        self.search_iteration = search_iteration
 
     def set_landscape(self, K=0, k=0, IM_type=None,factor_num=0, influential_num=0):
         self.landscape = LandScape(N=self.N, state_num=self.state_num)
@@ -41,8 +45,7 @@ class Simulator:
         fitness_landscape = []
         for landscape_loop in range(self.landscape_iteration):
 
-            N = self.landscape_dict[landscape_loop][0]
-            landscape = LandScape(N=N, state_num=state_num)
+            landscape = LandScape(N=self.N, state_num=self.state_num)
             landscape.type(IM_type="Random Directed", k=66)
             landscape.initialize()
 
@@ -63,7 +66,8 @@ class Simulator:
 
 
 if __name__ == '__main__':
-    # Test Example
+    # Test Example (Waiting for reshaping into class above)
+    # The test code below works.
     start_time = time.time()
     random.seed(1024)
     N = 10
