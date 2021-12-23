@@ -6,14 +6,12 @@
 # Observing PEP 8 coding style
 import numpy as np
 from collections import defaultdict
-from tools import *
 from itertools import product
 import time
 import matplotlib.pyplot as plt
 
 
-class LandScape():
-
+class LandScape:
     def __init__(self, N, K, IM_type, IM_random_ratio=None, state_num=4):
         """
         :param N:

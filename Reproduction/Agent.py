@@ -5,8 +5,7 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import random
-from collections import defaultdict
-from tools import *
+import numpy as np
 
 
 class Agent:
@@ -148,7 +147,8 @@ class Agent:
         """
         if len(self.decision_space) == 0:
             raise ValueError("Haven't initialize the decision space; Need to run type() function first")
-        state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
+        state_occupation = [i*self.N + j for i, j in enumerate(self.state)]
+        # Update the freedom space since the current state occupation changes.
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
         next_step = int(random.choice(self.freedom_space))
         cur_i, cur_j = next_step // self.N, next_step % self.N

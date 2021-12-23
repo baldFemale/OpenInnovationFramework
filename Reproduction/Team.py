@@ -4,13 +4,10 @@
 # @FileName: Team.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import random
-from collections import defaultdict
-from tools import *
+import numpy as np
 
 
 class Team:
-
     def __init__(self, members):
         self.members = members  # agent member
         self.agent_num = len(members)
@@ -24,9 +21,9 @@ class Team:
         self.decision_space = list(set(self.decision_space))
         for agent in members:
             self.freedom_space += agent.freedom_space
-        # the joint state list for team members to optimize
+        # the joint state list for team members to optimize (which might be unknown to some agents)
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
-
+        self.first_time = True
         self.priority = None
 
         for i in range(self.agent_num):
@@ -42,12 +39,31 @@ class Team:
             self.members[i].state = self.state
             self.members[i].fitness = self.members[i].landscape.query_fitness(self.state)
 
+    def initialize(self):
+        for i in range(self.agent_num):
+            if self.members[i].name in ["Generalist", "T shape"]:
+                # need to adjust the initialization
+                pass
+
+    def set_landscape(self, K=0, k=0, IM_type=None, factor_num=0, influential_num=0):
+        self.landscape = LandScape(N=self.N, state_num=self.state_num)
+        self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num,
+                            influential_num=influential_num)
+        self.landscape.initialize()
+        self.landscape.describe()
+
+    def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+        self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+        self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+        self.agent.describe()
+
     def cog_fitness_cache(self):
         pass
 
-    def cog_team_search(self, priority=None):
+    def serial_search(self, priority=None):
         """
-        Team search based on the joint cognitive fitness given a team state
+        Serial team search based on the joint cognitive fitness given a team state
+        Serial means agent will conduct all the search iteration (e.g., 100 steps) before sending the state to another agent
         :param priority: several types pf search order/priority
         :return: updated team state (self.state); updated agent cognitive state (self.member[i].cog_state, masked)
                     updated team fitness (self.fitness); updated agent fitness (self.member[i].fitness)
@@ -57,23 +73,22 @@ class Team:
         if priority not in valid_priority:
             raise ValueError("Unsupported priority type, only support {0}".format(valid_priority))
 
-
-    def get_cognitive_state(self):
+    def parallel_search(self, priority=None):
         """
-        Transfer the real state string into a cognitive/ masked state string using "*"
-        :return: the cognitive state stored in Agent.cog_state (i.e., stored in each member's memory, rather than the Team class)
+        Parallel search where agents search one step and send the state into another agent.
+        Parallel mens each agent only conduct one step.
+        :param priority:
+        :return:
         """
-        for i in range(self.agent_num):
-            for index, bit in enumerate(self.state):
-                if index*self.state_num + bit not in self.members[i].decision_space:
-                    self.members[i].cog_state.append("*")
-                else:
-                    self.members[i].cog_state.append(self.state[index])
+        valid_priority = ["Generalist first", "Specialist first", "T shape first", None]
+        if priority not in valid_priority:
+            raise ValueError("Unsupported priority type, only support {0}".format(valid_priority))
 
     def describe(self):
         self.members[0].landscape.describe()
+        print("-------------------Team Member Information-------------------")
         for i in range(self.agent_num):
-            print("-------------------Team Member Information-------------------")
+            print("------------{0} out of {1} members-----------".format(i+1, self.agent_num))
             self.members[i].describe()
 
 
@@ -81,15 +96,21 @@ if __name__ == '__main__':
     # Test Example
     from Agent import Agent
     from MultiStateInfluentialLandscape import LandScape
+    # initialize the landscape
     landscape = LandScape(N=10, state_num=4)
     landscape.type(IM_type="Traditional Directed", K=4)
     landscape.initialize()
 
+    # initialize the agent members (total element number is 12)
     agent_s = Agent(N=10, lr=0, landscape=landscape, state_num=4, team_flag=True)
-    agent_s.type(name="Specialist", specialist_num=2, generalist_num=0)
+    agent_s.type(name="Specialist", generalist_num=0, specialist_num=3,)
 
     agent_g = Agent(N=10, lr=0, landscape=landscape, state_num=4, team_flag=True)
-    agent_g.type(name="Generalist", specialist_num=0, generalist_num=4)
+    agent_g.type(name="Generalist", generalist_num=6, specialist_num=0)
 
-    team_a = Team(members=[agent_s, agent_g])
-    team_a.describe()
+    agent_t = Agent(N=10, lr=0, landscape=landscape, state_num=4, team_flag=True)
+    agent_t.type(name="T shape", specialist_num=2, generalist_num=2)
+
+    # make up the team
+    team_gs = Team(members=[agent_g, agent_s])
+    team_gs.describe()

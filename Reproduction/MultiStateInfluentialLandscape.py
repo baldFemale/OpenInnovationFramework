@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
-from tools import *
 from itertools import product
+import numpy as np
 
 
 class LandScape:
@@ -27,6 +27,10 @@ class LandScape:
         print("Influential matrix: \n", self.IM)
         print("Influential dependency map: ", self.dependency_map)
         print("********************************")
+
+    def help(self):
+        valid_type = ["None", "Traditional Directed", "Diagonal Mutual", "Random Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+        print("Supported IM_type: ", valid_type)
 
     def type(self, IM_type="None", K=0, k=0, factor_num=0, influential_num=0):
         """
@@ -429,8 +433,10 @@ class LandScape:
 if __name__ == '__main__':
     # Test Example
     landscape = LandScape(N=6, state_num=4)
+    # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.type(IM_type="Traditional Directed", K=2)
     landscape.initialize()
     landscape.describe()
+

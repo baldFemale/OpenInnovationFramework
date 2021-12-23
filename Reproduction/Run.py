@@ -10,16 +10,20 @@ from MultiStateInfluentialLandscape import LandScape
 from Agent import Agent
 import time
 import pickle
+import matplotlib
+matplotlib.use('agg') # unix service is headless and cannot support usual backend
+import matplotlib.pyplot as plt
+
 
 random.seed(1010)
 start_time = time.time()
-N = 10
+N = 14
 state_num = 4
-landscape_iteration = 5
+landscape_iteration = 10
 agent_iteration = 200
 search_iteration = 100
 k_list = [23, 33, 43]
-K_list = [2, 4, 6, 8, 10]
+K_list = [2, 4, 6, 8, 10, 12, 14]
 agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
 generalist_list = [6, 0, 4, 2]

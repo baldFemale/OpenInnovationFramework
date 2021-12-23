@@ -10,7 +10,7 @@ import numpy as np
 import os
 
 
-class Evaluator():
+class Evaluator:
     def __init__(self, title=None, data_path=None, output_path=None):
         if not title:
             self.title = ''
@@ -95,7 +95,7 @@ class Evaluator():
 
         axis.set_title("NK Landscape")  # Add a title to the axes.
         plt.legend()
-        output = output_path + "\\" + self.title + ".png"
+        output = output_path + "\\" + self.title + "_matrix.png"
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 

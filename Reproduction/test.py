@@ -8,6 +8,7 @@ import time
 from itertools import product
 import numpy as np
 import random
+import matplotlib.pylab as plt
 
 # list is better than the dict
 # long_dict = {}
@@ -109,7 +110,39 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # test(**param)
 from collections import defaultdict
 
-x = defaultdict(list)
-for i in range(10):
-    x[i] = i
-print(x)
+rewards = ["A", "B", "C", "D"]
+p = [0.0075, 0.076, 0.3375, 0.579]
+N = 1000
+
+count2 = {}
+for each in rewards:
+    if each not in count2.keys():
+        count2[each] = 0
+
+A_count = 0
+for i in range(1, N+1):
+    temp = np.random.choice(rewards, 1, p=p, replace=True).tolist()[0]
+    if temp == "A":
+        A_count = 0
+    else:
+        A_count += 1
+    if A_count == 40:
+        A_count = 0
+        temp = "A"
+    count2[temp] += 1
+
+for key, value in count2.items():
+    temp = value / N
+    count2[key] = temp
+print("Count2: ", count2)
+
+
+plt.figure(figsize=(9, 3))
+plt.subplot(131)
+plt.bar(count2.keys(), count2.values())
+plt.subplot(132)
+plt.scatter(count2.keys(), count2.values())
+plt.subplot(133)
+plt.plot(count2.keys(), count2.values())
+plt.suptitle('Categorical Plotting')
+plt.show()
