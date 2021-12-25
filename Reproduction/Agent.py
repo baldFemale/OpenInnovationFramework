@@ -10,19 +10,15 @@ import numpy as np
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, team_flag=False):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5):
         self.landscape = landscape
         self.N = N
         self.name = "None"
         self.state_num = state_num
         # intact state string -> may be outside of the agent's capability
         # -> Does this initialization matter? Or we may start from the manageable elements
-        if team_flag:
-            self.state = [0] * self.N  # wait for team assignment
-        else:
-            self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
-        # masked state string -> using '*' to represent the agent perceived state
-        self.cog_state = [0] * self.N  # this is for the team search (used in Team() class)
+        self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
+        self.cog_state = None  # masked state string -> using '*' to represent the agent perceived state
 
         self.knowledge_domain = None
         self.generalist_num = None
@@ -36,11 +32,11 @@ class Agent:
         self.decision_space = []  # all manageable elements' index: ['02', '03', '11', '13', '30', '31']
         self.decision_space_dict = {}
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
-        # decision_space will not change over time, while freedom_space will change due to the current state occupation
+        # decision_space will not change over time,
+        # while freedom_space keep changing due to the current state occupation
         self.fitness = None  # store the fitness value for each step in search
 
         self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
-        self.team_flag = team_flag  # flag for the team optimization
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -124,20 +120,22 @@ class Agent:
             print("Unknown type")
             pass
 
-        if (self.first_time) & (not self.team_flag):
-            for i in range(self.N):
-                if i in self.knowledge_domain:
-                    # unknown domain depth will be randomly adjusted to the familiar depth
-                    if i*self.state_num+self.state[i] not in self.decision_space:
-                        print("Initial state adjustment")
-                        self.state[i] = random.choice(self.decision_space_dict[i])
-                # unknown domain will not change, or doesn't have a chance to be updated
-                # if i not in self.knowledge_domain:
-                #     pass
+        if self.first_time:
+            self.adjust_initial_state()
         self.fitness = self.landscape.query_fitness(self.state)  # the initialization of fitness
         self.first_time = False
+        self.update_freedom_space()
 
-        state_occupation = [i*self.N + j for i,j in enumerate(self.state)]
+    def adjust_initial_state(self):
+        for i in range(self.N):
+            if i in self.knowledge_domain:
+                # unknown domain depth will be randomly adjusted to the familiar depth
+                if i * self.N + self.state[i] not in self.decision_space:
+                    print("Initial state adjustment only for generalist knowledge domains")
+                    self.state[i] = random.choice(self.decision_space_dict[i])
+
+    def update_freedom_space(self):
+        state_occupation = [i*self.N + j for i, j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
     def random_select_gst(self):
@@ -147,9 +145,6 @@ class Agent:
         """
         if len(self.decision_space) == 0:
             raise ValueError("Haven't initialize the decision space; Need to run type() function first")
-        state_occupation = [i*self.N + j for i, j in enumerate(self.state)]
-        # Update the freedom space since the current state occupation changes.
-        self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
         next_step = int(random.choice(self.freedom_space))
         cur_i, cur_j = next_step // self.N, next_step % self.N
         return cur_i, cur_j
@@ -160,8 +155,6 @@ class Agent:
         :return: Updating the state list toward a higher cognitive fitness
                     the next fitness value as the footprint
         """
-        # Adjust the random initialization of state list
-
         next_state = self.state.copy()
         updated_position, updated_value = self.random_select_gst()
         next_state[updated_position] = updated_value
@@ -178,6 +171,7 @@ class Agent:
         if next_fitness > current_fitness:
             self.state = next_state
             self.fitness = next_fitness
+            self.update_freedom_space()  # whenever state change, freedom space need to be changed
             return next_fitness
         else:
             self.fitness = current_fitness
@@ -215,21 +209,24 @@ class Agent:
         print("Element number: ", self.element_num)
         print("Learning rate: ", self.lr)
         print("G/S knowledge ratio: ", self.gs_ratio)
+        print("Freedom space: ", self.freedom_space)
+        print("State occupation: ", [i*self.N+j for i, j in enumerate(self.state)])
         print("Decision space: ", self.decision_space)
         print("Decision space dict: ", self.decision_space_dict)
-        print("Freedom space: ", self.freedom_space)
         print("********************************")
 
 
 if __name__ == '__main__':
     # Test Example
     from MultiStateInfluentialLandscape import LandScape
+    random.seed(1024)
+    np.random.seed(1024)
     landscape = LandScape(N=10, state_num=4)
     landscape.type(IM_type="Random Directed", K=0, k=22)
     landscape.initialize()
 
     agent = Agent(N=10, lr=0, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=4,specialist_num=2)
+    agent.type(name="Generalist", generalist_num=4,specialist_num=0)
     agent.describe()
     agent.independent_search()
     agent.describe()

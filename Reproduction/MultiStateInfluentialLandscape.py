@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from collections import defaultdict
 from itertools import product
 import numpy as np
@@ -432,6 +433,7 @@ class LandScape:
 
 if __name__ == '__main__':
     # Test Example
+    random.seed(1024)
     landscape = LandScape(N=6, state_num=4)
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
