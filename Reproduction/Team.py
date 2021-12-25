@@ -48,8 +48,6 @@ class Team:
         # update the freedom space whenever the current state changes
         self.update_freedom_space()
 
-        self.priority = None
-
         for agent in members:
             if agent.state_num != self.state_num:
                 raise ValueError("Agents should have the same state number")
