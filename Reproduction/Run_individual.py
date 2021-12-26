@@ -11,15 +11,17 @@ from Agent import Agent
 import time
 import pickle
 import matplotlib
+import numpy as np
 matplotlib.use('agg') # unix service is headless and cannot support usual backend
 import matplotlib.pyplot as plt
 
 
-random.seed(1010)
+random.seed(1024)
+np.random.seed(1024)
 start_time = time.time()
 N = 14
 state_num = 4
-landscape_iteration = 10
+landscape_iteration = 5
 agent_iteration = 200
 search_iteration = 100
 k_list = [23, 33, 43]

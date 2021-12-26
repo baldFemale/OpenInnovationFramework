@@ -6,7 +6,9 @@
 # Observing PEP 8 coding style
 import numpy as np
 import random
-
+from Agent import Agent
+from MultiStateInfluentialLandscape import LandScape
+import pickle
 
 class Team:
     def __init__(self, members):
@@ -103,6 +105,7 @@ class Team:
             print("Second member search: {0}, {1}".format(self.members[1].state, self.members[1].fitness))
         self.state = self.members[1].state
         self.update_freedom_space()
+        return serial_search_result
 
     def parallel_search(self, search_iteration=100):
         """
@@ -144,32 +147,37 @@ class Team:
 
 if __name__ == '__main__':
     # Test Example
-    from Agent import Agent
-    from MultiStateInfluentialLandscape import LandScape
     random.seed(1024)
     np.random.seed(1024)
-    N = 8
-    K = 4
+    N = 10
+    k = 0
+    K_list = [2, 4, 6, 8, 10]
     state_num = 4
-    # initialize the landscape
-    landscape = LandScape(N=N, state_num=state_num)
-    landscape.type(IM_type="Traditional Directed", K=4)
-    landscape.initialize()
+    landscape_iteration = 5
+    agent_iteration = 200
+    search_iteration = 100
+    generalist_list = [6, 0, 4, 2]
+    specialist_list = [0, 3, 1, 2]
 
-    # initialize the agent members (total element number is 12)
-    agent_s = Agent(N=N, lr=0, landscape=landscape, state_num=state_num)
-    agent_s.type(name="Specialist", generalist_num=0, specialist_num=2)
-    # agent_s.describe()
+    for K in K_list:
+        fitness_landscape = []
+        for landscape_loop in range(landscape_iteration):
+            landscape = LandScape(N=N, state_num=state_num)
+            landscape.type(IM_type="Traditional Directed", K=4)
+            landscape.initialize()
+            fitness_agent = []
+            for agent_loop in range(agent_iteration):
+                agent_s = Agent(N=N, lr=0, landscape=landscape, state_num=state_num)
+                agent_s.type(name="Specialist", generalist_num=0, specialist_num=3)
+                agent_g = Agent(N=N, lr=0, landscape=landscape, state_num=state_num)
+                agent_g.type(name="Generalist", generalist_num=6, specialist_num=0)
+                team_gs = Team(members=[agent_g, agent_s])
+                fitness_search = team_gs.serial_search(search_iteration=search_iteration)
+                fitness_agent.append(fitness_search)
+                print("Current landscape iteration: {0}; Agent iteration: {1}".format(landscape_loop, agent_loop))
+            fitness_landscape.append(fitness_agent)
 
-    agent_g = Agent(N=N, lr=0, landscape=landscape, state_num=state_num)
-    agent_g.type(name="Generalist", generalist_num=4, specialist_num=0)
-    # agent_g.describe()
-
-    # agent_t = Agent(N=N, lr=0, landscape=landscape, state_num=state_num)
-    # agent_t.type(name="T shape", specialist_num=2, generalist_num=2)
-
-    # make up the team
-    team_gs = Team(members=[agent_g, agent_s])
-    # team_gs.describe()
-    team_gs.serial_search()
-    # team_gs.parallel_search()
+        file_name = "GS" + '_' + "Traditional Directed" + '_N' + str(N) + \
+                    '_K' + str(K) + '_k' + str(k) + '_E12' + "G6_S3"
+        with open(file_name, 'wb') as out_file:
+            pickle.dump(fitness_landscape, out_file)
