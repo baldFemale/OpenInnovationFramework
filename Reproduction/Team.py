@@ -163,7 +163,7 @@ if __name__ == '__main__':
         fitness_landscape = []
         for landscape_loop in range(landscape_iteration):
             landscape = LandScape(N=N, state_num=state_num)
-            landscape.type(IM_type="Traditional Directed", K=4)
+            landscape.type(IM_type="Traditional Directed", K=K)
             landscape.initialize()
             fitness_agent = []
             for agent_loop in range(agent_iteration):
