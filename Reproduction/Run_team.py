@@ -23,7 +23,7 @@ agent_iteration = 200
 search_iteration = 100
 k_list = [23, 33, 43]
 K_list = [2, 4, 6, 8, 10, 12, 14]
-K = 10
+K = 0
 agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
 generalist_list = [6, 0, 4, 2]
@@ -34,11 +34,12 @@ specialist_list = [0, 3, 1, 2]
 # (GG, SS, TT) -> homogeneous team
 teams_list = ['GS', "SG", "GT41", "T41G", "GT22", "T22G", "ST41", "T41S", "ST22", "T22S"]
 fitness_team = []
+
 for team_type in teams_list:
     fitness_landscape = []
     for landscape_loop in range(landscape_iteration):
         landscape = LandScape(N=N, state_num=state_num)
-        landscape.type(IM_type="Traditional Directed", K=K)
+        landscape.type(IM_type="None", K=K)
         landscape.initialize()
         fitness_agent = []
         for agent_loop in range(agent_iteration):

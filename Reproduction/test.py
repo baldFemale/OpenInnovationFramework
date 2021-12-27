@@ -108,41 +108,53 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # param = {"N": 10, "state_num": 4, "k": 22, "name": "Random Directed"}
 #
 # test(**param)
-from collections import defaultdict
+# from collections import defaultdict
+#
+# rewards = ["A", "B", "C", "D"]
+# p = [0.0075, 0.076, 0.3375, 0.579]
+# N = 1000
+#
+# count2 = {}
+# for each in rewards:
+#     if each not in count2.keys():
+#         count2[each] = 0
+#
+# A_count = 0
+# for i in range(1, N+1):
+#     temp = np.random.choice(rewards, 1, p=p, replace=True).tolist()[0]
+#     if temp == "A":
+#         A_count = 0
+#     else:
+#         A_count += 1
+#     if A_count == 40:
+#         A_count = 0
+#         temp = "A"
+#     count2[temp] += 1
+#
+# for key, value in count2.items():
+#     temp = value / N
+#     count2[key] = temp
+# print("Count2: ", count2)
+#
+#
+# plt.figure(figsize=(9, 3))
+# plt.subplot(131)
+# plt.bar(count2.keys(), count2.values())
+# plt.subplot(132)
+# plt.scatter(count2.keys(), count2.values())
+# plt.subplot(133)
+# plt.plot(count2.keys(), count2.values())
+# plt.suptitle('Categorical Plotting')
+# plt.show()
+import re
+re_x_rule = r'N10(.*?)HeteroTeamSerial'
+x = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\N10K10HeteroTeamSerial'
+y = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\output7'
+match = re.search(pattern=re_x_rule, string=x).group(1)
+print("Match1", match)
+# match2 = re.search(pattern=re_x_rule,string=y)
+# print("Match2", match2)
 
-rewards = ["A", "B", "C", "D"]
-p = [0.0075, 0.076, 0.3375, 0.579]
-N = 1000
-
-count2 = {}
-for each in rewards:
-    if each not in count2.keys():
-        count2[each] = 0
-
-A_count = 0
-for i in range(1, N+1):
-    temp = np.random.choice(rewards, 1, p=p, replace=True).tolist()[0]
-    if temp == "A":
-        A_count = 0
-    else:
-        A_count += 1
-    if A_count == 40:
-        A_count = 0
-        temp = "A"
-    count2[temp] += 1
-
-for key, value in count2.items():
-    temp = value / N
-    count2[key] = temp
-print("Count2: ", count2)
-
-
-plt.figure(figsize=(9, 3))
-plt.subplot(131)
-plt.bar(count2.keys(), count2.values())
-plt.subplot(132)
-plt.scatter(count2.keys(), count2.values())
-plt.subplot(133)
-plt.plot(count2.keys(), count2.values())
-plt.suptitle('Categorical Plotting')
-plt.show()
+dir = ['K_10', 'K_2', 'K_4', 'K_6', 'K_8', 'K_0']
+dir.sort()
+print(dir)
