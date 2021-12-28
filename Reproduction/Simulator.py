@@ -23,6 +23,11 @@ class Simulator:
         self.landscape_iteration = landscape_iteration
         self.agent_iteration = agent_iteration
         self.search_iteration = search_iteration
+        self.overlap_g = None  # the domain overlap between two agents regarding the generalist knowledge domain
+        self.overlap_s = None  # the domain overlap between two agents regarding the specialist knowledge domain
+        self.match_g = None  # the match degree between IM and agent/team generalist knowledge domain
+        self.match_s = None  # the match degree between IM and agent/team specialist knowledge domain
+        self.reach_rate = None  # the rate of peak points the agents reach; top 10 % fitness value
 
     def set_landscape(self, K=0, k=0, IM_type=None,factor_num=0, influential_num=0):
         self.landscape = LandScape(N=self.N, state_num=self.state_num)

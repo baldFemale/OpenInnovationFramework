@@ -173,13 +173,29 @@ class Evaluator:
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
-    def f_test(self):
+    def f_test(self, baseline=None, showline=None):
         """
         Compare everay two dataset to see whether there is a significant difference and how much
         Such a F-test is more PRECISE than the figure, especiallt when there are too many groups to compare
         We need a baseline; and then other groups are described as [+/- diff with sig.]
         :return: a F-test table with difference and significance level. e.g., 0.2 (***)
         """
+        x = np.array(baseline)
+        y = np.array(showline)
+        f = np.var(x, ddof=1) / np.var(y, ddof=1)  # calculate F test statistic
+        dfn = x.size - 1  # define degrees of freedom numerator
+        dfd = y.size - 1  # define degrees of freedom denominator
+        p = 1 - scipy.stats.f.cdf(f, dfn, dfd)  # find p-value of F test statistic
+
+        if p < 0.01:
+            star = '***'
+        elif p < 0.05:
+            star = '**'
+        elif p < 0.1:
+            star = '*'
+        else:
+            star = '.'
+        return f, p, star
 
 if __name__ == '__main__':
     # Test Example
@@ -199,7 +215,7 @@ if __name__ == '__main__':
     # input folder: only *one* folder which contains several bin data
     team_search_path = r"C:\Python_Workplace\OpenInnovationFramework\Reproduction\N10GS12"
     output_path = team_search_path
-    evaluator2 =Evaluator(title="GS team", data_path=team_search_path, output_path=output_path)
+    evaluator2 = Evaluator(title="GS team (N=10)", data_path=team_search_path, output_path=output_path)
     team_name = ["K2", "K4", "K6", "K8", "K10"]
     evaluator2.team_evaluate(label=team_name)
 

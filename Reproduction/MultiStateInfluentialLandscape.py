@@ -95,7 +95,7 @@ class LandScape:
                 choices = np.random.choice(cells, self.k, replace=False).tolist()
                 for each in choices:
                     self.IM[each // self.N][each % self.N] = 1
-            elif self.IM_type == "Factor Directed":
+            elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are depended more by others
                 if not factor_num:
                     factor_num = self.k // self.N
                     print("Factor Directed type need defined factor_num. Current default number is {0}.".format(factor_num))
@@ -112,7 +112,7 @@ class LandScape:
                     for indexs in fill_with_one_positions:
                         self.IM[indexs[0]][indexs[1]] = 1
 
-            elif self.IM_type == "Influential Directed":
+            elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
                 if not influential_num:
                     influential_num = self.k // self.N
                     print("Influential Directed type need defined influential_num. Current default number is {0}.".format(
