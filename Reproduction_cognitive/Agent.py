@@ -139,16 +139,23 @@ class Agent:
         state_occupation = [i*self.N + j for i, j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
-    def random_select_gst(self):
+    def randomly_select_one(self):
         """
         Randomly select one element in the freedom space
-        :return: updated position and corresponding value for state list
+        :return: selected position and corresponding value for state list/string
         """
         if len(self.decision_space) == 0:
             raise ValueError("Haven't initialize the decision space; Need to run type() function first")
         next_step = int(random.choice(self.freedom_space))
         cur_i, cur_j = next_step // self.N, next_step % self.N
         return cur_i, cur_j
+
+    def randomly_select_two(self):
+        """
+        Randomly select two elements in the freedom space
+        :return: selected position and corresponding value for state list/string
+        """
+
 
     def local_search(self):
         """
@@ -157,7 +164,7 @@ class Agent:
                     the next fitness value as the footprint
         """
         next_state = self.state.copy()
-        updated_position, updated_value = self.random_select_two()
+        updated_position, updated_value = self.randomly_select_two()
         next_state[updated_position] = updated_value
 
         # we don't need to mask the state string, since the unknown domain will not change
@@ -180,25 +187,25 @@ class Agent:
 
     def jump_search(self):
         """
-        Greedy search in the neighborhood (two-bit stride)
+        Greedy search in a larger neighborhood (two-bit stride)
         :return: Updating the state list toward a higher cognitive fitness
                     the next fitness value as the footprint
         """
 
-    # def change_state_to_cog_state(self, state):
-    #     """
-    #     There are two kinds of unknown elements:
-    #         1) unknown in the width (outside of knowledge domain)-> masked with '*'
-    #         2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
-    #             For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
-    #     :param state: the intact state list
-    #     :return: masked state list
-    #     """
-    #     temp_state = self.state.copy()
-    #     for i in range(self.N):
-    #         if i not in self.knowledge_domain:
-    #             temp_state[i] = '*'
-    #     return temp_state
+    def change_state_to_cog_state(self, state):
+        """
+        There are two kinds of unknown elements:
+            1) unknown in the width (outside of knowledge domain)-> masked with '*'
+            2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
+                For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
+        :param state: the intact state list
+        :return: masked state list
+        """
+        temp_state = self.state.copy()
+        for i in range(self.N):
+            if i not in self.knowledge_domain:
+                temp_state[i] = '*'
+        return temp_state
 
     def learn(self, target_):
         pass
@@ -226,7 +233,7 @@ class Agent:
 
 if __name__ == '__main__':
     # Test Example
-    from MultiStateInfluentialLandscape import LandScape
+    from Landscape import Landscape
     random.seed(1024)
     np.random.seed(1024)
     landscape = LandScape(N=10, state_num=4)

@@ -5,7 +5,7 @@ from itertools import product
 import numpy as np
 
 
-class LandScape:
+class Landscape:
 
     def __init__(self, N, state_num=4):
         self.N = N
@@ -160,7 +160,6 @@ class LandScape:
             bin_index = str(state[i]) + bin_index
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
-
         return np.mean(res), res
 
     def store_cache(self,):
@@ -176,7 +175,7 @@ class LandScape:
         Sort the cache fitness value and corresponding rank
         To get another performance indicator regarding the reaching rate of relatively high fitness (e.g., the top 10 %)
         """
-        value_list = sorted(list(cache.values()), key=lambda x:-x)
+        value_list = sorted(list(cache.values()), key=lambda x: -x)
         fitness_to_rank_dict = {}
         rank_to_fitness_dict = {}
         for index, value in enumerate(value_list):
@@ -215,51 +214,20 @@ class LandScape:
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.contribution_cache[bit]
 
-    def query_cog_fitness(self, state, knowledge_space):
-        """
-        Generate the cognitive fitness from the cache landscape  for *masked* decision string
-        For those outside the knowledge space, taking their average as the cognitive fitness (i.e., mean blurring)
-        :param state: masked decision string with some unknown elements ('*')
-        :param knowledge_space: the manageable element positions
-        :return: the cognitive fitness given a *masked* decision string (NOT for GST)
-        """
-        unknown_space = [cur for cur in range(self.N) if cur not in knowledge_space]
-        #  using '*' to blur unknown knowledge
-        regular_expression = "".join(str(state[i]) if i in knowledge_space else "*" for i in range(len(state)))
-        if regular_expression in self.cog_cache:
-            return self.cog_cache[regular_expression]
-
-        remain_length = len(unknown_space)
-        res = 0
-        for i in range(pow(self.state_num, remain_length)):
-            # mapping i into bit, as the tail of the state string
-            bit = numberToBase(i, self.state_num)
-            if len(bit) < remain_length:
-                bit = "0"*(remain_length-len(bit))+bit
-            temp_state = list(state)
-
-            for j in range(remain_length):
-                temp_state[unknown_space[j]] = int(bit[j])
-            res += self.query_fitness(temp_state)
-        res = 1.0*res/pow(self.state_num, remain_length)
-        self.cog_cache[regular_expression] = res
-        return res
-
-    def query_cog_fitness_gst(self, state, general_space, special_space, bit_difference=1):
+    def query_cog_fitness_gst(self, state, generalist_knowledge_domain=None, specialist_knowledge_domain=None, bit_difference=1):
         """
         *masked* elements in the width -> agents cannot know everything; *masked* elements in the depth -> GST
-        :param state: the
+        :param state: the state string
         :param general_space:
         :param special_space:
         :param bit_difference:
         :return: the cognitive fitness for 1) GST Agent, 2）masked elements
         """
-
         alternative = []
         for cur in range(self.N):
-            if cur in special_space:
+            if cur in specialist_knowledge_domain:
                 continue
-            elif cur in general_space:
+            elif cur in generalist_knowledge_domain:
                 temp = []
                 for i in range(pow(2, bit_difference)):
                     bit_string = bin(i)[2:]
@@ -282,12 +250,13 @@ class LandScape:
             index = 0
             temp_state = list(state)
             for cur in range(self.N):
-                if cur in special_space:
+                if cur in specialist_knowledge_domain:
                     continue
                 else:
                     temp_state[cur] = alter[index]
                     index += 1
             res += self.query_fitness(temp_state)
+        # return the average fitness of all possible combinations
         return res/len(alternative)
 
     def query_cog_fitness_contribution_gst(self, state, general_space, special_space, bit_difference=1):
@@ -342,25 +311,8 @@ class LandScape:
             self, state, decision, knowledge_tree_list, tree_depth, learned_decision=None,
             teammate_decision=None, teammate_knowledge_tree_list=None,
     ):
-        """
-        Parameters:
-            state: the decision string
-            decision:
-            knowledge_tree_list:
-            tree_depth:
-            learned_decision:
-            teammate_decision:
-            teammate_knowledge_tree_list:
-            state_num? do we need multi-way tree
-
-        Return:
-
-        """
-
         if teammate_decision is None:
-
             alternatives = []
-
             for cur in range(self.N):
                 if cur not in decision:
                     alternatives.append([cur for cur in range(self.state_num)])
@@ -379,9 +331,7 @@ class LandScape:
             for alter in alternatives:
                 alter = list(alter)
                 res += self.query_fitness(alter)
-
             return res / len(alternatives)
-
         else:
             alternatives = []
 
@@ -393,7 +343,6 @@ class LandScape:
                     focal_index = decision.index(cur)
                     node = knowledge_tree_list[focal_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
                     node_alternative = knowledge_tree_list[focal_index].node_map_leaves_list[node]
-
                     node_alternative = [x - (pow(2, tree_depth - 1) - 1) for x in node_alternative]
                     alternatives.append(node_alternative)
                 elif cur not in decision and cur in learned_decision:
@@ -422,21 +371,19 @@ class LandScape:
                             focal_node_alternative
                         ) <= len(team_node_alternative) else team_node_alternative
                     )
-
             res = 0
             alternatives = list(product(*alternatives))
             # print(len(alternatives))
             for alter in alternatives:
                 alter = list(alter)
                 res += self.query_fitness(alter)
-
             return res / len(alternatives)
 
 
 if __name__ == '__main__':
     # Test Example
     random.seed(1024)
-    landscape = LandScape(N=6, state_num=4)
+    landscape = Landscape(N=6, state_num=4)
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)

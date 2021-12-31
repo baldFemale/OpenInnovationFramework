@@ -293,21 +293,6 @@ class LandScape:
             self, state, decision, knowledge_tree_list, tree_depth, learned_decision=None,
             teammate_decision=None, teammate_knowledge_tree_list=None,
     ):
-        """
-        Parameters:
-            state: the decision string
-            decision:
-            knowledge_tree_list:
-            tree_depth:
-            learned_decision:
-            teammate_decision:
-            teammate_knowledge_tree_list:
-            state_num? do we need multi-way tree
-
-        Return:
-
-        """
-
         if teammate_decision is None:
 
             alternatives = []
