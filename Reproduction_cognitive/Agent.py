@@ -18,8 +18,8 @@ class Agent:
         # intact state string -> may be outside of the agent's capability
         # -> Does this initialization matter? Or we may start from the manageable elements
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
-        self.cog_state = None  # masked state string -> using '*' to represent the agent perceived state
-
+        self.state = [str(i) for i in self.state]
+        self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
         self.generalist_num = 0
         self.specialist_num = 0
@@ -30,7 +30,6 @@ class Agent:
         self.lr = lr
 
         self.decision_space = []  # all manageable elements' index: ['02', '03', '11', '13', '30', '31']
-        self.decision_space_dict = {}
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
         # decision_space will not change over time,
         # while freedom_space keep changing due to the current state occupation
@@ -70,7 +69,6 @@ class Agent:
         self.generalist_num = generalist_num
         self.specialist_num = specialist_num
         domain_number = self.generalist_num + self.specialist_num
-
         self.knowledge_domain = np.random.choice(self.N, domain_number, replace=False).tolist()
         if element_num:
             self.element_num = element_num  # record the total number of element that agents can change
@@ -98,48 +96,15 @@ class Agent:
         self.generalist_knowledge_domain = [
             cur for cur in self.knowledge_domain if cur not in self.specialist_knowledge_domain
         ]
-
-        if self.name == "Specialist":
-            for cur in self.specialist_knowledge_domain:
-                self.decision_space += [cur*self.N+j for j in range(self.state_num)]
-                self.decision_space_dict[cur] = list(range(self.state_num))
-        elif self.name == "Generalist":
-            for cur in self.generalist_knowledge_domain:
-                full_states = list(range(self.state_num))
-                random.shuffle(full_states)
-                random_half_depth = full_states[:int(self.state_num*self.gs_ratio)]
-                self.decision_space += [cur*self.N+j for j in random_half_depth]
-                self.decision_space_dict[cur] = random_half_depth
-        elif self.name == 'T shape':
-            for cur in self.specialist_knowledge_domain:
-                self.decision_space += [cur*self.N+j for j in range(self.state_num)]
-                self.decision_space_dict[cur] = list(range(self.state_num))
-            for cur in self.generalist_knowledge_domain:
-                full_states = list(range(self.state_num))
-                random.shuffle(full_states)
-                random_half_depth = full_states[:int(self.state_num*self.gs_ratio)]
-                self.decision_space += [cur*self.N+j for j in random_half_depth]
-                self.decision_space_dict[cur] = random_half_depth
-        else:
-            print("Unknown type")
-            pass
-
-        if self.first_time:
-            self.adjust_initial_state()
-        self.fitness = self.landscape.query_fitness(self.state)  # the initialization of fitness
-        self.first_time = False
+        self.change_state_to_cog_state()
+        for cur in self.specialist_knowledge_domain:
+            self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
+        for cur in self.generalist_knowledge_domain:
+            self.decision_space += [str(cur) + i for i in self.generalist_knowledge_representation]
         self.update_freedom_space()
 
-    def adjust_initial_state(self):
-        for i in range(self.N):
-            if i in self.knowledge_domain:
-                # unknown domain depth will be randomly adjusted to the familiar depth
-                if i * self.N + self.state[i] not in self.decision_space:
-                    print("Initial state adjustment only for generalist knowledge domains")
-                    self.state[i] = random.choice(self.decision_space_dict[i])
-
     def update_freedom_space(self):
-        state_occupation = [i*self.N + j for i, j in enumerate(self.state)]
+        state_occupation = [str(i) + j for i, j in enumerate(self.state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
     def randomly_select_one(self):
@@ -149,8 +114,8 @@ class Agent:
         """
         if len(self.decision_space) == 0:
             raise ValueError("Haven't initialize the decision space; Need to run type() function first")
-        next_step = int(random.choice(self.freedom_space))
-        cur_i, cur_j = next_step // self.N, next_step % self.N
+        next_step = random.choice(self.freedom_space)
+        cur_i, cur_j = next_step[0], next_step[1]
         return cur_i, cur_j
 
     def randomly_select_two(self):
@@ -158,7 +123,7 @@ class Agent:
         Randomly select two elements in the freedom space
         :return: selected position and corresponding value for state list/string
         """
-
+        pass
 
     def local_search(self):
         """
@@ -167,18 +132,10 @@ class Agent:
                     the next fitness value as the footprint
         """
         next_state = self.state.copy()
-        updated_position, updated_value = self.randomly_select_two()
-        next_state[updated_position] = updated_value
-
-        # we don't need to mask the state string, since the unknown domain will not change
-        # cognitive_updated_state = self.change_state_to_cog_state(self.state)
-        # cognitive_current_state = self.change_state_to_cog_state(current_state)
-
-        # For individual level:
-        # the state list is still intact, so we can query the full cache
-        # Only when it is team level should we use cognitive fitness to overcome the unknown element. (both unknown depths and unknown domains)
-        next_fitness = self.landscape.query_fitness(next_state)
-        current_fitness = self.landscape.query_fitness(self.state)
+        updated_position, updated_value = self.randomly_select_one()
+        next_state[int(updated_position)] = updated_value
+        next_fitness = self.landscape.query_cog_fitness(next_state)
+        current_fitness = self.landscape.query_cog_fitness(self.state)
         if next_fitness > current_fitness:
             self.state = next_state
             self.fitness = next_fitness
@@ -194,6 +151,7 @@ class Agent:
         :return: Updating the state list toward a higher cognitive fitness
                     the next fitness value as the footprint
         """
+        pass
 
     def change_state_to_cog_state(self):
         """
@@ -204,15 +162,14 @@ class Agent:
         :param state: the intact state list
         :return: masked state list
         """
-        # cognitive_state = ["A", "B"]
         if self.generalist_num != 0:  # there are some unknown depth (i.e., with G domain)
             for index, bit_value in enumerate(self.state):
                 if index in self.generalist_knowledge_domain:
-                    if bit_value in [0, 1]:
+                    if bit_value in ["0", "1"]:
                         self.state[index] = "A"
-                    elif bit_value in [2, 3]:
+                    elif bit_value in ["2", "3"]:
                         self.state[index] = "B"
-                    elif bit_value in [4, 5]:
+                    elif bit_value in ["4", "5"]:
                         self.state[index] = "C"
                     else:
                         raise ValueError("Only support for state number = 6")
@@ -223,16 +180,20 @@ class Agent:
         return self.state
 
     def change_cog_state_to_state(self):
+        """
+        After concergence, we need to mirror the cognitive fitness into true fitness
+        :return: true state
+        """
         for index, bit_value in enumerate(self.state):
             if index not in self.knowledge_domain:
                 self.state[index] = random.choice(range(self.N))
             if index in self.generalist_knowledge_domain:
                 if bit_value == "A":
-                    self.state[index] = random.choice([0, 1])
+                    self.state[index] = random.choice(["0", "1"])
                 elif bit_value == "B":
-                    self.state[index] = random.choice([2, 3])
+                    self.state[index] = random.choice(["2", "3"])
                 elif bit_value == "C":
-                    self.state[index] = random.choice([4, 5])
+                    self.state[index] = random.choice(["4", " 5"])
                 else:
                     raise ValueError("Unsupported state element: ", bit_value)
         return self.state
@@ -251,7 +212,6 @@ class Agent:
         print("N: ", self.N)
         print("State number: ", self.state_num)
         print("Current state list: ", self.state)
-        print("Current cognitive state: ", self.cog_state)
         print("Current fitness: ", self.fitness)
         print("Knowledge/Manageable domain: ", self.knowledge_domain)
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
@@ -260,18 +220,15 @@ class Agent:
         print("Learning rate: ", self.lr)
         print("G/S knowledge ratio: ", self.gs_ratio)
         print("Freedom space: ", self.freedom_space)
-        print("State occupation: ", [i*self.N+j for i, j in enumerate(self.state)])
+        print("State occupation: ", [str(i)+j for i, j in enumerate(self.state)])
         print("Decision space: ", self.decision_space)
-        print("Decision space dict: ", self.decision_space_dict)
         print("********************************")
 
 
 if __name__ == '__main__':
     # Test Example
     from Landscape import Landscape
-    random.seed(1024)
-    np.random.seed(1024)
-    landscape = LandScape(N=10, state_num=4)
+    landscape = Landscape(N=10, state_num=4)
     landscape.type(IM_type="Random Directed", K=0, k=22)
     landscape.initialize()
 

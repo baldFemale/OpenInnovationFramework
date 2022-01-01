@@ -25,25 +25,51 @@ class Evaluator:
         self.data_path = data_path
         self.output_path = output_path
 
+    def load_files_under_folder(self, folders=None):
+        """
+        For single-layers file loading
+        :return:the data file list
+        """
+        data_files = []
+        for root, dirs, files in os.walk(folders):
+            for ech_file in files:
+                data_files.append(root + '\\' + ech_file)
+        return  data_files
+
+    def load_folders_under_parent_folder(self, parent_folder=None):
+        """
+        For multi-layers file loading
+        :return:the folder list containing the data files
+        """
+        folder_list = []
+        for root, dirs, files in os.walk(parent_folder):
+            for ech_dir in dirs:
+                folder_list.append(root + '\\' + ech_dir)
+        return folder_list
+
+    def load_data_from_files(self, files_path=None):
+        """
+        load one data from one certain file path
+        :param file_path: data file path
+        :return:the loaded data (i.e., fitness list)
+        """
+        data = []
+        for each_file in files_path:
+            if ".png" not in each_file:
+                with open(each_file,'rb') as infile:
+                    print(each_file)
+                    temp = pickle.load(infile)
+                    data.append(temp)
+        return data
+
     def individual_evaluate(self, label=None):
         """
         Only for the individual search
         :param label: the curve label, mainly for the agent name (e.g., T shape 22, T shape 41)
         :return: the figure
         """
-        data_files = []
-        for root, dirs, files in os.walk(self.data_path):
-            for ech_file in files:
-                data_files.append(root + '\\' + ech_file)
-
-        data = []
-        for each_file in data_files:
-            if ".png" not in each_file:
-                with open(each_file,'rb') as infile:
-                    print(each_file)
-                    temp = pickle.load(infile)
-                    data.append(temp)
-
+        data_files = self.load_files_under_folder()
+        data = self.load_data_from_files(files_path=data_files)
         # individual level comparison
         figure, axis = plt.subplots()
         for name, each_data in zip(label, data):
@@ -87,7 +113,6 @@ class Evaluator:
                     data.append(temp)
         print("file number, landscape loop, agent loop. searh loop: ", np.array(data).shape)
 
-
         # individual level comparison
         figure, axis = plt.subplots()
         for name, each_data in zip(label, data):
@@ -97,14 +122,6 @@ class Evaluator:
 
         axis.set_xlabel('Search iteration')  # Add an x-label to the axes.
         axis.set_ylabel('Average fitness')  # Add a y-label to the axes.
-
-        # flag = 0
-        # for each in list(data_files[0]):
-        #     if (each == "_") & (flag < 2):
-        #         flag += 1
-        #     if flag == 2:
-        #         self.title += each
-
         axis.set_title(self.title)  # Add a title to the axes.
         plt.legend()
         output = self.output_path + "\\" + self.title + ".png"
@@ -203,6 +220,22 @@ class Evaluator:
         The final converge is the performance of each agent-task combination
         :return: the converge figure
         """
+        pass
+
+    def performance_polyline_across_type_k(self):
+        """
+        Line graph across different agent or team type and landscape ruggedness
+        :return: polyline figure
+        """
+        agent_level_data = []
+        ruggedness_level_data = []
+        agent_folders = self.load_folders_under_parent_folder(parent_folder=self.data_path)
+        for agent_level_folder in agent_folders:
+            ruggedness_level_folder = self.load_folders_under_parent_folder(parent_folder=agent_level_folder)
+            for each_folder in ruggedness_level_folder:
+                data_files = self.load_files_under_folder()
+                data =
+
 
 if __name__ == '__main__':
     # Test Example
@@ -250,3 +283,7 @@ if __name__ == '__main__':
     # team_name = ['GS', "GT22", "GT41", "SG", "ST22", "ST41", "T22G", "T22S", "T41G", "T41S"]
     # evaluator2.team_evaluate_2by2_matrix(label=team_name, figure_y=figure_y,
     #                                      figure_x=figure_x, re_x_rule_list=re_x_rule_list)
+
+    #------------------------------------------------------------------------------------------------#
+    # line graph across different agents and landscape ruggedness
+

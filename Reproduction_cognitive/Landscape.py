@@ -218,13 +218,13 @@ class Landscape:
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
-        alternatives = self.cog_state_expand(cog_state=cog_state)
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         cog_fitness = sum(fitness_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
         return cog_fitness
 
-    def cog_state_expand(self, cog_state=None):
+    def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
         for bit in cog_state:
             if isinstance(bit, int):

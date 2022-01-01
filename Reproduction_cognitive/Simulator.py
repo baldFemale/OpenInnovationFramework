@@ -42,7 +42,7 @@ class Simulator:
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
-        self.landscape.describe()
+        # self.landscape.describe()
 
     def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
         self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
@@ -58,11 +58,8 @@ class Simulator:
             raise ValueError("This is only for individual level search")
         fitness_landscape = []
         for landscape_loop in range(self.landscape_iteration):
-
             landscape = Landscape(N=self.N, state_num=self.state_num)
             landscape.type(IM_type="Random Directed", k=66)
-            landscape.initialize()
-
             fitness_agent = []
             for agent_loop in range(self.agent_iteration):
                 print("Current landscape iteration: {0}; Agent iteration: {1}".format(self.landscape_iteration, self.agent_iteration))

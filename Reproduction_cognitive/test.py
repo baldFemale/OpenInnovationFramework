@@ -158,8 +158,7 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # dir = ['K_10', 'K_2', 'K_4', 'K_6', 'K_8', 'K_0']
 # dir.sort()
 # print(dir)
-state = ["A", "A", 0, 1]
-state = [str(i) for i in state]
-state_str = ''.join(state)
-
-print(state_str)
+decision_space = ["0A", "1B"]
+next_step = random.choice(decision_space)
+i, j = next_step[0], next_step[1]
+print(i, j)
