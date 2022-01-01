@@ -7,12 +7,13 @@
 import pickle
 import random
 import time
-from MultiStateInfluentialLandscape import LandScape
+from Landscape import Landscape
 from Agent import Agent
 import numpy as np
 
 
 class Simulator:
+    """For individual level"""
     def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200):
         self.N = N
         self.state_num = state_num
@@ -23,14 +24,22 @@ class Simulator:
         self.landscape_iteration = landscape_iteration
         self.agent_iteration = agent_iteration
         self.search_iteration = search_iteration
-        self.overlap_g = None  # the domain overlap between two agents regarding the generalist knowledge domain
-        self.overlap_s = None  # the domain overlap between two agents regarding the specialist knowledge domain
+
+        # Some indicators for evaluation
+        #  Match indicators
         self.match_g = None  # the match degree between IM and agent/team generalist knowledge domain
         self.match_s = None  # the match degree between IM and agent/team specialist knowledge domain
-        self.reach_rate = None  # the rate of peak points the agents reach; top 10 % fitness value
+        self.match_overall = None
+
+        # Search indicators
+        self.converged_fitness = None
+        self.converged_state = None
+        self.unique_fitness_list = []  # record the path variance; or for the rank-fitness transition
+        self.change_count = 0  # record the number of state change towards the convergence
+        self.jump_out_of_local_optimal = 0 # record the agents' capability of skipping local optimal, due to cognitive search
 
     def set_landscape(self, K=0, k=0, IM_type=None,factor_num=0, influential_num=0):
-        self.landscape = LandScape(N=self.N, state_num=self.state_num)
+        self.landscape = Landscape(N=self.N, state_num=self.state_num)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
         self.landscape.describe()
@@ -50,7 +59,7 @@ class Simulator:
         fitness_landscape = []
         for landscape_loop in range(self.landscape_iteration):
 
-            landscape = LandScape(N=self.N, state_num=self.state_num)
+            landscape = Landscape(N=self.N, state_num=self.state_num)
             landscape.type(IM_type="Random Directed", k=66)
             landscape.initialize()
 

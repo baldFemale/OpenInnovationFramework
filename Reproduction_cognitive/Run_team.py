@@ -6,10 +6,11 @@
 # Observing PEP 8 coding style
 import random
 from Simulator import Simulator
-from MultiStateInfluentialLandscape import LandScape
+from Landscape import Landscape
 from Agent import Agent
 from Team import Team
 import time
+import multiprocessing
 import pickle
 import numpy as np
 
@@ -40,7 +41,7 @@ fitness_team = []
 for team_type in teams_list:
     fitness_landscape = []
     for landscape_loop in range(landscape_iteration):
-        landscape = LandScape(N=N, state_num=state_num)
+        landscape = Landscape(N=N, state_num=state_num)
         landscape.type(IM_type="Traditional Directed", K=K)
         landscape.initialize()
         fitness_agent = []

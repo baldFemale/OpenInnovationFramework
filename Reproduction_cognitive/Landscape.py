@@ -214,171 +214,34 @@ class Landscape:
         bit = "".join([str(state[i]) for i in range(len(state))])
         return self.contribution_cache[bit]
 
-    def query_cog_fitness_gst(self, state, generalist_knowledge_domain=None, specialist_knowledge_domain=None, bit_difference=1):
-        """
-        *masked* elements in the width -> agents cannot know everything; *masked* elements in the depth -> GST
-        :param state: the state string
-        :param general_space:
-        :param special_space:
-        :param bit_difference:
-        :return: the cognitive fitness for 1) GST Agent, 2）masked elements
-        """
-        alternative = []
-        for cur in range(self.N):
-            if cur in specialist_knowledge_domain:
-                continue
-            elif cur in generalist_knowledge_domain:
-                temp = []
-                for i in range(pow(2, bit_difference)):
-                    bit_string = bin(i)[2:]
-                    bit_string = "0"*(bit_difference-len(bit_string)) + bit_string
-                    bit_string = str(state[cur]) + bit_string  # '11' + '000...' + 'bin(i)' (e.g., 5->101)
-                    # what if '11' + '000...' + 'bin(i)' + '000...' ?
-                    temp.append(int(bit_string, 2))
-                alternative.append(list(temp))
+    def query_cog_fitness(self, cog_state=None):
+        cog_state_string = ''.join([str(i) for i in cog_state])
+        if cog_state_string in self.cog_cache.keys():
+            return self.cog_cache[cog_state_string]
+        alternatives = self.cog_state_expand(cog_state=cog_state)
+        fitness_pool = [self.query_fitness(each) for each in alternatives]
+        cog_fitness = sum(fitness_pool)/len(alternatives)
+        self.cog_cache[cog_state_string] = cog_fitness
+        return cog_fitness
+
+    def cog_state_expand(self, cog_state=None):
+        alternative_pool = []
+        for bit in cog_state:
+            if isinstance(bit, int):
+                alternative_pool.append([bit])
+            elif bit == "A":
+                alternative_pool.append([0, 1])
+            elif bit == "B":
+                alternative_pool.append([2, 3])
+            elif bit == "C":
+                alternative_pool.append([4, 5])
+            elif bit == "*":
+                alternative_pool.append([0, 1, 2, 3])
             else:
-                temp = []
-                for i in range(self.state_num):
-                    temp.append(i)
-                alternative.append(list(temp))
-        print('alternative: ', alternative)
-        res = 0
-        # full permutation
-        alternative = list(product(*alternative))
-
-        for alter in alternative:
-            index = 0
-            temp_state = list(state)
-            for cur in range(self.N):
-                if cur in specialist_knowledge_domain:
-                    continue
-                else:
-                    temp_state[cur] = alter[index]
-                    index += 1
-            res += self.query_fitness(temp_state)
-        # return the average fitness of all possible combinations
-        return res/len(alternative)
-
-    def query_cog_fitness_contribution_gst(self, state, general_space, special_space, bit_difference=1):
-        """
-        :param state:
-        :param general_space:
-        :param special_space:
-        :param bit_difference:
-        :return:
-        """
-        alternative = []
-
-        for cur in range(self.N):
-            if cur in special_space:
-                continue
-            elif cur in general_space:
-                temp = []
-                for i in range(pow(2, bit_difference)):
-                    bit_string = bin(i)[2:]
-                    bit_string = "0" * (bit_difference - len(bit_string)) + bit_string
-                    bit_string = str(state[cur]) + bit_string
-                    temp.append(int(bit_string, 2))
-                alternative.append(list(temp))
-            else:
-                temp = []
-                for i in range(self.state_num):
-                    temp.append(i)
-                alternative.append(list(temp))
-
-        res = [[] for _ in range(len(state))]
-        alternative = list(product(*alternative))
-
-        for alter in alternative:
-            index = 0
-            temp_state = list(state)
-            for cur in range(self.N):
-                if cur in special_space:
-                    continue
-                else:
-                    temp_state[cur] = alter[index]
-                    index += 1
-            contribution = self.query_fitness_contribution(state)
-
-            for cur in range(len(state)):
-                res[cur].append(contribution[cur])
-
-        # return [np.mean(x) for x in res]
-        # a frequent exchange between numpy and list will cost much time.
-        return [sum(x)/len(x) for x in res]
-
-    def query_cog_fitness_tree(
-            self, state, decision, knowledge_tree_list, tree_depth, learned_decision=None,
-            teammate_decision=None, teammate_knowledge_tree_list=None,
-    ):
-        if teammate_decision is None:
-            alternatives = []
-            for cur in range(self.N):
-                if cur not in decision:
-                    alternatives.append([cur for cur in range(self.state_num)])
-                else:
-                    v = state[cur]
-                    index = decision.index(cur)
-                    node = knowledge_tree_list[index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
-                    node_alternative = knowledge_tree_list[index].node_map_leaves_list[node]
-
-                    node_alternative = [x-(pow(2, tree_depth-1)-1) for x in node_alternative]
-                    alternatives.append(node_alternative)
-
-            res = 0
-            alternatives = list(product(*alternatives))
-            # print(len(alternatives))
-            for alter in alternatives:
-                alter = list(alter)
-                res += self.query_fitness(alter)
-            return res / len(alternatives)
-        else:
-            alternatives = []
-
-            for cur in range(self.N):
-                if cur not in decision and cur not in learned_decision:
-                    alternatives.append([cur for cur in range(self.state_num)])
-                elif cur in decision and cur not in learned_decision:
-                    v = state[cur]
-                    focal_index = decision.index(cur)
-                    node = knowledge_tree_list[focal_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
-                    node_alternative = knowledge_tree_list[focal_index].node_map_leaves_list[node]
-                    node_alternative = [x - (pow(2, tree_depth - 1) - 1) for x in node_alternative]
-                    alternatives.append(node_alternative)
-                elif cur not in decision and cur in learned_decision:
-                    v = state[cur]
-                    team_index = teammate_decision.index(cur)
-                    node = teammate_knowledge_tree_list[team_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
-                    node_alternative = teammate_knowledge_tree_list[team_index].node_map_leaves_list[node]
-
-                    node_alternative = [x - (pow(2, tree_depth - 1) - 1) for x in node_alternative]
-                    alternatives.append(node_alternative)
-                else:
-                    v = state[cur]
-
-                    focal_index = decision.index(cur)
-                    node = knowledge_tree_list[focal_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
-                    node_alternative = knowledge_tree_list[focal_index].node_map_leaves_list[node]
-                    focal_node_alternative = [x - (pow(2, tree_depth - 1) - 1) for x in node_alternative]
-
-                    team_index = teammate_decision.index(cur)
-                    node = teammate_knowledge_tree_list[team_index].leaf_map_node_list[v+(pow(2, tree_depth-1)-1)]
-                    team_node_alternative = teammate_knowledge_tree_list[team_index].node_map_leaves_list[node]
-                    team_node_alternative = [x-(pow(2, tree_depth-1) -1) for x in team_node_alternative]
-
-                    alternatives.append(
-                        focal_node_alternative if len(
-                            focal_node_alternative
-                        ) <= len(team_node_alternative) else team_node_alternative
-                    )
-            res = 0
-            alternatives = list(product(*alternatives))
-            # print(len(alternatives))
-            for alter in alternatives:
-                alter = list(alter)
-                res += self.query_fitness(alter)
-            return res / len(alternatives)
-
+                raise ValueError("Unsupported bit value: ", bit)
+        if self.state_num != 4:
+            raise ValueError("Mismatch between state number and cognitive expansion")
+        return [i for i in product(*alternative_pool)]
 
 if __name__ == '__main__':
     # Test Example

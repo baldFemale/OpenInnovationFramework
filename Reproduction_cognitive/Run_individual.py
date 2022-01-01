@@ -6,12 +6,13 @@
 # Observing PEP 8 coding style
 import random
 from Simulator import Simulator
-from MultiStateInfluentialLandscape import LandScape
+from Landscape import Landscape
 from Agent import Agent
 import time
 import pickle
 import matplotlib
 import numpy as np
+import multiprocessing
 matplotlib.use('agg') # unix service is headless and cannot support usual backend
 import matplotlib.pyplot as plt
 

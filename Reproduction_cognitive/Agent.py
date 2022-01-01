@@ -20,11 +20,11 @@ class Agent:
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.cog_state = None  # masked state string -> using '*' to represent the agent perceived state
 
-        self.knowledge_domain = None
-        self.generalist_num = None
-        self.specialist_num = None
-        self.specialist_knowledge_domain = None
-        self.generalist_knowledge_domain = None  # G_domain + S_domain =knowledge_domain
+        self.knowledge_domain = []
+        self.generalist_num = 0
+        self.specialist_num = 0
+        self.specialist_knowledge_domain = []
+        self.generalist_knowledge_domain = []  # G_domain + S_domain =knowledge_domain
 
         self.gs_ratio = gs_ratio  # generalist know half of the knowledge compared to specialist
         self.lr = lr
@@ -38,6 +38,9 @@ class Agent:
         self.converge_fitness = None
 
         self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
+
+        self.valid_state_bit = list(range(self.N))
+        self.valid_state_bit += ["A", "B", "C", "*"]  # for cognitive representation
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -192,7 +195,7 @@ class Agent:
                     the next fitness value as the footprint
         """
 
-    def change_state_to_cog_state(self, state):
+    def change_state_to_cog_state(self):
         """
         There are two kinds of unknown elements:
             1) unknown in the width (outside of knowledge domain)-> masked with '*'
@@ -201,11 +204,43 @@ class Agent:
         :param state: the intact state list
         :return: masked state list
         """
-        temp_state = self.state.copy()
-        for i in range(self.N):
-            if i not in self.knowledge_domain:
-                temp_state[i] = '*'
-        return temp_state
+        # cognitive_state = ["A", "B"]
+        if self.generalist_num != 0:  # there are some unknown depth (i.e., with G domain)
+            for index, bit_value in enumerate(self.state):
+                if index in self.generalist_knowledge_domain:
+                    if bit_value in [0, 1]:
+                        self.state[index] = "A"
+                    elif bit_value in [2, 3]:
+                        self.state[index] = "B"
+                    elif bit_value in [4, 5]:
+                        self.state[index] = "C"
+                    else:
+                        raise ValueError("Only support for state number = 6")
+        if len(self.knowledge_domain) < self.N:  # there are some unknown domains
+            for index, bit_value in enumerate(self.state):
+                if index not in self.knowledge_domain:
+                    self.state[index] = '*'
+        return self.state
+
+    def change_cog_state_to_state(self):
+        for index, bit_value in enumerate(self.state):
+            if index not in self.knowledge_domain:
+                self.state[index] = random.choice(range(self.N))
+            if index in self.generalist_knowledge_domain:
+                if bit_value == "A":
+                    self.state[index] = random.choice([0, 1])
+                elif bit_value == "B":
+                    self.state[index] = random.choice([2, 3])
+                elif bit_value == "C":
+                    self.state[index] = random.choice([4, 5])
+                else:
+                    raise ValueError("Unsupported state element: ", bit_value)
+        return self.state
+
+    def state_legitimacy_check(self):
+        for index, bit_value in enumerate(self.state):
+            if bit_value not in self.valid_state_bit:
+                raise ValueError("Current state element/bit is not legitimate")
 
     def learn(self, target_):
         pass

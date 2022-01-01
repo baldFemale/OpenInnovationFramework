@@ -7,10 +7,12 @@
 import numpy as np
 import random
 from Agent import Agent
-from MultiStateInfluentialLandscape import LandScape
+from Landscape import Landscape
 import pickle
 
+
 class Team:
+    """For team level, compared to Simulator()"""
     def __init__(self, members):
         self.members = members  # agent member
         self.agent_num = len(members)
@@ -162,7 +164,7 @@ if __name__ == '__main__':
     for K in K_list:
         fitness_landscape = []
         for landscape_loop in range(landscape_iteration):
-            landscape = LandScape(N=N, state_num=state_num)
+            landscape = Landscape(N=N, state_num=state_num)
             landscape.type(IM_type="Traditional Directed", K=K)
             landscape.initialize()
             fitness_agent = []

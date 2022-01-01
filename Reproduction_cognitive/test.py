@@ -146,15 +146,20 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # plt.plot(count2.keys(), count2.values())
 # plt.suptitle('Categorical Plotting')
 # plt.show()
-import re
-re_x_rule = r'N10(.*?)HeteroTeamSerial'
-x = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\N10K10HeteroTeamSerial'
-y = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\output7'
-match = re.search(pattern=re_x_rule, string=x).group(1)
-print("Match1", match)
-# match2 = re.search(pattern=re_x_rule,string=y)
-# print("Match2", match2)
+# import re
+# re_x_rule = r'N10(.*?)HeteroTeamSerial'
+# x = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\N10K10HeteroTeamSerial'
+# y = r'C:\Python_Workplace\OpenInnovationFramework\Reproduction\output7'
+# match = re.search(pattern=re_x_rule, string=x).group(1)
+# print("Match1", match)
+# # match2 = re.search(pattern=re_x_rule,string=y)
+# # print("Match2", match2)
+#
+# dir = ['K_10', 'K_2', 'K_4', 'K_6', 'K_8', 'K_0']
+# dir.sort()
+# print(dir)
+state = ["A", "A", 0, 1]
+state = [str(i) for i in state]
+state_str = ''.join(state)
 
-dir = ['K_10', 'K_2', 'K_4', 'K_6', 'K_8', 'K_0']
-dir.sort()
-print(dir)
+print(state_str)
