@@ -15,10 +15,13 @@ class Agent:
         self.N = N
         self.name = "None"
         self.state_num = state_num
-        # intact state string -> may be outside of the agent's capability
-        # -> Does this initialization matter? Or we may start from the manageable elements
+
+        # store the true state list at the initialization and the search ending
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.state = [str(i) for i in self.state]
+        # store the cognitive state list during the search
+        self.cog_state = self.state.copy()
+
         self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
         self.generalist_num = 0
@@ -33,8 +36,8 @@ class Agent:
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
         # decision_space will not change over time,
         # while freedom_space keep changing due to the current state occupation
-        self.fitness = None  # store the fitness value for each step in search
-        self.converge_fitness = None
+        self.cog_fitness = 0  # store the cog_fitness value for each step in search
+        self.converge_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
 
         self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
 
@@ -96,15 +99,20 @@ class Agent:
         self.generalist_knowledge_domain = [
             cur for cur in self.knowledge_domain if cur not in self.specialist_knowledge_domain
         ]
-        self.change_state_to_cog_state()
+        self.cog_state = self.change_state_to_cog_state(state=self.state)
+        print("self.cog_state: ", self.cog_state)
         for cur in self.specialist_knowledge_domain:
             self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
         for cur in self.generalist_knowledge_domain:
             self.decision_space += [str(cur) + i for i in self.generalist_knowledge_representation]
         self.update_freedom_space()
 
+        # check the freedom space
+        if len(self.freedom_space) != (self.state_num - 1) * self.specialist_num + self.generalist_num:
+            raise ValueError("Freedom space has a mismatch with type {0}".format(name))
+
     def update_freedom_space(self):
-        state_occupation = [str(i) + j for i, j in enumerate(self.state)]
+        state_occupation = [str(i) + j for i, j in enumerate(self.cog_state)]
         self.freedom_space = [each for each in self.decision_space if each not in state_occupation]
 
     def randomly_select_one(self):
@@ -125,27 +133,30 @@ class Agent:
         """
         pass
 
-    def local_search(self):
+    def cognitive_local_search(self, show_detail=False):
         """
         Greedy search in the neighborhood (one-bit stride)
         :return: Updating the state list toward a higher cognitive fitness
                     the next fitness value as the footprint
         """
-        next_state = self.state.copy()
+        next_cog_state = self.cog_state.copy()
         updated_position, updated_value = self.randomly_select_one()
-        next_state[int(updated_position)] = updated_value
-        next_fitness = self.landscape.query_cog_fitness(next_state)
-        current_fitness = self.landscape.query_cog_fitness(self.state)
-        if next_fitness > current_fitness:
-            self.state = next_state
-            self.fitness = next_fitness
+        next_cog_state[int(updated_position)] = updated_value
+        next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state)
+        current_cog_fitness = self.landscape.query_cog_fitness(self.cog_state)
+        if show_detail:
+            print("Current cognitive state: {0}; cognitive fitness: {1}".format(self.cog_state, current_cog_fitness))
+            print("Next cognitive state: {0}; cognitive fitness: {1}".format(next_cog_state, next_cog_fitness))
+        if next_cog_fitness > current_cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
             self.update_freedom_space()  # whenever state change, freedom space need to be changed
-            return next_fitness
+            return next_cog_fitness
         else:
-            self.fitness = current_fitness
-            return current_fitness
+            self.cog_fitness = current_cog_fitness
+            return current_cog_fitness
 
-    def jump_search(self):
+    def cognitive_jump_search(self):
         """
         Greedy search in a larger neighborhood (two-bit stride)
         :return: Updating the state list toward a higher cognitive fitness
@@ -153,7 +164,7 @@ class Agent:
         """
         pass
 
-    def change_state_to_cog_state(self):
+    def change_state_to_cog_state(self, state):
         """
         There are two kinds of unknown elements:
             1) unknown in the width (outside of knowledge domain)-> masked with '*'
@@ -162,41 +173,43 @@ class Agent:
         :param state: the intact state list
         :return: masked state list
         """
+        cog_state = self.state.copy()
         if self.generalist_num != 0:  # there are some unknown depth (i.e., with G domain)
-            for index, bit_value in enumerate(self.state):
+            for index, bit_value in enumerate(state):
                 if index in self.generalist_knowledge_domain:
                     if bit_value in ["0", "1"]:
-                        self.state[index] = "A"
+                        cog_state[index] = "A"
                     elif bit_value in ["2", "3"]:
-                        self.state[index] = "B"
+                        cog_state[index] = "B"
                     elif bit_value in ["4", "5"]:
-                        self.state[index] = "C"
+                        cog_state[index] = "C"
                     else:
                         raise ValueError("Only support for state number = 6")
         if len(self.knowledge_domain) < self.N:  # there are some unknown domains
             for index, bit_value in enumerate(self.state):
                 if index not in self.knowledge_domain:
-                    self.state[index] = '*'
-        return self.state
+                    cog_state[index] = '*'
+        return cog_state
 
-    def change_cog_state_to_state(self):
+    def change_cog_state_to_state(self, cog_state=None):
         """
         After concergence, we need to mirror the cognitive fitness into true fitness
-        :return: true state
+        :return: randomly get a true state
         """
-        for index, bit_value in enumerate(self.state):
+        state = cog_state.copy()
+        for index, bit_value in enumerate(cog_state):
             if index not in self.knowledge_domain:
-                self.state[index] = random.choice(range(self.N))
+                state[index] = str(random.choice(range(self.state_num)))
             if index in self.generalist_knowledge_domain:
                 if bit_value == "A":
-                    self.state[index] = random.choice(["0", "1"])
+                    state[index] = random.choice(["0", "1"])
                 elif bit_value == "B":
-                    self.state[index] = random.choice(["2", "3"])
+                    state[index] = random.choice(["2", "3"])
                 elif bit_value == "C":
-                    self.state[index] = random.choice(["4", " 5"])
+                    state[index] = random.choice(["4", " 5"])
                 else:
                     raise ValueError("Unsupported state element: ", bit_value)
-        return self.state
+        return state
 
     def state_legitimacy_check(self):
         for index, bit_value in enumerate(self.state):
@@ -212,7 +225,9 @@ class Agent:
         print("N: ", self.N)
         print("State number: ", self.state_num)
         print("Current state list: ", self.state)
-        print("Current fitness: ", self.fitness)
+        print("Current cognitive state list: ", self.cog_state)
+        print("Current cognitive fitness: ", self.cog_fitness)
+        print("Converged fitness: ", self.converge_fitness)
         print("Knowledge/Manageable domain: ", self.knowledge_domain)
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
         print("Generalist knowledge domain: ", self.generalist_knowledge_domain)
@@ -220,7 +235,7 @@ class Agent:
         print("Learning rate: ", self.lr)
         print("G/S knowledge ratio: ", self.gs_ratio)
         print("Freedom space: ", self.freedom_space)
-        print("State occupation: ", [str(i)+j for i, j in enumerate(self.state)])
+        print("Cognitive state occupation: ", [str(i)+str(j) for i, j in enumerate(self.cog_state)])
         print("Decision space: ", self.decision_space)
         print("********************************")
 
@@ -228,14 +243,18 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     from Landscape import Landscape
-    landscape = Landscape(N=10, state_num=4)
+    landscape = Landscape(N=8, state_num=4)
     landscape.type(IM_type="Random Directed", K=0, k=22)
     landscape.initialize()
 
-    agent = Agent(N=10, lr=0, landscape=landscape, state_num=4)
+    agent = Agent(N=8, lr=0, landscape=landscape, state_num=4)
     agent.type(name="Generalist", generalist_num=4,specialist_num=0)
     agent.describe()
-    agent.local_search()
+    for _ in range(100):
+        agent.cognitive_local_search()
+    agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
+    agent.describe()
+    agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
     agent.describe()
 
 # does this search space or freedom space is too small and easy to memory for individuals??

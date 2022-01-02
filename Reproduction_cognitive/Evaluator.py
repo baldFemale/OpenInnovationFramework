@@ -204,7 +204,6 @@ class Evaluator:
         dfn = x.size - 1  # define degrees of freedom numerator
         dfd = y.size - 1  # define degrees of freedom denominator
         p = 1 - scipy.stats.f.cdf(f, dfn, dfd)  # find p-value of F test statistic
-
         if p < 0.01:
             star = '***'
         elif p < 0.05:
@@ -227,14 +226,19 @@ class Evaluator:
         Line graph across different agent or team type and landscape ruggedness
         :return: polyline figure
         """
-        agent_level_data = []
-        ruggedness_level_data = []
         agent_folders = self.load_folders_under_parent_folder(parent_folder=self.data_path)
+        data_overall = []
         for agent_level_folder in agent_folders:
             ruggedness_level_folder = self.load_folders_under_parent_folder(parent_folder=agent_level_folder)
+            data_agent = []
             for each_folder in ruggedness_level_folder:
-                data_files = self.load_files_under_folder()
-                data =
+                data_files = self.load_files_under_folder(each_folder)
+                data_ruggedness = []
+                for each_file in data_files:
+                    data_ruggedness = self.load_data_from_files(each_file)
+                data_agent.append(data_ruggedness)
+            data_overall.append(data_agent)
+
 
 
 if __name__ == '__main__':
