@@ -9,20 +9,21 @@ import pickle
 import multiprocessing as mp
 
 N = 10
-state_num = 4
+state_num = 8
 landscape_iteration = 1000
 agent_iteration = 1000
 search_iteration = 100
-k_list = [14, 24, 34, 44, 54, 64, 74, 84]
+k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
+agent_name = ["G800", "G040", "S002", "T420", "T401"]
 IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
-generalist_list = [6, 0, 4, 2]
-specialist_list = [0, 3, 1, 2]
+L1_list = [8, 0, 0, 4, 4]
+L2_list = [0, 4, 0, 2, 0]
+L3_list = [0, 0, 2, 0, 1]
 
 
 def loop(k=0, K=0):
-    for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
+    for each_agent_type, L1_num, L2_num, L3_num in zip(agent_name, L1_list, L2_list, L3_list):
         simulator = Simulator(N=N, state_num=state_num)
         A_cog_fitness_landscape = []  # for the detailed fitness dynamic during search
         B_converged_fitness_landscape = []  # for the final converged fitness after search
@@ -31,7 +32,7 @@ def loop(k=0, K=0):
         D_landscape_IM_list = []  # for the landscape IM
         E_knowledge_list_landscape = [] # for the agent knowledge in case we will change the weighted sum algorithm
         for landscape_loop in range(landscape_iteration):
-            simulator.set_landscape(k=k, IM_type="Factor Directed",factor_num=0, influential_num=0)
+            simulator.set_landscape(K=K, IM_type="Traditional Directed",factor_num=0, influential_num=0)
             A_cog_fitness_agent = []
             B_converged_fitness_agent = []
             C_row_match_agent = []
@@ -40,7 +41,7 @@ def loop(k=0, K=0):
             D_landscape_IM_list.append(IM)
             E_knowledge_list_agent = []
             for agent_loop in range(agent_iteration):
-                simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num, specialist_num=specialist_num)
+                simulator.set_agent(name=each_agent_type, L1_num=L1_num, L2_num=L2_num, L3_num=L3_num)
                 A_cog_fitness_search = []
                 for search_loop in range(search_iteration):
                     A_temp_cog_fitness = simulator.agent.cognitive_local_search()
@@ -99,6 +100,7 @@ def loop(k=0, K=0):
             pickle.dump(E_knowledge_list_landscape, out_file)
 
 if __name__ == '__main__':
-    for k in k_list:
-        p = mp.Process(target=loop, args=(k,))
+    for K in K_list:
+        k = 0
+        p = mp.Process(target=loop, args=(k, K))
         p.start()

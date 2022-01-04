@@ -46,9 +46,9 @@ class Simulator:
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
 
-    def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+    def set_agent(self, name="None", L1_num=0, L2_num=0, L3_num=0):
         self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
-        self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+        self.agent.type(name=name, L1_num=L1_num, L2_num=L2_num, L3_num=L3_num)
 
     def individual_run(self):
         """
@@ -83,25 +83,21 @@ class Simulator:
 
 if __name__ == '__main__':
     # Test Example (Waiting for reshaping into class above)
-    # The test code below works.
-    start_time = time.time()
-    random.seed(1024)
     N = 10
-    state_num = 4
-    landscape_iteration = 10
-    agent_iteration = 200
+    state_num = 8
+    landscape_iteration = 2
+    agent_iteration = 100
     search_iteration = 100
-    k_list = [23, 33, 43]
+    k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
+    agent_name = ["G800", "G040", "S002", "T420", "T401"]
     IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
-    generalist_list = [6, 0, 4, 2]
-    specialist_list = [0, 3, 1, 2]
-
-    # state = 10, E = 12 (=2*6; 4*3; 2*4+ 4*1; 2*2+4*2)
+    L1_list = [8, 0, 0, 4, 4]
+    L2_list = [0, 4, 0, 2, 0]
+    L3_list = [0, 0, 2, 0, 1]
 
     for K in K_list:
-        for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
+        for each_agent_type, L1_num, L2_num, L3_num in zip(agent_name, L1_list, L2_list, L3_list):
             simulator = Simulator(N=N, state_num=state_num)
             A_fitness_landscape = []  # for the detailed fitness dynamic during search
             B_converged_fitness_landscape = []  # for the final converged fitness after search
@@ -119,13 +115,17 @@ if __name__ == '__main__':
                 D_landscape_IM_list.append(IM)
                 E_knowledge_list_agent = []
                 for agent_loop in range(agent_iteration):
-                    simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num, specialist_num=specialist_num)
+                    simulator.set_agent(name=each_agent_type, L1_num=L1_num, L2_num=L2_num, L3_num=L3_num)
                     A_fitness_search = []
                     for search_loop in range(search_iteration):
-                        A_temp_fitness = simulator.agent.cognitive_local_search(show_detail=True)
+                        A_temp_fitness = simulator.agent.cognitive_local_search()
                         A_fitness_search.append(A_temp_fitness)
                     A_fitness_agent.append(A_fitness_search)
-                    B_converged_fitness_agent.append(A_fitness_search[-1])
+                    # B_converged_fitness_agent.append(A_fitness_search[-1]) # wrong
+                    simulator.agent.state = simulator.agent.change_cog_state_to_state(
+                        cog_state=simulator.agent.cog_state)
+                    simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
+                    B_converged_fitness_agent.append(simulator.agent.converge_fitness)
 
                     # Weighted sum for the match between landscape IM and agent knowledge
                     C_row_match_temp = 0

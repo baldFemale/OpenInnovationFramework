@@ -65,7 +65,7 @@ class Agent:
         if name:
             self.name = name
         else:
-            self.name = str(self.L1_num) + "_" + str(self.L2_num) + "_" + str(self.L3_num)
+            self.name = str(L1_num) + "_" + str(L2_num) + "_" + str(L3_num)
         self.LL_ratio = LL_ratio
         self.L1_num = L1_num
         self.L2_num = L2_num
@@ -121,6 +121,8 @@ class Agent:
         next_cog_state[int(updated_position)] = updated_value
         next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state)
         current_cog_fitness = self.landscape.query_cog_fitness(self.cog_state)
+        # print("Cur: {0}; Next: {1}".format(current_cog_fitness, next_cog_fitness))
+        # print("Cur_state: {0}; Next_state: {1}".format(self.cog_state, next_cog_state))
         if next_cog_fitness > current_cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -219,7 +221,7 @@ if __name__ == '__main__':
     agent = Agent(N=8, lr=0, landscape=landscape, state_num=8)
     agent.type(L1_num=4, L2_num=0, L3_num=0)
     agent.describe()
-    for _ in range(2):
+    for _ in range(100):
         agent.cognitive_local_search()
     agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
     agent.describe()

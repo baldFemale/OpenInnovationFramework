@@ -122,10 +122,15 @@ if __name__ == '__main__':
                     simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num, specialist_num=specialist_num)
                     A_fitness_search = []
                     for search_loop in range(search_iteration):
-                        A_temp_fitness = simulator.agent.cognitive_local_search(show_detail=True)
+                        A_temp_fitness = simulator.agent.cognitive_local_search()
                         A_fitness_search.append(A_temp_fitness)
                     A_fitness_agent.append(A_fitness_search)
-                    B_converged_fitness_agent.append(A_fitness_search[-1])
+                    # B_converged_fitness_agent.append(A_fitness_search[-1]) # wrong
+                    simulator.agent.state = simulator.agent.change_cog_state_to_state(
+                        cog_state=simulator.agent.cog_state)
+                    simulator.agent.converged_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
+                    B_converged_fitness_agent.append(simulator.agent.converge_fitness)
+
 
                     # Weighted sum for the match between landscape IM and agent knowledge
                     C_row_match_temp = 0
