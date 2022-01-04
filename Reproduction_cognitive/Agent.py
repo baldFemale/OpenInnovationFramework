@@ -100,7 +100,6 @@ class Agent:
             cur for cur in self.knowledge_domain if cur not in self.specialist_knowledge_domain
         ]
         self.cog_state = self.change_state_to_cog_state(state=self.state)
-        print("self.cog_state: ", self.cog_state)
         for cur in self.specialist_knowledge_domain:
             self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
         for cur in self.generalist_knowledge_domain:
@@ -133,20 +132,16 @@ class Agent:
         """
         pass
 
-    def cognitive_local_search(self, show_detail=False):
+    def cognitive_local_search(self):
         """
-        Greedy search in the neighborhood (one-bit stride)
-        :return: Updating the state list toward a higher cognitive fitness
-                    the next fitness value as the footprint
+        Local search in the cognitive neighborhood (one-bit stride)
+        :return: Cognitive fitness
         """
         next_cog_state = self.cog_state.copy()
         updated_position, updated_value = self.randomly_select_one()
         next_cog_state[int(updated_position)] = updated_value
         next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state)
         current_cog_fitness = self.landscape.query_cog_fitness(self.cog_state)
-        if show_detail:
-            print("Current cognitive state: {0}; cognitive fitness: {1}".format(self.cog_state, current_cog_fitness))
-            print("Next cognitive state: {0}; cognitive fitness: {1}".format(next_cog_state, next_cog_fitness))
         if next_cog_fitness > current_cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness

@@ -191,7 +191,6 @@ class Landscape:
         """
         self.create_fitness_config()
         self.store_cache()
-
         # normalization
         if norm:
             normalizor = max(self.cache.values())
@@ -215,7 +214,7 @@ class Landscape:
         return self.contribution_cache[bit]
 
     def query_cog_fitness(self, cog_state=None):
-        cog_state_string = ''.join([str(i) for i in cog_state])
+        cog_state_string = ''.join(cog_state)
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
@@ -226,21 +225,27 @@ class Landscape:
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
-        for bit in cog_state:
-            if bit in ["0", "1", "2", "3"]:
-                alternative_pool.append(bit)
-            elif bit == "A":
-                alternative_pool.append(["0", "1"])
-            elif bit == "B":
-                alternative_pool.append(["2", "3"])
-            elif bit == "C":
-                alternative_pool.append(["4", "5"])
-            elif bit == "*":
+        for bit_value in cog_state:
+            if bit_value in ["0", "1", "2", "3", "4", "5", "6", "7"]:
+                alternative_pool.append(bit_value)
+            elif bit_value == "A":
                 alternative_pool.append(["0", "1", "2", "3"])
+            elif bit_value == "B":
+                alternative_pool.append(["4", "5", "6", "7"])
+            elif bit_value == "a":
+                alternative_pool.append(["0", "1"])
+            elif bit_value == "b":
+                alternative_pool.append(["2", "3"])
+            elif bit_value == "c":
+                alternative_pool.append(["4", "5"])
+            elif bit_value == "d":
+                alternative_pool.append(["6", "7"])
+            elif bit_value == "*":
+                alternative_pool.append(["0", "1", "2", "3", "4", "5", "6", "7"])
             else:
-                raise ValueError("Unsupported bit value: ", bit)
-        if self.state_num != 4:
-            raise ValueError("Mismatch between state number and cognitive expansion")
+                raise ValueError("Unsupported bit value: ", bit_value)
+        if self.state_num != 8:
+            raise ValueError("This code version only support state_num=8")
         return [i for i in product(*alternative_pool)]
 
 if __name__ == '__main__':

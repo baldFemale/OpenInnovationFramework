@@ -158,26 +158,41 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # dir = ['K_10', 'K_2', 'K_4', 'K_6', 'K_8', 'K_0']
 # dir.sort()
 # print(dir)
-def cog_state_alternatives(cog_state=None):
-    alternative_pool = []
-    for bit in cog_state:
-        if bit in ["0", "1", "2", "3"]:
-            alternative_pool.append(bit)
-        elif bit == "A":
-            alternative_pool.append(["0", "1"])
-        elif bit == "B":
-            alternative_pool.append(["2", "3"])
-        elif bit == "C":
-            alternative_pool.append(["4", "5"])
-        elif bit == "*":
-            alternative_pool.append(["0", "1", "2", "3"])
-        else:
-            raise ValueError("Unsupported bit value: ", bit)
-    return [i for i in product(*alternative_pool)]
 
-cog_state = ["A", "B", "1", "0", "*"]
-res = cog_state_alternatives(cog_state=cog_state)
-# print(res)
-A = "A_" + "ssfas"
-x = A.replace("A_", '')
-print(x)
+
+# def cog_state_alternatives(cog_state=None):
+#     alternative_pool = []
+#     for bit in cog_state:
+#         if bit in ["0", "1", "2", "3"]:
+#             alternative_pool.append(bit)
+#         elif bit == "A":
+#             alternative_pool.append(["0", "1"])
+#         elif bit == "B":
+#             alternative_pool.append(["2", "3"])
+#         elif bit == "C":
+#             alternative_pool.append(["4", "5"])
+#         elif bit == "*":
+#             alternative_pool.append(["0", "1", "2", "3"])
+#         else:
+#             raise ValueError("Unsupported bit value: ", bit)
+#     return [i for i in product(*alternative_pool)]
+#
+# cog_state = ["A", "B", "1", "0", "*"]
+# res = cog_state_alternatives(cog_state=cog_state)
+# # print(res)
+# A = "A_" + "ssfas"
+# x = A.replace("A_", '')
+# print(x)
+
+
+# 3 levels of knowledges
+L1_num = 2
+L2_num = 2
+L3_num = 2
+N = 10
+state_num = 8
+domain_number = L1_num + L2_num + L3_num
+knowldege_domain = np.random.choice(N, domain_number, replace=False).tolist()
+print(knowldege_domain)
+L1_domain = np.random.choice(knowldege_domain, L1_num, replace=False).tolist()
+print("L1: ", L1_domain)
