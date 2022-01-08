@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
 from collections import defaultdict
 
@@ -121,7 +123,7 @@ class LandScape():
 
             for j in range(remain_length):
                 temp_state[remainder[j]] = int(bit[j])
-            res+=self.query_fitness(temp_state)
+            res += self.query_fitness(temp_state)
         res = 1.0*res/pow(2, remain_length)
         self.cog_cache[regular_expression] = res
 

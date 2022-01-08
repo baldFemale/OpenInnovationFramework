@@ -42,15 +42,16 @@ class Agent:
         temp_state = list(self.state)
 
         c = np.random.choice(self.decision_space)
+        # Here is a problem: the probability is not equally distributed regarding the depth
 
         if c in self.specialist_knowledge_space:
             current_state = temp_state[c]
             new_state = np.random.choice([cur for cur in range(self.state_num) if cur != current_state])
             temp_state[c] = new_state
 
-        else:
+        else:  # in specialist/T-shape domains
             focal_flag = temp_state[c]//2
-            focal_flag = focal_flag^1
+            focal_flag = focal_flag ^ 1
             temp_state[c] = self.generalist_map_dic[c][focal_flag]
 
         cognitive_state = self.change_state_to_cog_state(self.state)
@@ -89,7 +90,6 @@ def simulation(return_dic, idx, N, k, IM_type, land_num, period, agentNum, teamu
         0-1/3 G
         1/3-2/3 S
         2/3-1 T
-
     """
 
     ress_fitness = []
