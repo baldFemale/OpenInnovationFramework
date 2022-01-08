@@ -16,11 +16,13 @@
 * follow the cognitive local search
 * Generalist domain have a simplified representation of the state (i.e., "A" and "B")
 * Thus, the valid state bit includes [0,1,2,3, "A","B","\*"] where "\*" refers to the unknown domain, while 0-3 refers to the specialist perception/decision.
-* average and max pooling as the cognitive algorithm
+* Average and max pooling as the cognitive algorithm
 
 ## Reproduction_cognitive_8
-* expand the 4 states framework into 8 states, where the decision representation/abstractiion is of 3 levels.
-* Generalist domain have a simplified representation of the state (i.e., "A" and "B" for the top level; "a", "b", "c", "d" for the middle level as below)
+* Expand the 4 states framework into 8 states, where the decision representation/abstractiion is of 3 levels.
+* Generalist domain have a simplified representation of the state (i.e., "A" and "B" for the top level; "a", "b", "c", "d" for the middle level)
+* The representation of the 3-level knowledge abstraction
+
      A      |     B
      
   a      b  |  c      d  
