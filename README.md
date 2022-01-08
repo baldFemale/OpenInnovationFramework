@@ -24,8 +24,11 @@
 * The representation of the 3-level knowledge abstraction
 
 ---A---|---B-----
+
 --a---b-|-c---d---
+
 -0-1-2-3|4-5-6-7--
+
 
 ## Reproduction_diff_GS_roles
 * Generalist and Specialist **domain** will have unique cognitive search algorithm
