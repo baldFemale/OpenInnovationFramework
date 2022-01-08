@@ -23,11 +23,9 @@
 * Generalist domain have a simplified representation of the state (i.e., "A" and "B" for the top level; "a", "b", "c", "d" for the middle level)
 * The representation of the 3-level knowledge abstraction
 
-     A      |     B
-     
- <p align="left"> ;a ;;;;;;;b  |  c      d</p>
-  
-<p align="left">0 1    2 3 | 4 5    6 7</p>  
+---A---|---B-----
+--a---b-|-c---d---
+-0-1-2-3|4-5-6-7--
 
 ## Reproduction_diff_GS_roles
 * Generalist and Specialist **domain** will have unique cognitive search algorithm
