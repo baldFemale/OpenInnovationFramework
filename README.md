@@ -5,7 +5,7 @@
   * multiple state 
 
 
-# Same key and unique feature that cause version divisions
+# Same key and unique features that cause version divisions
 
 ## Reproduction
 * Fixed element for the unknown domain. 
@@ -28,8 +28,8 @@
 
 
 ## Reproduction_diff_GS_roles
-* Generalist and Specialist *domain* will have unique cognitive search algorithm
-* Provide a new indicator *potential fitness* to highlight the value of Generalist
+* Generalist and Specialist **domain** will have unique cognitive search algorithm
+* Provide a new indicator *potential_fitness* to highlight the value of Generalist
 
 
 
