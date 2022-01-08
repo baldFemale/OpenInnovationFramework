@@ -22,10 +22,10 @@
 * expand the 4 states framework into 8 states, where the decision representation/abstractiion is of 3 levels.
 * Generalist domain have a simplified representation of the state (i.e., "A" and "B" for the top level; "a", "b", "c", "d" for the middle level as below)
      A      |     B
-  a      b  |  c      d
- 0 1    2 3 | 4 5    6 7
-
-
+     
+  a      b  |  c      d  
+  
+ 0 1    2 3 | 4 5    6 7  
 
 ## Reproduction_diff_GS_roles
 * Generalist and Specialist **domain** will have unique cognitive search algorithm
