@@ -25,9 +25,9 @@
 
      A      |     B
      
-  a      b  |  c      d  
+ <p align="left"> a      b  |  c      d</p>
   
- 0 1    2 3 | 4 5    6 7  
+<p align="left">0 1    2 3 | 4 5    6 7</p>  
 
 ## Reproduction_diff_GS_roles
 * Generalist and Specialist **domain** will have unique cognitive search algorithm
