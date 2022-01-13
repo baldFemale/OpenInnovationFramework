@@ -34,8 +34,7 @@
 * Generalist and Specialist **domain** will have unique cognitive search algorithm
 * Provide a new indicator *potential_fitness* to highlight the value of Generalist
 * Agent class will have two state representation systems
-** original state representation (e.g., "0", "1", "2", "3" for state is equal to 4)
-
-
+  * Original/Distinct state representation (e.g., "0", "1", "2", "3" for state is equal to 4)
+  * Cognitive state representation will include extraction marks (e.g., "A" for \["0", "1"]) and unknown domain (i.e., "*")
 
 
