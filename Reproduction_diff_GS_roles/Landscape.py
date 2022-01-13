@@ -16,9 +16,9 @@ class Landscape:
         self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
-        self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
+        # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
-        self.fitness_to_rank_dict = None
+        self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.rank_to_fitness_dict = None
 
     def describe(self):
@@ -168,20 +168,18 @@ class Landscape:
             fitness, fitness_contribution = self.calculate_fitness(state)
             bits = ''.join([str(bit) for bit in state])
             self.cache[bits] = fitness
-            self.contribution_cache[bits] = fitness_contribution
+            # self.contribution_cache[bits] = fitness_contribution
 
-    def rank_dict(self, cache):
+    def creat_fitness_rank_dict(self,):
         """
         Sort the cache fitness value and corresponding rank
         To get another performance indicator regarding the reaching rate of relatively high fitness (e.g., the top 10 %)
         """
-        value_list = sorted(list(cache.values()), key=lambda x: -x)
+        value_list = sorted(list(self.cache.values()), key=lambda x: -x)
         fitness_to_rank_dict = {}
-        rank_to_fitness_dict = {}
         for index, value in enumerate(value_list):
             fitness_to_rank_dict[value] = index+1
-            rank_to_fitness_dict[index+1] = value
-        return fitness_to_rank_dict, rank_to_fitness_dict
+        self.fitness_to_rank_dict = fitness_to_rank_dict
 
     def initialize(self, norm=True):
         """
@@ -191,14 +189,13 @@ class Landscape:
         """
         self.create_fitness_config()
         self.store_cache()
-
         # normalization
         if norm:
             normalizor = max(self.cache.values())
             min_normalizor = min(self.cache.values())
             for k in self.cache.keys():
                 self.cache[k] = (self.cache[k]-min_normalizor)/(normalizor-min_normalizor)
-        self.fitness_to_rank_dict, self.rank_to_fitness_dict = self.rank_dict(self.cache)
+        self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
         """
@@ -207,22 +204,17 @@ class Landscape:
         bits = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bits]
 
-    def query_fitness_contribution(self, state):
-        """
-        Query the fitness list from the detailed contribution cache for *intact* decision string
-        """
-        bit = "".join([str(state[i]) for i in range(len(state))])
-        return self.contribution_cache[bit]
-
     def query_cog_fitness(self, cog_state=None):
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
+        fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
         cog_fitness = sum(fitness_pool)/len(alternatives)
+        potential_capability = sum(fitness_rank_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
-        return cog_fitness
+        return cog_fitness, potential_capability
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
@@ -233,19 +225,17 @@ class Landscape:
                 alternative_pool.append(["0", "1"])
             elif bit == "B":
                 alternative_pool.append(["2", "3"])
-            elif bit == "C":
-                alternative_pool.append(["4", "5"])
             elif bit == "*":
                 alternative_pool.append(["0", "1", "2", "3"])
             else:
                 raise ValueError("Unsupported bit value: ", bit)
         if self.state_num != 4:
-            raise ValueError("Mismatch between state number and cognitive expansion")
+            raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
+
 
 if __name__ == '__main__':
     # Test Example
-    random.seed(1024)
     landscape = Landscape(N=6, state_num=4)
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
