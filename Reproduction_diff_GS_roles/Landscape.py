@@ -210,11 +210,11 @@ class Landscape:
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
-        fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
+        # fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
         cog_fitness = sum(fitness_pool)/len(alternatives)
-        potential_capability = sum(fitness_rank_pool)/len(alternatives)
+        # potential_capability = sum(fitness_rank_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
-        return cog_fitness, potential_capability
+        return cog_fitness
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
@@ -236,11 +236,14 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=6, state_num=4)
+    landscape = Landscape(N=8, state_num=4)
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.type(IM_type="Traditional Directed", K=2)
     landscape.initialize()
     landscape.describe()
+    cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
+    a = landscape.query_cog_fitness(cog_state)
+    print(a)
 

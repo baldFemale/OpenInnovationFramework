@@ -6,7 +6,7 @@
 # Observing PEP 8 coding style
 import random
 import numpy as np
-
+from Landscape import Landscape
 
 class Agent:
 
@@ -262,7 +262,6 @@ class Agent:
 
 if __name__ == '__main__':
     # Test Example
-    from Landscape import Landscape
     landscape = Landscape(N=8, state_num=4)
     landscape.type(IM_type="Random Directed", K=0, k=22)
     landscape.initialize()

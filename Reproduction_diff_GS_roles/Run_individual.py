@@ -119,3 +119,4 @@ if __name__ == '__main__':
         for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
             p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
             p.start()
+
