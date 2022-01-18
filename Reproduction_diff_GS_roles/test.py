@@ -182,10 +182,13 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # x = A.replace("A_", '')
 # print(x)
 
-def loop():
-    x = 1
-    y = [each for each in range(19)]
-    return x, y
-
-a = loop()[0]
-print(a)
+# def loop():
+#     x = 1
+#     y = [each for each in range(19)]
+#     return x, y
+#
+# a = loop()[0]
+# print(a)
+x = list(range(10))
+x_list = [1 if each > 5 else 0 for each in x]
+print(x_list)

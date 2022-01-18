@@ -138,21 +138,16 @@ class Agent:
         if updated_position in self.generalist_knowledge_domain:
             next_cog_state = self.cog_state.copy()
             next_cog_state[updated_position] = updated_value
-            current_cog_fitness, current_potential = self.landscape.query_cog_fitness(self.cog_state)
-            next_cog_fitness, next_potential = self.landscape.query_cog_fitness(next_cog_state)
-            # print("cur_state: ", self.cog_state)
-            # print("cur_fitness: ", current_cog_fitness)
-            # print("next_state: ", next_cog_state)
-            # print("next_fitness: ", next_cog_fitness)
+            current_cog_fitness, cur_max_potential_rank = self.landscape.query_cog_fitness(self.cog_state)
+            next_cog_fitness, next_max_potential_rank = self.landscape.query_cog_fitness(next_cog_state)
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
-                # return next_cog_fitness, next_potential
+                self.potential = next_max_potential_rank
             else:
                 self.cog_fitness = current_cog_fitness
-                self.potential = current_potential
-                # return current_cog_fitness, current_potential
+                self.potential = cur_max_potential_rank
         elif updated_position in self.specialist_knowledge_domain:
             cur_cog_state_with_default = self.cog_state.copy()
             next_cog_state = self.cog_state.copy()
@@ -161,29 +156,16 @@ class Agent:
             for default_mindset in self.default_elements_in_unknown_domain:
                 cur_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
                 next_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
-            current_cog_fitness, current_potential = self.landscape.query_cog_fitness(cur_cog_state_with_default)
-            next_cog_fitness, next_potential = self.landscape.query_cog_fitness(next_cog_state_with_default)
-            # print("cur_state: ", self.cog_state)
-            # print("cur_fitness: ", current_cog_fitness)
-            # print("next_state: ", next_cog_state)
-            # print("next_fitness: ", next_cog_fitness)
-            # !!! Very important !!!
-            # T will have different perceptions given the same cognitive state
-            # if T is going to change G domain, the perception (of current state) is based on average pattern
-            # if T is going to change S domain, the perception (of current state) is based on mindset pattern
-            # Thus, the same state will have different cognition.
-            # It's acceptable since the cognition is not true fitness, just reflecting decision process.
-            # Such a T shape mindset is weaker than S, as T have less totally unknown domains
+            current_cog_fitness, cur_max_potential_rank = self.landscape.query_cog_fitness(cur_cog_state_with_default)
+            next_cog_fitness, next_max_potential_rank = self.landscape.query_cog_fitness(next_cog_state_with_default)
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
-                self.potential = next_potential
-                # return next_cog_fitness, next_potential
+                self.potential = next_max_potential_rank
             else:
                 self.cog_fitness = current_cog_fitness
-                self.potential = current_potential
-                # return current_cog_fitness, current_potential
+                self.potential = cur_max_potential_rank
         else:
             raise ValueError("The picked next step go outside of G/S knowledge domain")
 
@@ -267,7 +249,7 @@ if __name__ == '__main__':
     landscape.initialize()
 
     agent = Agent(N=8, lr=0, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=4,specialist_num=2)
+    agent.type(name="T shape", generalist_num=4, specialist_num=2)
     agent.describe()
     for _ in range(100):
         agent.cognitive_local_search()

@@ -19,7 +19,6 @@ class Landscape:
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
-        self.rank_to_fitness_dict = None
 
     def describe(self):
         print("*********LandScape information********* ")
@@ -168,7 +167,6 @@ class Landscape:
             fitness, fitness_contribution = self.calculate_fitness(state)
             bits = ''.join([str(bit) for bit in state])
             self.cache[bits] = fitness
-            # self.contribution_cache[bits] = fitness_contribution
 
     def creat_fitness_rank_dict(self,):
         """
@@ -210,11 +208,13 @@ class Landscape:
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
+        # the rank indicator will be logically consistent with average pooling algorithm
         # fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
+        position_max_potential = max(fitness_pool)
+        position_max_potential_rank = self.fitness_to_rank_dict[position_max_potential]
         cog_fitness = sum(fitness_pool)/len(alternatives)
-        # potential_capability = sum(fitness_rank_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
-        return cog_fitness
+        return cog_fitness, position_max_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []

@@ -43,7 +43,7 @@ class Simulator:
         self.potential_fitness = []  # using the fitness rank, to measure how about the potential of current state
         # using the sum of rank (i.e., the alternative fitness rank [1,2,3], the potential is 6), smaller value refers to higher potential
 
-    def set_landscape(self, K=0, k=0, IM_type=None,factor_num=0, influential_num=0):
+    def set_landscape(self, k=0, K=0, IM_type=None,factor_num=0, influential_num=0):
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     specialist_list = [0, 3, 1, 2]
 
     # state = 10, E = 12 (=2*6; 4*3; 2*4+ 4*1; 2*2+4*2)
-
+    k = 0
     for K in K_list:
         for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
             simulator = Simulator(N=N, state_num=state_num)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
             D_landscape_IM_list = []  # for the landscape IM
             E_knowledge_list_landscape = [] # for the agent knowledge in case we will change the weighted sum algorithm
             for landscape_loop in range(landscape_iteration):
-                simulator.set_landscape(K=K, IM_type="Traditional Directed",factor_num=0, influential_num=0)
+                simulator.set_landscape(k=k, K=K, IM_type="Traditional Directed",factor_num=0, influential_num=0)
                 A_converged_potential_agent = []
                 B_converged_fitness_agent = []
                 C_row_match_agent = []

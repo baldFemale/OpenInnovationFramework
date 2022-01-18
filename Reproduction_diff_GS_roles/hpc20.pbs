@@ -1,9 +1,9 @@
 #!/bin/bash
 #PBS -P nk
 #PBS -j oe
-#PBS -N IndividualTraditional_N10
+#PBS -N IndividualRandom_N10_Hybrid
 #PBS -q parallel20
-#PBS -l select=1:ncpus=20:mem=150gb
+#PBS -l select=1:ncpus=20:mem=50gb
 #PBS -l walltime=240:00:00
 cd $PBS_O_WORKDIR;
 np=$(cat ${PBS_NODEFILE} | wc -l);
@@ -12,4 +12,4 @@ module load miniconda
 bash
 . ~/.bashrc
 conda activate my_conda_env_name
-python Simulator.py
+python Run_individual.py
