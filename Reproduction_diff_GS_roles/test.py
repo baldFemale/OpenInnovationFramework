@@ -189,6 +189,7 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 #
 # a = loop()[0]
 # print(a)
-x = list(range(10))
-x_list = [1 if each > 5 else 0 for each in x]
-print(x_list)
+# set 会改变重复元素数组的排序吗
+x = [1, 1, 2, 5, 1, 2, 3, 3, 6]
+x_2 = list(set(x))
+print(x_2)

@@ -34,7 +34,7 @@ class Evaluator:
         for root, dirs, files in os.walk(folders):
             for ech_file in files:
                 data_files.append(root + '\\' + ech_file)
-        return  data_files
+        return data_files
 
     def load_folders_under_parent_folder(self, parent_folder=None):
         """

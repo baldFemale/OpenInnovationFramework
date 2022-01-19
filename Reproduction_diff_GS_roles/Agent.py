@@ -138,16 +138,14 @@ class Agent:
         if updated_position in self.generalist_knowledge_domain:
             next_cog_state = self.cog_state.copy()
             next_cog_state[updated_position] = updated_value
-            current_cog_fitness, cur_max_potential_rank = self.landscape.query_cog_fitness(self.cog_state)
-            next_cog_fitness, next_max_potential_rank = self.landscape.query_cog_fitness(next_cog_state)
+            current_cog_fitness = self.landscape.query_cog_fitness(self.cog_state)
+            next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state)
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
-                self.potential = next_max_potential_rank
             else:
                 self.cog_fitness = current_cog_fitness
-                self.potential = cur_max_potential_rank
         elif updated_position in self.specialist_knowledge_domain:
             cur_cog_state_with_default = self.cog_state.copy()
             next_cog_state = self.cog_state.copy()
@@ -156,16 +154,14 @@ class Agent:
             for default_mindset in self.default_elements_in_unknown_domain:
                 cur_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
                 next_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
-            current_cog_fitness, cur_max_potential_rank = self.landscape.query_cog_fitness(cur_cog_state_with_default)
-            next_cog_fitness, next_max_potential_rank = self.landscape.query_cog_fitness(next_cog_state_with_default)
+            current_cog_fitness = self.landscape.query_cog_fitness(cur_cog_state_with_default)
+            next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state_with_default)
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
-                self.potential = next_max_potential_rank
             else:
                 self.cog_fitness = current_cog_fitness
-                self.potential = cur_max_potential_rank
         else:
             raise ValueError("The picked next step go outside of G/S knowledge domain")
 

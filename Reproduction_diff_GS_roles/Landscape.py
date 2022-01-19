@@ -19,6 +19,7 @@ class Landscape:
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
+        self.potential_cache = {}  # cache the potential of the position
 
     def describe(self):
         print("*********LandScape information********* ")
@@ -212,9 +213,11 @@ class Landscape:
         # fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
         position_max_potential = max(fitness_pool)
         position_max_potential_rank = self.fitness_to_rank_dict[position_max_potential]
+        if cog_state_string not in self.potential_cache.keys():
+            self.potential_cache[cog_state_string] = position_max_potential_rank
         cog_fitness = sum(fitness_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
-        return cog_fitness, position_max_potential_rank
+        return cog_fitness
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
