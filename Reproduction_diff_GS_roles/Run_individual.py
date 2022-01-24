@@ -10,10 +10,10 @@ import multiprocessing as mp
 
 N = 10
 state_num = 4
-landscape_iteration = 200
-agent_iteration = 200
+landscape_iteration = 1
+agent_iteration = 1
 search_iteration = 100
-k_list = [14, 24, 34, 44, 54, 64, 74, 84]
+k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
@@ -55,10 +55,11 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
                                 specialist_num=specialist_num)
             for search_loop in range(search_iteration):
                 simulator.agent.cognitive_local_search()
-            A_converged_potential_agent.append(simulator.landscape.potential_cache[''.join([str(i) for i in simulator.agent.cog_state])])
+            potential_after_convergence = simulator.landscape.query_potential_performance(cog_state=simulator.agent.cog_state, top=1)
+            A_converged_potential_agent.append(potential_after_convergence)
             simulator.agent.state = simulator.agent.change_cog_state_to_state(
                 cog_state=simulator.agent.cog_state)
-            simulator.agent.converged_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
+            simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
             B_converged_fitness_agent.append(simulator.agent.converge_fitness)
             # Weighted sum for the match between landscape IM and agent knowledge
             C_row_match_temp = 0
@@ -111,11 +112,11 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
 
 
 if __name__ == '__main__':
-    K = 0
-    for k in k_list:
-        for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
-            p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
-            p.start()
+    # K = 0
+    # for k in k_list:
+    #     for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
+    #         p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
+    #         p.start()
 
     # k = 0
     # for K in K_list:
@@ -123,3 +124,10 @@ if __name__ == '__main__':
     #         loop(k, K, each_agent_type, generalist_num, specialist_num)
     #         break
     #     break
+
+    data = []
+    with open(r'1Potential_Generalist_Traditional Directed_N10_K0_k0_E12_G6_S0', 'rb') as infile:
+        # print(each_file)
+        temp = pickle.load(infile)
+        data.append(temp)
+    print(data)

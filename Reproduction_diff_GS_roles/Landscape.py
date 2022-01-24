@@ -97,10 +97,9 @@ class Landscape:
                 choices = np.random.choice(cells, self.k, replace=False).tolist()
                 for each in choices:
                     self.IM[each // self.N][each % self.N] = 1
-            elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are depended more by others
+            elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are more dependent to others
                 if not factor_num:
                     factor_num = self.k // self.N
-                    print("Factor Directed type need defined factor_num. Current default number is {0}.".format(factor_num))
                 factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
                 for cur_i in range(self.N):
                     for cur_j in range(self.N):
@@ -117,8 +116,6 @@ class Landscape:
             elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
                 if not influential_num:
                     influential_num = self.k // self.N
-                    print("Influential Directed type need defined influential_num. Current default number is {0}.".format(
-                        influential_num))
                 influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
                 for cur_i in range(self.N):
                     for cur_j in range(self.N):
@@ -209,15 +206,20 @@ class Landscape:
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
-        # the rank indicator will be logically consistent with average pooling algorithm
-        # fitness_rank_pool = [self.fitness_to_rank_dict[fitness] for fitness in fitness_pool]
-        position_max_potential = max(fitness_pool)
-        position_max_potential_rank = self.fitness_to_rank_dict[position_max_potential]
-        if cog_state_string not in self.potential_cache.keys():
-            self.potential_cache[cog_state_string] = position_max_potential_rank
         cog_fitness = sum(fitness_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
         return cog_fitness
+
+    def query_potential_performance(self, cog_state=None, top=1):
+        cog_state_string = ''.join([str(i) for i in cog_state])
+        if cog_state_string in self.potential_cache.keys():
+            return self.potential_cache[cog_state_string]
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        fitness_pool = [self.query_fitness(each) for each in alternatives]
+        position_potential = sorted(fitness_pool)[-top]
+        position_potential_rank = self.fitness_to_rank_dict[position_potential]
+        self.potential_cache[cog_state_string] = position_potential_rank
+        return position_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []

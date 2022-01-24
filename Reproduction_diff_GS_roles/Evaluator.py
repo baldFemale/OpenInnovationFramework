@@ -57,7 +57,7 @@ class Evaluator:
         for each_file in files_path:
             if ".png" not in each_file:
                 with open(each_file,'rb') as infile:
-                    print(each_file)
+                    # print(each_file)
                     temp = pickle.load(infile)
                     data.append(temp)
         return data
@@ -248,6 +248,7 @@ class Evaluator:
             data_list = self.load_data_from_files(data_files)
             data_folders.append(data_list)
         print(np.array(data_folders).shape)  # (4, 10, 10, 200): (folders/agents, K, landscape loop, agent loop)
+        print("data:", data_folders[0][0][0])
 
         figure = plt.figure()
         ax = figure.add_subplot()
@@ -270,9 +271,9 @@ class Evaluator:
 if __name__ == '__main__':
     # Test Example
 
-    parent_folder = r"C:\Python_Workplace\hpc_cog\nk\up_Individual_Influential_N10\convergence"
+    parent_folder = r"C:\Python_Workplace\hpc-0119-GS_Hybrid\nk\Influential\convergence"
     output_path = parent_folder
-    evaluator =Evaluator(title="Individual Convergence in Influential IM N10", data_path=parent_folder, output_path=output_path)
+    evaluator =Evaluator(title="Individual Convergence in Factor IM N10", data_path=parent_folder, output_path=output_path)
     team_name = ["G", "S", "T22", "T41"]
     evaluator.convergence_evaluation(label_list=team_name)
 
