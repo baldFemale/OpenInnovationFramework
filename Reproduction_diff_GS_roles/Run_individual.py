@@ -22,10 +22,7 @@ IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Ran
 # totally 40 elements; try more knowledgeable setting: 36
 generalist_list = [10, 0, 4, 6]
 specialist_list = [0, 5, 3, 2]
-# 36 = 2*18
-# G 最大：2*10=20
-# S: 4 * 5 = 20
-# T 4 * 3 + 2 * 4 （7 domain）
+
 
 def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=None):
     """

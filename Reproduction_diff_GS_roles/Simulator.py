@@ -78,11 +78,11 @@ if __name__ == '__main__':
             A_converged_potential_landscape = []
             B_converged_fitness_landscape = []  # for the final converged fitness after search
             C_row_match_landscape = []  # for the weighted sum according to IM row
-            C_column_match_landscape = [] # for the weighted sum according to IM column
+            C_column_match_landscape = []  # for the weighted sum according to IM column
             D_landscape_IM_list = []  # for the landscape IM
-            E_knowledge_list_landscape = [] # for the agent knowledge in case we will change the weighted sum algorithm
+            E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
             for landscape_loop in range(landscape_iteration):
-                simulator.set_landscape(k=k, K=K, IM_type="Traditional Directed",factor_num=0, influential_num=0)
+                simulator.set_landscape(K=K, k=k, IM_type="Factor Directed", factor_num=0, influential_num=0)
                 A_converged_potential_agent = []
                 B_converged_fitness_agent = []
                 C_row_match_agent = []
@@ -91,15 +91,17 @@ if __name__ == '__main__':
                 D_landscape_IM_list.append(IM)
                 E_knowledge_list_agent = []
                 for agent_loop in range(agent_iteration):
-                    simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num, specialist_num=specialist_num)
+                    simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num,
+                                        specialist_num=specialist_num)
                     for search_loop in range(search_iteration):
                         simulator.agent.cognitive_local_search()
-                    A_converged_potential_agent.append(simulator.agent.potential)
+                    potential_after_convergence = simulator.landscape.query_potential_performance(
+                        cog_state=simulator.agent.cog_state, top=1)
+                    A_converged_potential_agent.append(potential_after_convergence)
                     simulator.agent.state = simulator.agent.change_cog_state_to_state(
                         cog_state=simulator.agent.cog_state)
-                    simulator.agent.converged_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
+                    simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
                     B_converged_fitness_agent.append(simulator.agent.converge_fitness)
-
                     # Weighted sum for the match between landscape IM and agent knowledge
                     C_row_match_temp = 0
                     for row in range(simulator.N):
@@ -112,13 +114,13 @@ if __name__ == '__main__':
                         if column in simulator.agent.specialist_knowledge_domain:
                             C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
                         if column in simulator.agent.generalist_knowledge_domain:
-                            C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
+                            C_column_match_temp += sum(
+                                IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
 
                     C_row_match_agent.append(C_row_match_temp)
                     C_column_match_agent.append(C_column_match_temp)
-                    E_knowledge_list_agent.append([simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
-                    # print("Current landscape iteration: {0}; Agent iteration: {1}".format(landscape_loop, agent_loop))
-                # A_fitness_landscape.append(A_fitness_agent)
+                    E_knowledge_list_agent.append(
+                        [simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
                 A_converged_potential_landscape.append(A_converged_potential_agent)
                 B_converged_fitness_landscape.append(B_converged_fitness_agent)
                 C_row_match_landscape.append(C_row_match_agent)
@@ -127,8 +129,9 @@ if __name__ == '__main__':
 
             # Output file name
             basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-                        '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(simulator.agent.element_num) + \
-                        '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
+                              '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
+                simulator.agent.element_num) + \
+                              '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
             A_file_name_potential = "1Potential_" + basic_file_name
             B_file_name_convergence = "2Convergence_" + basic_file_name
             C_file_name_row_match = "3RowMatch_" + basic_file_name
