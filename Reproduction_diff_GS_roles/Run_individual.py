@@ -10,8 +10,8 @@ import multiprocessing as mp
 
 N = 10
 state_num = 4
-landscape_iteration = 200
-agent_iteration = 200
+landscape_iteration = 500
+agent_iteration = 500
 search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -20,8 +20,8 @@ IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Ran
 # generalist_list = [6, 0, 4, 2]
 # specialist_list = [0, 3, 1, 2]
 # totally 40 elements; try more knowledgeable setting: 36
-generalist_list = [10, 0, 7]
-specialist_list = [0, 5, ]
+generalist_list = [10, 0, 4, 6]
+specialist_list = [0, 5, 3, 2]
 # 36 = 2*18
 # G 最大：2*10=20
 # S: 4 * 5 = 20
@@ -118,11 +118,11 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
 
 
 if __name__ == '__main__':
-    # K = 0
-    # for k in k_list:
-    #     for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
-    #         p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
-    #         p.start()
+    K = 0
+    for k in k_list:
+        for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
+            p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
+            p.start()
 
     # k = 0
     # for K in K_list:
@@ -131,9 +131,9 @@ if __name__ == '__main__':
     #         break
     #     break
 
-    data = []
-    with open(r'1Potential_Generalist_Traditional Directed_N10_K0_k0_E12_G6_S0', 'rb') as infile:
-        # print(each_file)
-        temp = pickle.load(infile)
-        data.append(temp)
-    print(data)
+    # data = []
+    # with open(r'1Potential_Generalist_Traditional Directed_N10_K0_k0_E12_G6_S0', 'rb') as infile:
+    #     # print(each_file)
+    #     temp = pickle.load(infile)
+    #     data.append(temp)
+    # print(data)

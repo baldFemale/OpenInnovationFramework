@@ -241,7 +241,7 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=8, state_num=4)
-    landscape.type(IM_type="Random Directed", K=0, k=22)
+    landscape.type(IM_type="Factor Directed", K=0, k=42)
     landscape.initialize()
 
     agent = Agent(N=8, lr=0, landscape=landscape, state_num=4)

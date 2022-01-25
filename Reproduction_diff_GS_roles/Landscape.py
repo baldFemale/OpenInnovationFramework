@@ -239,7 +239,7 @@ if __name__ == '__main__':
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
-    landscape.type(IM_type="Traditional Directed", K=2)
+    landscape.type(IM_type="Factor Directed", k=44)
     landscape.initialize()
     landscape.describe()
     cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
