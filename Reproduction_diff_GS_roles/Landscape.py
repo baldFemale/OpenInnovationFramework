@@ -98,7 +98,7 @@ class Landscape:
                 for each in choices:
                     self.IM[each // self.N][each % self.N] = 1
             elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are more dependent to others
-                if not factor_num:
+                if factor_num == 0:
                     factor_num = self.k // self.N
                 factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
                 for cur_i in range(self.N):
@@ -145,11 +145,6 @@ class Landscape:
         self.FC = FC
 
     def calculate_fitness(self, state):
-        """
-        Param state: the decision string
-        Return: 1. the average fitness across state bits: 1 by 1
-                    2. the original 1D fitness list: 1 by len(state)
-        """
         res = []
         for i in range(len(state)):
             dependency = self.dependency_map[i]
@@ -157,14 +152,13 @@ class Landscape:
             bin_index = str(state[i]) + bin_index
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
-        return np.mean(res), res
+        return np.mean(res)
 
     def store_cache(self,):
         all_states = [state for state in product(range(self.state_num), repeat=self.N)]
-        for index, state in enumerate(all_states):
-            fitness, fitness_contribution = self.calculate_fitness(state)
+        for state in all_states:
             bits = ''.join([str(bit) for bit in state])
-            self.cache[bits] = fitness
+            self.cache[bits] = self.calculate_fitness(state)
 
     def creat_fitness_rank_dict(self,):
         """

@@ -271,9 +271,9 @@ class Evaluator:
 if __name__ == '__main__':
     # Test Example
 
-    parent_folder = r"C:\Python_Workplace\hpc-0119-GS_Hybrid\nk\Influential\convergence"
+    parent_folder = r"C:\Python_Workplace\hpc-0125\nk\Traditional\potential"
     output_path = parent_folder
-    evaluator =Evaluator(title="Individual Convergence in Factor IM N10", data_path=parent_folder, output_path=output_path)
+    evaluator =Evaluator(title="Individual Potential in Traditional IM N10", data_path=parent_folder, output_path=output_path)
     team_name = ["G", "S", "T22", "T41"]
     evaluator.convergence_evaluation(label_list=team_name)
 

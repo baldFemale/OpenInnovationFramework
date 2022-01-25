@@ -17,9 +17,15 @@ k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
-generalist_list = [6, 0, 4, 2]
-specialist_list = [0, 3, 1, 2]
-
+# generalist_list = [6, 0, 4, 2]
+# specialist_list = [0, 3, 1, 2]
+# totally 40 elements; try more knowledgeable setting: 36
+generalist_list = [10, 0, 7]
+specialist_list = [0, 5, ]
+# 36 = 2*18
+# G 最大：2*10=20
+# S: 4 * 5 = 20
+# T 4 * 3 + 2 * 4 （7 domain）
 
 def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=None):
     """

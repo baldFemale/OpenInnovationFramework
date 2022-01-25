@@ -191,11 +191,9 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # print(a)
 # set 会改变重复元素数组的排序吗
 # import pickle
-# file = r'C:\Python_Workplace\hpc-0124\nk\Factor\convergence\T\2Convergence_T shape_Factor Directed_N10_K0_k4_E12_G2_S2'
+# file = r'C:\Python_Workplace\hpc-0125\nk\Factor\5IM_Specialist_Factor Directed_N10_K0_k4_E12_G0_S3'
 # with open(file, 'rb') as in_file:
 #     temp = pickle.load(in_file)
-#
-# print(temp)
-x = [1, 9, 8, 6]
-y = sorted(x)[-2]
-print(y)
+# for i in range(len(temp)):
+#     IM = np.array(temp[i])
+#     print(IM)
