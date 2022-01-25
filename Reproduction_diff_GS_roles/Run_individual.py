@@ -10,8 +10,8 @@ import multiprocessing as mp
 
 N = 10
 state_num = 4
-landscape_iteration = 1
-agent_iteration = 1
+landscape_iteration = 200
+agent_iteration = 200
 search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -42,7 +42,7 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
     D_landscape_IM_list = []  # for the landscape IM
     E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
     for landscape_loop in range(landscape_iteration):
-        simulator.set_landscape(K=K, k=k, IM_type="Traditional Directed", factor_num=0, influential_num=0)
+        simulator.set_landscape(K=K, k=k, IM_type="Factor Directed", factor_num=0, influential_num=0)
         A_converged_potential_agent = []
         B_converged_fitness_agent = []
         C_row_match_agent = []
