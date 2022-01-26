@@ -239,7 +239,7 @@ class Evaluator:
                 data_agent.append(data_ruggedness)
             data_overall.append(data_agent)
 
-    def convergence_evaluation(self, label_list=None):
+    def convergence_evaluation(self, label_list=None, show_variance=False, select_list=None):
         folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
 
         data_folders = []
@@ -250,10 +250,23 @@ class Evaluator:
         print(np.array(data_folders).shape)  # (4, 10, 10, 200): (folders/agents, K, landscape loop, agent loop)
         print("data:", data_folders[0][0][0])
 
+        # only evaluate part of these data
+        if (len(label_list) != len(data_folders)) or select_list:
+            data_folders = [data_folders[i] for i in select_list]
+            label_list = [label_list[i] for i in select_list]
+
         figure = plt.figure()
         ax = figure.add_subplot()
-        for lable, each_curve in zip(label_list, data_folders):
-            ax.plot(np.mean(np.mean(np.array(each_curve), axis=2), axis=1), label="{}".format(lable))
+        for lable, each_curve in zip(label_list, data_folders):  # release the Agent type level
+            average_value = np.mean(np.mean(np.array(each_curve), axis=2), axis=1)  # 10 * (500 * 500)
+            variation_value = np.var(np.array(each_curve).reshape((10, -1)), axis=1)
+            ax.plot(average_value, label="{}".format(lable))
+            if show_variance:
+                # draw the variance
+                lower = [x - y for x, y in zip(average_value, variation_value)]
+                upper = [x + y for x, y in zip(average_value, variation_value)]
+                xaxis = list(range(len(lower)))
+                ax.fill_between(x=xaxis, y1=lower, y2=upper, alpha=0.15)
 
         ax.set_xlabel('K') # Add an x-label to the axes.
         ax.set_ylabel('Average fitness')  # Add a y-label to the axes.
@@ -264,17 +277,15 @@ class Evaluator:
         plt.show()
 
 
-
-
-
-
 if __name__ == '__main__':
     # Test Example
 
-    parent_folder = r"C:\Python_Workplace\hpc-0125\nk\Traditional\potential"
+    parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Influential\convergence"
     output_path = parent_folder
-    evaluator =Evaluator(title="Individual Potential in Traditional IM N10", data_path=parent_folder, output_path=output_path)
-    team_name = ["G", "S", "T22", "T41"]
-    evaluator.convergence_evaluation(label_list=team_name)
+    evaluator =Evaluator(title="GS Convergence in Influential IM N10", data_path=parent_folder, output_path=output_path)
+    team_name = ["G", "S", "T43", "T62"]
+    # team_name = ["G", "S"]
+    # evaluator.convergence_evaluation(label_list=team_name)
+    evaluator.convergence_evaluation(label_list=team_name, select_list=[0,1], show_variance=True)
 
 
