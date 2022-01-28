@@ -44,11 +44,13 @@ class Simulator:
         # using the sum of rank (i.e., the alternative fitness rank [1,2,3], the potential is 6), smaller value refers to higher potential
 
     def set_landscape(self, k=0, K=0, IM_type=None,factor_num=0, influential_num=0):
+        self.landscape = None
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
 
     def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+        self.agent = None
         self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
         self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
 
@@ -60,19 +62,23 @@ if __name__ == '__main__':
     random.seed(1024)
     N = 10
     state_num = 4
-    landscape_iteration = 10
-    agent_iteration = 200
+    landscape_iteration = 1
+    agent_iteration = 1
     search_iteration = 100
-    k_list = [23, 33, 43]
+    k_list = [44]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
-    IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
-    generalist_list = [6, 0, 4, 2]
-    specialist_list = [0, 3, 1, 2]
+    # agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
+    agent_name = ["Generalist"]
+    # IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+    IM_type = ["Factor Directed"]
+    # generalist_list = [6, 0, 4, 2]
+    # specialist_list = [0, 3, 1, 2]
+    generalist_list = [6]
+    specialist_list = [0]
 
     # state = 10, E = 12 (=2*6; 4*3; 2*4+ 4*1; 2*2+4*2)
-    k = 0
-    for K in K_list:
+    K = 0
+    for k in k_list:
         for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
             simulator = Simulator(N=N, state_num=state_num)
             A_converged_potential_landscape = []

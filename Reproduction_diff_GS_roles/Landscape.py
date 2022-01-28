@@ -114,7 +114,7 @@ class Landscape:
                         self.IM[indexs[0]][indexs[1]] = 1
 
             elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
-                if not influential_num:
+                if influential_num == 0:
                     influential_num = self.k // self.N
                 influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
                 for cur_i in range(self.N):

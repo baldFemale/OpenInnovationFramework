@@ -190,10 +190,35 @@ decision_space_dict = {8: [2, 1], 9: [0, 3], 6: [3, 2], 2: [0, 3]}
 # a = loop()[0]
 # print(a)
 # set 会改变重复元素数组的排序吗
-# import pickle
-# file = r'C:\Python_Workplace\hpc-0125\nk\Factor\5IM_Specialist_Factor Directed_N10_K0_k4_E12_G0_S3'
-# with open(file, 'rb') as in_file:
-#     temp = pickle.load(in_file)
-# for i in range(len(temp)):
-#     IM = np.array(temp[i])
-#     print(IM)
+import pickle
+temp = None
+
+
+
+file = r'C:\Python_Workplace\hpc-0126\nk\Factor\5IM_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
+with open(file, 'rb') as in_file:
+    IM = pickle.load(in_file)
+# for each in np.array(IM):
+#     print(each)
+file = r'C:\Python_Workplace\hpc-0126\nk\Factor\6Knowledge_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
+with open(file, 'rb') as in_file:
+    knowledge_domain = pickle.load(in_file)
+
+C_row_match_temp = 0
+for l in range(500):
+    each_IM = IM[l]
+    print(np.array(each_IM))
+    for a in range(500):
+        each_agent_knowledge = knowledge_domain[l][a]
+        print(each_agent_knowledge)
+        for column in range(10):
+            if column in each_agent_knowledge[1]:
+                # print(sum(each_IM[:][column]))
+                print(each_IM[:][column])
+                # C_row_match_temp += sum(each_IM[:][column]) * 2
+                # if column in each_agent:
+                #     C_row_match_temp += sum(IM[:][column]) *4
+        break
+    break
+# print(C_row_match_temp)
+#
