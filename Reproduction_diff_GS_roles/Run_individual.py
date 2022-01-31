@@ -88,11 +88,17 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
         C_column_match_landscape.append(C_column_match_agent)
         E_knowledge_list_landscape.append(E_knowledge_list_agent)
 
-    # Output file name
-    basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-                      '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
-        simulator.agent.element_num) + \
-                      '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
+    # Output file name  # fix the bug when evaluate the performance curve, the k=4 will go to position of the k=44
+    if simulator.landscape.k < 10:
+        basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
+                          '_K' + str(simulator.landscape.K) + '_k0' + str(simulator.landscape.k) + '_E' + str(
+            simulator.agent.element_num) + \
+                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
+    else:
+        basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
+                          '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
+            simulator.agent.element_num) + \
+                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
     A_file_name_potential = "1Potential_" + basic_file_name
     B_file_name_convergence = "2Convergence_" + basic_file_name
     C_file_name_row_match = "3RowMatch_" + basic_file_name

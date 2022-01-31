@@ -9,6 +9,8 @@ from itertools import product
 import numpy as np
 import random
 import matplotlib.pylab as plt
+import os
+import sys
 
 # list is better than the dict
 # long_dict = {}
@@ -195,30 +197,56 @@ temp = None
 
 
 
-file = r'C:\Python_Workplace\hpc-0126\nk\Factor\5IM_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
-with open(file, 'rb') as in_file:
-    IM = pickle.load(in_file)
-# for each in np.array(IM):
-#     print(each)
-file = r'C:\Python_Workplace\hpc-0126\nk\Factor\6Knowledge_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
-with open(file, 'rb') as in_file:
-    knowledge_domain = pickle.load(in_file)
-
-C_row_match_temp = 0
-for l in range(500):
-    each_IM = IM[l]
-    print(np.array(each_IM))
-    for a in range(500):
-        each_agent_knowledge = knowledge_domain[l][a]
-        print(each_agent_knowledge)
-        for column in range(10):
-            if column in each_agent_knowledge[1]:
-                # print(sum(each_IM[:][column]))
-                print(each_IM[:][column])
-                # C_row_match_temp += sum(each_IM[:][column]) * 2
-                # if column in each_agent:
-                #     C_row_match_temp += sum(IM[:][column]) *4
-        break
-    break
+# file = r'C:\Python_Workplace\hpc-0126\nk\Factor\5IM_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
+# with open(file, 'rb') as in_file:
+#     IM = pickle.load(in_file)
+# # for each in np.array(IM):
+# #     print(each)
+# file = r'C:\Python_Workplace\hpc-0126\nk\Factor\6Knowledge_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
+# with open(file, 'rb') as in_file:
+#     knowledge_domain = pickle.load(in_file)
+#
+# C_row_match_temp = 0
+# for l in range(500):
+#     each_IM = IM[l]
+#     print(np.array(each_IM))
+#     for a in range(500):
+#         each_agent_knowledge = knowledge_domain[l][a]
+#         print(each_agent_knowledge)
+#         for column in range(10):
+#             if column in each_agent_knowledge[1]:
+#                 # print(sum(each_IM[:][column]))
+#                 print(each_IM[:][column])
+#                 # C_row_match_temp += sum(each_IM[:][column]) * 2
+#                 # if column in each_agent:
+#                 #     C_row_match_temp += sum(IM[:][column]) *4
+#         break
+#     break
 # print(C_row_match_temp)
 #
+file_4 = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S\2Convergence_Specialist_Factor Directed_N10_K0_k44_E20_G0_S5'
+file_3 = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S\2Convergence_Specialist_Factor Directed_N10_K0_k4_E20_G0_S5'
+folder = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S'
+data_files = []
+for root, dirs, files in os.walk(folder):
+    for ech_file in files:
+        data_files.append(root + '\\' + ech_file)
+data = []
+for each_file in data_files:
+    with open(each_file, 'rb') as in_file:
+        temp = pickle.load(in_file)
+    data.append(temp)
+data = np.array(data)
+print(data.shape)
+for each in data:
+    print(np.mean(each))
+print("*******************")
+with open(file_3, 'rb') as in_file:
+    temp_3 = pickle.load(in_file)
+    temp_3 = np.array(temp_3)
+print("File 3", np.mean(temp_3))
+
+with open(file_4, 'rb') as in_file:
+    temp_4 = pickle.load(in_file)
+    temp_4 = np.array(temp_4)
+print("File 4", np.mean(temp_4))

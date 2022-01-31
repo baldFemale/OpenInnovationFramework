@@ -56,7 +56,7 @@ class Evaluator:
         data = []
         for each_file in files_path:
             if ".png" not in each_file:
-                with open(each_file,'rb') as infile:
+                with open(each_file, 'rb') as infile:
                     # print(each_file)
                     temp = pickle.load(infile)
                     data.append(temp)
@@ -85,12 +85,52 @@ class Evaluator:
             star = '.'
         return f, p, star
 
-    def convergence_evaluation(self, label_list=None, show_variance=False, select_list=None):
-        folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
+    def simple_evaluation(self, label_list=None, show_variance=False, select_list=None):
+        """
+        1-D Analysis: either across K or acorss Agent type or IM type
+        :param label_list: the labels for the curves
+        :param show_variance: show the upper and lower bound
+        :param select_list: only select part of the curve, via the list index
+        :return: the figure in the same folder
+        """
+        data_files = self.load_files_under_folder(folders=self.data_path)
+        data_folder = self.load_data_from_files(data_files)
+        print(np.array(data_folder).shape)  # (4, 10, 10, 200): (folders/agents, K, landscape loop, agent loop)
+        for each in np.array(data_folder):
+            print(np.mean(np.mean(each, axis=1), axis=0))
+        # only evaluate part of these data
+        if (len(label_list) != len(data_folder)) or select_list:
+            data_folder = [data_folder[i] for i in select_list]
+            label_list = [label_list[i] for i in select_list]
 
+        figure = plt.figure()
+        ax = figure.add_subplot()
+        for lable, each_curve in zip(label_list, data_folder):  # release the Agent type level
+            average_value = np.mean(np.array(each_curve), axis=1)  # 10 * (500 * 500)
+            ax.plot(average_value, label="{}".format(lable))
+
+        ax.set_xlabel('K')  # Add an x-label to the axes.
+        ax.set_ylabel('Average fitness')  # Add a y-label to the axes.
+        ax.set_title(self.title)  # Add a title to the whole figure
+        plt.legend()
+        output = self.output_path + "\\" + self.title + ".png"
+        plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
+        plt.show()
+
+
+    def convergence_evaluation(self, label_list=None, show_variance=False, select_list=None):
+        """
+        2-D Analysis: across K and across Agent type
+        :param label_list: the labels for the curves
+        :param show_variance: show the upper and lower bound
+        :param select_list: only select part of the curve, via the list index
+        :return: the figure in the same folder
+        """
+        folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
         data_folders = []
         for folder in folders_list:
             data_files = self.load_files_under_folder(folder)
+            print(data_files)
             data_list = self.load_data_from_files(data_files)
             data_folders.append(data_list)
         print(np.array(data_folders).shape)  # (4, 10, 10, 200): (folders/agents, K, landscape loop, agent loop)
@@ -165,14 +205,12 @@ class Evaluator:
 if __name__ == '__main__':
     # Test Example
     # Convergence evaluation
-    parent_folder = r"C:\Python_Workplace\hpc-0131\k44\Convergence"
+    parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Factor\convergence"
     output_path = parent_folder
-    evaluator =Evaluator(title="GS Convergence in IM N10", data_path=parent_folder, output_path=output_path)
-    # team_name = ["G", "S", "T43", "T62"]
-    team_name = ["S", "T", "T"]
-    # evaluator.convergence_evaluation(label_list=team_name)
+    evaluator = Evaluator(title="GS Convergence Factor in IM N10", data_path=parent_folder, output_path=output_path)
+    team_name = ["G", "S", "T43", "T62"]
+    evaluator.convergence_evaluation(label_list=team_name)
     # evaluator.convergence_evaluation(label_list=team_name, select_list=[0,1], show_variance=True)
-    evaluator.individual_evaluate()
 
 
     # match evaluation
