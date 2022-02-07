@@ -223,30 +223,3 @@ temp = None
 #         break
 #     break
 # print(C_row_match_temp)
-#
-file_4 = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S\2Convergence_Specialist_Factor Directed_N10_K0_k44_E20_G0_S5'
-file_3 = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S\2Convergence_Specialist_Factor Directed_N10_K0_k4_E20_G0_S5'
-folder = r'C:\Python_Workplace\hpc-0126\nk\Factor\convergence\S'
-data_files = []
-for root, dirs, files in os.walk(folder):
-    for ech_file in files:
-        data_files.append(root + '\\' + ech_file)
-data = []
-for each_file in data_files:
-    with open(each_file, 'rb') as in_file:
-        temp = pickle.load(in_file)
-    data.append(temp)
-data = np.array(data)
-print(data.shape)
-for each in data:
-    print(np.mean(each))
-print("*******************")
-with open(file_3, 'rb') as in_file:
-    temp_3 = pickle.load(in_file)
-    temp_3 = np.array(temp_3)
-print("File 3", np.mean(temp_3))
-
-with open(file_4, 'rb') as in_file:
-    temp_4 = pickle.load(in_file)
-    temp_4 = np.array(temp_4)
-print("File 4", np.mean(temp_4))
