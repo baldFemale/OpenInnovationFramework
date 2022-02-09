@@ -32,7 +32,7 @@ def loop(k=0, K=0):
         D_landscape_IM_list = []  # for the landscape IM
         E_knowledge_list_landscape = [] # for the agent knowledge in case we will change the weighted sum algorithm
         for landscape_loop in range(landscape_iteration):
-            simulator.set_landscape(K=K, IM_type="Traditional Directed",factor_num=0, influential_num=0)
+            simulator.set_landscape(K=K, IM_type="Random Directed",factor_num=0, influential_num=0)
             A_cog_fitness_agent = []
             B_converged_fitness_agent = []
             C_row_match_agent = []
@@ -42,11 +42,11 @@ def loop(k=0, K=0):
             E_knowledge_list_agent = []
             for agent_loop in range(agent_iteration):
                 simulator.set_agent(name=each_agent_type, L1_num=L1_num, L2_num=L2_num, L3_num=L3_num)
-                A_cog_fitness_search = []
+                # A_cog_fitness_search = []
                 for search_loop in range(search_iteration):
-                    A_temp_cog_fitness = simulator.agent.cognitive_local_search()
-                    A_cog_fitness_search.append(A_temp_cog_fitness)
-                A_cog_fitness_agent.append(A_cog_fitness_search)
+                    simulator.agent.cognitive_local_search()
+                    # A_cog_fitness_search.append(A_temp_cog_fitness)
+                # A_cog_fitness_agent.append(A_cog_fitness_search)
                 # B_converged_fitness_agent.append(A_fitness_search[-1])  # wrong
                 simulator.agent.state = simulator.agent.change_cog_state_to_state(cog_state=simulator.agent.cog_state)
                 simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
@@ -70,7 +70,7 @@ def loop(k=0, K=0):
                 C_column_match_agent.append(C_column_match_temp)
                 E_knowledge_list_agent.append([simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
                 # print("Current landscape iteration: {0}; Agent iteration: {1}".format(landscape_loop, agent_loop))
-            A_cog_fitness_landscape.append(A_cog_fitness_agent)
+            # A_cog_fitness_landscape.append(A_cog_fitness_agent)
             B_converged_fitness_landscape.append(B_converged_fitness_agent)
             C_row_match_landscape.append(C_row_match_agent)
             C_column_match_landscape.append(C_column_match_agent)
@@ -86,8 +86,8 @@ def loop(k=0, K=0):
         D_file_name_IM_information = "5IM_" + A_file_name
         E_file_name_agent_knowledge = "6Knowledge_" + A_file_name
 
-        with open(A_file_name, 'wb') as out_file:
-            pickle.dump(A_cog_fitness_landscape, out_file)
+        # with open(A_file_name, 'wb') as out_file:
+        #     pickle.dump(A_cog_fitness_landscape, out_file)
         with open(B_file_name_convergence, 'wb') as out_file:
             pickle.dump(B_converged_fitness_landscape, out_file)
         with open(C_file_name_row_match, 'wb') as out_file:
@@ -100,7 +100,7 @@ def loop(k=0, K=0):
             pickle.dump(E_knowledge_list_landscape, out_file)
 
 if __name__ == '__main__':
-    for K in K_list:
-        k = 0
+    for k in k_list:
+        K = 0
         p = mp.Process(target=loop, args=(k, K))
         p.start()

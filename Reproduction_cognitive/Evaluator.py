@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 import os
 import re
-import scipy
+import scipy.stats
 
 
 class Evaluator:
@@ -34,7 +34,7 @@ class Evaluator:
         for root, dirs, files in os.walk(folders):
             for ech_file in files:
                 data_files.append(root + '\\' + ech_file)
-        return  data_files
+        return data_files
 
     def load_folders_under_parent_folder(self, parent_folder=None):
         """
@@ -49,7 +49,7 @@ class Evaluator:
 
     def load_data_from_files(self, files_path=None):
         """
-        load one data from one certain file path
+        load a list of data under the target folder
         :param file_path: data file path
         :return:the loaded data (i.e., fitness list)
         """
@@ -62,7 +62,7 @@ class Evaluator:
                     data.append(temp)
         return data
 
-    def individual_evaluate(self, label=None):
+    def search_process_evaluate(self, label=None, x_label="Search Iteration", y_label='Average fitness'):
         """
         Only for the individual search
         :param label: the curve label, mainly for the agent name (e.g., T shape 22, T shape 41)
@@ -77,8 +77,8 @@ class Evaluator:
             # landscape_iteraton=5;     agent_iteration = 200; search_iteration = 200
             axis.plot(np.mean(np.mean(np.array(each_data), axis=0), axis=0), label="{}".format(name))
 
-        axis.set_xlabel('Search iteration')  # Add an x-label to the axes.
-        axis.set_ylabel('Average fitness')  # Add a y-label to the axes.
+        axis.set_xlabel(x_label)  # Add an x-label to the axes.
+        axis.set_ylabel(y_label)  # Add a y-label to the axes.
 
         flag = 0
         for each in list(data_files[0]):
@@ -204,76 +204,76 @@ class Evaluator:
         dfn = x.size - 1  # define degrees of freedom numerator
         dfd = y.size - 1  # define degrees of freedom denominator
         p = 1 - scipy.stats.f.cdf(f, dfn, dfd)  # find p-value of F test statistic
-        if p < 0.01:
-            star = '***'
-        elif p < 0.05:
-            star = '**'
-        elif p < 0.1:
-            star = '*'
-        else:
-            star = '.'
-        return f, p, star
-
-    def final_fitness_order(self):
-        """
-        The final converge is the performance of each agent-task combination
-        :return: the converge figure
-        """
-        pass
-
-    def performance_polyline_across_type_k(self):
-        """
-        Line graph across different agent or team type and landscape ruggedness
-        :return: polyline figure
-        """
-        agent_folders = self.load_folders_under_parent_folder(parent_folder=self.data_path)
-        data_overall = []
-        for agent_level_folder in agent_folders:
-            ruggedness_level_folder = self.load_folders_under_parent_folder(parent_folder=agent_level_folder)
-            data_agent = []
-            for each_folder in ruggedness_level_folder:
-                data_files = self.load_files_under_folder(each_folder)
-                data_ruggedness = []
-                for each_file in data_files:
-                    data_ruggedness = self.load_data_from_files(each_file)
-                data_agent.append(data_ruggedness)
-            data_overall.append(data_agent)
+        return f, p
 
     def convergence_evaluation(self, label_list=None):
         folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
-
         data_folders = []
         for folder in folders_list:
             data_files = self.load_files_under_folder(folder)
             data_list = self.load_data_from_files(data_files)
             data_folders.append(data_list)
-        print(np.array(data_folders).shape)  # (4, 10, 10, 200): (folders/agents, K, landscape loop, agent loop)
 
+        print(np.array(data_folders).shape)  # (2,8,500,500): (folders/agents, K, landscape loop, agent loop)
+        #
         figure = plt.figure()
-        ax = figure.add_subplot()
+        # figure.set_title(self.title)
+        ax = figure.add_subplot(1, 2, 1)
+        bx = figure.add_subplot(1, 2, 2)
         for lable, each_curve in zip(label_list, data_folders):
             ax.plot(np.mean(np.mean(np.array(each_curve), axis=2), axis=1), label="{}".format(lable))
+            each_curve = np.array(each_curve)
+            repeatation = each_curve.shape[-1] * each_curve.shape[-2]
+            print("rep: ", repeatation)
+            each_curve = each_curve.reshape([-1, repeatation])
+            print("each_curve: ", each_curve.shape)
+            bx.plot(np.var(each_curve, axis=1), label="{}".format(lable))
 
-        ax.set_xlabel('K') # Add an x-label to the axes.
+        ax.set_xlabel('K')  # Add an x-label to the axes.
         ax.set_ylabel('Average fitness')  # Add a y-label to the axes.
-        ax.set_title(self.title)  # Add a title to the whole figure
+        ax.set_title("Fitness")  # Add a title to the whole figure
+        bx.set_xlabel('K')
+        bx.set_ylabel('Variance')  # Add a y-label to the axes.
+        bx.set_title("Variance")  # Add a title to the whole figure
+        plt.subplots_adjust(wspace=0.35, hspace=0.1)
         plt.legend()
+        plt.suptitle(self.title)
         output = self.output_path + "\\" + self.title + ".png"
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
-
-
-
+    def calculate_significance(self):
+        folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
+        data_folders = []
+        for folder in folders_list:
+            data_files = self.load_files_under_folder(folder)
+            data_list = self.load_data_from_files(data_files)
+            data_folders.append(data_list)
+        for i in range(len(data_folders)):
+            if i == 0:
+                continue
+            for k in range(len(data_folders[0])):
+                f_statistics_gs, p_value_gs = self.f_test(baseline=data_folders[0][k], showline=data_folders[i][k])
+                print("No.{0}.k{1} F-statics: {2} & p-value: {3}".format(i, k, f_statistics_gs, p_value_gs))
 
 
 if __name__ == '__main__':
     # Test Example
+    # Draw the converged fitness and fitness variance figure
+    # parent_folder = r"C:\Python_Workplace\nk\up_Individual_Influential_N10max\convergence"
+    # output_path = parent_folder
+    # evaluator = Evaluator(title="Individual Convergence in Influential IM N10 (max)", data_path=parent_folder, output_path=output_path)
+    # team_name = ["G", "S", "T22", "T41"]
+    # # team_name = ["G", "S", "T41"]
+    # evaluator.convergence_evaluation(label_list=team_name)  # draw the figure
+    # evaluator.calculate_significance()  # do the F-test for the significant difference between G and the others across different k/K
 
-    parent_folder = r"C:\Python_Workplace\hpc_cog\nk\up_Individual_Influential_N10\convergence"
+
+    parent_folder = r"C:\Python_Workplace\nk\up_Individual_Influential_N10max\search"
     output_path = parent_folder
-    evaluator =Evaluator(title="Individual Convergence in Influential IM N10", data_path=parent_folder, output_path=output_path)
+    evaluator = Evaluator(title="Individual Convergence in Influential IM N10 (max)", data_path=parent_folder, output_path=output_path)
     team_name = ["G", "S", "T22", "T41"]
-    evaluator.convergence_evaluation(label_list=team_name)
+    # team_name = ["G", "S", "T41"]
+    evaluator.convergence_evaluation(label_list=team_name)  # draw the figure
 
 

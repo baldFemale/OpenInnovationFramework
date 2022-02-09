@@ -10,8 +10,8 @@ import multiprocessing as mp
 
 N = 10
 state_num = 4
-landscape_iteration = 1000
-agent_iteration = 1000
+landscape_iteration = 500
+agent_iteration = 500
 search_iteration = 100
 k_list = [14, 24, 34, 44, 54, 64, 74, 84]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
