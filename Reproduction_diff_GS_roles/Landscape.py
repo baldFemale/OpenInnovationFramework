@@ -189,12 +189,20 @@ class Landscape:
 
     def query_fitness(self, state):
         """
-        Query the average fitness from the landscape cache for *intact* decision string
+        Query the accurate fitness from the landscape cache for *intact* decision string
+        *intact* means there only [0,1,2,3] without any ["A", "B", "*"] masking.
         """
         bits = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bits]
 
     def query_cog_fitness(self, cog_state=None):
+        """
+        Query the cognitive (average) fitness given a cognitive state
+                For S domain, there is only one alternative, so it follows the default search
+                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
+        :param cog_state: the cognitive state
+        :return: the average across the alternative pool.
+        """
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
@@ -205,6 +213,13 @@ class Landscape:
         return cog_fitness
 
     def query_potential_performance(self, cog_state=None, top=1):
+        """
+        Query the potential (max be default) given a cognitive position
+        :param cog_state: the cognitive state list
+        :param top: take the maximum by default
+        :return: the potential fitness, measured by the rank
+         (e.g., 1 refers to this position have a potential to reach the global maximum)
+        """
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.potential_cache.keys():
             return self.potential_cache[cog_state_string]

@@ -117,7 +117,6 @@ class Evaluator:
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
-
     def convergence_evaluation(self, label_list=None, show_variance=False, select_list=None):
         """
         2-D Analysis: across K and across Agent type
@@ -163,6 +162,14 @@ class Evaluator:
         plt.show()
 
     def match_evaluation(self, label_list=None, show_variance=False, select_list=None):
+        """
+        Evaluate the relationship between task match and performance.
+        Match is measured in diffrerent way, like column or row weighted sum
+        :param label_list: the label for each curve
+        :param show_variance:
+        :param select_list: if only select part of the full data curves (fully 4 curves)
+        :return:
+        """
         folders_list = self.load_folders_under_parent_folder(parent_folder=self.data_path)
 
         data_folders = []
