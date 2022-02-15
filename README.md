@@ -49,5 +49,5 @@
 * Platform design
   * Randon exposure plan as the performance baseline
   * Rank-directed exposure will evaluate the idea firstly based on the crowd. Top ideas might get a higher exposure rate to the crowd.
-  * Interest-directed exposure means each agent will gather around whta they consider of high-value, and initialize their own search there.
+  * Interest-directed exposure means each agent will gather around what is most attractive to them, and initialize their own search there.
   * Simulated intervention
