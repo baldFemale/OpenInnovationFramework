@@ -131,6 +131,7 @@ if __name__ == '__main__':
         # the total number of alternative combination given N and K
         # each iteration, we choose one specific dependency distribution (e.g., [0,1,2,3]) and fix it.
         combination_count = int(math.factorial(N)/math.factorial(absolute_k)/math.factorial((N-absolute_k)))
+        # add one more iteration level to get the relative but independent landscape
         for dynamic_flag in range(combination_count):
             for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list, ):
                 p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num, dynamic_flag))
