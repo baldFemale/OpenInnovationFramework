@@ -40,3 +40,14 @@
   * Original/Distinct state representation (e.g., "0", "1", "2", "3" when state is equal to 4)
   * Cognitive state representation will include unknown depth symbols or abstraction symbols (e.g., "A" for \["0", "1"]) and unknown domain symbol (i.e., "*")
   * The double-representation system will enable the communication between Agents using the distinct state as bridge
+
+## Socialized_innovation_crowdsourcing
+* We highlight the idea polishment story such that agents should initialize their ideas based on the observation and polish the idea forward.
+  * Seed Agents provide the initialization points for the new-comers
+  * New-comer agents are exposed to particular ideas, and continue their own search
+  * Finally, the whole community will achieve some performance level measured by the aggregated performance of its members.
+* Platform design
+  * Randon exposure plan as the performance baseline
+  * Rank-directed exposure will evaluate the idea firstly based on the crowd. Top ideas might get a higher exposure rate to the crowd.
+  * Interest-directed exposure means each agent will gather around what is most attractive to them, and initialize their own search there.
+  * Simulated intervention
