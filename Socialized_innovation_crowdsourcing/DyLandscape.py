@@ -23,7 +23,7 @@ class Landscape:
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
-        self.dependency_chosen = []  # store the selection of dependency
+        self.potential_cache = {}  # cache the potential of the position
         self.dynamic_flag = dynamic_flag  # by default, starting from the first element in the alternative combinations pool
 
 
@@ -249,7 +249,7 @@ class Landscape:
         :return: the selected dependency combination given N, K/k
         """
         absolute_k = self.K if self.K else self.k // 10  # a flag for to dependency combination
-        return list(itertools.combinations(range(self.N), absolute_k))[dynamic_flag]
+        return list(combinations(range(self.N), absolute_k))[dynamic_flag]
 
 
 

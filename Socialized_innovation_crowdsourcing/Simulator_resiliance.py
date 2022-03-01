@@ -13,7 +13,7 @@ from Agent import Agent
 
 class Simulator:
     """For individual level"""
-    def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200, search_iteration=100):
+    def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200, search_iteration=100, dynamic_flag=0):
         self.N = N
         self.state_num = state_num
         self.landscape = None  # update this value after landscape setting
@@ -23,6 +23,7 @@ class Simulator:
         self.landscape_iteration = landscape_iteration
         self.agent_iteration = agent_iteration
         self.search_iteration = search_iteration
+        self.dynamic_flag=dynamic_flag
 
         # Some indicators for evaluation
         #  Match indicators
@@ -43,9 +44,9 @@ class Simulator:
         self.potential_fitness = []  # using the fitness rank, to measure how about the potential of current state
         # using the sum of rank (i.e., the alternative fitness rank [1,2,3], the potential is 6), smaller value refers to higher potential
 
-    def set_landscape(self, k=0, K=0, IM_type=None,factor_num=0, influential_num=0, dynamic_flag=0):
+    def set_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0):
         self.landscape = None
-        self.landscape = Landscape(N=self.N, state_num=self.state_num, dynamic_flag=dynamic_flag)
+        self.landscape = Landscape(N=self.N, state_num=self.state_num, dynamic_flag=self.dynamic_flag)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
 

@@ -4,14 +4,15 @@
 # @FileName: Run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-from Simulator import Simulator
+from Simulator_resiliance import Simulator
 import pickle
 import multiprocessing as mp
+import math
 
 N = 10
 state_num = 4
-landscape_iteration = 500
-agent_iteration = 500
+landscape_iteration = 200
+agent_iteration = 200
 search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -24,7 +25,7 @@ generalist_list = [10, 0, 4, 6]
 specialist_list = [0, 5, 3, 2]
 
 
-def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=None):
+def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=None, dynamic_flag=0):
     """
     Task loop for multiple processing
     :param K:
@@ -37,7 +38,7 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
                 ultimately, data shape [10, 4, 500, 500]
     """
 
-    simulator = Simulator(N=N, state_num=state_num)
+    simulator = Simulator(N=N, state_num=state_num, dynamic_flag=dynamic_flag)
     A_converged_potential_landscape = []
     B_converged_fitness_landscape = []  # for the final converged fitness after search
     C_row_match_landscape = []  # for the weighted sum according to IM row
@@ -45,7 +46,7 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
     D_landscape_IM_list = []  # for the landscape IM
     E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
     for landscape_loop in range(landscape_iteration):
-        simulator.set_landscape(K=K, k=k, IM_type="Traditional Directed", factor_num=0, influential_num=0, dy)
+        simulator.set_landscape(K=K, k=k, IM_type="Traditional Directed", factor_num=0, influential_num=0)
         A_converged_potential_agent = []
         B_converged_fitness_agent = []
         C_row_match_agent = []
@@ -93,12 +94,15 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
         basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
                           '_K' + str(simulator.landscape.K) + '_k0' + str(simulator.landscape.k) + '_E' + str(
             simulator.agent.element_num) + \
-                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
+                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
+                          + "_D" + str(simulator.dynamic_flag)
     else:
         basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
                           '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
             simulator.agent.element_num) + \
-                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
+                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
+                          + "_D" + str(simulator.dynamic_flag)
+
     A_file_name_potential = "1Potential_" + basic_file_name
     B_file_name_convergence = "2Convergence_" + basic_file_name
     C_file_name_row_match = "3RowMatch_" + basic_file_name
@@ -123,8 +127,12 @@ def loop(k=0, K=0, each_agent_type=None, generalist_num=None, specialist_num=Non
 if __name__ == '__main__':
     K = 0
     for k in k_list:
-        for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
-            p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num))
+        absolute_k = K if K else k // 10
+        # the total number of alternative combination given N and K
+        # each iteration, we choose one specific dependency distribution (e.g., [0,1,2,3]) and fix it.
+        combination_count = int(math.factorial(N)/math.factorial(absolute_k)/math.factorial((N-absolute_k)))
+        for each_agent_type, generalist_num, specialist_num, dynamic_flag in zip(agent_name, generalist_list, specialist_list, range(combination_count)):
+            p = mp.Process(target=loop, args=(k, K, each_agent_type, generalist_num, specialist_num, dynamic_flag))
             p.start()
 
     # k = 0
