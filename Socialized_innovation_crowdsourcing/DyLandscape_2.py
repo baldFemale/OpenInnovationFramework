@@ -1,31 +1,28 @@
 # -*- coding: utf-8 -*-
-import random
 from collections import defaultdict
 from itertools import product
-from itertools import combinations
 import numpy as np
+from ParentLandscape import ParentLandscape
 
 
-class Landscape:
+class DyLandscape:
     """
     Dynamic Landscape Instance
     """
-
-    def __init__(self, N, state_num=4, dynamic_flag=0):
+    def __init__(self, N, state_num=4, parent=None):
         self.N = N
         self.K = None
         self.k = None
         self.IM_type = None
         self.state_num = state_num
         self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
+        self.parent_FC = parent.FC  # keep slightly dependent due to the same parent
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.potential_cache = {}  # cache the potential of the position
-        self.dynamic_flag = dynamic_flag  # by default, starting from the first element in the alternative combinations pool
-
 
     def describe(self):
         print("*********LandScape information********* ")
@@ -82,13 +79,15 @@ class Landscape:
         else:
             if self.IM_type == "Traditional Directed":
                 # each row has a fixed number of dependency (i.e., K)
-                # dynamic pattern: use the combinations to run through all the possibilities
-                # rather than the traditional random selection design
-                ids = self.get_dependency_combinations(dynamic_flag=self.dynamic_flag)
                 for i in range(self.N):
-                    for index in ids:
-                        self.IM[i][index] = 1
-
+                    probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
+                    if self.K < self.N:
+                        ids = np.random.choice(self.N, self.K, p=probs, replace=False)
+                        for index in ids:
+                            self.IM[i][index] = 1
+                    else:  # full dependency
+                        for index in range(self.N):
+                            self.IM[i][index] = 1
             elif self.IM_type == "Diagonal Mutual":
                 pass
             elif self.IM_type == "Random Mutual":
@@ -97,17 +96,14 @@ class Landscape:
 
         if k != 0:
             if self.IM_type == "Random Directed":
-                print("Inapplicable type for dynamic dependency where dependency should be arranged")
-                # cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
-                # choices = np.random.choice(cells, self.k, replace=False).tolist()  # change this into combination, instead of random selection
-                # for each in choices:
-                #     self.IM[each // self.N][each % self.N] = 1
+                cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
+                choices = np.random.choice(cells, self.k, replace=False).tolist()
+                for each in choices:
+                    self.IM[each // self.N][each % self.N] = 1
             elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are more dependent to others
                 if factor_num == 0:
                     factor_num = self.k // self.N
-                # factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
-                # using a arranged dependency combination
-                factor_columns = self.get_dependency_combinations(dynamic_flag=self.dynamic_flag)
+                factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
                 for cur_i in range(self.N):
                     for cur_j in range(self.N):
                         if (cur_j in factor_columns) & (k > 0):
@@ -123,8 +119,7 @@ class Landscape:
             elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
                 if influential_num == 0:
                     influential_num = self.k // self.N
-                # influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
-                influential_rows = self.get_dependency_combinations(dynamic_flag=self.dynamic_flag)
+                influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
                 for cur_i in range(self.N):
                     for cur_j in range(self.N):
                         if (cur_i in influential_rows) & (k > 0):
@@ -143,21 +138,48 @@ class Landscape:
                 if (i != j) & (self.IM[i][j] == 1):
                     temp.append(j)
             self.dependency_map[i] = temp
+            # e.g., dependency[0] = [1, 2, 3]
+            # the fitness contribution of location 0 depends on the status of location 1,2,3
 
     def create_fitness_config(self,):
+        """
+        Create the child FC from the parent FC
+        This part is different from the original Landscape instance
+        :return:
+        """
         FC = defaultdict(dict)
+        # for row in range(len(self.IM)):
+        #     k = int(sum(self.IM[row]))
+        #     for column in range(pow(self.state_num, k)):
+        #         FC[row][column] = np.random.uniform(0, 1)
+        # self.FC = FC
+        alternative_dependency = self.get_dependency_alternatives()
+        # print("alternative_dependency: ", len(alternative_dependency[0]))
         for row in range(len(self.IM)):
+            alternative_binary_index_scope = alternative_dependency[row]
+            alternative_FC_index = [int("".join(each_str), self.state_num) for each_str in alternative_binary_index_scope]
             k = int(sum(self.IM[row]))
-            for column in range(pow(self.state_num, k)):
-                FC[row][column] = np.random.uniform(0, 1)
+            # print(row, k, alternative_FC_index)
+            # print("alternative_binary_index_scope", alternative_binary_index_scope)
+            if len(alternative_FC_index) != pow(self.state_num, k):
+                print("The calculated length of alternative pool: ", len(alternative_FC_index),)
+                print("The expected length of alternative pool: ", pow(self.state_num, k))
+                raise ValueError("the FC is not calculated correctly")
+            for column_child, column_parent in zip(range(pow(self.state_num, k)), alternative_FC_index):
+                FC[row][column_child] = self.parent_FC[row][column_parent]
         self.FC = FC
 
+
     def calculate_fitness(self, state):
+        """
+        This part is the same as before
+        :param state:
+        :return:
+        """
         res = []
         for i in range(len(state)):
             dependency = self.dependency_map[i]
             binary_index = "".join([str(state[j]) for j in dependency])
-            binary_index = str(state[i]) + binary_index
             index = int(binary_index, self.state_num)
             res.append(self.FC[i][index])
         return np.mean(res)
@@ -240,26 +262,40 @@ class Landscape:
             raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
 
-    def get_dependency_combinations(self, dynamic_flag):
+    def get_dependency_alternatives(self):
         """
-        only for the dynamic dependency design
-        So we try to simulate each dependency with same iteration rounds
-        Given the same k/K, the performance across different dependency would be taken as resiliance of performance
-        :param dynamic_flag: 0 by default, otherwise change it over iterations
-        :return: the selected dependency combination given N, K/k
+        Create the alternatives given a dependency (e.g., [1,0,0,1])
+        :param dependency:
+        :return:(e.g., [1,0,0,1], [1,0,0,0], [1,0,0,2], [1,0,0,3], [2,0,0,1], ..., etc.)
+                    the shape of resulting alternatives is N * (state_num ^ k).
+                     the column number depends on the dependency sum (i.e., k) for each row, so it is dynamic.
         """
-        absolute_k = self.K if self.K else self.k // 10  # a flag for to dependency combination
-        return list(combinations(range(self.N), absolute_k))[dynamic_flag]
-
+        alternative_pool_row = []
+        for row in range(self.N):
+            alternative_pool_column = []
+            dependency_location = self.dependency_map[row]
+            for column in range(self.N):
+                if (column not in dependency_location) and (column != row):
+                    alternative_pool_column.append(["0"])
+                else:
+                    alternative_pool_column.append(["0", "1", "2", "3"])
+            alternative_pool_row.append([i for i in product(*alternative_pool_column)])
+        # the shape of the alternative dependency pool
+        # In other words, the clipped FC pieces from the parent landscape
+        # for index, each_row in enumerate(alternative_pool_row):
+        #     print("length of row %s: %s" % (index, len(each_row)))
+        return alternative_pool_row
 
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
-    # landscape.help() # just record some key hints
-    # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
+    parent = ParentLandscape(N=8, state_num=4)
+    landscape = Landscape(N=8, state_num=4, parent=parent)
+    # # landscape.help() # just record some key hints
+    # # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
-    landscape.type(IM_type="Factor Directed", k=44)
+    landscape.type(IM_type="Factor Directed", k=20)
+    landscape.describe()
     landscape.initialize()
     landscape.describe()
     cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']

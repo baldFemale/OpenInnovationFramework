@@ -5,10 +5,12 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import pickle
-import random
+import matplotlib.pyplot as plt
 import time
-from DyLandscape import Landscape
+from DyLandscape_2 import DyLandscape
 from Agent import Agent
+from ParentLandscape import ParentLandscape
+import numpy as np
 
 
 class Simulator:
@@ -16,6 +18,7 @@ class Simulator:
     def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200, search_iteration=100, dynamic_flag=0):
         self.N = N
         self.state_num = state_num
+        self.parent = None  # one more iteration for the related but dynamic landscape
         self.landscape = None  # update this value after landscape setting
         self.agent = None  # update this value after agent setting
         self.fitness = []
@@ -23,7 +26,6 @@ class Simulator:
         self.landscape_iteration = landscape_iteration
         self.agent_iteration = agent_iteration
         self.search_iteration = search_iteration
-        self.dynamic_flag=dynamic_flag
 
         # Some indicators for evaluation
         #  Match indicators
@@ -44,13 +46,21 @@ class Simulator:
         self.potential_fitness = []  # using the fitness rank, to measure how about the potential of current state
         # using the sum of rank (i.e., the alternative fitness rank [1,2,3], the potential is 6), smaller value refers to higher potential
 
-    def set_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0):
-        self.landscape = None
-        self.landscape = Landscape(N=self.N, state_num=self.state_num, dynamic_flag=self.dynamic_flag)
+    def set_parent_landscape(self, N=None, state_num=None):
+        self.parent = ParentLandscape(N=N, state_num=state_num)
+
+    def set_dynamic_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0):
+        if not self.parent:
+            raise ValueError("Need to build parent landscape firstly")
+        self.landscape = DyLandscape(N=self.N, state_num=self.state_num, parent=self.parent)
         self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
         self.landscape.initialize()
 
     def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+        if not self.parent:
+            raise ValueError("Need to build parent landscape firstly")
+        if not self.landscape:
+            raise ValueError("Need to build child landscape secondly")
         self.agent = None
         self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
         self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
@@ -60,9 +70,9 @@ if __name__ == '__main__':
     # Test Example (Waiting for reshaping into class above)
     # The test code below works.
     start_time = time.time()
-    random.seed(1024)
-    N = 10
+    N = 8
     state_num = 4
+    parent_iteration = 1
     landscape_iteration = 1
     agent_iteration = 1
     search_iteration = 100
@@ -88,51 +98,53 @@ if __name__ == '__main__':
             C_column_match_landscape = []  # for the weighted sum according to IM column
             D_landscape_IM_list = []  # for the landscape IM
             E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
-            for landscape_loop in range(landscape_iteration):
-                simulator.set_landscape(K=K, k=k, IM_type="Factor Directed", factor_num=0, influential_num=0)
-                A_converged_potential_agent = []
-                B_converged_fitness_agent = []
-                C_row_match_agent = []
-                C_column_match_agent = []
-                IM = simulator.landscape.IM.tolist()
-                D_landscape_IM_list.append(IM)
-                E_knowledge_list_agent = []
-                for agent_loop in range(agent_iteration):
-                    simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num,
-                                        specialist_num=specialist_num)
-                    for search_loop in range(search_iteration):
-                        simulator.agent.cognitive_local_search()
-                    potential_after_convergence = simulator.landscape.query_potential_performance(
-                        cog_state=simulator.agent.cog_state, top=1)
-                    A_converged_potential_agent.append(potential_after_convergence)
-                    simulator.agent.state = simulator.agent.change_cog_state_to_state(
-                        cog_state=simulator.agent.cog_state)
-                    simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
-                    B_converged_fitness_agent.append(simulator.agent.converge_fitness)
-                    # Weighted sum for the match between landscape IM and agent knowledge
-                    C_row_match_temp = 0
-                    for row in range(simulator.N):
-                        if row in simulator.agent.specialist_knowledge_domain:
-                            C_row_match_temp += sum(IM[row]) * simulator.state_num
-                        if row in simulator.agent.generalist_knowledge_domain:
-                            C_row_match_temp += sum(IM[row]) * simulator.state_num * simulator.agent.gs_ratio
-                    C_column_match_temp = 0
-                    for column in range(simulator.N):
-                        if column in simulator.agent.specialist_knowledge_domain:
-                            C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
-                        if column in simulator.agent.generalist_knowledge_domain:
-                            C_column_match_temp += sum(
-                                IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
+            for parent_loop in range(parent_iteration):
+                simulator.set_parent_landscape(N=N, state_num=state_num)
+                for landscape_loop in range(landscape_iteration):
+                    simulator.set_dynamic_landscape(K=K, k=k, IM_type="Factor Directed", factor_num=0, influential_num=0)
+                    A_converged_potential_agent = []
+                    B_converged_fitness_agent = []
+                    C_row_match_agent = []
+                    C_column_match_agent = []
+                    IM = simulator.landscape.IM.tolist()
+                    D_landscape_IM_list.append(IM)
+                    E_knowledge_list_agent = []
+                    for agent_loop in range(agent_iteration):
+                        simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num,
+                                            specialist_num=specialist_num)
+                        for search_loop in range(search_iteration):
+                            simulator.agent.cognitive_local_search()
+                        potential_after_convergence = simulator.landscape.query_potential_performance(
+                            cog_state=simulator.agent.cog_state, top=1)
+                        A_converged_potential_agent.append(potential_after_convergence)
+                        simulator.agent.state = simulator.agent.change_cog_state_to_state(
+                            cog_state=simulator.agent.cog_state)
+                        simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
+                        B_converged_fitness_agent.append(simulator.agent.converge_fitness)
+                        # Weighted sum for the match between landscape IM and agent knowledge
+                        C_row_match_temp = 0
+                        for row in range(simulator.N):
+                            if row in simulator.agent.specialist_knowledge_domain:
+                                C_row_match_temp += sum(IM[row]) * simulator.state_num
+                            if row in simulator.agent.generalist_knowledge_domain:
+                                C_row_match_temp += sum(IM[row]) * simulator.state_num * simulator.agent.gs_ratio
+                        C_column_match_temp = 0
+                        for column in range(simulator.N):
+                            if column in simulator.agent.specialist_knowledge_domain:
+                                C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
+                            if column in simulator.agent.generalist_knowledge_domain:
+                                C_column_match_temp += sum(
+                                    IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
 
-                    C_row_match_agent.append(C_row_match_temp)
-                    C_column_match_agent.append(C_column_match_temp)
-                    E_knowledge_list_agent.append(
-                        [simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
-                A_converged_potential_landscape.append(A_converged_potential_agent)
-                B_converged_fitness_landscape.append(B_converged_fitness_agent)
-                C_row_match_landscape.append(C_row_match_agent)
-                C_column_match_landscape.append(C_column_match_agent)
-                E_knowledge_list_landscape.append(E_knowledge_list_agent)
+                        C_row_match_agent.append(C_row_match_temp)
+                        C_column_match_agent.append(C_column_match_temp)
+                        E_knowledge_list_agent.append(
+                            [simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
+                    A_converged_potential_landscape.append(A_converged_potential_agent)
+                    B_converged_fitness_landscape.append(B_converged_fitness_agent)
+                    C_row_match_landscape.append(C_row_match_agent)
+                    C_column_match_landscape.append(C_column_match_agent)
+                    E_knowledge_list_landscape.append(E_knowledge_list_agent)
 
             # Output file name
             basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
@@ -158,10 +170,12 @@ if __name__ == '__main__':
                 pickle.dump(D_landscape_IM_list, out_file)
             with open(E_file_name_agent_knowledge, 'wb') as out_file:
                 pickle.dump(E_knowledge_list_landscape, out_file)
-    # end_time = time.time()
-    # print("Time used: ", end_time-start_time)
-        # plt.plot(np.mean(np.mean(np.array(fitness_landscape), axis=0), axis=0))
-        # plt.legend()
-        # plt.show()
+
+            # plt.plot(np.mean(np.mean(np.array(B_converged_fitness_landscape), axis=0), axis=0))
+            # plt.legend()
+            # plt.show()
+    end_time = time.time()
+    print("Time used: ", end_time-start_time)
+
 
 

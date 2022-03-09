@@ -84,7 +84,6 @@ class Team:
             self.cog_state = None
 
     def describe(self):
-
         self.members[0].landscape.describe()
         print("-------------------Team Member Information-------------------")
         for i in range(self.agent_num):

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
 from collections import defaultdict
 from itertools import product
 from itertools import combinations

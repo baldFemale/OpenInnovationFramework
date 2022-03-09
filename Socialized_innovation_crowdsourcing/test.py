@@ -241,6 +241,11 @@ temp = None
 # absolute_k = K if K else k // 10
 # print("absolute_k:", absolute_k)
 
-test_x = list(range(10))
-test_y = test_x.copy()
-print(test_y)
+# test_x = list(range(10))
+# test_y = test_x.copy()
+# print(test_y)
+
+state = ['2', '2', '3', '0']
+binary_index = "".join(state)
+index = int(binary_index, 4)
+print(index)

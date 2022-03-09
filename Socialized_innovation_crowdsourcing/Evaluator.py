@@ -224,9 +224,16 @@ if __name__ == '__main__':
 
     # expert test
     #
-    parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\expert_results\expert_factor\convergency"
+    # parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\expert_results\expert_factor\convergency"
+    # output_path = parent_folder
+    # evaluator = Evaluator(title="Expert Convergence Influential N10", data_path=parent_folder, output_path=output_path)
+    # team_name = ["T27", "T46"]
+    # evaluator.convergence_evaluation(label_list=team_name)
+
+    # dynamic landscape
+    parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\2Convergence_Generalist_Factor Directed_N8_K0_k44_E12_G6_S0"
     output_path = parent_folder
-    evaluator = Evaluator(title="Expert Convergence Influential N10", data_path=parent_folder, output_path=output_path)
-    team_name = ["T27", "T46"]
-    evaluator.convergence_evaluation(label_list=team_name)
+    evaluator = Evaluator(title="Dynamic Landscape Convergence Factor N8", data_path=parent_folder, output_path=output_path)
+    team_name = ["A", "B"]
+    evaluator.simple_evaluation(label_list=team_name)
 
