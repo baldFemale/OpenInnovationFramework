@@ -42,7 +42,11 @@
   * The double-representation system will enable the communication between Agents using the distinct state as bridge
 
 ## Socialized_innovation_crowdsourcing
-* We highlight the idea polishment story such that agents should initialize their ideas based on the observation and polish the idea forward.
+* **Three** model specifications make up the key contribution to NK landscape literature
+  * First, GS and corresponding cognitive search pattern build the participant set-ups.
+  * Second, the proportion of GS and their communication build the platform or community set-ups.
+  * Third, the platform resilienceshred a light on a new dimension of innovation performance or collective intelligence.
+* We highlight the idea polishment story such that agents should initialize their ideas based on the observation and polish the idea forward. The polishment degree will play an important role in the platform resiliance. Such a polishment logic is based what the previous literature hold, that is, idea generation and thus the tradoff between knowledge diversity and knowledge depth, but is more than the temporary consideration and generate a more general framework for the open innovation communities.
   * Seed Agents provide the initialization points for the new-comers
   * New-comer agents are exposed to particular ideas, and continue their own search
   * Finally, the whole community will achieve some performance level measured by the aggregated performance of its members.
