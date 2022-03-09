@@ -224,13 +224,13 @@ temp = None
 #         break
 #     break
 # print(C_row_match_temp)
-from itertools import combinations
-import math
-N = 10
-K = 6
-# selections = list(itertools.permutations(range(N), K)) # 排列permutations
-selections_2 = list(combinations(range(N), K)) # 组合combination
-print(selections_2)  # 151200
+# from itertools import combinations
+# import math
+# N = 10
+# K = 6
+# # selections = list(itertools.permutations(range(N), K)) # 排列permutations
+# selections_2 = list(combinations(range(N), K)) # 组合combination
+# print(selections_2)  # 151200
 # print(len(selections_2))  # 210
 # def combinations_num(n, k):
 #     return math.factorial(n)/math.factorial(k)/math.factorial((n-k))
@@ -240,3 +240,7 @@ print(selections_2)  # 151200
 # K = 0
 # absolute_k = K if K else k // 10
 # print("absolute_k:", absolute_k)
+
+test_x = list(range(10))
+test_y = test_x.copy()
+print(test_y)

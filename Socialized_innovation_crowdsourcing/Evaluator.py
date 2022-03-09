@@ -205,11 +205,11 @@ class Evaluator:
 if __name__ == '__main__':
     # Test Example
     # Convergence evaluation
-    parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Factor\convergence"
-    output_path = parent_folder
-    evaluator = Evaluator(title="GS Convergence Factor in IM N10", data_path=parent_folder, output_path=output_path)
-    team_name = ["G", "S", "T43", "T62"]
-    evaluator.convergence_evaluation(label_list=team_name)
+    # parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Factor\convergence"
+    # output_path = parent_folder
+    # evaluator = Evaluator(title="GS Convergence Factor in IM N10", data_path=parent_folder, output_path=output_path)
+    # team_name = ["G", "S", "T43", "T62"]
+    # evaluator.convergence_evaluation(label_list=team_name)
     # evaluator.convergence_evaluation(label_list=team_name, select_list=[0,1], show_variance=True)
 
 
@@ -221,4 +221,12 @@ if __name__ == '__main__':
     # # team_name = ["G", "S"]
     # # evaluator.match_evaluation(label_list=team_name)
     # evaluator.match_evaluation(label_list=team_name, select_list=[3], show_variance=True)
+
+    # expert test
+    #
+    parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\expert_results\expert_factor\convergency"
+    output_path = parent_folder
+    evaluator = Evaluator(title="Expert Convergence Influential N10", data_path=parent_folder, output_path=output_path)
+    team_name = ["T27", "T46"]
+    evaluator.convergence_evaluation(label_list=team_name)
 
