@@ -12,7 +12,7 @@ class Landscape:
         self.k = None
         self.IM_type = None
         self.state_num = state_num
-        self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
+        self.IM, self.dependency_map = np.eye(self.N, dtype=int), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
@@ -148,7 +148,7 @@ class Landscape:
         for i in range(len(state)):
             dependency = self.dependency_map[i]
             bin_index = "".join([str(state[j]) for j in dependency])
-            bin_index = str(state[i]) + bin_index
+            bin_index = str(state[i]) + bin_index  # add the first element
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
         return np.mean(res)

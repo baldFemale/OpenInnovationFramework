@@ -245,7 +245,10 @@ temp = None
 # test_y = test_x.copy()
 # print(test_y)
 
-state = ['2', '2', '3', '0']
-binary_index = "".join(state)
-index = int(binary_index, 4)
-print(index)
+# state = ['2', '2', '3', '0']
+# binary_index = "".join(state)
+# index = int(binary_index, 4)
+# print(index)
+
+test = np.eye(10, dtype=int)
+print(test)

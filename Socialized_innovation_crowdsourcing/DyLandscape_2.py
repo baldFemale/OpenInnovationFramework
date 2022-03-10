@@ -15,7 +15,7 @@ class DyLandscape:
         self.k = None
         self.IM_type = None
         self.state_num = state_num
-        self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
+        self.IM, self.dependency_map = np.eye(self.N, dtype=int), [[]]*self.N  # [[]] & {int:[]}
         self.parent_FC = parent.FC  # keep slightly dependent due to the same parent
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
@@ -84,10 +84,10 @@ class DyLandscape:
                     if self.K < self.N:
                         ids = np.random.choice(self.N, self.K, p=probs, replace=False)
                         for index in ids:
-                            self.IM[i][index] = 1
+                            self.IM[i][index] = int(1)
                     else:  # full dependency
                         for index in range(self.N):
-                            self.IM[i][index] = 1
+                            self.IM[i][index] = int(1)
             elif self.IM_type == "Diagonal Mutual":
                 pass
             elif self.IM_type == "Random Mutual":
@@ -131,7 +131,6 @@ class DyLandscape:
                     fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
                     for indexs in fill_with_one_positions:
                         self.IM[indexs[0]][indexs[1]] = 1
-
         for i in range(self.N):
             temp = []
             for j in range(self.N):
@@ -148,11 +147,14 @@ class DyLandscape:
         :return:
         """
         FC = defaultdict(dict)
+        # the original FC generation process
         # for row in range(len(self.IM)):
         #     k = int(sum(self.IM[row]))
         #     for column in range(pow(self.state_num, k)):
         #         FC[row][column] = np.random.uniform(0, 1)
         # self.FC = FC
+
+        # The dynamic/child FC generation process
         alternative_dependency = self.get_dependency_alternatives()
         # print("alternative_dependency: ", len(alternative_dependency[0]))
         for row in range(len(self.IM)):
@@ -290,7 +292,7 @@ class DyLandscape:
 if __name__ == '__main__':
     # Test Example
     parent = ParentLandscape(N=8, state_num=4)
-    landscape = Landscape(N=8, state_num=4, parent=parent)
+    landscape = DyLandscape(N=8, state_num=4, parent=parent)
     # # landscape.help() # just record some key hints
     # # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
