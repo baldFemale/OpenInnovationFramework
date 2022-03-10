@@ -4,13 +4,16 @@
 # @FileName: Run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-from Simulator_resiliance import Simulator
 import pickle
 import multiprocessing as mp
 import math
+from Simulator_resiliance import Simulator
+from Socialized_Agent import Agent
 
+# Parameters
 N = 10
 state_num = 4
+parent_iteration = 20
 landscape_iteration = 200
 agent_iteration = 200
 search_iteration = 100

@@ -6,22 +6,39 @@
 # Observing PEP 8 coding style
 import random
 import numpy as np
-from Landscape import Landscape
+from DyLandscape_2 import DyLandscape
+from ParentLandscape import ParentLandscape
+
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, initial_state=None):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, copied_state=None, state_pool=None, assigned_state_pool_rank=None):
+        """
+        The difference between original one and the socialized one:
+        1. copied_state: enable the angens to polish the existing ideas/solutions
+        2. state_pool: the existing solutions in the community
+        3. state_pool_rank: the personal rank regarding the existing solutions
+        :param N:
+        :param lr:
+        :param landscape:
+        :param state_num:
+        :param gs_ratio:
+        :param cope_state: the observed state according to different exposure mechanisms
+        """
         self.landscape = landscape
         self.N = N
         self.name = "None"
         self.state_num = state_num
-
-        # Agent will have both unmasked and masked state representation system
-        # store the true state list at the initialization and the search ending
-        self.state = initial_state
+        if copied_state:
+            self.state = copied_state
+        else:
+            self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.state = [str(i) for i in self.state]  # ensure the format of state
         # store the cognitive state list during the search
         self.cog_state = self.state.copy()
+        self.state_pool = state_pool
+        self.personal_state_pool_rank = {}
+        self.assigned_state_pool_rank = assigned_state_pool_rank
 
         self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
@@ -43,8 +60,6 @@ class Agent:
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
         self.converge_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
         self.potential = 0  # record the potential achievement; the position advantage to achieve a higher future performance
-
-        self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
 
         self.valid_state_bit = list(range(self.N))
         self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
@@ -151,7 +166,9 @@ class Agent:
             next_cog_state = self.cog_state.copy()
             next_cog_state[updated_position] = updated_value
             next_cog_state_with_default = next_cog_state.copy()
+            # replace the * with default value, that is, mindset
             for default_mindset in self.default_elements_in_unknown_domain:
+                # default_mindset "32" refers to "2" in location "3"
                 cur_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
                 next_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
             current_cog_fitness = self.landscape.query_cog_fitness(cur_cog_state_with_default)
@@ -208,6 +225,14 @@ class Agent:
                     raise ValueError("Unsupported state element: ", bit_value)
         return state
 
+    def create_state_pool_rank(self):
+        for state_solution in self.state_pool:
+            cog_state_solution = self.change_state_to_cog_state(state=state_solution)
+            perceived_fitness = self.landscape.query_cog_fitness(cog_state=cog_state_solution)
+            self.personal_state_pool_rank["".join(state_solution)] = perceived_fitness
+
+
+
     def state_legitimacy_check(self):
         for index, bit_value in enumerate(self.state):
             if bit_value not in self.valid_state_bit:
@@ -240,7 +265,8 @@ class Agent:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
+    parent = ParentLandscape(N=8, state_num=4)
+    landscape = DyLandscape(N=8, state_num=4, parent=parent)
     landscape.type(IM_type="Factor Directed", K=0, k=42)
     landscape.initialize()
 
@@ -259,3 +285,5 @@ if __name__ == '__main__':
 # Thus, we can increase the knowledge number to make it comparable to the original full-knowledge setting.
 # [0, 0, 1, 3, 3, 3, 2, 0, 1, 0]
 # [2, 1, 1, 1, 3, 3, 0, 3, 1, 0]
+
+
