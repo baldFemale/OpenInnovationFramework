@@ -36,7 +36,7 @@ class DyLandscape:
         valid_type = ["None", "Traditional Directed", "Diagonal Mutual", "Random Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
         print("Supported IM_type: ", valid_type)
 
-    def type(self, IM_type="None", K=0, k=0, factor_num=0, influential_num=0):
+    def type(self, IM_type="None", K=0, k=0, factor_num=0, influential_num=0, previous_IM=None, IM_change_bit=1):
         """
         Characterize the influential matrix
         :param IM_type: "random", "dependent",
@@ -74,6 +74,27 @@ class DyLandscape:
         self.IM_type = IM_type
         self.K = K
         self.k = k
+        # if give the prevous IM, bypass the traditional generation process
+        if previous_IM:
+            previous_IM = np.array(previous_IM)
+            while True:
+                self.IM = previous_IM
+                zero_positions = np.argwhere(self.IM == 0)
+                one_positions = np.argwhere(self.IM == 1)
+                shift_to_one_positions = np.random.choice(len(zero_positions), IM_change_bit, replace=False)
+                shift_to_zero_positions = np.random.choice(len(one_positions), IM_change_bit, replace=False)
+                shift_to_one_positions = [zero_positions[i] for i in shift_to_one_positions]  # 1 -> 0
+                shift_to_zero_positions = [one_positions[i] for i in shift_to_zero_positions]  # 0 -> 1
+                for indexs in shift_to_one_positions:
+                    self.IM[indexs[0]][indexs[1]] = 1
+                for indexs in shift_to_zero_positions:
+                    self.IM[indexs[0]][indexs[1]] = 0
+                if (self.IM == previous_IM).all():
+                    continue
+                else:
+                    break
+            return
+
         if K == 0:
             self.IM = np.eye(self.N)
         else:

@@ -7,10 +7,10 @@
 import pickle
 import matplotlib.pyplot as plt
 import time
+# new compositions for dynamic/socialization framework
 from DyLandscape_2 import DyLandscape
-from Agent import Agent
 from ParentLandscape import ParentLandscape
-import numpy as np
+from Socialized_Agent import Agent
 
 
 class Simulator:
@@ -49,11 +49,12 @@ class Simulator:
     def set_parent_landscape(self, N=None, state_num=None):
         self.parent = ParentLandscape(N=N, state_num=state_num)
 
-    def set_dynamic_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0):
+    def set_dynamic_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0, previous_IM=None, IM_change_bit=1):
         if not self.parent:
             raise ValueError("Need to build parent landscape firstly")
         self.landscape = DyLandscape(N=self.N, state_num=self.state_num, parent=self.parent)
-        self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num)
+        self.landscape.type(IM_type=IM_type, K=K, k=k, factor_num=factor_num, influential_num=influential_num,
+                            previous_IM=previous_IM, IM_change_bit=IM_change_bit)
         self.landscape.initialize()
 
     def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):

@@ -250,5 +250,22 @@ temp = None
 # index = int(binary_index, 4)
 # print(index)
 
-test = np.eye(10, dtype=int)
-print(test)
+# test = np.eye(10, dtype=int)
+# print(test)
+
+# import pandas as pd
+#
+# pd.set_option('display.max_colwidth', -1)
+# print(pd.options.display.max_colwidth)
+a = [[1,2,3], [0,2,3]]
+# a = np.array(a)
+# b = [[1,2,3], [1,2,3]]
+# b = np.array(b)
+# print((a==b).all())
+index = np.random.choice(len(a))
+print(a[index])
+
+x = {"111": 2, "222": 3}
+x_ = max(x, key=x.get)
+print(x_)
+print(list(x_))

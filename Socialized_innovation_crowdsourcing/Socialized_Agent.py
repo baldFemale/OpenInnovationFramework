@@ -69,6 +69,50 @@ class Agent:
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
+    def get_state_from_exposure(self, exposure_type=None):
+        """
+        Re-assign the initial state for upcoming cognitive search
+        :return:update the initial state
+        """
+        valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
+        if exposure_type not in valid_exposure_type:
+            raise ValueError("Only support: ", valid_exposure_type)
+        if exposure_type == "Random":
+            index = np.random.choice(len(self.state_pool))
+            self.state = self.state_pool[index]
+        elif exposure_type == "Self-interested":
+            self_interested_index = 0
+            perceived_highest_fitness = 0
+            for index, each_state in enumerate(self.state_pool):
+                cog_state = self.change_state_to_cog_state(state=each_state)
+                perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+                if perceived_fitness > perceived_highest_fitness:
+                    self_interested_index = index
+                    perceived_highest_fitness = perceived_fitness
+            self.state = self.state_pool[self_interested_index]
+        elif exposure_type == "Overall-ranking":
+            if not self.assigned_state_pool_rank:
+                raise ValueError("Need pool ranks assigned by the simulator")
+            # the index of maxinum value in dict; rank is based on the sum of cognitive fitness across Agents
+            state_str = max(self.assigned_state_pool_rank, key=self.assigned_state_pool_rank.get)
+            self.state = list(state_str)  # assigned to the state with best overall rank
+
+    def vote_for_state_pool(self):
+        """
+        Vote for the whole pool; the weights are measured by each cognitive fitness
+        :return:the dict of each state with its cog_fitness
+        """
+        if not self.state_pool:
+            raise ValueError("Need state pool assigned by the simulator")
+        personal_pool_rank = {}
+        for each_state in self.state_pool:
+            cog_state = self.change_state_to_cog_state(state=each_state)
+            perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+            personal_pool_rank[''.join(each_state)] = perceived_fitness
+        # the state pool is the same for all Agents;
+        # But Agents will have their own perceptions of states
+        return personal_pool_rank
+
     def type(self, name=None, specialist_num=0, generalist_num=0, element_num=0, gs_ratio=0.5):
         """
         Allocate one certain type to the agent
