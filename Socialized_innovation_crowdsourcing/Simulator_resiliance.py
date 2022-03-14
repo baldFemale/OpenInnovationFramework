@@ -19,13 +19,15 @@ class Simulator:
         self.N = N
         self.state_num = state_num
         self.parent = None  # one more iteration for the related but dynamic landscape
-        self.landscape = None  # update this value after landscape setting
-        self.agent = None  # update this value after agent setting
+        self.landscapes = None  # update this value after landscape setting
+        self.agents = None  # update this value after agent setting
         self.fitness = []
-        self.team_level = False
+
         self.landscape_iteration = landscape_iteration
         self.agent_iteration = agent_iteration
         self.search_iteration = search_iteration
+        self.agent_num = 200
+        self.landscape_num = 100
 
         # Some indicators for evaluation
         #  Match indicators
@@ -49,7 +51,7 @@ class Simulator:
     def set_parent_landscape(self, N=None, state_num=None):
         self.parent = ParentLandscape(N=N, state_num=state_num)
 
-    def set_dynamic_landscape(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0, previous_IM=None, IM_change_bit=1):
+    def set_dynamic_landscapes(self, k=0, K=0, IM_type=None, factor_num=0, influential_num=0, previous_IM=None, IM_change_bit=1):
         if not self.parent:
             raise ValueError("Need to build parent landscape firstly")
         self.landscape = DyLandscape(N=self.N, state_num=self.state_num, parent=self.parent)
