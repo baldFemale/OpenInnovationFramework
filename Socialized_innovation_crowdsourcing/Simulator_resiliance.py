@@ -131,6 +131,7 @@ class Simulator:
 
     def landscape_search(self):
         for _ in range(self.landscape_search_iteration):
+            pass
 
 
     def creat_state_pool_and_rank(self):
