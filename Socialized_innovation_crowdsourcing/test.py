@@ -257,15 +257,18 @@ temp = None
 #
 # pd.set_option('display.max_colwidth', -1)
 # print(pd.options.display.max_colwidth)
-a = [[1,2,3], [0,2,3]]
+# a = [[1,2,3], [0,2,3]]
 # a = np.array(a)
 # b = [[1,2,3], [1,2,3]]
 # b = np.array(b)
 # print((a==b).all())
-index = np.random.choice(len(a))
-print(a[index])
+# index = np.random.choice(len(a))
+# print(a[index])
 
-x = {"111": 2, "222": 3}
-x_ = max(x, key=x.get)
-print(x_)
-print(list(x_))
+# x = {"111": 2, "222": 3}
+# x_ = max(x, key=x.get)
+# print(x_)
+# print(list(x_))
+
+knowledge = 20
+print((knowledge/4))

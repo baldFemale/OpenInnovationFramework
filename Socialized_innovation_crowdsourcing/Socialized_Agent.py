@@ -97,15 +97,15 @@ class Agent:
             state_str = max(self.assigned_state_pool_rank, key=self.assigned_state_pool_rank.get)
             self.state = list(state_str)  # assigned to the state with best overall rank
 
-    def vote_for_state_pool(self):
+    def vote_for_state_pool(self, state_pool=None):
         """
         Vote for the whole pool; the weights are measured by each cognitive fitness
         :return:the dict of each state with its cog_fitness
         """
-        if not self.state_pool:
+        if not state_pool:
             raise ValueError("Need state pool assigned by the simulator")
         personal_pool_rank = {}
-        for each_state in self.state_pool:
+        for each_state in state_pool:
             cog_state = self.change_state_to_cog_state(state=each_state)
             perceived_fitness = self.landscape.query_cog_fitness(cog_state)
             personal_pool_rank[''.join(each_state)] = perceived_fitness

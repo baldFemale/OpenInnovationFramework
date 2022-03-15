@@ -14,20 +14,29 @@ from Socialized_Agent import Agent
 
 
 class Simulator:
-    """For individual level"""
-    def __init__(self, N=0, state_num=4, landscape_iteration=5, agent_iteration=200, search_iteration=100, dynamic_flag=0):
+    """One simulator represent one Parent Landscape iteration"""
+    def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100, landscape_search_iteration=100):
+        # Parent Landscape
+        self.parent = None  # will be stable within one simulator
         self.N = N
         self.state_num = state_num
-        self.parent = None  # one more iteration for the related but dynamic landscape
-        self.landscapes = None  # update this value after landscape setting
-        self.agents = None  # update this value after agent setting
-        self.fitness = []
 
-        self.landscape_iteration = landscape_iteration
-        self.agent_iteration = agent_iteration
+        # Chile Landscape
+        self.landscapes = None  # will change over time
+        self.landscape_num = landscape_num
+        self.state_pool = []
+        self.state_pool_rank = {}
+        self.fitness = []  # will change over time
+
+        # Agent crowd
+        self.agents = []  # will be stable; only the initial state and search will change
+        self.agent_num = agent_num
+        self.generalist_num = 0
+        self.specialist_num = 0
+
+        # Cognitive Search
         self.search_iteration = search_iteration
-        self.agent_num = 200
-        self.landscape_num = 100
+        self.landscape_search_iteration = landscape_search_iteration
 
         # Some indicators for evaluation
         #  Match indicators
@@ -41,11 +50,11 @@ class Simulator:
 
         # Search indicators
         self.converged_fitness = []
+        self.potential_fitness = []
         self.converged_state = []
         self.unique_fitness_list = []  # record the path variance; or for the rank-fitness transition
         self.change_count = 0  # record the number of state change towards the convergence
         self.jump_out_of_local_optimal = 0 # record the agents' capability of skipping local optimal, due to cognitive search
-        self.potential_fitness = []  # using the fitness rank, to measure how about the potential of current state
         # using the sum of rank (i.e., the alternative fitness rank [1,2,3], the potential is 6), smaller value refers to higher potential
 
     def set_parent_landscape(self, N=None, state_num=None):
@@ -59,15 +68,89 @@ class Simulator:
                             previous_IM=previous_IM, IM_change_bit=IM_change_bit)
         self.landscape.initialize()
 
-    def set_agent(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+    def set_initial_agents(self, name="None", lr=0, knowledge=20, gs_proportion=0.5):
+        """
+        Fix the knowledge of Agents pool; but their initial state and cognitive fitness will change
+        Initial state will change due to the socialization
+        Cognitive fitness/search will change due to the dynamic landscape
+        # the cognitive fitness is assessed in the landscape level
+        :param name:
+        :param lr:learn rate (inapplicable)
+        :param generalist_num:
+        :param specialist_num:
+        :return:
+        """
         if not self.parent:
             raise ValueError("Need to build parent landscape firstly")
         if not self.landscape:
             raise ValueError("Need to build child landscape secondly")
-        self.agent = None
-        self.agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
-        self.agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+        self.generalist_num = int(self.agent_num * gs_proportion)
+        self.specialist_num = int(self.agent_num * (1-gs_proportion))
+        for _ in range(self.generalist_num):
+            # fix the knowledge of each Agent
+            # fix the composition of agent crowd (e.g., the proportion of GS)
+            generalist_num = int(knowledge/2)
+            specialist_num = 0
+            agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+            agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+            self.agents.append(agent)
+        for _ in range(self.specialist_num):
+            # fix the knowledge of each Agent
+            # fix the composition of agent crowd (e.g., the proportion of GS)
+            specialist_num = int(knowledge/4)
+            generalist_num = 0
+            agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+            agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
+            self.agents.append(agent)
 
+    def set_socialized_agents(self, name="None", lr=0, generalist_num=0, specialist_num=0):
+        if not self.parent:
+            raise ValueError("Need to build parent landscape firstly")
+        if not self.landscape:
+            raise ValueError("Need to build child landscape secondly")
+        for _ in range(self.agent_num):
+
+    def crowd_search(self):
+        """
+        For each landscape, there might need several iteration to make the crowd get convergency.
+        For each search and learning, there will generate a list of performance (across agents) *Single list*
+        But for Simulator, representing a Parent, the data will be two more levels
+        *child level*: one child landscape, need several steps to converge; we just record the whole process toward convergency
+        *parent level*: one parent level will include multiple child landscapes (e.g., 200)
+        :return: the performance outcomes at the Simulator level (i.e., parent landscape level)
+        """
+        potential_after_convergence_agent = []
+        for agent in self.agents:
+            for search_loop in range(self.search_iteration):
+                agent.cognitive_local_search()
+            potential_after_convergence = agent.landscape.query_potential_performance(cog_state=agent.cog_state, top=1)
+            potential_after_convergence_agent.append(potential_after_convergence)
+            agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
+            agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
+        self.potential_after_convergence_agent = potential_after_convergence_agent
+
+    def landscape_search(self):
+        for _ in range(self.landscape_search_iteration):
+
+
+    def creat_state_pool_and_rank(self):
+        self.state_pool = [agent.state for agent in self.agents]
+        self.state_pool = list(set(self.state_pool))
+        overall_pool_rank = {}
+        for state in self.state_pool:
+            overall_pool_rank["".join(state)] = 0
+        for agent in self.agents:
+            personal_pool_rank = agent.vote_for_state_pool(state_pool=self.state_pool)
+            # format: {"10102": 0.85} state string: cognitive fitness
+            for key, value in personal_pool_rank.items():
+                overall_pool_rank[key] += value
+        self.state_pool_rank = overall_pool_rank
+
+    def change_working_landscape(self):
+        self.set_dynamic_landscapes() # change the child landscape
+        # assign the new landscape to all agents
+        for agent in self.agents:
+            agent.landscape = self.landscape
 
 if __name__ == '__main__':
     # Test Example (Waiting for reshaping into class above)
