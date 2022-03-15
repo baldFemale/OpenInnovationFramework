@@ -15,7 +15,8 @@ from Socialized_Agent import Agent
 
 class Simulator:
     """One simulator represent one Parent Landscape iteration"""
-    def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100, landscape_search_iteration=100):
+    def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100,
+                 landscape_search_iteration=100):
         # Parent Landscape
         self.parent = None  # will be stable within one simulator
         self.N = N
@@ -103,14 +104,7 @@ class Simulator:
             agent.type(name=name, generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
 
-    def set_socialized_agents(self, name="None", lr=0, generalist_num=0, specialist_num=0):
-        if not self.parent:
-            raise ValueError("Need to build parent landscape firstly")
-        if not self.landscape:
-            raise ValueError("Need to build child landscape secondly")
-        for _ in range(self.agent_num):
-
-    def crowd_search(self):
+    def crowd_search_once(self):
         """
         For each landscape, there might need several iteration to make the crowd get convergency.
         For each search and learning, there will generate a list of performance (across agents) *Single list*
@@ -127,11 +121,15 @@ class Simulator:
             potential_after_convergence_agent.append(potential_after_convergence)
             agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
             agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
+        # this is a temp for the final outcome in the landscape level
+        # the agents level outcome will change over time,
+        # as there are several searches toward the convergence of one child landscape
         self.potential_after_convergence_agent = potential_after_convergence_agent
 
     def landscape_search(self):
         for _ in range(self.landscape_search_iteration):
-            pass
+            self.crowd_search_once()
+            self.potential_after_convergence_landscape.append(self.potential_after_convergence_agent)
 
 
     def creat_state_pool_and_rank(self):
@@ -152,6 +150,23 @@ class Simulator:
         # assign the new landscape to all agents
         for agent in self.agents:
             agent.landscape = self.landscape
+
+    def change_initial_state(self, exposure_type=None):
+        if not self.parent:
+            raise ValueError("Need to build parent landscape firstly")
+        if not self.landscape:
+            raise ValueError("Need to build child landscape secondly")
+
+        valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
+        if exposure_type not in valid_exposure_type:
+            raise ValueError("Only support: ", valid_exposure_type)
+        if exposure_type == "Overall-ranking":
+            self.creat_state_pool_and_rank()  # get the pool rank
+            for agent in self.agents:
+                agent.assigned_state_pool_rank = self.state_pool_rank
+        for agent in self.agents:
+            agent.get_state_from_exposure(exposure_type=exposure_type)
+
 
 if __name__ == '__main__':
     # Test Example (Waiting for reshaping into class above)
