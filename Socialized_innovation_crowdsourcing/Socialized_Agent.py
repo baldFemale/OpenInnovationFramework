@@ -18,8 +18,6 @@ class Agent:
         1. copied_state: enable the angens to polish the existing ideas/solutions
         2. state_pool: the existing solutions in the community
         3. state_pool_rank: the personal rank regarding the existing solutions
-        :param N:
-        :param lr:
         :param landscape:
         :param state_num:
         :param gs_ratio:
@@ -193,6 +191,12 @@ class Agent:
         return int(cur_i), cur_j
 
     def cognitive_local_search(self):
+        """
+        The core of this model where we define a consistent cognitive search framework for G/S role
+        The Generalist domain follows the average pooling search
+        The Specialist domain follows the mindset search
+        There is a final random mapping after cognitive convergence, to map a vague state into a definite state
+        """
         updated_position, updated_value = self.randomly_select_one()
         if updated_position in self.generalist_knowledge_domain:
             next_cog_state = self.cog_state.copy()
