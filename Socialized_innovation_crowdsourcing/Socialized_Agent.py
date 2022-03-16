@@ -12,7 +12,7 @@ from ParentLandscape import ParentLandscape
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, copied_state=None, state_pool=None, assigned_state_pool_rank=None):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, state_pool=None, assigned_state_pool_rank=None):
         """
         The difference between original one and the socialized one:
         1. copied_state: enable the angens to polish the existing ideas/solutions
@@ -29,10 +29,7 @@ class Agent:
         self.N = N
         self.name = "None"
         self.state_num = state_num
-        if copied_state:
-            self.state = copied_state
-        else:
-            self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
+        self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.state = [str(i) for i in self.state]  # ensure the format of state
         # store the cognitive state list during the search
         self.cog_state = self.state.copy()

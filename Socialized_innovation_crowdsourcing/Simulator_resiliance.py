@@ -16,7 +16,7 @@ from Socialized_Agent import Agent
 class Simulator:
     """One simulator represent one Parent Landscape iteration"""
     def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100,
-                 landscape_search_iteration=100, IM_type=None, K=0, k=0):
+                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20):
         # Parent Landscape
         self.parent = None  # will be stable within one simulator
         self.N = N
@@ -36,8 +36,10 @@ class Simulator:
         # Agent crowd
         self.agents = []  # will be stable; only the initial state and search will change
         self.agent_num = agent_num
-        self.generalist_num = 0
-        self.specialist_num = 0
+        self.knowledge_num = knowledge_num
+        self.gs_proportion = gs_proportion
+        self.generalist_num = int(self.agent_num * gs_proportion)
+        self.specialist_num = int(self.agent_num * (1-gs_proportion))
 
         # Cognitive Search
         self.search_iteration = search_iteration
@@ -66,7 +68,7 @@ class Simulator:
         self.landscape.initialize()
         self.IM_dynamics.append(self.landscape.IM)  # extend the IM history
 
-    def set_initial_agents(self, knowledge=20, gs_proportion=0.5):
+    def set_agent(self):
         """
         Fix the knowledge of Agents pool; but their initial state and cognitive fitness will change
         Initial state will change due to the socialization
@@ -81,12 +83,10 @@ class Simulator:
             raise ValueError("Need to build parent landscape firstly")
         if not self.landscape:
             raise ValueError("Need to build child landscape secondly")
-        self.generalist_num = int(self.agent_num * gs_proportion)
-        self.specialist_num = int(self.agent_num * (1-gs_proportion))
         for _ in range(self.generalist_num):
             # fix the knowledge of each Agent
             # fix the composition of agent crowd (e.g., the proportion of GS)
-            generalist_num = int(knowledge/2)
+            generalist_num = int(self.knowledge_num/2)
             specialist_num = 0
             agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Generalist", generalist_num=generalist_num, specialist_num=specialist_num)
@@ -94,12 +94,11 @@ class Simulator:
         for _ in range(self.specialist_num):
             # fix the knowledge of each Agent
             # fix the composition of agent crowd (e.g., the proportion of GS)
-            specialist_num = int(knowledge/4)
+            specialist_num = int(self.knowledge_num/4)
             generalist_num = 0
             agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Specialist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
-
         # the knowledge distribution of the crowd is meaningless or unoriginal
         # in this paper, we focus on the proportion instead of diversity.
         # for agent in self.agents:
@@ -137,6 +136,9 @@ class Simulator:
             self.creat_state_pool_and_rank()
             self.change_initial_state()
             self.crowd_search_once()
+            # !!!
+            # record the whole process toward child landscape convergence
+            # may only need to record the last performance
             self.potential_after_convergence_landscape.append(self.potential_after_convergence_agent)
             self.converged_fitness_landscape.append(self.converged_fitness_agent)
 
@@ -213,14 +215,22 @@ class Simulator:
         :return: the outcomes in the parent level
         """
         self.set_parent_landscape()
+        # the first child landscape have no previous reference; previous_IM is none.
         self.set_child_landscape()
-        self.set_initial_agents()
+        self.set_agent()
         self.get_match()
+        # independent search without socialization
         self.crowd_search_once()
+        # upcoming search toward the convergence regarding one child landscape
+        # these upcoming search is socialized such that agents will update the initial state
         self.crowd_search_forward()
         for _ in range(self.landscape_num):
+            # the upcoming child landscape will have previous child as reference
+            # the upcoming child landscape only have one bit change regarding IM
             self.change_working_landscape()
+            # one the landscape change, we need to re-calculate the match indicators
             self.get_match()
+            # repeating the search toward to a convergence in this child landscape
             self.crowd_search_once()
             self.crowd_search_forward()
 

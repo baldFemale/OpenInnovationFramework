@@ -30,9 +30,8 @@ def loop(k=0, K=0,):
     A_converged_potential_parent = []
     B_converged_fitness_parent = []  # for the final converged fitness after search
     C_IM_list_parent = []  # for the landscape IM
-    D_knowledge_list_parent = []  # for the agent knowledge in case we will change the weighted sum algorithm
-    E_row_match_parent = []  # for the weighted sum according to IM row
-    E_column_match_parent = []  # for the weighted sum according to IM column
+    D_row_match_parent = []  # for the weighted sum according to IM row
+    D_column_match_parent = []  # for the weighted sum according to IM column
 
     for parent_loop in range(parent_iteration):
         simulator = Simulator(N=N, state_num=state_num, landscape_num=landscape_num, agent_num=agent_num,
@@ -43,33 +42,20 @@ def loop(k=0, K=0,):
         A_converged_potential_parent.append(simulator.potential_after_convergence_landscape)
         B_converged_fitness_parent.append(simulator.converged_fitness_landscape)
         C_IM_list_parent.append(simulator.IM_dynamics)
-        D_knowledge_list_parent.append(simulator.knowledge_list_landscape)
-                C_row_match_temp = 0
-                for row in range(simulator.N):
-                    if row in simulator.agent.specialist_knowledge_domain:
-                        C_row_match_temp += sum(IM[row]) * simulator.state_num
-                    if row in simulator.agent.generalist_knowledge_domain:
-                        C_row_match_temp += sum(IM[row]) * simulator.state_num * simulator.agent.gs_ratio
-                C_column_match_temp = 0
-                for column in range(simulator.N):
-                    if column in simulator.agent.specialist_knowledge_domain:
-                        C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
-                    if column in simulator.agent.generalist_knowledge_domain:
-                        C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
 
-    # Output file name  # fix the bug when evaluate the performance curve, the k=4 will go to position of the k=44
-    if simulator.landscape.k < 10:
-        basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-                          '_K' + str(simulator.landscape.K) + '_k0' + str(simulator.landscape.k) + '_E' + str(
-            simulator.agent.element_num) + \
-                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
-                          + "_D"
-    else:
-        basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-                          '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
-            simulator.agent.element_num) + \
-                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
-                          + "_D"
+        # Output file name  # fix the bug when evaluate the performance curve, the k=4 will go to position of the k=44
+        if simulator.landscape.k < 10:
+            basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
+                              '_K' + str(simulator.landscape.K) + '_k0' + str(simulator.landscape.k) + '_E' + str(
+                simulator.agent.element_num) + \
+                              '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
+                              + "_D"
+        else:
+            basic_file_name = simulator.+ '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
+                              '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
+                simulator.agent.element_num) + \
+                              '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num) \
+                              + "_D"
 
     A_file_name_potential = "1Potential_" + basic_file_name
     B_file_name_convergence = "2Convergence_" + basic_file_name
