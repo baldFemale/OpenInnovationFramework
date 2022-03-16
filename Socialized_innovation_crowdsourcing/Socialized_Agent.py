@@ -12,7 +12,7 @@ from ParentLandscape import ParentLandscape
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, copied_state=None, state_pool=None, assigned_state_pool_rank=None):
+    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, state_pool=None, assigned_state_pool_rank=None):
         """
         The difference between original one and the socialized one:
         1. copied_state: enable the angens to polish the existing ideas/solutions
@@ -27,10 +27,7 @@ class Agent:
         self.N = N
         self.name = "None"
         self.state_num = state_num
-        if copied_state:
-            self.state = copied_state
-        else:
-            self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
+        self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.state = [str(i) for i in self.state]  # ensure the format of state
         # store the cognitive state list during the search
         self.cog_state = self.state.copy()
@@ -67,7 +64,7 @@ class Agent:
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
-    def get_state_from_exposure(self, exposure_type=None):
+    def update_state_from_exposure(self, exposure_type=None):
         """
         Re-assign the initial state for upcoming cognitive search
         :return:update the initial state
@@ -95,15 +92,15 @@ class Agent:
             state_str = max(self.assigned_state_pool_rank, key=self.assigned_state_pool_rank.get)
             self.state = list(state_str)  # assigned to the state with best overall rank
 
-    def vote_for_state_pool(self, state_pool=None):
+    def vote_for_state_pool(self):
         """
         Vote for the whole pool; the weights are measured by each cognitive fitness
         :return:the dict of each state with its cog_fitness
         """
-        if not state_pool:
+        if not self.state_pool:
             raise ValueError("Need state pool assigned by the simulator")
         personal_pool_rank = {}
-        for each_state in state_pool:
+        for each_state in self.state_pool:
             cog_state = self.change_state_to_cog_state(state=each_state)
             perceived_fitness = self.landscape.query_cog_fitness(cog_state)
             personal_pool_rank[''.join(each_state)] = perceived_fitness

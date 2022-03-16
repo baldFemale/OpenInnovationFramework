@@ -163,7 +163,13 @@ class DyLandscape:
 
     def create_fitness_config(self,):
         """
-        Create the child FC from the parent FC
+        Create the child FC from the parent FC. This is a parent-child design pattern.
+        We first set up the IM, and then according to the IM, we set up the FC.
+        The IM evolute one bit each time, that is, one position in IM changes from 0 to 1. Accordingly, another position changes from 1 to 0.
+        The child's FC is based on parent's full FC.
+        Eventually, the FC is based on the same bigger parent FC.
+        In other words, the child landscape is inherited from the parent landscape.
+        This makes the child simular to each other, but slightly different, which is called dynamic landscape.
         This part is different from the original Landscape instance
         :return:
         """
@@ -180,6 +186,7 @@ class DyLandscape:
         # print("alternative_dependency: ", len(alternative_dependency[0]))
         for row in range(len(self.IM)):
             alternative_binary_index_scope = alternative_dependency[row]
+            # change the possible state string into int index
             alternative_FC_index = [int("".join(each_str), self.state_num) for each_str in alternative_binary_index_scope]
             k = int(sum(self.IM[row]))
             # print(row, k, alternative_FC_index)
@@ -190,6 +197,8 @@ class DyLandscape:
                 raise ValueError("the FC is not calculated correctly")
             for column_child, column_parent in zip(range(pow(self.state_num, k)), alternative_FC_index):
                 FC[row][column_child] = self.parent_FC[row][column_parent]
+                # the child lanscape's IM is cutted from the parent landscape's IM
+                # according to the child's IM distribution, we calculate all the alternatives
         self.FC = FC
 
 
