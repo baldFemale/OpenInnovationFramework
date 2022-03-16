@@ -8,38 +8,26 @@ import pickle
 import multiprocessing as mp
 import math
 from Simulator_resiliance import Simulator
-from Socialized_Agent import Agent
+
 
 # Parameters
 N = 10
 state_num = 4
 parent_iteration = 20
-landscape_iteration = 200
-agent_iteration = 200
+landscape_num = 200
+agent_num = 200
 search_iteration = 100
+landscape_search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
-IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
-# generalist_list = [6, 0, 4, 2]
-# specialist_list = [0, 3, 1, 2]
-# totally 40 elements; try more knowledgeable setting: 36
-generalist_list = [10, 0, 4, 6]
-specialist_list = [0, 5, 3, 2]
+# IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+IM_type = "Traditional Mutual"
 
 
-def loop(k=0, K=0, IM_type=None, each_agent_type=None, generalist_num=None, specialist_num=None):
-    """
-    Task loop for multiple processing
-    :param each_agent_type:
-    :param generalist_num:
-    :param specialist_num:
-    :return: pickled data, 500*500 repetitions (i.e.,Landscape iteration and Agent iteration)
-                for each setting (i.e., agent type and IM type) (around 10 Ks with 4 agent types)
-                ultimately, data shape [10, 4, 500, 500]
-    """
-
-    simulator = Simulator(N=N, state_num=state_num)
+def loop(k=0, K=0, IM_type=None):
+    simulator = Simulator(N=N, state_num=state_num, landscape_num=landscape_num, agent_num=agent_num, search_iteration=search_iteration,
+                 landscape_search_iteration=landscape_search_iteration, IM_type=IM_type, factor_num=0, influential_num=0)
     # Parent Landscape Level
     A_converged_potential_parent = []
     B_converged_fitness_parent = []  # for the final converged fitness after search
