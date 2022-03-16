@@ -16,7 +16,7 @@ from Socialized_Agent import Agent
 class Simulator:
     """One simulator represent one Parent Landscape iteration"""
     def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100,
-                 landscape_search_iteration=100, IM_type=None):
+                 landscape_search_iteration=100, IM_type=None, K=0, k=0):
         # Parent Landscape
         self.parent = None  # will be stable within one simulator
         self.N = N
@@ -27,7 +27,7 @@ class Simulator:
         self.landscape_num = landscape_num
         self.state_pool = []
         self.state_pool_rank = {}
-        self.previous_IM = None
+        self.IM_dynamics = []
         self.IM_type = IM_type
         self.K = K
         self.k = k
@@ -50,15 +50,8 @@ class Simulator:
         self.converged_fitness_landscape = [] # child landscapes; or one parent
         self.potential_after_convergence_agent = [] # temp
         self.potential_after_convergence_landscape = []
-
-        #  Match indicators
-        self.match_g = None  # the match degree between IM and agent/team generalist knowledge domain
-        self.match_s = None  # the match degree between IM and agent/team specialist knowledge domain
-        self.match_overall = None
-
-        # Knowledge domain indicator
-        self.generalist_knowledge_domain_list = []  # the order is consistent with self.converged_fitness
-        self.specialist_knowledge_domain_list = []
+        self.row_match_landscape = []
+        self.colummn_match_landscape = []  # only in the child landscape level; match degree across agents is added up.
 
     def set_parent_landscape(self):
         self.parent = ParentLandscape(N=self.N, state_num=self.state_num)
@@ -69,9 +62,9 @@ class Simulator:
         self.landscape = None  # delete the previous one
         self.landscape = DyLandscape(N=self.N, state_num=self.state_num, parent=self.parent)
         self.landscape.type(IM_type=self.IM_type, K=self.K, k=self.k,
-                            previous_IM=self.previous_IM, IM_change_bit=self.IM_change_bit)
+                            previous_IM=self.IM_dynamics[-1], IM_change_bit=self.IM_change_bit)
         self.landscape.initialize()
-        self.previous_IM = self.landscape.IM  # update IM history
+        self.IM_dynamics.append(self.landscape.IM)  # extend the IM history
 
     def set_initial_agents(self, knowledge=20, gs_proportion=0.5):
         """
@@ -106,6 +99,11 @@ class Simulator:
             agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Specialist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
+
+        # the knowledge distribution of the crowd is meaningless or unoriginal
+        # in this paper, we focus on the proportion instead of diversity.
+        # for agent in self.agents:
+        #     self.knowledge_list_landscape.append(agent.generalist_knowledge_domain)
 
     def crowd_search_once(self):
         """
@@ -187,44 +185,45 @@ class Simulator:
         for agent in self.agents:
             agent.update_state_from_exposure(exposure_type=exposure_type)
 
+    def get_match(self):
+        if not self.landscape:
+            raise ValueError("NO landscape")
+        if not self.agents:
+            raise ValueError("NO agents")
+        column_mach = 0
+        row_match = 0
+        for agent in self.agents:
+            for column in range(self.N):
+                if column in agent.specialist_knowledge_domain:
+                    column_mach += sum(self.landscape.IM[:][column]) * agent.state_num
+                elif column in agent.generalist_knowledge_domain:
+                    column_mach += sum(self.landscape.IM[:][column]) * agent.state_num * 0.5
+        for agent in self.agents:
+            for row in range(self.N):
+                if row in agent.specialist_knowledge_domain:
+                    column_mach += sum(self.landscape.IM[row][:]) * agent.state_num
+                elif row in agent.generalist_knowledge_domain:
+                    column_mach += sum(self.landscape.IM[row][:]) * agent.state_num * 0.5
+        self.row_match_landscape.append(int(row_match))
+        self.colummn_match_landscape.append(int(row_match))
+
     def process(self):
         """
         Process to run one parent landscape loop
         :return: the outcomes in the parent level
         """
         self.set_parent_landscape()
+        self.set_child_landscape()
+        self.set_initial_agents()
+        self.get_match()
+        self.crowd_search_once()
+        self.crowd_search_forward()
         for _ in range(self.landscape_num):
-            self.set_child_landscape()
+            self.change_working_landscape()
+            self.get_match()
             self.crowd_search_once()
             self.crowd_search_forward()
 
-
-
-    def output(self):
-        basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-                          '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
-            simulator.agent.element_num) + \
-                          '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
-
-        A_file_name_potential = "1Potential_" + basic_file_name
-        B_file_name_convergence = "2Convergence_" + basic_file_name
-        C_file_name_row_match = "3RowMatch_" + basic_file_name
-        C_file_name_column_match = "4ColumnMatch_" + basic_file_name
-        D_file_name_IM_information = "5IM_" + basic_file_name
-        E_file_name_agent_knowledge = "6Knowledge_" + basic_file_name
-
-        with open(A_file_name_potential, 'wb') as out_file:
-            pickle.dump(A_converged_potential_landscape, out_file)
-        with open(B_file_name_convergence, 'wb') as out_file:
-            pickle.dump(B_converged_fitness_landscape, out_file)
-        with open(C_file_name_row_match, 'wb') as out_file:
-            pickle.dump(C_row_match_landscape, out_file)
-        with open(C_file_name_column_match, 'wb') as out_file:
-            pickle.dump(C_column_match_landscape, out_file)
-        with open(D_file_name_IM_information, 'wb') as out_file:
-            pickle.dump(D_landscape_IM_list, out_file)
-        with open(E_file_name_agent_knowledge, 'wb') as out_file:
-            pickle.dump(E_knowledge_list_landscape, out_file)
 
 
 if __name__ == '__main__':

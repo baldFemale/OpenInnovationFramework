@@ -25,53 +25,25 @@ agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 IM_type = "Traditional Mutual"
 
 
-def loop(k=0, K=0, IM_type=None):
-    simulator = Simulator(N=N, state_num=state_num, landscape_num=landscape_num, agent_num=agent_num, search_iteration=search_iteration,
-                 landscape_search_iteration=landscape_search_iteration, IM_type=IM_type, factor_num=0, influential_num=0)
+def loop(k=0, K=0,):
     # Parent Landscape Level
     A_converged_potential_parent = []
     B_converged_fitness_parent = []  # for the final converged fitness after search
-    C_row_match_parent = []  # for the weighted sum according to IM row
-    C_column_match_parent = []  # for the weighted sum according to IM column
-    D_IM_list_parent = []  # for the landscape IM
-    E_knowledge_list_parent = []  # for the agent knowledge in case we will change the weighted sum algorithm
-    for parent_loop in range(parent_iteration):
-        simulator.set_parent_landscape()
-        IM_dynamics_list = [] # only with the same parent landscape to generate dynamic landscape gradually
-        A_converged_potential_landscape = []
-        B_converged_fitness_landscape = []  # for the final converged fitness after search
-        C_row_match_landscape = []  # for the weighted sum according to IM row
-        C_column_match_landscape = []  # for the weighted sum according to IM column
-        D_IM_list_landscape = []  # for the landscape IM -> one of the output files
-        E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
-        for landscape_loop in range(landscape_iteration):
-            if len(IM_dynamics_list) == 0:
-                simulator.set_dynamic_landscape(K=K, k=k, IM_type=IM_type, factor_num=0, influential_num=0)
-            else:
-                simulator.set_dynamic_landscape(K=K, k=k, IM_type=IM_type, factor_num=0, influential_num=0,
-                                                previous_IM=IM_dynamics_list[-1], IM_change_bit=1)
-            IM_dynamics_list.append(simulator.landscape.IM)
-            # Landscape Level Indicator
-            A_converged_potential_agent = []
-            B_converged_fitness_agent = []
-            C_row_match_agent = []
-            C_column_match_agent = []
-            IM_ = simulator.landscape.IM.tolist()
-            D_IM_list_landscape.append(IM_)  # only this doesn't need to get into Agent loop
-            E_knowledge_list_agent = []
+    C_IM_list_parent = []  # for the landscape IM
+    D_knowledge_list_parent = []  # for the agent knowledge in case we will change the weighted sum algorithm
+    E_row_match_parent = []  # for the weighted sum according to IM row
+    E_column_match_parent = []  # for the weighted sum according to IM column
 
-            for agent_loop in range(agent_iteration):
-                simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num,
-                                    specialist_num=specialist_num)
-                for search_loop in range(search_iteration):
-                    simulator.agent.cognitive_local_search()
-                potential_after_convergence = simulator.landscape.query_potential_performance(cog_state=simulator.agent.cog_state, top=1)
-                A_converged_potential_agent.append(potential_after_convergence)
-                simulator.agent.state = simulator.agent.change_cog_state_to_state(
-                    cog_state=simulator.agent.cog_state)
-                simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
-                B_converged_fitness_agent.append(simulator.agent.converge_fitness)
-                # Weighted sum for the match between landscape IM and agent knowledge
+    for parent_loop in range(parent_iteration):
+        simulator = Simulator(N=N, state_num=state_num, landscape_num=landscape_num, agent_num=agent_num,
+                              search_iteration=search_iteration,
+                              landscape_search_iteration=landscape_search_iteration, IM_type=IM_type)
+        simulator.set_parent_landscape()
+        simulator.process()
+        A_converged_potential_parent.append(simulator.potential_after_convergence_landscape)
+        B_converged_fitness_parent.append(simulator.converged_fitness_landscape)
+        C_IM_list_parent.append(simulator.IM_dynamics)
+        D_knowledge_list_parent.append(simulator.knowledge_list_landscape)
                 C_row_match_temp = 0
                 for row in range(simulator.N):
                     if row in simulator.agent.specialist_knowledge_domain:
@@ -84,23 +56,6 @@ def loop(k=0, K=0, IM_type=None):
                         C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
                     if column in simulator.agent.generalist_knowledge_domain:
                         C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
-
-                C_row_match_agent.append(C_row_match_temp)
-                C_column_match_agent.append(C_column_match_temp)
-                E_knowledge_list_agent.append(
-                    [simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
-            A_converged_potential_landscape.append(A_converged_potential_agent)
-            B_converged_fitness_landscape.append(B_converged_fitness_agent)
-            C_row_match_landscape.append(C_row_match_agent)
-            C_column_match_landscape.append(C_column_match_agent)
-            E_knowledge_list_landscape.append(E_knowledge_list_agent)
-
-        A_converged_potential_parent.append(A_converged_potential_landscape)
-        B_converged_fitness_parent.append(B_converged_fitness_landscape)
-        C_row_match_parent.append(C_row_match_landscape)
-        C_column_match_parent.append(C_column_match_landscape)
-        D_IM_list_parent.append(D_IM_list_landscape)
-        E_knowledge_list_parent.append(E_knowledge_list_landscape)
 
     # Output file name  # fix the bug when evaluate the performance curve, the k=4 will go to position of the k=44
     if simulator.landscape.k < 10:
