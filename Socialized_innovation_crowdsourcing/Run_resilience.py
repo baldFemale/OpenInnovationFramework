@@ -18,12 +18,24 @@ agent_num = 200
 search_iteration = 100
 landscape_search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
-K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-# agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
+K_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
 IM_type = "Traditional Directed"
 knowledge_num = 20
 
+
+# test
+# N = 8
+# state_num = 4
+# parent_iteration = 1
+# landscape_num = 2
+# agent_num = 2
+# search_iteration = 2
+# landscape_search_iteration = 2
+# K_list = [1]
+# # IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
+# IM_type = "Traditional Directed"
+# knowledge_num = 16
 
 def loop(k=0, K=0,):
     # Parent Landscape Level
@@ -39,6 +51,7 @@ def loop(k=0, K=0,):
                               landscape_search_iteration=landscape_search_iteration, IM_type=IM_type, knowledge_num=knowledge_num)
         simulator.set_parent_landscape()
         simulator.process()
+        print("Ending process")
         A_converged_potential_parent.append(simulator.potential_after_convergence_landscape)
         B_converged_fitness_parent.append(simulator.converged_fitness_landscape)
         C_IM_list_parent.append(simulator.IM_dynamics)
@@ -75,3 +88,4 @@ if __name__ == '__main__':
     for K in K_list:
         p = mp.Process(target=loop, args=(k, K))
         p.start()
+        # loop(k=k, K=K)

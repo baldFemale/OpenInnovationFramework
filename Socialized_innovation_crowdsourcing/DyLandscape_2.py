@@ -74,33 +74,33 @@ class DyLandscape:
         self.IM_type = IM_type
         self.K = K
         self.k = k
-        count = 0
         # if give the prevous IM, bypass the traditional generation process
         if previous_IM is not None:
             previous_IM = np.array(previous_IM)
             while True:
-                count += 1
-                print("count: ", count)
                 # must use copy, otherwise the previous IM will also change and get into endless loop
                 self.IM = previous_IM.copy()
                 zero_positions = np.argwhere(self.IM == 0)
                 one_positions = np.argwhere(self.IM == 1)
                 shift_to_one_positions = np.random.choice(len(zero_positions), IM_change_bit, replace=False)
                 shift_to_zero_positions = np.random.choice(len(one_positions), IM_change_bit, replace=False)
-                # print("shift_to_one_positions: ", shift_to_one_positions)
-                # print("shift_to_zero_positions", shift_to_zero_positions)
                 shift_to_one_positions = [zero_positions[i] for i in shift_to_one_positions]  # 1 -> 0
                 shift_to_zero_positions = [one_positions[i] for i in shift_to_zero_positions]  # 0 -> 1
-                print("shift_to_one_positions: ", shift_to_one_positions)
-                print("shift_to_zero_positions", shift_to_zero_positions)
+                # print("shift_to_one_positions: ", shift_to_one_positions)
+                # print("shift_to_zero_positions", shift_to_zero_positions)
                 for indexs in shift_to_one_positions:
                     self.IM[indexs[0]][indexs[1]] = 1
                 for indexs in shift_to_zero_positions:
+                    # we cannot change the diagonal element into zero
+                    if indexs[0] == indexs[1]:
+                        print("re-assignment 1")
+                        continue
                     self.IM[indexs[0]][indexs[1]] = 0
-                print("IM: \n", self.IM)
-                print("Previous: \n", previous_IM)
-                print("Y/N: ", (self.IM == previous_IM).all())
+                # print("IM: \n", self.IM)
+                # print("Previous: \n", previous_IM)
+                # print("Y/N: ", (self.IM == previous_IM).all())
                 if (self.IM == previous_IM).all():
+                    print("re-assignment 2")
                     continue
                 else:
                     break
@@ -204,11 +204,12 @@ class DyLandscape:
             if len(alternative_FC_index) != pow(self.state_num, k):
                 print("The calculated length of alternative pool: ", len(alternative_FC_index),)
                 print("The expected length of alternative pool: ", pow(self.state_num, k))
-                raise ValueError("the FC is not calculated correctly")
+                raise ValueError("the FC is not calculated correctly for row: ", row, self.IM[row], self.IM)
             for column_child, column_parent in zip(range(pow(self.state_num, k)), alternative_FC_index):
                 FC[row][column_child] = self.parent_FC[row][column_parent]
                 # the child lanscape's IM is cutted from the parent landscape's IM
                 # according to the child's IM distribution, we calculate all the alternatives
+                # those alternative dependency string will be transferred into separate index
         self.FC = FC
 
     def calculate_fitness(self, state):
@@ -216,7 +217,9 @@ class DyLandscape:
         for i in range(len(state)):
             dependency = self.dependency_map[i]
             binary_index = "".join([str(state[j]) for j in dependency])
+            binary_index = str(state[i]) + binary_index
             index = int(binary_index, self.state_num)
+            # print("binary_index: ", binary_index, index)
             res.append(self.FC[i][index])
         return np.mean(res)
 
@@ -322,6 +325,22 @@ class DyLandscape:
         #     print("length of row %s: %s" % (index, len(each_row)))
         return alternative_pool_row
 
+    def is_different_from(self, landscape=None):
+        """
+        How to calculate the simularity between landscapes
+        In current algorithm, each point will have different value, as two elements will have different contribution.
+        :param landscape: another child landscape
+        :return: simularity indicator
+        """
+        count = 0
+        total = self.state_num ** self.N
+        for a, b in zip(self.cache.values(), landscape.cache.values()):
+            if a == b:
+                count += 1
+        ratio = count / total
+        print("Simularity: ", ratio, count)
+        return ratio
+
 
 if __name__ == '__main__':
     # Test Example
@@ -340,4 +359,5 @@ if __name__ == '__main__':
     cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     a = child_landscape_2.query_cog_fitness(cog_state)
     print(a)
+
 
