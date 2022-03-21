@@ -7,11 +7,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Reproduction_cognitive_8" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (Python_Workplace)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

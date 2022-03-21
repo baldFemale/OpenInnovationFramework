@@ -4,10 +4,7 @@
 # @FileName: Simulator.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import pickle
-import matplotlib.pyplot as plt
 import time
-# new compositions for dynamic/socialization framework
 from DyLandscape_2 import DyLandscape
 from ParentLandscape import ParentLandscape
 from Socialized_Agent import Agent
@@ -16,7 +13,7 @@ from Socialized_Agent import Agent
 class Simulator:
     """One simulator represent one Parent Landscape iteration"""
     def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100,
-                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20):
+                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20, exposure_type="Random"):
         # Parent Landscape
         self.parent = None  # will be stable within one simulator
         self.N = N
@@ -27,7 +24,7 @@ class Simulator:
         self.landscape_num = landscape_num
         self.state_pool = []
         self.state_pool_rank = {}
-        self.IM_dynamics = []
+        self.IM_dynamics = [None]
         self.IM_type = IM_type
         self.K = K
         self.k = k
@@ -37,6 +34,7 @@ class Simulator:
         self.agents = []  # will be stable; only the initial state and search will change
         self.agent_num = agent_num
         self.knowledge_num = knowledge_num
+        self.exposure_type = exposure_type
         self.gs_proportion = gs_proportion
         self.generalist_num = int(self.agent_num * gs_proportion)
         self.specialist_num = int(self.agent_num * (1-gs_proportion))
@@ -88,6 +86,7 @@ class Simulator:
             # fix the composition of agent crowd (e.g., the proportion of GS)
             generalist_num = int(self.knowledge_num/2)
             specialist_num = 0
+            print("generalist_num: ", generalist_num)
             agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Generalist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
@@ -134,7 +133,7 @@ class Simulator:
         """
         for _ in range(self.landscape_search_iteration):
             self.creat_state_pool_and_rank()
-            self.change_initial_state()
+            self.change_initial_state(exposure_type=self.exposure_type)
             self.crowd_search_once()
             # !!!
             # record the whole process toward child landscape convergence
@@ -147,8 +146,9 @@ class Simulator:
         after each crowd search, create the state pool and make the agents vote for it.
         :return: the crowd-level state pool and its overall rank
         """
-        self.state_pool = [agent.state for agent in self.agents]
+        self.state_pool = ["".join(agent.state) for agent in self.agents]
         self.state_pool = list(set(self.state_pool))
+        self.state_pool = [list(each) for each in self.state_pool]
         overall_pool_rank = {}
         for state in self.state_pool:
             overall_pool_rank["".join(state)] = 0
@@ -167,7 +167,7 @@ class Simulator:
         for agent in self.agents:
             agent.landscape = self.landscape
 
-    def change_initial_state(self, exposure_type=None):
+    def change_initial_state(self, exposure_type="Random"):
         """
         After we create the state pool and its rank, agents can update their initial state
         :param exposure_type: only three valid exposure types
@@ -181,6 +181,7 @@ class Simulator:
         if exposure_type not in valid_exposure_type:
             raise ValueError("Only support: ", valid_exposure_type)
         if exposure_type == "Overall-ranking":
+            # only the overall rank need to shape the pool and assign it into crowd
             self.creat_state_pool_and_rank()  # get the pool rank
             for agent in self.agents:
                 agent.assigned_state_pool_rank = self.state_pool_rank
@@ -188,6 +189,10 @@ class Simulator:
             agent.update_state_from_exposure(exposure_type=exposure_type)
 
     def get_match(self):
+        """
+        Either the agent or child landscape change, match indicator need to be re-measured.
+        :return: the match indicator, in child landscape level
+        """
         if not self.landscape:
             raise ValueError("NO landscape")
         if not self.agents:
@@ -252,102 +257,14 @@ if __name__ == '__main__':
     agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
     # agent_name = ["Generalist"]
     # IM_type = ["Traditional Directed", "Factor Directed", "Influential Directed"]
-    knowledge_num = 20
-    
-
-
-
-
-
-    # # state = 10, E = 12 (=2*6; 4*3; 2*4+ 4*1; 2*2+4*2)
-    # K = 0
-    # for k in k_list:
-    #     for each_agent_type, generalist_num, specialist_num in zip(agent_name, generalist_list, specialist_list):
-    #         simulator = Simulator(N=N, state_num=state_num)
-    #         A_converged_potential_landscape = []
-    #         B_converged_fitness_landscape = []  # for the final converged fitness after search
-    #         C_row_match_landscape = []  # for the weighted sum according to IM row
-    #         C_column_match_landscape = []  # for the weighted sum according to IM column
-    #         D_landscape_IM_list = []  # for the landscape IM
-    #         E_knowledge_list_landscape = []  # for the agent knowledge in case we will change the weighted sum algorithm
-    #         for parent_loop in range(parent_iteration):
-    #             simulator.set_parent_landscape(N=N, state_num=state_num)
-    #             for landscape_loop in range(landscape_iteration):
-    #                 simulator.set_dynamic_landscape(K=K, k=k, IM_type="Factor Directed", factor_num=0, influential_num=0)
-    #                 A_converged_potential_agent = []
-    #                 B_converged_fitness_agent = []
-    #                 C_row_match_agent = []
-    #                 C_column_match_agent = []
-    #                 IM = simulator.landscape.IM.tolist()
-    #                 D_landscape_IM_list.append(IM)
-    #                 E_knowledge_list_agent = []
-    #                 for agent_loop in range(agent_iteration):
-    #                     simulator.set_agent(name=each_agent_type, lr=0, generalist_num=generalist_num,
-    #                                         specialist_num=specialist_num)
-    #                     for search_loop in range(search_iteration):
-    #                         simulator.agent.cognitive_local_search()
-    #                     potential_after_convergence = simulator.landscape.query_potential_performance(
-    #                         cog_state=simulator.agent.cog_state, top=1)
-    #                     A_converged_potential_agent.append(potential_after_convergence)
-    #                     simulator.agent.state = simulator.agent.change_cog_state_to_state(
-    #                         cog_state=simulator.agent.cog_state)
-    #                     simulator.agent.converge_fitness = simulator.landscape.query_fitness(state=simulator.agent.state)
-    #                     B_converged_fitness_agent.append(simulator.agent.converge_fitness)
-    #                     # Weighted sum for the match between landscape IM and agent knowledge
-    #                     C_row_match_temp = 0
-    #                     for row in range(simulator.N):
-    #                         if row in simulator.agent.specialist_knowledge_domain:
-    #                             C_row_match_temp += sum(IM[row]) * simulator.state_num
-    #                         if row in simulator.agent.generalist_knowledge_domain:
-    #                             C_row_match_temp += sum(IM[row]) * simulator.state_num * simulator.agent.gs_ratio
-    #                     C_column_match_temp = 0
-    #                     for column in range(simulator.N):
-    #                         if column in simulator.agent.specialist_knowledge_domain:
-    #                             C_column_match_temp += sum(IM[:][column]) * simulator.agent.state_num
-    #                         if column in simulator.agent.generalist_knowledge_domain:
-    #                             C_column_match_temp += sum(
-    #                                 IM[:][column]) * simulator.agent.state_num * simulator.agent.gs_ratio
-    #
-    #                     C_row_match_agent.append(C_row_match_temp)
-    #                     C_column_match_agent.append(C_column_match_temp)
-    #                     E_knowledge_list_agent.append(
-    #                         [simulator.agent.specialist_knowledge_domain, simulator.agent.generalist_knowledge_domain])
-    #                 A_converged_potential_landscape.append(A_converged_potential_agent)
-    #                 B_converged_fitness_landscape.append(B_converged_fitness_agent)
-    #                 C_row_match_landscape.append(C_row_match_agent)
-    #                 C_column_match_landscape.append(C_column_match_agent)
-    #                 E_knowledge_list_landscape.append(E_knowledge_list_agent)
-    #
-    #         # Output file name
-    #         basic_file_name = simulator.agent.name + '_' + simulator.landscape.IM_type + '_N' + str(simulator.agent.N) + \
-    #                           '_K' + str(simulator.landscape.K) + '_k' + str(simulator.landscape.k) + '_E' + str(
-    #             simulator.agent.element_num) + \
-    #                           '_G' + str(simulator.agent.generalist_num) + '_S' + str(simulator.agent.specialist_num)
-    #         A_file_name_potential = "1Potential_" + basic_file_name
-    #         B_file_name_convergence = "2Convergence_" + basic_file_name
-    #         C_file_name_row_match = "3RowMatch_" + basic_file_name
-    #         C_file_name_column_match = "4ColumnMatch_" + basic_file_name
-    #         D_file_name_IM_information = "5IM_" + basic_file_name
-    #         E_file_name_agent_knowledge = "6Knowledge_" + basic_file_name
-    #
-    #         with open(A_file_name_potential, 'wb') as out_file:
-    #             pickle.dump(A_converged_potential_landscape, out_file)
-    #         with open(B_file_name_convergence, 'wb') as out_file:
-    #             pickle.dump(B_converged_fitness_landscape, out_file)
-    #         with open(C_file_name_row_match, 'wb') as out_file:
-    #             pickle.dump(C_row_match_landscape, out_file)
-    #         with open(C_file_name_column_match, 'wb') as out_file:
-    #             pickle.dump(C_column_match_landscape, out_file)
-    #         with open(D_file_name_IM_information, 'wb') as out_file:
-    #             pickle.dump(D_landscape_IM_list, out_file)
-    #         with open(E_file_name_agent_knowledge, 'wb') as out_file:
-    #             pickle.dump(E_knowledge_list_landscape, out_file)
-    #
-    #         # plt.plot(np.mean(np.mean(np.array(B_converged_fitness_landscape), axis=0), axis=0))
-    #         # plt.legend()
-    #         # plt.show()
-    # end_time = time.time()
-    # print("Time used: ", end_time-start_time)
-
-
-
+    knowledge_num = 16
+    exposure_type = "Random"
+    # valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
+    simulator = Simulator(N=8, state_num=4, landscape_num=2, agent_num=4, search_iteration=2,
+                 landscape_search_iteration=1, IM_type="Traditional Directed", K=2, k=0, gs_proportion=0.5,
+                          knowledge_num=knowledge_num, exposure_type=exposure_type)
+    # simulator.set_parent_landscape()
+    # simulator.set_child_landscape()
+    # simulator.set_agent()
+    simulator.process()
+    print("END")

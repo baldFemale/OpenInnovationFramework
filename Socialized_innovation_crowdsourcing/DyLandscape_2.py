@@ -74,84 +74,94 @@ class DyLandscape:
         self.IM_type = IM_type
         self.K = K
         self.k = k
+        count = 0
         # if give the prevous IM, bypass the traditional generation process
-        if previous_IM:
+        if previous_IM is not None:
             previous_IM = np.array(previous_IM)
             while True:
-                self.IM = previous_IM
+                count += 1
+                print("count: ", count)
+                # must use copy, otherwise the previous IM will also change and get into endless loop
+                self.IM = previous_IM.copy()
                 zero_positions = np.argwhere(self.IM == 0)
                 one_positions = np.argwhere(self.IM == 1)
                 shift_to_one_positions = np.random.choice(len(zero_positions), IM_change_bit, replace=False)
                 shift_to_zero_positions = np.random.choice(len(one_positions), IM_change_bit, replace=False)
+                # print("shift_to_one_positions: ", shift_to_one_positions)
+                # print("shift_to_zero_positions", shift_to_zero_positions)
                 shift_to_one_positions = [zero_positions[i] for i in shift_to_one_positions]  # 1 -> 0
                 shift_to_zero_positions = [one_positions[i] for i in shift_to_zero_positions]  # 0 -> 1
+                print("shift_to_one_positions: ", shift_to_one_positions)
+                print("shift_to_zero_positions", shift_to_zero_positions)
                 for indexs in shift_to_one_positions:
                     self.IM[indexs[0]][indexs[1]] = 1
                 for indexs in shift_to_zero_positions:
                     self.IM[indexs[0]][indexs[1]] = 0
+                print("IM: \n", self.IM)
+                print("Previous: \n", previous_IM)
+                print("Y/N: ", (self.IM == previous_IM).all())
                 if (self.IM == previous_IM).all():
                     continue
                 else:
                     break
-            return
-
-        if K == 0:
-            self.IM = np.eye(self.N)
         else:
-            if self.IM_type == "Traditional Directed":
-                # each row has a fixed number of dependency (i.e., K)
-                for i in range(self.N):
-                    probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
-                    if self.K < self.N:
-                        ids = np.random.choice(self.N, self.K, p=probs, replace=False)
-                        for index in ids:
-                            self.IM[i][index] = int(1)
-                    else:  # full dependency
-                        for index in range(self.N):
-                            self.IM[i][index] = int(1)
-            elif self.IM_type == "Diagonal Mutual":
-                pass
-            elif self.IM_type == "Random Mutual":
-                # select some dependencies, and such dependencies will be mutual.
-                pass
+            if K == 0:
+                self.IM = np.eye(self.N)
+            else:
+                if self.IM_type == "Traditional Directed":
+                    # each row has a fixed number of dependency (i.e., K)
+                    for i in range(self.N):
+                        probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
+                        if self.K < self.N:
+                            ids = np.random.choice(self.N, self.K, p=probs, replace=False)
+                            for index in ids:
+                                self.IM[i][index] = int(1)
+                        else:  # full dependency
+                            for index in range(self.N):
+                                self.IM[i][index] = int(1)
+                elif self.IM_type == "Diagonal Mutual":
+                    pass
+                elif self.IM_type == "Random Mutual":
+                    # select some dependencies, and such dependencies will be mutual.
+                    pass
 
-        if k != 0:
-            if self.IM_type == "Random Directed":
-                cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
-                choices = np.random.choice(cells, self.k, replace=False).tolist()
-                for each in choices:
-                    self.IM[each // self.N][each % self.N] = 1
-            elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are more dependent to others
-                if factor_num == 0:
-                    factor_num = self.k // self.N
-                factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
-                for cur_i in range(self.N):
-                    for cur_j in range(self.N):
-                        if (cur_j in factor_columns) & (k > 0):
-                            self.IM[cur_i][cur_j] = 1
-                            k -= 1
-                if k > 0:
-                    zero_positions = np.argwhere(self.IM == 0)
-                    fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
-                    fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
-                    for indexs in fill_with_one_positions:
-                        self.IM[indexs[0]][indexs[1]] = 1
+            if k != 0:
+                if self.IM_type == "Random Directed":
+                    cells = [i * self.N + j for i in range(self.N) for j in range(self.N) if i != j]
+                    choices = np.random.choice(cells, self.k, replace=False).tolist()
+                    for each in choices:
+                        self.IM[each // self.N][each % self.N] = 1
+                elif self.IM_type == "Factor Directed":  # columns as factor-> some key columns are more dependent to others
+                    if factor_num == 0:
+                        factor_num = self.k // self.N
+                    factor_columns = np.random.choice(self.N, factor_num, replace=False).tolist()
+                    for cur_i in range(self.N):
+                        for cur_j in range(self.N):
+                            if (cur_j in factor_columns) & (k > 0):
+                                self.IM[cur_i][cur_j] = 1
+                                k -= 1
+                    if k > 0:
+                        zero_positions = np.argwhere(self.IM == 0)
+                        fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
+                        fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
+                        for indexs in fill_with_one_positions:
+                            self.IM[indexs[0]][indexs[1]] = 1
 
-            elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
-                if influential_num == 0:
-                    influential_num = self.k // self.N
-                influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
-                for cur_i in range(self.N):
-                    for cur_j in range(self.N):
-                        if (cur_i in influential_rows) & (k > 0):
-                            self.IM[cur_i][cur_j] = 1
-                            k -= 1
-                if k > 0:
-                    zero_positions = np.argwhere(self.IM == 0)
-                    fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
-                    fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
-                    for indexs in fill_with_one_positions:
-                        self.IM[indexs[0]][indexs[1]] = 1
+                elif self.IM_type == "Influential Directed":  # rows as influential -> some key rows depend more on others
+                    if influential_num == 0:
+                        influential_num = self.k // self.N
+                    influential_rows = np.random.choice(self.N, influential_num, replace=False).tolist()
+                    for cur_i in range(self.N):
+                        for cur_j in range(self.N):
+                            if (cur_i in influential_rows) & (k > 0):
+                                self.IM[cur_i][cur_j] = 1
+                                k -= 1
+                    if k > 0:
+                        zero_positions = np.argwhere(self.IM == 0)
+                        fill_with_one_positions = np.random.choice(len(zero_positions), k, replace=False)
+                        fill_with_one_positions = [zero_positions[i] for i in fill_with_one_positions]
+                        for indexs in fill_with_one_positions:
+                            self.IM[indexs[0]][indexs[1]] = 1
         for i in range(self.N):
             temp = []
             for j in range(self.N):
@@ -201,13 +211,7 @@ class DyLandscape:
                 # according to the child's IM distribution, we calculate all the alternatives
         self.FC = FC
 
-
     def calculate_fitness(self, state):
-        """
-        This part is the same as before
-        :param state:
-        :return:
-        """
         res = []
         for i in range(len(state)):
             dependency = self.dependency_map[i]
@@ -322,15 +326,18 @@ class DyLandscape:
 if __name__ == '__main__':
     # Test Example
     parent = ParentLandscape(N=8, state_num=4)
-    landscape = DyLandscape(N=8, state_num=4, parent=parent)
+    child_landscape_1 = DyLandscape(N=8, state_num=4, parent=parent)
     # # landscape.help() # just record some key hints
     # # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
-    landscape.type(IM_type="Factor Directed", k=20)
-    landscape.describe()
-    landscape.initialize()
-    landscape.describe()
+    child_landscape_1.type(IM_type="Factor Directed", k=20)
+    child_landscape_1.initialize()
+    child_landscape_1.describe()
+    child_landscape_2 = DyLandscape(N=8, state_num=4, parent=parent)
+    child_landscape_2.type(IM_type=child_landscape_1.IM_type, previous_IM=child_landscape_1.IM, k=child_landscape_1.k)
+    child_landscape_2.initialize()
+    child_landscape_2.describe()
     cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
-    a = landscape.query_cog_fitness(cog_state)
+    a = child_landscape_2.query_cog_fitness(cog_state)
     print(a)
 
