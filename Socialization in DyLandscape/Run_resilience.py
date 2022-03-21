@@ -12,13 +12,13 @@ from Simulator_resiliance import Simulator
 # Parameters
 N = 10
 state_num = 4
-parent_iteration = 20
+parent_iteration = 5
 landscape_num = 200
 agent_num = 200
 search_iteration = 100
 landscape_search_iteration = 100
-k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
-K_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94] * 4
+K_list = [1, 2, 3, 4, 5, 6, 7, 8, 9] * 4
 # IM_type = ["Traditional Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
 IM_type = "Traditional Directed"
 knowledge_num = 20
@@ -37,7 +37,7 @@ knowledge_num = 20
 # IM_type = "Traditional Directed"
 # knowledge_num = 16
 
-def loop(k=0, K=0,):
+def loop(k=0, K=0, flag=0):
     # Parent Landscape Level
     A_converged_potential_parent = []
     B_converged_fitness_parent = []  # for the final converged fitness after search
@@ -65,11 +65,11 @@ def loop(k=0, K=0,):
         basic_file_name = IM_type + '_N' + str(N) + \
                           '_K' + str(K) + '_k' + str(k) + '_E' + str(knowledge_num)
 
-    A_file_name_potential = "1Potential_" + basic_file_name
-    B_file_name_convergence = "2Convergence_" + basic_file_name
-    C_file_IM_list_parent = "3IM_" + basic_file_name
-    D_file_row_match_parent = "4RowMatch_" + basic_file_name
-    D_file_column_match_parent = "4ColumnMatch_" + basic_file_name
+    A_file_name_potential = "1Potential_" + basic_file_name + "_" + str(flag)
+    B_file_name_convergence = "2Convergence_" + basic_file_name + "_" + str(flag)
+    C_file_IM_list_parent = "3IM_" + basic_file_name + "_" + str(flag)
+    D_file_row_match_parent = "4RowMatch_" + basic_file_name + "_" + str(flag)
+    D_file_column_match_parent = "4ColumnMatch_" + basic_file_name + "_" + str(flag)
 
     with open(A_file_name_potential, 'wb') as out_file:
         pickle.dump(A_converged_potential_parent, out_file)
@@ -85,7 +85,9 @@ def loop(k=0, K=0,):
 
 if __name__ == '__main__':
     k = 0
+    flag = 0
     for K in K_list:
-        p = mp.Process(target=loop, args=(k, K))
+        flag += 1
+        p = mp.Process(target=loop, args=(k, K, flag))
         p.start()
         # loop(k=k, K=K)

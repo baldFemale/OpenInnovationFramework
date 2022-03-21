@@ -2,8 +2,8 @@
 #PBS -P nk
 #PBS -j oe
 #PBS -N Test_resilience
-#PBS -q parallel24
-#PBS -l select=1:ncpus=24:mem=50gb
+#PBS -q parallel20
+#PBS -l select=1:ncpus=20:mem=100gb
 #PBS -l walltime=240:00:00
 cd $PBS_O_WORKDIR;
 np=$(cat ${PBS_NODEFILE} | wc -l);
