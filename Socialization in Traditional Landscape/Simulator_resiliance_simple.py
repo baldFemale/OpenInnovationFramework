@@ -11,22 +11,19 @@ from Socialized_Agent import Agent
 
 class Simulator:
 
-    def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100,
-                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20,
-                 exposure_type="Random"):
+    def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100, IM_type=None,
+                 K=0, k=0, gs_proportion=0.5, knowledge_num=20, exposure_type="Random"):
         self.N = N
         self.state_num = state_num
 
         # Landscape
         self.landscapes = None
-        self.landscape_num = landscape_num
         self.state_pool = []
         self.state_pool_rank = {}
-        self.IM_dynamics = [None]
         self.IM_type = IM_type
+        self.IM_dynamics = []
         self.K = K
         self.k = k
-        self.IM_change_bit = 1
 
         # Agent crowd
         self.agents = []  # will be stable; only the initial state and search will change
@@ -39,8 +36,6 @@ class Simulator:
 
         # Cognitive Search
         self.search_iteration = search_iteration
-        self.landscape_search_iteration = landscape_search_iteration
-
         # Some indicators for evaluation
         # convergence
         # list structure: agents -> multiple crowdsourcing (for one child landscape) -> multiple child landscape (for one parent)
@@ -60,13 +55,6 @@ class Simulator:
     def set_agent(self):
         """
         Fix the knowledge of Agents pool; but their initial state and cognitive fitness will change
-        Initial state will change due to the socialization
-        Cognitive fitness/search will change due to the dynamic landscape
-        the cognitive fitness is assessed in the landscape level
-        :param knowledge: agents have the same number of knowledge (this may change to make it closer to the real distribution)
-        :param gs_proportion: the dynamic GS proportion, to some extend, reflects the composition dynamic of platform,
-        even given no diversity of knowledge number
-        :return: the agents with fixed knowledge distribution
         """
         for _ in range(self.generalist_num):
             # fix the knowledge of each Agent
@@ -113,18 +101,17 @@ class Simulator:
         for agent in self.agents:
             agent.update_state_from_exposure(exposure_type=exposure_type)
 
-    def crowd_search_forward(self):
+    def crowd_search_forward(self, socialization_freq=2):
         """
-        Difference: agents need to form the pool and update the initial state
-        Corresponding to the child landscape level, where we can get the aggregated outcome variables.
-        :return: accumulative outcome variables
+        Agents will copy initial state from others every *freq* times.
+        :param socialization_freq:
+        :return:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         """
-        for _ in range(self.landscape_search_iteration):
+        for i in range(self.search_iteration):
             self.creat_state_pool_and_rank()
-            self.change_initial_state(exposure_type=self.exposure_type)
+            if i % socialization_freq == 0:
+                self.change_initial_state(exposure_type=self.exposure_type)
             self.crowd_search_once()
-            self.potential_after_convergence_landscape.append(self.potential_after_convergence_agent)
-            self.converged_fitness_landscape.append(self.converged_fitness_agent)
 
     def creat_state_pool_and_rank(self):
         """
@@ -171,6 +158,15 @@ class Simulator:
         self.row_match_landscape.append(int(row_match))
         self.colummn_match_landscape.append(int(row_match))
 
+    def get_performance(self):
+        for agent in self.agents:
+            converged_state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
+            converged_fitness = self.landscape.query_fitness(state=converged_state)
+            potential_after_convergence = self.landscape.query_potential_performance(
+                cog_state=agent.cog_state, top=1)
+            self.converged_fitness_landscape.append(converged_fitness)
+            self.potential_after_convergence_landscape.append(potential_after_convergence)
+
     def process(self):
         """
         Process to run one parent landscape loop
@@ -180,19 +176,14 @@ class Simulator:
         self.set_agent()
         self.get_match()
         self.crowd_search_once()
-        for _ in range(self.landscape_num):
-            self.get_match()
-            self.crowd_search_once()
-            self.crowd_search_forward()
-
+        self.crowd_search_forward()
+        self.get_performance()
 
 if __name__ == '__main__':
-    # Test Example (Waiting for reshaping into class above)
-    # The test code below works.
+    # Test Example
     start_time = time.time()
     N = 10
     state_num = 4
-    parent_iteration = 100
     landscape_num = 200
     agent_num = 200
     search_iteration = 100
@@ -205,11 +196,9 @@ if __name__ == '__main__':
     knowledge_num = 16
     exposure_type = "Random"
     # valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-    simulator = Simulator(N=8, state_num=4, landscape_num=2, agent_num=4, search_iteration=2,
-                 landscape_search_iteration=1, IM_type="Traditional Directed", K=2, k=0, gs_proportion=0.5,
+    simulator = Simulator(N=8, state_num=4, agent_num=4, search_iteration=2,
+                 landscape_search_iteration=2, IM_type="Traditional Directed", K=2, k=0, gs_proportion=0.5,
                           knowledge_num=knowledge_num, exposure_type=exposure_type)
-    # simulator.set_parent_landscape()
-    # simulator.set_child_landscape()
-    # simulator.set_agent()
     simulator.process()
     print("END")
+
