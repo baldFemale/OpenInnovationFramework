@@ -5,22 +5,20 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import time
-from DyLandscape_2 import DyLandscape
-from ParentLandscape import ParentLandscape
+from Landscape import Landscape
 from Socialized_Agent import Agent
 
 
 class Simulator:
-    """One simulator represent one Parent Landscape iteration"""
-    def __init__(self, N=10, state_num=4, landscape_num=200, agent_num=200, search_iteration=100,
-                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20, exposure_type="Random"):
-        # Parent Landscape
-        self.parent = None  # will be stable within one simulator
+
+    def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100,
+                 landscape_search_iteration=100, IM_type=None, K=0, k=0, gs_proportion=0.5, knowledge_num=20,
+                 exposure_type="Random"):
         self.N = N
         self.state_num = state_num
 
-        # Chile Landscape
-        self.landscapes = None  # will change over time
+        # Landscape
+        self.landscapes = None
         self.landscape_num = landscape_num
         self.state_pool = []
         self.state_pool_rank = {}
@@ -53,16 +51,9 @@ class Simulator:
         self.row_match_landscape = []
         self.colummn_match_landscape = []  # only in the child landscape level; match degree across agents is added up.
 
-    def set_parent_landscape(self):
-        self.parent = ParentLandscape(N=self.N, state_num=self.state_num)
-
-    def set_child_landscape(self):
-        if not self.parent:
-            raise ValueError("Need to build parent landscape firstly")
-        self.landscape = None  # delete the previous one
-        self.landscape = DyLandscape(N=self.N, state_num=self.state_num, parent=self.parent)
-        self.landscape.type(IM_type=self.IM_type, K=self.K, k=self.k,
-                            previous_IM=self.IM_dynamics[-1], IM_change_bit=self.IM_change_bit)
+    def set_landscape(self):
+        self.landscape = Landscape(N=self.N, state_num=self.state_num)
+        self.landscape.type(IM_type=self.IM_type, K=self.K, k=self.k)
         self.landscape.initialize()
         self.IM_dynamics.append(self.landscape.IM)  # extend the IM history
 
@@ -77,17 +68,13 @@ class Simulator:
         even given no diversity of knowledge number
         :return: the agents with fixed knowledge distribution
         """
-        if not self.parent:
-            raise ValueError("Need to build parent landscape firstly")
-        if not self.landscape:
-            raise ValueError("Need to build child landscape secondly")
         for _ in range(self.generalist_num):
             # fix the knowledge of each Agent
             # fix the composition of agent crowd (e.g., the proportion of GS)
             generalist_num = int(self.knowledge_num/2)
             specialist_num = 0
             print("generalist_num: ", generalist_num)
-            agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+            agent = Agent(N=self.N, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Generalist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
         for _ in range(self.specialist_num):
@@ -95,35 +82,36 @@ class Simulator:
             # fix the composition of agent crowd (e.g., the proportion of GS)
             specialist_num = int(self.knowledge_num/4)
             generalist_num = 0
-            agent = Agent(N=self.N, lr=0, landscape=self.landscape, state_num=self.state_num)
+            agent = Agent(N=self.N, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Specialist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
-        # the knowledge distribution of the crowd is meaningless or unoriginal
-        # in this paper, we focus on the proportion instead of diversity.
-        # for agent in self.agents:
-        #     self.knowledge_list_landscape.append(agent.generalist_knowledge_domain)
 
     def crowd_search_once(self):
         """
-        For each landscape, there might need several iteration to make the crowd get convergency.
-        For each search and learning, there will generate a list of performance (across agents) *Single list*
-        But for Simulator, representing a Parent, the data will be two more levels
-        *child level*: one child landscape, need several steps to converge; we just record the whole process toward convergency
-        *parent level*: one parent level will include multiple child landscapes (e.g., 200)
-        :return: the performance outcomes at the Simulator level (i.e., parent landscape level)
+        Only one cognitive search loop, so we only change the cog_state, cog_fitness, and the potential_fitness
+        The converged_fitness is not updated.
+        :return: all the agents in the crowd search once.
         """
-        potential_after_convergence_agent = []
-        converged_fitness_agent = []
         for agent in self.agents:
-            for _ in range(self.search_iteration):
-                agent.cognitive_local_search()
-            potential_after_convergence = agent.landscape.query_potential_performance(cog_state=agent.cog_state, top=1)
-            potential_after_convergence_agent.append(potential_after_convergence)
-            agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
-            agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
-            converged_fitness_agent.append(agent.converge_fitness)
-        self.converged_fitness_agent = converged_fitness_agent
-        self.potential_after_convergence_agent = potential_after_convergence_agent
+            agent.cognitive_local_search()
+            agent.potential_fitness = agent.landscape.query_potential_performance(cog_state=agent.cog_state, top=1)
+
+    def change_initial_state(self, exposure_type="Random"):
+        """
+        After we create the state pool and its rank, agents can update their initial state
+        :param exposure_type: only three valid exposure types
+        :return:all agents update their initial state
+        """
+        valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
+        if exposure_type not in valid_exposure_type:
+            raise ValueError("Only support: ", valid_exposure_type)
+        if exposure_type == "Overall-ranking":
+            # only the overall rank need to shape the pool and assign it into crowd
+            self.creat_state_pool_and_rank()  # get the pool rank
+            for agent in self.agents:
+                agent.assigned_state_pool_rank = self.state_pool_rank
+        for agent in self.agents:
+            agent.update_state_from_exposure(exposure_type=exposure_type)
 
     def crowd_search_forward(self):
         """
@@ -135,9 +123,6 @@ class Simulator:
             self.creat_state_pool_and_rank()
             self.change_initial_state(exposure_type=self.exposure_type)
             self.crowd_search_once()
-            # !!!
-            # record the whole process toward child landscape convergence
-            # may only need to record the last performance
             self.potential_after_convergence_landscape.append(self.potential_after_convergence_agent)
             self.converged_fitness_landscape.append(self.converged_fitness_agent)
 
@@ -160,37 +145,9 @@ class Simulator:
                 overall_pool_rank[key] += value
         self.state_pool_rank = overall_pool_rank
 
-    def change_working_landscape(self):
-        # change the child landscape, based on *previous IM*
-        self.set_child_landscape()
-        # assign the new landscape to all agents
-        for agent in self.agents:
-            agent.landscape = self.landscape
-
-    def change_initial_state(self, exposure_type="Random"):
-        """
-        After we create the state pool and its rank, agents can update their initial state
-        :param exposure_type: only three valid exposure types
-        :return:all agents update their initial state
-        """
-        if not self.parent:
-            raise ValueError("Need to build parent landscape firstly")
-        if not self.landscape:
-            raise ValueError("Need to build child landscape secondly")
-        valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-        if exposure_type not in valid_exposure_type:
-            raise ValueError("Only support: ", valid_exposure_type)
-        if exposure_type == "Overall-ranking":
-            # only the overall rank need to shape the pool and assign it into crowd
-            self.creat_state_pool_and_rank()  # get the pool rank
-            for agent in self.agents:
-                agent.assigned_state_pool_rank = self.state_pool_rank
-        for agent in self.agents:
-            agent.update_state_from_exposure(exposure_type=exposure_type)
-
     def get_match(self):
         """
-        Either the agent or child landscape change, match indicator need to be re-measured.
+        Either the agent or landscape change, match indicator need to be re-measured.
         :return: the match indicator, in child landscape level
         """
         if not self.landscape:
@@ -219,26 +176,14 @@ class Simulator:
         Process to run one parent landscape loop
         :return: the outcomes in the parent level
         """
-        self.set_parent_landscape()
-        # the first child landscape have no previous reference; previous_IM is none.
-        self.set_child_landscape()
+        self.set_landscape()
         self.set_agent()
         self.get_match()
-        # independent search without socialization
         self.crowd_search_once()
-        # upcoming search toward the convergence regarding one child landscape
-        # these upcoming search is socialized such that agents will update the initial state
-        self.crowd_search_forward()
         for _ in range(self.landscape_num):
-            # the upcoming child landscape will have previous child as reference
-            # the upcoming child landscape only have one bit change regarding IM
-            self.change_working_landscape()
-            # one the landscape change, we need to re-calculate the match indicators
             self.get_match()
-            # repeating the search toward to a convergence in this child landscape
             self.crowd_search_once()
             self.crowd_search_forward()
-
 
 
 if __name__ == '__main__':

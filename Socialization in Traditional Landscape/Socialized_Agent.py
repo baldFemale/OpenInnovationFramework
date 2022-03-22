@@ -6,13 +6,12 @@
 # Observing PEP 8 coding style
 import random
 import numpy as np
-from DyLandscape_2 import DyLandscape
-from ParentLandscape import ParentLandscape
+from Landscape import Landscape
 
 
 class Agent:
 
-    def __init__(self, N, lr=0, landscape=None, state_num=4, gs_ratio=0.5, state_pool=None, assigned_state_pool_rank=None):
+    def __init__(self, N, landscape=None, state_num=4, gs_ratio=0.5, state_pool=None, assigned_state_pool_rank=None):
         """
         The difference between original one and the socialized one:
         1. copied_state: enable the angens to polish the existing ideas/solutions
@@ -44,7 +43,6 @@ class Agent:
         self.default_elements_in_unknown_domain = []  # record the unknown domain '*'
 
         self.gs_ratio = gs_ratio  # generalist know half of the knowledge compared to specialist
-        self.lr = lr
 
         self.decision_space = []  # all manageable elements' index: ['02', '03', '11', '13', '30', '31']
         self.freedom_space = []  # the alternatives for next step random selection: ['02', '13', '31'] given the current state '310*******'
@@ -54,7 +52,7 @@ class Agent:
         # while freedom_space keep changing due to the current state occupation
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
         self.converge_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
-        self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
+        self.potential = 0  # record the potential achievement; the position advantage to achieve a higher future performance
 
         self.valid_state_bit = list(range(self.N))
         self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
@@ -105,6 +103,7 @@ class Agent:
             self.cog_state = self.change_state_to_cog_state(state=self.state)
             self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
             self.update_freedom_space()
+
 
     def vote_for_state_pool(self):
         """
@@ -291,15 +290,10 @@ class Agent:
             perceived_fitness = self.landscape.query_cog_fitness(cog_state=cog_state_solution)
             self.personal_state_pool_rank["".join(state_solution)] = perceived_fitness
 
-
-
     def state_legitimacy_check(self):
         for index, bit_value in enumerate(self.state):
             if bit_value not in self.valid_state_bit:
                 raise ValueError("Current state element/bit is not legitimate")
-
-    def learn(self, target_):
-        pass
 
     def describe(self):
         print("*********Agent information********* ")
@@ -314,7 +308,6 @@ class Agent:
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
         print("Generalist knowledge domain: ", self.generalist_knowledge_domain)
         print("Element number: ", self.element_num)
-        print("Learning rate: ", self.lr)
         print("G/S knowledge ratio: ", self.gs_ratio)
         print("Freedom space: ", self.freedom_space)
         print("Cognitive state occupation: ", [str(i)+str(j) for i, j in enumerate(self.cog_state)])
@@ -325,12 +318,11 @@ class Agent:
 
 if __name__ == '__main__':
     # Test Example
-    parent = ParentLandscape(N=8, state_num=4)
-    landscape = DyLandscape(N=8, state_num=4, parent=parent)
+    landscape = Landscape(N=8, state_num=4)
     landscape.type(IM_type="Factor Directed", K=0, k=42)
     landscape.initialize()
 
-    agent = Agent(N=8, lr=0, landscape=landscape, state_num=4)
+    agent = Agent(N=8, landscape=landscape, state_num=4)
     agent.type(name="T shape", generalist_num=4, specialist_num=2)
     agent.describe()
     for _ in range(100):
