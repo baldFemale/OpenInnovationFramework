@@ -269,19 +269,23 @@ temp = None
 # x_ = max(x, key=x.get)
 # print(x_)
 # print(list(x_))
-list_1 = [[0,0,1],
-          [1,1,0],
-          [0,0,0]]
-list_2 = [[1,0,1],
-          [0,1,0],
-          [0,0,0]]
-list_3 = [[0,0,1],
-          [1,1,0],
-          [0,0,0]]
-list_1 = np.array(list_1)
-list_2 = np.array(list_2)
-list_3 = np.array(list_3)
-if (list_1 == list_3).all():
-    print("Yes")
-else:
-    print("No")
+
+# list_1 = [[0,0,1],
+#           [1,1,0],
+#           [0,0,0]]
+# list_2 = [[1,0,1],
+#           [0,1,0],
+#           [0,0,0]]
+# list_3 = [[0,0,1],
+#           [1,1,0],
+#           [0,0,0]]
+# list_1 = np.array(list_1)
+# list_2 = np.array(list_2)
+# list_3 = np.array(list_3)
+# if (list_1 == list_3).all():
+#     print("Yes")
+# else:
+#     print("No")
+
+test = 1
+print(test % 1)

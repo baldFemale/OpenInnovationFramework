@@ -2,13 +2,8 @@
 <module version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Reproduction" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Reproduction_cognitive" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Reproduction_cognitive_8" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Socialization in DyLandscape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization in Traditional Landscape" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />

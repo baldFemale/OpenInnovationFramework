@@ -29,7 +29,8 @@ class Agent:
         self.state = np.random.choice([cur for cur in range(self.state_num)], self.N).tolist()
         self.state = [str(i) for i in self.state]  # ensure the format of state
         # store the cognitive state list during the search
-        self.cog_state = self.state.copy()
+        self.cog_state = None
+        # for different transparency directions, the exposed pool will be controlled in the simulator level
         self.state_pool = state_pool
         self.personal_state_pool_rank = {}
         self.assigned_state_pool_rank = assigned_state_pool_rank
@@ -51,8 +52,8 @@ class Agent:
         # decision_space will not change over time,
         # while freedom_space keep changing due to the current state occupation
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
-        self.converge_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
-        self.potential = 0  # record the potential achievement; the position advantage to achieve a higher future performance
+        self.converged_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
+        self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
 
         self.valid_state_bit = list(range(self.N))
         self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
@@ -67,20 +68,18 @@ class Agent:
         Re-assign the initial state for upcoming cognitive search
         :return:update the initial state
         """
-        valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-        if exposure_type not in valid_exposure_type:
-            raise ValueError("Only support: ", valid_exposure_type)
+        success = 0
         if exposure_type == "Random":
             index = np.random.choice(len(self.state_pool))
             comparison_state = self.state_pool[index]
             comparison_cog_state = self.change_state_to_cog_state(state=comparison_state)
             comparison_cog_fitness = self.landscape.query_cog_fitness(cog_state=comparison_cog_state)
             if comparison_cog_fitness > self.cog_fitness:
+                success = 1
                 self.state = comparison_state
                 self.cog_state = comparison_cog_state
                 self.cog_fitness = comparison_cog_fitness
                 self.update_freedom_space()
-
         elif exposure_type == "Self-interested":
             self_interested_index = 0
             perceived_highest_fitness = 0
@@ -90,10 +89,15 @@ class Agent:
                 if perceived_fitness > perceived_highest_fitness:
                     self_interested_index = index
                     perceived_highest_fitness = perceived_fitness
-            self.state = self.state_pool[self_interested_index]
-            self.cog_state = self.change_state_to_cog_state(state=self.state)
-            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-            self.update_freedom_space()
+            pool_idea = self.state_pool[self_interested_index]
+            cog_pool_idea = self.change_state_to_cog_state(state=pool_idea)
+            cog_fitness_pool_idea = self.landscape.query_cog_fitness(cog_state=cog_pool_idea)
+            if cog_fitness_pool_idea > self.cog_fitness:
+                success = 1
+                self.state = self.state_pool[self_interested_index]
+                self.cog_state = cog_pool_idea
+                self.cog_fitness = cog_fitness_pool_idea
+                self.update_freedom_space()
         elif exposure_type == "Overall-ranking":
             if not self.assigned_state_pool_rank:
                 raise ValueError("Need pool ranks assigned by the simulator")
@@ -103,6 +107,8 @@ class Agent:
             self.cog_state = self.change_state_to_cog_state(state=self.state)
             self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
             self.update_freedom_space()
+            success = 1
+        return success
 
     def vote_for_state_pool(self):
         """
@@ -216,6 +222,8 @@ class Agent:
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
+                # add the mapping during the search because we need the imitation
+                self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
             else:
                 self.cog_fitness = current_cog_fitness
@@ -234,6 +242,7 @@ class Agent:
             if next_cog_fitness > current_cog_fitness:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
+                self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
             else:
                 self.cog_fitness = current_cog_fitness
