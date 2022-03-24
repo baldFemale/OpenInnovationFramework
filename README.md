@@ -61,5 +61,5 @@
 * This version remove the dynamic landscape design, and focus on the **Transparency** strategies.
 * First, G has two advantages of 1) providing promising search area; 2) linking distant solutions.
 * Second, S has two advantages of 1) pushing the frontiers of search; 2) utilizing the potential of the crowd cooperation.
-* We further subdivide the direction of transparency, extende the current literature about platform design.
+* We further subdivide the direction of transparency, extending current literature on platform design.
 * The socialization or idea imitation happens during the search iteration. The frequence is every step by default.
