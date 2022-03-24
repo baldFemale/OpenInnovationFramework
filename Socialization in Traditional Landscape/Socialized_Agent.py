@@ -62,7 +62,7 @@ class Agent:
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
-    def update_state_from_exposure(self, exposure_type=None):
+    def update_state_from_exposure(self, exposure_type="Self-interested"):
         """
         Re-assign the initial state for upcoming cognitive search
         :return:update the initial state
@@ -103,7 +103,6 @@ class Agent:
             self.cog_state = self.change_state_to_cog_state(state=self.state)
             self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
             self.update_freedom_space()
-
 
     def vote_for_state_pool(self):
         """

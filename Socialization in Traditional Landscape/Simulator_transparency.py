@@ -196,8 +196,7 @@ if __name__ == '__main__':
     knowledge_num = 16
     exposure_type = "Random"
     # valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-    simulator = Simulator(N=8, state_num=4, agent_num=4, search_iteration=2,
-                 landscape_search_iteration=2, IM_type="Traditional Directed", K=2, k=0, gs_proportion=0.5,
+    simulator = Simulator(N=8, state_num=4, agent_num=4, search_iteration=2, IM_type="Traditional Directed", K=2, k=0, gs_proportion=0.5,
                           knowledge_num=knowledge_num, exposure_type=exposure_type)
     simulator.process()
     print("END")
