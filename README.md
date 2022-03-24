@@ -5,7 +5,7 @@
   * multiple state 
 
 
-# Same key and unique features that cause version divisions
+# Version evolutions
 
 ## Reproduction
 * Fixed element for the unknown domain. 
@@ -41,7 +41,7 @@
   * Cognitive state representation will include unknown depth symbols or abstraction symbols (e.g., "A" for \["0", "1"]) and unknown domain symbol (i.e., "*")
   * The double-representation system will enable the communication between Agents using the distinct state as bridge
 
-## Socialized_innovation_crowdsourcing
+## Socialization_in_DyLandscape
 * **Three** model specifications make up the key contribution to NK landscape literature
   * First, GS and corresponding cognitive search pattern build the participant set-ups.
   * Second, the proportion of GS and their communication build the platform or community set-ups.
@@ -56,3 +56,10 @@
   * Rank-directed exposure will evaluate the idea firstly based on the crowd. Top ideas might get a higher exposure rate to the crowd.
   * Interest-directed exposure means each agent will gather around what is most attractive to them, and initialize their own search there.
   * Simulated intervention
+
+## Socialization_in_traditional_Landscape
+* This version remove the dynamic landscape design, and focus on the **Transparency** strategies.
+* First, G has two advantages of 1) providing promising search area; 2) linking distant solutions.
+* Second, S has two advantages of 1) pushing the frontiers of search; 2) utilizing the potential of the crowd cooperation.
+* We further subdivide the direction of transparency, extending current literature on platform design.
+* The socialization or idea imitation happens during the search iteration. The frequence is every step by default.
