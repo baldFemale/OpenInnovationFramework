@@ -158,21 +158,22 @@ class Simulator:
         success_count = 0
         for agent in self.agents:
             success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type)
-        print("success_count: ", success_count)
+        # print("success_count: ", success_count)
 
     def process(self, socialization_freq=1):
         # first search is independent
         self.set_landscape()
         self.set_agent()
-        agent0 = self.agents[0]
+        # agent0 = self.agents[0]
         for agent in self.agents:
             # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
             agent.cognitive_local_search()
-        print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+        # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
         # socialized search
         self.create_state_pools()
+        # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
         for i in range(self.search_iteration):
-            print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+            # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
             if i % socialization_freq == 0:
                 self.change_initial_state()
             for agent in self.agents:
@@ -207,5 +208,5 @@ if __name__ == '__main__':
     simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration, IM_type=IM_type,
                  K=K, k=k, gs_proportion=0.5, knowledge_num=knowledge_num,
                  exposure_type=exposure_type, transparency_direction=transparency_direction)
-    simulator.process()
+    simulator.process(socialization_freq=10)
     print("END")

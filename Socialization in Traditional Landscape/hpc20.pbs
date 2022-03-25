@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P nk
 #PBS -j oe
-#PBS -N Test_resilience
+#PBS -N Transparency_test
 #PBS -q parallel20
 #PBS -l select=1:ncpus=20:mem=100gb
 #PBS -l walltime=240:00:00
@@ -12,4 +12,4 @@ module load miniconda
 bash
 . ~/.bashrc
 conda activate my_conda_env_name
-python Run_resilience.py
+python Run_population.py
