@@ -80,21 +80,36 @@ class Agent:
                 self.cog_state = comparison_cog_state
                 self.cog_fitness = comparison_cog_fitness
                 self.update_freedom_space()
+        # only select the highest state-> reduce too much diversity
+        # elif exposure_type == "Self-interested":
+        #     self_interested_index = 0
+        #     perceived_highest_fitness = 0
+        #     for index, each_state in enumerate(self.state_pool):
+        #         cog_state = self.change_state_to_cog_state(state=each_state)
+        #         perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+        #         if perceived_fitness > perceived_highest_fitness:
+        #             self_interested_index = index
+        #             perceived_highest_fitness = perceived_fitness
+        #     pool_idea = self.state_pool[self_interested_index]
+        #     cog_pool_idea = self.change_state_to_cog_state(state=pool_idea)
+        #     cog_fitness_pool_idea = self.landscape.query_cog_fitness(cog_state=cog_pool_idea)
+        #     if cog_fitness_pool_idea > self.cog_fitness:
+        #         success = 1
+        #         self.state = self.state_pool[self_interested_index]
+        #         self.cog_state = cog_pool_idea
+        #         self.cog_fitness = cog_fitness_pool_idea
+        #         self.update_freedom_space()
         elif exposure_type == "Self-interested":
-            self_interested_index = 0
-            perceived_highest_fitness = 0
-            for index, each_state in enumerate(self.state_pool):
-                cog_state = self.change_state_to_cog_state(state=each_state)
-                perceived_fitness = self.landscape.query_cog_fitness(cog_state)
-                if perceived_fitness > perceived_highest_fitness:
-                    self_interested_index = index
-                    perceived_highest_fitness = perceived_fitness
-            pool_idea = self.state_pool[self_interested_index]
-            cog_pool_idea = self.change_state_to_cog_state(state=pool_idea)
+            self.personal_state_pool_rank = [self.landscape.query_cog_fitness(
+                cog_state=self.change_state_to_cog_state(state=each_state)) for each_state in self.state_pool]
+            self.personal_state_pool_rank = [i/sum(self.personal_state_pool_rank) for i in self.personal_state_pool_rank]
+            pool_state_index = np.random.choice(len(self.state_pool), p=self.personal_state_pool_rank)
+            pool_state = self.state_pool[pool_state_index]
+            cog_pool_idea = self.change_state_to_cog_state(state=pool_state)
             cog_fitness_pool_idea = self.landscape.query_cog_fitness(cog_state=cog_pool_idea)
             if cog_fitness_pool_idea > self.cog_fitness:
                 success = 1
-                self.state = self.state_pool[self_interested_index]
+                self.state = pool_state
                 self.cog_state = cog_pool_idea
                 self.cog_fitness = cog_fitness_pool_idea
                 self.update_freedom_space()
@@ -102,12 +117,26 @@ class Agent:
             if not self.assigned_state_pool_rank:
                 raise ValueError("Need pool ranks assigned by the simulator")
             # the index of maxinum value in dict; rank is based on the sum of cognitive fitness across Agents
-            state_str = max(self.assigned_state_pool_rank, key=self.assigned_state_pool_rank.get)
-            self.state = list(state_str)  # assigned to the state with best overall rank
-            self.cog_state = self.change_state_to_cog_state(state=self.state)
-            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-            self.update_freedom_space()
-            success = 1
+            # Only select the one state with highest cog_fitness
+            # state_str = max(self.assigned_state_pool_rank, key=self.assigned_state_pool_rank.get)
+            # self.state = list(state_str)  # assigned to the state with best overall rank
+            # self.cog_state = self.change_state_to_cog_state(state=self.state)
+            # self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+            # self.update_freedom_space()
+            # success = 1
+            # Normalize the rank into probability, so that we can randomly choose one state
+            # according to their weights
+            self.assigned_state_pool_rank = [i/sum(self.assigned_state_pool_rank) for i in self.assigned_state_pool_rank]
+            pool_state_index = np.random.choice(len(self.state_pool), p=self.assigned_state_pool_rank)
+            pool_state = self.state_pool[pool_state_index]
+            cog_pool_idea = self.change_state_to_cog_state(state=pool_state)
+            cog_fitness_pool_idea = self.landscape.query_cog_fitness(cog_state=cog_pool_idea)
+            if cog_fitness_pool_idea > self.cog_fitness:
+                success = 1
+                self.state = pool_state
+                self.cog_state = cog_pool_idea
+                self.cog_fitness = cog_fitness_pool_idea
+                self.update_freedom_space()
         return success
 
     def vote_for_state_pool(self):
@@ -311,7 +340,7 @@ class Agent:
         print("Current state list: ", self.state)
         print("Current cognitive state list: ", self.cog_state)
         print("Current cognitive fitness: ", self.cog_fitness)
-        print("Converged fitness: ", self.converge_fitness)
+        print("Converged fitness: ", self.converged_fitness)
         print("Knowledge/Manageable domain: ", self.knowledge_domain)
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
         print("Generalist knowledge domain: ", self.generalist_knowledge_domain)

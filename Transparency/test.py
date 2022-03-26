@@ -287,5 +287,8 @@ temp = None
 # else:
 #     print("No")
 
-test = 1
-print(test % 1)
+p = [0.16666666666666666, 0.3333333333333333, 0.5]
+state_pool = [['1', '1'], ['1', '2'], ['1', '3']]
+pool_state_index = np.random.choice(len(state_pool), p=p)
+pool_state = state_pool[pool_state_index]
+print(pool_state)

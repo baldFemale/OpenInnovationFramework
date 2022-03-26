@@ -47,14 +47,14 @@ class Evaluator:
                 folder_list.append(root + '\\' + each_dir)
         return folder_list
 
-    def load_data_from_files(self, files_path=None):
+    def load_data_from_files(self, files_list=None):
         """
         load one data from one certain file path
         :param file_path: data file path
         :return:the loaded data (i.e., fitness list)
         """
         data = []
-        for each_file in files_path:
+        for each_file in files_list:
             if ".png" not in each_file:
                 with open(each_file, 'rb') as infile:
                     # print(each_file)
@@ -116,7 +116,6 @@ class Evaluator:
         output = self.output_path + "\\" + self.title + ".png"
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
-
 
     def convergence_evaluation(self, label_list=None, show_variance=False, select_list=None):
         """
@@ -201,39 +200,148 @@ class Evaluator:
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
+    def transparency_evaluation(self, label_list=None, show_variance=False, y_label=None):
+        # sort the files into folders
+        files_list = self.load_files_under_folder(folders=self.data_path)
+        # print(files_list)
+        print(len(files_list))
+        potential_files = []
+        convergence_files = []
+        unique_files = []
+        for each in files_list:
+            if "Potential" in each:
+                potential_files.append(each)
+            elif "Convergence" in each:
+                convergence_files.append(each)
+            elif "Unique" in each:
+                unique_files.append(each)
+            else:
+                pass
+                # the files left are the .py or .pyc files
+                # print(each)
+        transparency_A_file_list = []
+        transparency_G_file_list = []
+        transparency_S_file_list = []
+        for each in files_list:
+            if "_A_" in each:
+                transparency_A_file_list.append(each)
+            elif "_G_" in each:
+                transparency_G_file_list.append(each)
+            elif "_S_" in each:
+                transparency_S_file_list.append(each)
+            else:pass
+                # print(each)
+        frequency_1_file_list = []
+        frequency_5_file_list = []
+        frequency_10_file_list = []
+        frequency_20_file_list = []
+        frequency_50_file_list = []
+        for each in files_list:
+            if "_1_" in each:
+                frequency_1_file_list.append(each)
+            elif "_5_" in each:
+                frequency_5_file_list.append(each)
+            elif "_10_" in each:
+                frequency_10_file_list.append(each)
+            elif "_20_" in each:
+                frequency_20_file_list.append(each)
+            elif "_50_" in each:
+                frequency_50_file_list.append(each)
+            else:pass
+                # print(each)
+        # Potentional-K, with social frequency as the interaction
+        curve_1_data_files = []
+        curve_2_data_files = []
+        curve_3_data_files = []
+        curve_4_data_files = []
+        curve_5_data_files = []
+        # This is for 5 types of frequency setting as the label list
+        for each in unique_files:
+            if each in transparency_A_file_list:
+                if each in frequency_1_file_list:
+                    curve_1_data_files.append(each)
+                elif each in frequency_5_file_list:
+                    curve_2_data_files.append(each)
+                elif each in frequency_10_file_list:
+                    curve_3_data_files.append(each)
+                elif each in frequency_20_file_list:
+                    curve_4_data_files.append(each)
+                elif each in frequency_50_file_list:
+                    curve_5_data_files.append(each)
+        all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files, curve_5_data_files]
+        all_curves_data = []
+        for each in all_curves_data_files:
+            curve_data = self.load_data_from_files(each)
+            all_curves_data.append(curve_data)
+        print(np.array(all_curves_data).shape)
+
+        # compare different exposure directions and their diff.
+        # This is for the three types of exposure directions as the label list
+        # for each in convergence_files:
+        #     if each in frequency_1_file_list:
+        #         if each in transparency_S_file_list:
+        #             curve_1_data_files.append(each)
+        #         elif each in transparency_G_file_list:
+        #             curve_2_data_files.append(each)
+        #         elif each in transparency_A_file_list:
+        #             curve_3_data_files.append(each)
+        # all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files]
+        # all_curves_data = []
+        # for each in all_curves_data_files:
+        #     curve_data = self.load_data_from_files(each)
+        #     all_curves_data.append(curve_data)
+        # print(np.array(all_curves_data).shape)
+
+        figure = plt.figure()
+        ax = figure.add_subplot()
+        for lable, each_curve in zip(label_list, all_curves_data):  # release the Agent type level
+            average_value = np.mean(np.mean(np.array(each_curve), axis=2), axis=1)  # 10 * (500 * 500)
+            variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
+
+            # unique fitness lack one dimension
+            # average_value = np.mean(np.array(each_curve), axis=1)  # 10 * (500 * 500)
+            # variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
+
+            ax.plot(average_value, label="{}".format(lable))
+            if show_variance:
+                # draw the variance
+                lower = [x - y for x, y in zip(average_value, variation_value)]
+                upper = [x + y for x, y in zip(average_value, variation_value)]
+                xaxis = list(range(len(lower)))
+                ax.fill_between(x=xaxis, y1=lower, y2=upper, alpha=0.15)
+
+        ax.set_xlabel('K')  # Add an x-label to the axes.
+        ax.set_ylabel(str(y_label))  # Add a y-label to the axes.
+        ax.set_title(self.title)  # Add a title to the whole figure
+        plt.legend()
+        output = self.output_path + "\\" + self.title + ".png"
+        plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
+        plt.show()
+
+        # data_potential_social_frequency_files_1 = self.load_data_from_files()
+        # for each in :
+        #     print(each)
+        # print(np.array(data_potential_social_frequency_files_1).shape)
+
+
+
 
 if __name__ == '__main__':
     # Test Example
-    # Convergence evaluation
-    # parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Factor\convergence"
-    # output_path = parent_folder
-    # evaluator = Evaluator(title="GS Convergence Factor in IM N10", data_path=parent_folder, output_path=output_path)
-    # team_name = ["G", "S", "T43", "T62"]
-    # evaluator.convergence_evaluation(label_list=team_name)
-    # evaluator.convergence_evaluation(label_list=team_name, select_list=[0,1], show_variance=True)
+    # Test different types of socialization frequency-> The frequency doesn't matter
+    # The reason is that the current version, agent only select the same state to copy
+    title = 'Unique-G'
+    data_path = r'C:\Python_Workplace\hpc-0326\transparency'
+    label_list = ["1", "5", "10", "20", "50"]
+    y_label = "Unique Fitness"
+    evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
+    evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
 
-
-    # match evaluation
-    # parent_folder = r"C:\Python_Workplace\hpc-0126\nk\Factor\column_match"
-    # output_path = parent_folder
-    # evaluator = Evaluator(title="Individual Match in Factor IM N10", data_path=parent_folder, output_path=output_path)
-    # team_name = ["G", "S", "T43", "T62"]
-    # # team_name = ["G", "S"]
-    # # evaluator.match_evaluation(label_list=team_name)
-    # evaluator.match_evaluation(label_list=team_name, select_list=[3], show_variance=True)
-
-    # expert test
-    #
-    # parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\expert_results\expert_factor\convergency"
-    # output_path = parent_folder
-    # evaluator = Evaluator(title="Expert Convergence Influential N10", data_path=parent_folder, output_path=output_path)
-    # team_name = ["T27", "T46"]
-    # evaluator.convergence_evaluation(label_list=team_name)
-
-    # dynamic landscape
-    parent_folder = r"C:\Python_Workplace\OpenInnovationFramework\Socialized_innovation_crowdsourcing\2Convergence_Generalist_Factor Directed_N8_K0_k44_E12_G6_S0"
-    output_path = parent_folder
-    evaluator = Evaluator(title="Dynamic Landscape Convergence Factor N8", data_path=parent_folder, output_path=output_path)
-    team_name = ["A", "B"]
-    evaluator.simple_evaluation(label_list=team_name)
+    # Test different kind ->
+    # title = 'Convergence-with-freq1'
+    # data_path = r'C:\Python_Workplace\hpc-0326\transparency'
+    # label_list = ["S", "G", "A"]
+    # y_label = "Average Fitness"
+    # evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
+    # evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
 

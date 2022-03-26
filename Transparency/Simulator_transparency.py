@@ -39,7 +39,7 @@ class Simulator:
         self.exposure_type = exposure_type
         self.transparency_direction = transparency_direction
         valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-        valid_transparency_direction = ['G', "S", "A"]
+        valid_transparency_direction = ['G', "S", "A", "GS", "SG", "Inverse"]
         if self.exposure_type  not in valid_exposure_type:
             raise ValueError("Only support: ", valid_exposure_type)
         if self.transparency_direction  not in valid_transparency_direction:
@@ -146,6 +146,11 @@ class Simulator:
                 self.create_S_pool_rank()
                 for agent in self.agents:
                     agent.assigned_state_pool_rank = self.S_state_pool_rank
+            elif self.transparency_direction == "GS":
+                self.create_G_pool_rank()
+                for agent in self.agents:
+                    if agent.name == "Specialist":
+                        agent.assigned_state_pool_rank = self.G_state_pool_rank
         # For self-interested exposure, we assign the state_pool (no rank)
         for agent in self.agents:
             if self.transparency_direction == "A":
@@ -154,6 +159,17 @@ class Simulator:
                 agent.state_pool = self.G_state_pool
             elif self.transparency_direction == "S":
                 agent.state_pool = self.S_state_pool
+            elif self.transparency_direction == "GS":  # Only S get ideas from G
+                if agent.name == "Specialist":
+                    agent.state_pool = self.G_state_pool
+            elif self.transparency_direction == "SG":  # Only G get ideas from S
+                if agent.name == "Generalist":
+                    agent.state_pool = self.S_state_pool
+            elif self.transparency_direction == "Inverse":  # G get ideas from S, and S get ideas from G
+                if agent.name == "Generalist":
+                    agent.state_pool = self.S_state_pool
+                elif agent.name == "Specialist":
+                    agent.state_pool = self.G_state_pool
         # update the initial state
         success_count = 0
         for agent in self.agents:

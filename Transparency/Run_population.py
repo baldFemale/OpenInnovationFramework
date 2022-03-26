@@ -15,16 +15,15 @@ agent_num = 500
 search_iteration = 100
 k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
+# agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 # IM_type = ["Traditional Directed", "Factor Directed", "Influential Directed", "Random Directed"]
 IM_type = "Traditional Directed"
 knowledge_num = 16
-generalist_list = [10, 0, 4, 6]
-specialist_list = [0, 5, 3, 2]
-transparency_direction_list = ["A", "G", "S"]
+transparency_direction_list = ["A", "G", "S", "SG", "GS"]
 exposure_type = "Self-interested"
 socialization_freq_list = [1, 5, 10, 20, 50]
 gs_proportion = 0.5
+
 
 def loop(k=0, K=0, transparency_direction=None, socialization_freq=None, parallel_flag=None):
     # After simulators
@@ -43,26 +42,26 @@ def loop(k=0, K=0, transparency_direction=None, socialization_freq=None, paralle
     if (k < 10) & (K == 0):
         if parallel_flag:
             basic_file_name = 'N' + str(N) + '_K' + str(K) + '_k0' + str(k) + '_E' + str(knowledge_num) + '_' + \
-                              exposure_type + '_' + transparency_direction + '_' +\
+                              exposure_type + '_' + transparency_direction + '_F' +\
                               str(socialization_freq) + '_' + str(gs_proportion) + 'flag_' + str(parallel_flag)
         else:
             basic_file_name = 'N' + str(N) + '_K' + str(K) + '_k0' + str(k) + '_E' + str(knowledge_num) + '_' + \
-                              exposure_type + '_' + transparency_direction + '_' + \
+                              exposure_type + '_' + transparency_direction + '_F' + \
                               str(socialization_freq) + '_' + str(gs_proportion)
     else:
         if parallel_flag:
             # extend the repeated K_list to make it parallel and utilize the CPU pool
             basic_file_name = "N" + str(N) + '_K' + str(K) + '_k' + str(k) + '_E' + str(knowledge_num) + '_' + \
-                              exposure_type + '_' + transparency_direction + '_' + \
+                              exposure_type + '_' + transparency_direction + '_F' + \
                               str(socialization_freq) + '_' + str(gs_proportion) + 'flag_' + str(parallel_flag)
         else:
             basic_file_name = 'N' + str(N) + '_K' + str(K) + '_k' + str(k) + '_E' + str(knowledge_num) + '_' + \
-                              exposure_type + '_' + transparency_direction + '_' + \
+                              exposure_type + '_' + transparency_direction + '_F' + \
                               str(socialization_freq) + '_' + str(gs_proportion)
 
-    A_file_name_potential = "1Potential_" + basic_file_name + "_" + str(flag)
-    B_file_name_convergence = "2Convergence_" + basic_file_name + "_" + str(flag)
-    C_file_unique_fitness = "3Unique_" + basic_file_name + "_" + str(flag)
+    A_file_name_potential = "1Potential_" + basic_file_name
+    B_file_name_convergence = "2Convergence_" + basic_file_name
+    C_file_unique_fitness = "3Unique_" + basic_file_name
 
     with open(A_file_name_potential, 'wb') as out_file:
         pickle.dump(A_converged_potential_simulators, out_file)
@@ -74,9 +73,11 @@ def loop(k=0, K=0, transparency_direction=None, socialization_freq=None, paralle
 
 if __name__ == '__main__':
     k = 0
-    for K, transparency_direction, socialization_freq in zip(K_list, transparency_direction_list, socialization_freq_list):
-        p = mp.Process(target=loop, args=(k, K, transparency_direction, socialization_freq))
-        p.start()
+    for K in K_list:
+        for transparency_direction in transparency_direction_list:
+            for socialization_freq in socialization_freq_list:
+                p = mp.Process(target=loop, args=(k, K, transparency_direction, socialization_freq))
+                p.start()
         # loop(k=0, K=0, transparency_direction=None, socialization_freq=None)
 
 
