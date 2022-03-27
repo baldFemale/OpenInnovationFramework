@@ -41,7 +41,7 @@
   * Cognitive state representation will include unknown depth symbols or abstraction symbols (e.g., "A" for \["0", "1"]) and unknown domain symbol (i.e., "*")
   * The double-representation system will enable the communication between Agents using the distinct state as bridge
 
-## Socialization_in_DyLandscape
+## Resilience
 * **Three** model specifications make up the key contribution to NK landscape literature
   * First, GS and corresponding cognitive search pattern build the participant set-ups.
   * Second, the proportion of GS and their communication build the platform or community set-ups.
@@ -57,7 +57,7 @@
   * Interest-directed exposure means each agent will gather around what is most attractive to them, and initialize their own search there.
   * Simulated intervention
 
-## Socialization_in_traditional_Landscape
+## Transparency
 * This version remove the dynamic landscape design, and focus on the **Transparency** strategies.
 * First, G has two advantages of 1) providing promising search area; 2) linking distant solutions.
 * Second, S has two advantages of 1) pushing the frontiers of search; 2) utilizing the potential of the crowd cooperation.
