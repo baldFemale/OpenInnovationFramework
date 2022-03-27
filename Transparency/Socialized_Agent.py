@@ -11,7 +11,7 @@ from Landscape import Landscape
 
 class Agent:
 
-    def __init__(self, N, landscape=None, state_num=4, gs_ratio=0.5, state_pool=None, assigned_state_pool_rank=None):
+    def __init__(self, N, landscape=None, state_num=4, gs_ratio=0.5):
         """
         The difference between original one and the socialized one:
         1. copied_state: enable the angens to polish the existing ideas/solutions
@@ -31,9 +31,9 @@ class Agent:
         # store the cognitive state list during the search
         self.cog_state = None
         # for different transparency directions, the exposed pool will be controlled in the simulator level
-        self.state_pool = state_pool
-        self.personal_state_pool_rank = {}
-        self.assigned_state_pool_rank = assigned_state_pool_rank
+        self.state_pool = None  # assigned from externality
+        self.personal_state_pool_rank = {}  # assigned from externality
+        self.assigned_state_pool_rank = {}  # self-generated after the pool assignment
 
         self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []

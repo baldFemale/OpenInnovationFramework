@@ -10,17 +10,20 @@ import multiprocessing as mp
 
 N = 8
 state_num = 4
-landscape_iteration = 100
+landscape_iteration = 200
 agent_num = 500
 search_iteration = 100
-k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
+# k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 # agent_name = ["Generalist", "Specialist", "T shape", "T shape"]
 # IM_type = ["Traditional Directed", "Factor Directed", "Influential Directed", "Random Directed"]
 IM_type = "Traditional Directed"
 knowledge_num = 16
-transparency_direction_list = ["A", "G", "S", "SG", "GS"]
-exposure_type = "Self-interested"
+transparency_direction_list = ["A", "G", "S", "SG", "GS", "Inverse"]
+# valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
+# exposure_type = "Self-interested"
+# exposure_type = "Overall-ranking"
+exposure_type = "Random"
 socialization_freq_list = [1, 5, 10, 20, 50]
 gs_proportion = 0.5
 
