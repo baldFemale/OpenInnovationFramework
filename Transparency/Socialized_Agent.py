@@ -31,9 +31,13 @@ class Agent:
         # store the cognitive state list during the search
         self.cog_state = None
         # for different transparency directions, the exposed pool will be controlled in the simulator level
-        self.state_pool = None  # assigned from externality
-        self.personal_state_pool_rank = {}  # assigned from externality
-        self.assigned_state_pool_rank = {}  # self-generated after the pool assignment
+        self.state_pool_G = None  # assigned from externality
+        self.state_pool_S = None  # assigned from externality
+        self.state_pool_all = None # assigned from externality
+        self.personal_state_pool_rank_G = []  # self-generated after the pool assignment
+        self.personal_state_pool_rank_S = []  # self-generated after the pool assignment
+        self.personal_state_pool_rank_all = []
+        self.overall_state_pool_rank = []  # assigned from externality
 
         self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
@@ -63,15 +67,16 @@ class Agent:
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
 
-    def update_state_from_exposure(self, exposure_type="Self-interested"):
+    def update_state_from_exposure(self, exposure_type="Self-interested", G_exposed_to_G=None, S_exposed_to_S=None):
         """
         Re-assign the initial state for upcoming cognitive search
         :return:update the initial state
         """
         success = 0
         if exposure_type == "Random":
-            index = np.random.choice(len(self.state_pool))
-            comparison_state = self.state_pool[index]
+            overall_state_pool = self.state_pool_G + self.state_pool_S
+            index = np.random.choice(len(overall_state_pool))
+            comparison_state = overall_state_pool[index]
             comparison_cog_state = self.change_state_to_cog_state(state=comparison_state)
             comparison_cog_fitness = self.landscape.query_cog_fitness(cog_state=comparison_cog_state)
             if comparison_cog_fitness > self.cog_fitness:
@@ -80,26 +85,20 @@ class Agent:
                 self.cog_state = comparison_cog_state
                 self.cog_fitness = comparison_cog_fitness
                 self.update_freedom_space()
-        # only select the highest state-> reduce too much diversity
-        # elif exposure_type == "Self-interested":
-        #     self_interested_index = 0
-        #     perceived_highest_fitness = 0
-        #     for index, each_state in enumerate(self.state_pool):
-        #         cog_state = self.change_state_to_cog_state(state=each_state)
-        #         perceived_fitness = self.landscape.query_cog_fitness(cog_state)
-        #         if perceived_fitness > perceived_highest_fitness:
-        #             self_interested_index = index
-        #             perceived_highest_fitness = perceived_fitness
-        #     pool_idea = self.state_pool[self_interested_index]
-        #     cog_pool_idea = self.change_state_to_cog_state(state=pool_idea)
-        #     cog_fitness_pool_idea = self.landscape.query_cog_fitness(cog_state=cog_pool_idea)
-        #     if cog_fitness_pool_idea > self.cog_fitness:
-        #         success = 1
-        #         self.state = self.state_pool[self_interested_index]
-        #         self.cog_state = cog_pool_idea
-        #         self.cog_fitness = cog_fitness_pool_idea
-        #         self.update_freedom_space()
         elif exposure_type == "Self-interested":
+            if agent.name == "Generalist":
+                selected_pool_index = np.random.choice((0, 1), p=[G_exposed_to_G, 1-G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
+            elif agent.name == "Specialist":
+                selected_pool_index = np.random.choice((0, 1), p=[1-S_exposed_to_S, S_exposed_to_S])
+            else:
+                raise ValueError("Outlier of agent name {0}".format(agent.name))
+            if selected_pool_index == 0:
+                selected_state = np.random.choice(len(self.state_pool_G), p=self.personal_state_pool_rank_G)
+            else:
+                selected_state = np.random.choice(len(self.state_pool_S), p=self.personal_state_pool_rank_S)
+
+
+
             self.personal_state_pool_rank = [self.landscape.query_cog_fitness(
                 cog_state=self.change_state_to_cog_state(state=each_state)) for each_state in self.state_pool]
             self.personal_state_pool_rank = [i/sum(self.personal_state_pool_rank) for i in self.personal_state_pool_rank]
@@ -139,20 +138,30 @@ class Agent:
                 self.update_freedom_space()
         return success
 
-    def vote_for_state_pool(self):
+    def vote_for_state_pool(self, which=None):
         """
         Vote for the whole pool; the weights are measured by each cognitive fitness
         :return:the dict of each state with its cog_fitness
         """
-        if not self.state_pool:
+        if not self.state_pool_all:
             raise ValueError("Need state pool assigned by the simulator")
         personal_pool_rank = {}
-        for each_state in self.state_pool:
-            cog_state = self.change_state_to_cog_state(state=each_state)
-            perceived_fitness = self.landscape.query_cog_fitness(cog_state)
-            personal_pool_rank[''.join(each_state)] = perceived_fitness
-        # the state pool is the same for all Agents;
-        # But Agents will have their own perceptions of states
+        if which == "All":
+            for each_state in self.state_pool_all:
+                cog_state = self.change_state_to_cog_state(state=each_state)
+                perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+                personal_pool_rank[''.join(each_state)] = perceived_fitness
+        elif which == "S":
+            for each_state in self.state_pool_S:
+                cog_state = self.change_state_to_cog_state(state=each_state)
+                perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+                personal_pool_rank[''.join(each_state)] = perceived_fitness
+        elif which == "G":
+            for each_state in self.state_pool_G:
+                cog_state = self.change_state_to_cog_state(state=each_state)
+                perceived_fitness = self.landscape.query_cog_fitness(cog_state)
+                self.personal_state_pool_rank_G.append(perceived_fitness)
+                personal_pool_rank[''.join(each_state)] = perceived_fitness
         return personal_pool_rank
 
     def type(self, name=None, specialist_num=0, generalist_num=0, element_num=0, gs_ratio=0.5):

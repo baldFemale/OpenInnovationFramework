@@ -7,13 +7,15 @@
 import time
 from Landscape import Landscape
 from Socialized_Agent import Agent
+import numpy as np
 
 
 class Simulator:
 
     def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100, IM_type=None,
                  K=0, k=0, gs_proportion=0.5, knowledge_num=20,
-                 exposure_type="Self-interested", transparency_direction=None):
+                 exposure_type="Self-interested", transparency_direction=None, openness=None, frequency=None,
+                 quality=None, S_exposed_to_S=None, G_exposed_to_G=None):
         self.N = N
         self.state_num = state_num
         # Landscape
@@ -36,14 +38,30 @@ class Simulator:
         self.specialist_num = int(self.agent_num * (1-gs_proportion))
         # Cognitive Search
         self.search_iteration = search_iteration
-        self.exposure_type = exposure_type
+
+        # Transparency parameters
+        # Frequency (receiver side: how frequent to copy) & Openness (sender side: how frequent to disclose)
+        # This indicator can be furth divided into G_openness and S_openness
+        self.openness = openness
+        self.frequency = frequency
+        # Quality -> (how much information/state length can be copied)
+        self.quality = quality
+        # Direction
         self.transparency_direction = transparency_direction
+        self.G_exposed_to_G = G_exposed_to_G
+        self.G_exposed_to_S = 1 - G_exposed_to_G
+        self.S_exposed_to_S = S_exposed_to_S
+        self.S_exposed_to_G = 1 - S_exposed_to_S
+        # exposure type-> how the agent rank the state pool (self-interested or overall rank)
+        self.exposure_type = exposure_type
         valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-        valid_transparency_direction = ['G', "S", "A", "GS", "SG", "Inverse"]
-        if self.exposure_type  not in valid_exposure_type:
+        # valid_transparency_direction = ['G', "S", "A", "GS", "SG", "Inverse"]
+        if self.exposure_type not in valid_exposure_type:
             raise ValueError("Only support: ", valid_exposure_type)
-        if self.transparency_direction  not in valid_transparency_direction:
-            raise ValueError("Only support: ", valid_transparency_direction)
+        if (self.openness < 0) or (self.openness > 1):
+            raise ValueError("Openness should be between 0-1")
+        # if self.transparency_direction not in valid_transparency_direction:
+        #     raise ValueError("Only support: ", valid_transparency_direction)
 
         # Outcome Variables
         self.converged_fitness_landscape = []
@@ -78,15 +96,24 @@ class Simulator:
         after each crowd search, create the state pool and make the agents vote for it.
         :return: the crowd-level state pool and its overall rank
         """
-        self.whole_state_pool = ["".join(agent.state) for agent in self.agents]
+        for agent in self.agents:
+            flag = np.random.choice((0,1), p=[1-self.openness, self.openness])
+            if flag == 1:
+                self.whole_state_pool.append(agent.state)
+                if agent.name == "Generalist":
+                    self.G_state_pool.append(agent.state)
+                elif agent.name == "Specialist":
+                    self.S_state_pool.append(agent.state)
+        # remove the repeated agent
+        self.whole_state_pool = ["".join(each) for each in self.whole_state_pool]
         self.whole_state_pool = list(set(self.whole_state_pool))
         self.whole_state_pool = [list(each) for each in self.whole_state_pool]
 
-        self.G_state_pool = ["".join(agent.state) for agent in self.agents if agent.name == "Generalist"]
+        self.G_state_pool = ["".join(each) for each in self.G_state_pool]
         self.G_state_pool = list(set(self.G_state_pool))
         self.G_state_pool = [list(each) for each in self.G_state_pool]
 
-        self.S_state_pool = ["".join(agent.state) for agent in self.agents if agent.name == "Specialist"]
+        self.S_state_pool = ["".join(each) for each in self.S_state_pool]
         self.S_state_pool = list(set(self.S_state_pool))
         self.S_state_pool = [list(each) for each in self.S_state_pool]
 
@@ -95,12 +122,12 @@ class Simulator:
         for state in self.whole_state_pool:
             overall_pool_rank["".join(state)] = 0
         for agent in self.agents:
-            agent.state_pool = self.whole_state_pool
+            agent.state_pool_all = self.whole_state_pool
             personal_pool_rank = agent.vote_for_state_pool()
             # format: {"10102": 0.85} i.e., state string: cognitive fitness
             for key, value in personal_pool_rank.items():
                 overall_pool_rank[key] += value
-        self.whole_state_pool = overall_pool_rank
+        self.whole_state_pool_rank = overall_pool_rank
 
     def create_G_pool_rank(self):
         overall_pool_rank = {}
@@ -132,48 +159,20 @@ class Simulator:
         :param exposure_type: only three valid exposure types
         :return:all agents update their initial state
         """
-        # For overall-ranking exposure, we create the overall rank and assign it to assigned_state_pool_rank
         if self.exposure_type == "Overall-ranking":
-            if self.transparency_direction == "A":
-                self.create_whole_pool_rank()
-                for agent in self.agents:
-                    agent.assigned_state_pool_rank = self.whole_state_pool_rank
-            elif self.transparency_direction == "G":
-                self.create_G_pool_rank()
-                for agent in self.agents:
-                    agent.assigned_state_pool_rank = self.G_state_pool_rank
-            elif self.transparency_direction == "S":
-                self.create_S_pool_rank()
-                for agent in self.agents:
-                    agent.assigned_state_pool_rank = self.S_state_pool_rank
-            elif self.transparency_direction == "GS":
-                self.create_G_pool_rank()
-                for agent in self.agents:
-                    if agent.name == "Specialist":
-                        agent.assigned_state_pool_rank = self.G_state_pool_rank
-        # For self-interested exposure, we assign the state_pool (no rank)
-        for agent in self.agents:
-            if self.transparency_direction == "A":
-                agent.state_pool = self.whole_state_pool
-            elif self.transparency_direction == "G":
-                agent.state_pool = self.G_state_pool
-            elif self.transparency_direction == "S":
-                agent.state_pool = self.S_state_pool
-            elif self.transparency_direction == "GS":  # Only S get ideas from G
-                if agent.name == "Specialist":
-                    agent.state_pool = self.G_state_pool
-            elif self.transparency_direction == "SG":  # Only G get ideas from S
-                if agent.name == "Generalist":
-                    agent.state_pool = self.S_state_pool
-            elif self.transparency_direction == "Inverse":  # G get ideas from S, and S get ideas from G
-                if agent.name == "Generalist":
-                    agent.state_pool = self.S_state_pool
-                elif agent.name == "Specialist":
-                    agent.state_pool = self.G_state_pool
-        # update the initial state
+            self.create_whole_pool_rank()
+            for agent in self.agents:
+                agent.overall_state_pool_rank = self.whole_state_pool_rank
+        elif (self.exposure_type == "Self-interested") or (self.exposure_type == "Random"):
+            self.create_G_pool_rank()
+            self.create_S_pool_rank()
+            for agent in self.agents:
+                agent.state_pool_G = self.G_state_pool
+                agent.state_pool_S = self.S_state_pool
         success_count = 0
         for agent in self.agents:
-            success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type)
+            success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type, G_exposed_to_G=self.G_exposed_to_G,
+                                                              S_exposed_to_S=self.S_exposed_to_S)
         # print("success_count: ", success_count)
 
     def process(self, socialization_freq=1):

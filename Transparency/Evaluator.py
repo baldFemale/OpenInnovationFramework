@@ -209,6 +209,8 @@ class Evaluator:
         convergence_files = []
         unique_files = []
         for each in files_list:
+            if "png" in each:
+                continue
             if "Potential" in each:
                 potential_files.append(each)
             elif "Convergence" in each:
@@ -222,6 +224,7 @@ class Evaluator:
         transparency_A_file_list = []
         transparency_G_file_list = []
         transparency_S_file_list = []
+        transparency_Inverse_file_list = []
         for each in files_list:
             if "_A_" in each:
                 transparency_A_file_list.append(each)
@@ -229,6 +232,8 @@ class Evaluator:
                 transparency_G_file_list.append(each)
             elif "_S_" in each:
                 transparency_S_file_list.append(each)
+            elif "_Inverse_" in each:
+                transparency_Inverse_file_list.append(each)
             else:pass
                 # print(each)
         frequency_1_file_list = []
@@ -237,15 +242,15 @@ class Evaluator:
         frequency_20_file_list = []
         frequency_50_file_list = []
         for each in files_list:
-            if "_1_" in each:
+            if "_F1_" in each:
                 frequency_1_file_list.append(each)
-            elif "_5_" in each:
+            elif "_F5_" in each:
                 frequency_5_file_list.append(each)
-            elif "_10_" in each:
+            elif "_F10_" in each:
                 frequency_10_file_list.append(each)
-            elif "_20_" in each:
+            elif "_F20_" in each:
                 frequency_20_file_list.append(each)
-            elif "_50_" in each:
+            elif "_F50_" in each:
                 frequency_50_file_list.append(each)
             else:pass
                 # print(each)
@@ -255,53 +260,84 @@ class Evaluator:
         curve_3_data_files = []
         curve_4_data_files = []
         curve_5_data_files = []
-        # This is for 5 types of frequency setting as the label list
-        for each in unique_files:
-            if each in transparency_A_file_list:
-                if each in frequency_1_file_list:
-                    curve_1_data_files.append(each)
-                elif each in frequency_5_file_list:
-                    curve_2_data_files.append(each)
-                elif each in frequency_10_file_list:
-                    curve_3_data_files.append(each)
-                elif each in frequency_20_file_list:
-                    curve_4_data_files.append(each)
-                elif each in frequency_50_file_list:
-                    curve_5_data_files.append(each)
-        all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files, curve_5_data_files]
         all_curves_data = []
-        for each in all_curves_data_files:
-            curve_data = self.load_data_from_files(each)
-            all_curves_data.append(curve_data)
-        print(np.array(all_curves_data).shape)
+        # This is for 5 types of frequency setting as the label list
+        selected_y_files = []
+        if "Potential" in y_label:
+            selected_y_files = potential_files
+        elif "Unique" in y_label:
+            selected_y_files = unique_files
+        elif "Average" in y_label:
+            selected_y_files = convergence_files
+
+        # need to clarify the naming of transparency direction parameter
+        # selected_direction_files = []
+        # if "S" in self.title:
+        #     selected_direction_files = transparency_S_file_list
+        # elif "G" in y_label:
+        #     selected_direction_files = unique_files
+        # elif "Average" in y_label:
+        #     selected_direction_files = convergence_files
+
+        # The first kind of figure: Fitness-K across different frequency
+        if "1" in self.title:
+            for each in selected_y_files:
+                if each in transparency_S_file_list:
+                    if each in frequency_1_file_list:
+                        curve_1_data_files.append(each)
+                    elif each in frequency_5_file_list:
+                        curve_2_data_files.append(each)
+                    elif each in frequency_10_file_list:
+                        curve_3_data_files.append(each)
+                    elif each in frequency_20_file_list:
+                        curve_4_data_files.append(each)
+                    elif each in frequency_50_file_list:
+                        curve_5_data_files.append(each)
+            all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files, curve_5_data_files]
+            for each in all_curves_data_files:
+                curve_data = self.load_data_from_files(each)
+                all_curves_data.append(curve_data)
+            print(np.array(all_curves_data).shape)
 
         # compare different exposure directions and their diff.
         # This is for the three types of exposure directions as the label list
-        # for each in convergence_files:
-        #     if each in frequency_1_file_list:
-        #         if each in transparency_S_file_list:
-        #             curve_1_data_files.append(each)
-        #         elif each in transparency_G_file_list:
-        #             curve_2_data_files.append(each)
-        #         elif each in transparency_A_file_list:
-        #             curve_3_data_files.append(each)
-        # all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files]
-        # all_curves_data = []
-        # for each in all_curves_data_files:
-        #     curve_data = self.load_data_from_files(each)
-        #     all_curves_data.append(curve_data)
-        # print(np.array(all_curves_data).shape)
+        # Second kind of figure: Fitness-K across directions
+        elif "2" in self.title:
+            for each in selected_y_files:
+                if each in frequency_50_file_list:
+                    if each in transparency_S_file_list:
+                        curve_1_data_files.append(each)
+                    elif each in transparency_G_file_list:
+                        curve_2_data_files.append(each)
+                    elif each in transparency_A_file_list:
+                        curve_3_data_files.append(each)
+                    elif each in transparency_Inverse_file_list:
+                        curve_4_data_files.append(each)
+            all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files]
+            for each in all_curves_data_files:
+                curve_data = self.load_data_from_files(each)
+                all_curves_data.append(curve_data)
+            print(np.array(all_curves_data).shape)
+
+        # Third kind of figure: Fitness-K across information quality
+        #################
+        # waiting for codes #
+        #################
+
+        if len(label_list) != len(all_curves_data):
+            raise ValueError("Mismatch between curve number {0} and label number {1}".format(len(label_list), len(all_curves_data)))
 
         figure = plt.figure()
         ax = figure.add_subplot()
         for lable, each_curve in zip(label_list, all_curves_data):  # release the Agent type level
-            average_value = np.mean(np.mean(np.array(each_curve), axis=2), axis=1)  # 10 * (500 * 500)
-            variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
-
+            average_value, variation_value = None, None
+            if "Unique" in y_label:
             # unique fitness lack one dimension
-            # average_value = np.mean(np.array(each_curve), axis=1)  # 10 * (500 * 500)
-            # variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
-
+                average_value = np.mean(np.array(each_curve), axis=1)  # 10 * (500 * 500)
+                variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
+            elif ("Average" in y_label) or ("Potential" in y_label):
+                average_value = np.mean(np.mean(np.array(each_curve), axis=2), axis=1)  # 10 * (500 * 500)
+                variation_value = np.var(np.array(each_curve).reshape((100, -1)), axis=1)
             ax.plot(average_value, label="{}".format(lable))
             if show_variance:
                 # draw the variance
@@ -324,24 +360,22 @@ class Evaluator:
         # print(np.array(data_potential_social_frequency_files_1).shape)
 
 
-
-
 if __name__ == '__main__':
     # Test Example
     # Test different types of socialization frequency-> The frequency doesn't matter
     # The reason is that the current version, agent only select the same state to copy
-    title = 'Unique-G'
-    data_path = r'C:\Python_Workplace\hpc-0326\transparency'
-    label_list = ["1", "5", "10", "20", "50"]
-    y_label = "Unique Fitness"
-    evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
-    evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
-
-    # Test different kind ->
-    # title = 'Convergence-with-freq1'
-    # data_path = r'C:\Python_Workplace\hpc-0326\transparency'
-    # label_list = ["S", "G", "A"]
-    # y_label = "Average Fitness"
+    # title = '1-Unique-S'
+    # data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
+    # label_list = ["1", "5", "10", "20", "50"]
+    # y_label = "Unique Fitness"
     # evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
     # evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
+
+    # Test different kind ->
+    title = '2-Different Transparency Directions measured by Average-50'
+    data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
+    label_list = ["S", "G", "A", "Inverse"]
+    y_label = "Average Fitness"
+    evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
+    evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
 

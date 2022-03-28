@@ -24,8 +24,14 @@ transparency_direction_list = ["A", "G", "S", "SG", "GS", "Inverse"]
 # exposure_type = "Self-interested"
 # exposure_type = "Overall-ranking"
 exposure_type = "Random"
-socialization_freq_list = [1, 5, 10, 20, 50]
-gs_proportion = 0.5
+# Frequency & Openness
+frequency_list = [1, 5, 10, 20, 50]
+openness_list = [0.1, 0.2, 0.4, 0.8, 1.0]
+# Quality
+quality_list = [0.1, 0.2, 0.4, 0.8, 1.0]
+# Directions
+direction_list = ["A", "G", "S", "SG", "GS", "Inverse"]
+gs_proportion_list = [0.1, 0.2, 0.4, 0.8, 1.0]  # the proportion of G
 
 
 def loop(k=0, K=0, transparency_direction=None, socialization_freq=None, parallel_flag=None):
