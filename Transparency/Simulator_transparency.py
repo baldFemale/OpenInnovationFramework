@@ -14,7 +14,7 @@ class Simulator:
 
     def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100, IM_type=None,
                  K=0, k=0, gs_proportion=0.5, knowledge_num=20,
-                 exposure_type="Self-interested", transparency_direction=None, openness=None, frequency=None,
+                 exposure_type="Self-interested", openness=None, frequency=None,
                  quality=None, S_exposed_to_S=None, G_exposed_to_G=None):
         self.N = N
         self.state_num = state_num
@@ -23,9 +23,9 @@ class Simulator:
         self.whole_state_pool = []
         self.G_state_pool = []
         self.S_state_pool = []
-        self.whole_state_pool_rank = {}
-        self.G_state_pool_rank = {}
-        self.S_state_pool_rank = {}
+        self.whole_state_pool_rank = []  # only use the list instead of dict
+        self.G_state_pool_rank = []  # and we keep the order consistent with state pool list
+        self.S_state_pool_rank = []
         self.IM_type = IM_type
         self.K = K
         self.k = k
@@ -34,8 +34,8 @@ class Simulator:
         self.agent_num = agent_num
         self.knowledge_num = knowledge_num
         self.gs_proportion = gs_proportion
-        self.generalist_num = int(self.agent_num * gs_proportion)
-        self.specialist_num = int(self.agent_num * (1-gs_proportion))
+        self.generalist_agent_num = int(self.agent_num * gs_proportion)
+        self.specialist_agent_num = int(self.agent_num * (1-gs_proportion))
         # Cognitive Search
         self.search_iteration = search_iteration
 
@@ -47,7 +47,6 @@ class Simulator:
         # Quality -> (how much information/state length can be copied)
         self.quality = quality
         # Direction
-        self.transparency_direction = transparency_direction
         self.G_exposed_to_G = G_exposed_to_G
         self.G_exposed_to_S = 1 - G_exposed_to_G
         self.S_exposed_to_S = S_exposed_to_S
@@ -74,7 +73,7 @@ class Simulator:
         self.landscape.initialize()
 
     def set_agent(self):
-        for _ in range(self.generalist_num):
+        for _ in range(self.generalist_agent_num):
             # fix the knowledge of each Agent
             # fix the composition of agent crowd (e.g., the proportion of GS)
             generalist_num = self.knowledge_num // 2
@@ -82,7 +81,7 @@ class Simulator:
             agent = Agent(N=self.N, landscape=self.landscape, state_num=self.state_num)
             agent.type(name="Generalist", generalist_num=generalist_num, specialist_num=specialist_num)
             self.agents.append(agent)
-        for _ in range(self.specialist_num):
+        for _ in range(self.specialist_agent_num):
             # fix the knowledge of each Agent
             # fix the composition of agent crowd (e.g., the proportion of GS)
             specialist_num = self.knowledge_num // 4
@@ -99,16 +98,11 @@ class Simulator:
         for agent in self.agents:
             flag = np.random.choice((0,1), p=[1-self.openness, self.openness])
             if flag == 1:
-                self.whole_state_pool.append(agent.state)
                 if agent.name == "Generalist":
                     self.G_state_pool.append(agent.state)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(agent.state)
         # remove the repeated agent
-        self.whole_state_pool = ["".join(each) for each in self.whole_state_pool]
-        self.whole_state_pool = list(set(self.whole_state_pool))
-        self.whole_state_pool = [list(each) for each in self.whole_state_pool]
-
         self.G_state_pool = ["".join(each) for each in self.G_state_pool]
         self.G_state_pool = list(set(self.G_state_pool))
         self.G_state_pool = [list(each) for each in self.G_state_pool]
@@ -117,41 +111,59 @@ class Simulator:
         self.S_state_pool = list(set(self.S_state_pool))
         self.S_state_pool = [list(each) for each in self.S_state_pool]
 
-    def create_whole_pool_rank(self):
-        overall_pool_rank = {}
-        for state in self.whole_state_pool:
-            overall_pool_rank["".join(state)] = 0
-        for agent in self.agents:
-            agent.state_pool_all = self.whole_state_pool
-            personal_pool_rank = agent.vote_for_state_pool()
-            # format: {"10102": 0.85} i.e., state string: cognitive fitness
-            for key, value in personal_pool_rank.items():
-                overall_pool_rank[key] += value
-        self.whole_state_pool_rank = overall_pool_rank
+        self.whole_state_pool = self.G_state_pool + self.S_state_pool
+        self.whole_state_pool = ["".join(each) for each in self.whole_state_pool]
+        self.whole_state_pool = list(set(self.whole_state_pool))
+        self.whole_state_pool = [list(each) for each in self.whole_state_pool]
 
-    def create_G_pool_rank(self):
+    def create_overall_rank(self, which="A"):
         overall_pool_rank = {}
-        for state in self.G_state_pool:
-            overall_pool_rank["".join(state)] = 0
-        for agent in self.agents:
-            agent.state_pool = self.G_state_pool
-            personal_pool_rank = agent.vote_for_state_pool()
-            # format: {"10102": 0.85} state string: cognitive fitness
-            for key, value in personal_pool_rank.items():
-                overall_pool_rank[key] += value
-        self.G_state_pool_rank = overall_pool_rank
+        temp = []
+        if (which == "All") or (which == "A"):
+            for state in self.whole_state_pool:
+                overall_pool_rank["".join(state)] = 0
+        elif which == 'G':
+            for state in self.G_state_pool:
+                overall_pool_rank["".join(state)] = 0
+        elif which == 'S':
+            for state in self.S_state_pool:
+                overall_pool_rank["".join(state)] = 0
+        else:
+            raise ValueError("Unsupported which type: ", which)
 
-    def create_S_pool_rank(self):
-        overall_pool_rank = {}
-        for state in self.S_state_pool:
-            overall_pool_rank["".join(state)] = 0
         for agent in self.agents:
-            agent.state_pool = self.S_state_pool
-            personal_pool_rank = agent.vote_for_state_pool()
-            # format: {"10102": 0.85} state string: cognitive fitness
+            if (which == "All") or (which == "A"):
+                agent.state_pool_all = self.whole_state_pool
+                personal_pool_rank = agent.vote_for_state_pool(which="A")
+                agent.state_pool_all = []  # clear the memory after voting
+            elif which == 'G':
+                agent.state_pool_G = self.G_state_pool
+                personal_pool_rank = agent.vote_for_state_pool(which="G")
+                agent.state_pool_G = []
+            elif which == 'S':
+                agent.state_pool_S = self.S_state_pool
+                personal_pool_rank = agent.vote_for_state_pool(which="S")
+                agent.state_pool_S = []
+            else:
+                raise ValueError("Unsupported which type: ", which)
             for key, value in personal_pool_rank.items():
                 overall_pool_rank[key] += value
-        self.S_state_pool_rank = overall_pool_rank
+        if (which == "All") or (which == "A"):
+            for state in self.whole_state_pool:
+                temp.append(overall_pool_rank["".join(state)])
+        elif which == "G":
+            for state in self.G_state_pool:
+                temp.append(overall_pool_rank["".join(state)])
+        elif which == "S":
+            for state in self.S_state_pool:
+                temp.append(overall_pool_rank["".join(state)])
+        temp = [i/sum(temp) for i in temp]
+        if (which == "All") or (which == "A"):
+            self.whole_state_pool_rank = temp
+        elif which == "G":
+            self.G_state_pool_rank = temp
+        elif which == "S":
+            self.S_state_pool_rank = temp
 
     def change_initial_state(self):
         """
@@ -159,16 +171,31 @@ class Simulator:
         :param exposure_type: only three valid exposure types
         :return:all agents update their initial state
         """
+        # Prepare the rank information for each kind of exposure
         if self.exposure_type == "Overall-ranking":
-            self.create_whole_pool_rank()
-            for agent in self.agents:
-                agent.overall_state_pool_rank = self.whole_state_pool_rank
-        elif (self.exposure_type == "Self-interested") or (self.exposure_type == "Random"):
-            self.create_G_pool_rank()
-            self.create_S_pool_rank()
+            if (not self.S_exposed_to_S) and (not self.G_exposed_to_G):
+                self.create_overall_rank(which="A")
+                for agent in self.agents:
+                    agent.overall_state_pool_rank = self.whole_state_pool_rank
+            else:
+                self.create_overall_rank(which="G")
+                self.create_overall_rank(which="S")
+                for agent in self.agents:
+                    agent.state_pool_G = self.G_state_pool
+                    agent.state_pool_S = self.S_state_pool
+                    agent.overall_state_pool_rank_G = self.G_state_pool_rank
+                    agent.overall_state_pool_rank_S = self.S_state_pool_rank
+        elif self.exposure_type == "Self-interested":
+            # update the state_pool after last search
             for agent in self.agents:
                 agent.state_pool_G = self.G_state_pool
                 agent.state_pool_S = self.S_state_pool
+                agent.state_pool_all = self.whole_state_pool
+        elif self.exposure_type == "Random":
+            for agent in self.agents:
+                agent.state_pool_all = self.whole_state_pool
+        else:
+            raise ValueError("Unsupported exposure_type {0}".format(self.exposure_type))
         success_count = 0
         for agent in self.agents:
             success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type, G_exposed_to_G=self.G_exposed_to_G,
@@ -215,13 +242,22 @@ if __name__ == '__main__':
     K = 2
     k = 0
     IM_type = "Traditional Directed"
+    openness = 0.5
+    quality = 0.5
+    S_exposed_to_S = 0.5
+    G_exposed_to_G = 0.5
     agent_num = 200
     search_iteration = 100
     knowledge_num = 16
+    # exposure_type = "Overall-ranking"
+    # exposure_type = "Self-interested"
     exposure_type = "Random"
-    transparency_direction = "A"
+    # if S_exposed_to_S and G_exposed_to_G are None, then it refers to whole state pool,
+    # could be either self-interested rank or overall rank on the whole state pool
     simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration, IM_type=IM_type,
                  K=K, k=k, gs_proportion=0.5, knowledge_num=knowledge_num,
-                 exposure_type=exposure_type, transparency_direction=transparency_direction)
-    simulator.process(socialization_freq=10)
+                 exposure_type=exposure_type, openness=openness, quality=quality,
+                          S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
+    simulator.process(socialization_freq=1)
     print("END")
+

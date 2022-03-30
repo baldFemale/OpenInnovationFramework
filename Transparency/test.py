@@ -287,8 +287,14 @@ temp = None
 # else:
 #     print("No")
 
-p = [0.16666666666666666, 0.3333333333333333, 0.5]
-state_pool = [['1', '1'], ['1', '2'], ['1', '3']]
-pool_state_index = np.random.choice(len(state_pool), p=p)
-pool_state = state_pool[pool_state_index]
-print(pool_state)
+# p = [0.16666666666666666, 0.3333333333333333, 0.5]
+# state_pool = [['1', '1'], ['1', '2'], ['1', '3']]
+# pool_state_index = np.random.choice(len(state_pool), p=p)
+# pool_state = state_pool[pool_state_index]
+# print(pool_state)
+G_exposed_to_G_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+S_exposed_to_S_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
+combination = [i for i in product(*alternative_pool)]
+print(combination)
+print(len(combination))
