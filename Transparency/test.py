@@ -292,9 +292,18 @@ temp = None
 # pool_state_index = np.random.choice(len(state_pool), p=p)
 # pool_state = state_pool[pool_state_index]
 # print(pool_state)
-G_exposed_to_G_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
-S_exposed_to_S_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
-alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
-combination = [i for i in product(*alternative_pool)]
-print(combination)
-print(len(combination))
+# G_exposed_to_G_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+# S_exposed_to_S_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+# alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
+# combination = [i for i in product(*alternative_pool)]
+# print(combination)
+# print(len(combination))
+
+inconsistent_len = 10 - int(0.5 * 10)
+inconsistent_index = np.random.choice(range(10), inconsistent_len, replace=False)
+print(inconsistent_index)
+test = np.random.choice(range(4))
+print(test)
+print(1 == 1.0)
+print(0.5 < 1)
+print(1.0 < 1.00)

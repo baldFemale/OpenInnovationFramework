@@ -11,8 +11,8 @@ import multiprocessing as mp
 
 N = 8
 state_num = 4
-landscape_iteration = 200
-agent_num = 500
+landscape_iteration = 100
+agent_num = 400
 search_iteration = 100
 # k_list = [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -21,17 +21,17 @@ K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 IM_type = "Traditional Directed"
 knowledge_num = 16
 # valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
-# exposure_type = "Self-interested"
+exposure_type = "Self-interested"
 # exposure_type = "Overall-ranking"
-exposure_type = "Random"
+# exposure_type = "Random"
 # Frequency & Openness
 frequency_list = [1, 5, 10, 20, 50]
-openness_list = [0.1, 0.2, 0.4, 0.8, 1.0]
+openness_list = [0.2, 0.4, 0.8, 1.0]
 # Quality
 quality_list = [0.1, 0.2, 0.4, 0.8, 1.0]
 # Directions
-G_exposed_to_G_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
-S_exposed_to_S_list = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+G_exposed_to_G_list = [0, 0.4, 0.8, 1.0]
+S_exposed_to_S_list = [0, 0.4, 0.8, 1.0]
 gs_proportion_list = [0.1, 0.2, 0.4, 0.8, 1.0]  # the proportion of G
 gs_proportion = 0.5
 
@@ -76,14 +76,15 @@ def loop(k=0, K=0, socialization_freq=None, quality=None, openness=None, S_expos
 if __name__ == '__main__':
     k = 0
     quality = None
+    openness = 1
     alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
     for K in K_list:
         for G_exposed_to_G,  S_exposed_to_S in [i for i in product(*alternative_pool)]:
             for socialization_freq in frequency_list:
-                for openness in openness_list:
+                # for openness in openness_list:
                     # for quality in quality_list:
-                    p = mp.Process(target=loop, args=(k, K, socialization_freq, quality, openness, S_exposed_to_S,G_exposed_to_G))
-                    p.start()
+                p = mp.Process(target=loop, args=(k, K, socialization_freq, quality, openness, S_exposed_to_S,G_exposed_to_G))
+                p.start()
         # loop(k=0, K=0, transparency_direction=None, socialization_freq=None)
 
 

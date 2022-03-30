@@ -15,7 +15,7 @@ class Simulator:
     def __init__(self, N=10, state_num=4, agent_num=500, search_iteration=100, IM_type=None,
                  K=0, k=0, gs_proportion=0.5, knowledge_num=20,
                  exposure_type="Self-interested", openness=None, frequency=None,
-                 quality=None, S_exposed_to_S=None, G_exposed_to_G=None):
+                 quality=1.0, S_exposed_to_S=None, G_exposed_to_G=None):
         self.N = N
         self.state_num = state_num
         # Landscape
@@ -92,16 +92,36 @@ class Simulator:
 
     def create_state_pools(self):
         """
-        after each crowd search, create the state pool and make the agents vote for it.
-        :return: the crowd-level state pool and its overall rank
+        There are two factors affecting the state pool generation.
+        1) the sharing willingness, captured by self.openness (the likelihood of releasing solutions)
+        2) the information quality, captured by self.quality (how much of information to be shared)
+        :return: three kinds of state pools
         """
+        # clear the pool cache from last time
+        self.G_state_pool = []
+        self.S_state_pool = []
+        self.whole_state_pool = []
         for agent in self.agents:
-            flag = np.random.choice((0,1), p=[1-self.openness, self.openness])
-            if flag == 1:
+            flag = np.random.choice((0, 1), p=[1-self.openness, self.openness])
+            if (flag == 1) and (self.quality == 1.0):
                 if agent.name == "Generalist":
                     self.G_state_pool.append(agent.state)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(agent.state)
+            elif (flag == 1) and (self.quality < 1):
+                biased_state = list(agent.state)
+                inconsistent_len = self.N - int(self.quality * self.N)
+                inconsistent_index = np.random.choice(range(self.N), inconsistent_len, replace=False)
+                for index in inconsistent_index:
+                    biased_state[index] = str(np.random.choice(range(self.state_num)))
+                if agent.name == "Generalist":
+                    self.G_state_pool.append(biased_state)
+                elif agent.name == "Specialist":
+                    self.S_state_pool.append(biased_state)
+            elif flag == 0:
+                continue
+            else:
+                raise ValueError("Unsupported cases")
         # remove the repeated agent
         self.G_state_pool = ["".join(each) for each in self.G_state_pool]
         self.G_state_pool = list(set(self.G_state_pool))
@@ -117,6 +137,9 @@ class Simulator:
         self.whole_state_pool = [list(each) for each in self.whole_state_pool]
 
     def create_overall_rank(self, which="A"):
+        # in this function, we use local temp to update the pool rank.
+        # in last function of state pool generation, we clear pool each time we re-create pool.
+        # both work to avoid the pool cache and incorrect accumulation
         overall_pool_rank = {}
         temp = []
         if (which == "All") or (which == "A"):
@@ -162,8 +185,12 @@ class Simulator:
             self.whole_state_pool_rank = temp
         elif which == "G":
             self.G_state_pool_rank = temp
+            if len(self.G_state_pool_rank) != len(self.G_state_pool):
+                raise ValueError("rank length: {0}, pool length: {1}".format(len(self.G_state_pool_rank), len(self.G_state_pool)))
         elif which == "S":
             self.S_state_pool_rank = temp
+            if len(self.S_state_pool_rank) != len(self.S_state_pool):
+                raise ValueError("rank length: {0}, pool length: {1}".format(len(self.S_state_pool_rank), len(self.S_state_pool)))
 
     def change_initial_state(self):
         """
@@ -202,6 +229,35 @@ class Simulator:
                                                               S_exposed_to_S=self.S_exposed_to_S)
         # print("success_count: ", success_count)
 
+    def tail_recursion(self):
+        """
+        Finally update the simulator's pool rank information
+        This doesn't impact the main body, just for bug check.
+        :return:
+        """
+        if self.exposure_type == "Overall-ranking":
+            if (not self.S_exposed_to_S) and (not self.G_exposed_to_G):
+                self.create_overall_rank(which="A")
+                for agent in self.agents:
+                    agent.overall_state_pool_rank = self.whole_state_pool_rank
+            else:
+                self.create_overall_rank(which="G")
+                self.create_overall_rank(which="S")
+                for agent in self.agents:
+                    agent.state_pool_G = self.G_state_pool
+                    agent.state_pool_S = self.S_state_pool
+                    agent.overall_state_pool_rank_G = self.G_state_pool_rank
+                    agent.overall_state_pool_rank_S = self.S_state_pool_rank
+        elif self.exposure_type == "Self-interested":
+            # update the state_pool after last search
+            for agent in self.agents:
+                agent.state_pool_G = self.G_state_pool
+                agent.state_pool_S = self.S_state_pool
+                agent.state_pool_all = self.whole_state_pool
+        elif self.exposure_type == "Random":
+            for agent in self.agents:
+                agent.state_pool_all = self.whole_state_pool
+
     def process(self, socialization_freq=1):
         # first search is independent
         self.set_landscape()
@@ -212,17 +268,19 @@ class Simulator:
             agent.cognitive_local_search()
         # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
         # socialized search
-        self.create_state_pools()
+        self.create_state_pools()  # <- pool generation
         # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
         for i in range(self.search_iteration):
             # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
             if i % socialization_freq == 0:
-                self.change_initial_state()
+                self.change_initial_state()  # <- rank generation
             for agent in self.agents:
                 # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                 agent.cognitive_local_search()
-            self.create_state_pools()
-
+            self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
+        self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
+        # without tail recursion, the last loop would not update the rank, but its state pool is updated.
+        # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
         # converge and analysis
         for agent in self.agents:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
@@ -249,9 +307,9 @@ if __name__ == '__main__':
     agent_num = 200
     search_iteration = 100
     knowledge_num = 16
-    # exposure_type = "Overall-ranking"
+    exposure_type = "Overall-ranking"
     # exposure_type = "Self-interested"
-    exposure_type = "Random"
+    # exposure_type = "Random"
     # if S_exposed_to_S and G_exposed_to_G are None, then it refers to whole state pool,
     # could be either self-interested rank or overall rank on the whole state pool
     simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration, IM_type=IM_type,
