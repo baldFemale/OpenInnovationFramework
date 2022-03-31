@@ -304,11 +304,11 @@ if __name__ == '__main__':
     quality = 0.5
     S_exposed_to_S = 0.5
     G_exposed_to_G = 0.5
-    agent_num = 200
+    agent_num = 500
     search_iteration = 100
     knowledge_num = 16
-    exposure_type = "Overall-ranking"
-    # exposure_type = "Self-interested"
+    # exposure_type = "Overall-ranking"
+    exposure_type = "Self-interested"
     # exposure_type = "Random"
     # if S_exposed_to_S and G_exposed_to_G are None, then it refers to whole state pool,
     # could be either self-interested rank or overall rank on the whole state pool
