@@ -263,25 +263,33 @@ class Simulator:
         self.set_landscape()
         self.set_agent()
         # agent0 = self.agents[0]
-        for agent in self.agents:
-            # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
-            agent.cognitive_local_search()
-        # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
-        # socialized search
-        self.create_state_pools()  # <- pool generation
-        # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
-        for i in range(self.search_iteration):
-            # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
-            if i % socialization_freq == 0:
-                self.change_initial_state()  # <- rank generation
+        # No socialization
+        if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0) or \
+                ((G_exposed_to_G == 0) and (S_exposed_to_S == 0)):
+            # print("Independent Search")
+            for agent in self.agents:
+                for _ in range(self.search_iteration):
+                    agent.cognitive_local_search()
+        else:
             for agent in self.agents:
                 # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                 agent.cognitive_local_search()
-            self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
-        self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
-        # without tail recursion, the last loop would not update the rank, but its state pool is updated.
-        # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
-        # converge and analysis
+            # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+            # socialized search
+            self.create_state_pools()  # <- pool generation
+            # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
+            for i in range(self.search_iteration):
+                # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+                if i % socialization_freq == 0:
+                    self.change_initial_state()  # <- rank generation
+                for agent in self.agents:
+                    # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
+                    agent.cognitive_local_search()
+                self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
+            self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
+            # without tail recursion, the last loop would not update the rank, but its state pool is updated.
+            # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
+            # converge and analysis
         for agent in self.agents:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.potential_fitness = self.landscape.query_potential_performance(cog_state=agent.cog_state, top=1)
@@ -295,18 +303,18 @@ class Simulator:
 
 if __name__ == '__main__':
     # Test Example
-    N = 8
+    N = 6
     state_num = 4
     K = 2
     k = 0
     IM_type = "Traditional Directed"
     openness = 0.5
     quality = 0.5
-    S_exposed_to_S = 0.5
+    S_exposed_to_S = 0
     G_exposed_to_G = 0.5
     agent_num = 500
     search_iteration = 100
-    knowledge_num = 16
+    knowledge_num = 12
     # exposure_type = "Overall-ranking"
     exposure_type = "Self-interested"
     # exposure_type = "Random"

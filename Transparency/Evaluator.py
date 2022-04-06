@@ -200,11 +200,11 @@ class Evaluator:
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
-    def transparency_evaluation(self, label_list=None, show_variance=False, y_label=None):
+    def transparency_evaluation(self, label_list=None, show_variance=False, y_label=None, mplot3d=False):
         # sort the files into folders
         files_list = self.load_files_under_folder(folders=self.data_path)
         # print(files_list)
-        print(len(files_list))
+        print("Total files: ", len(files_list))
         potential_files = []
         convergence_files = []
         unique_files = []
@@ -221,21 +221,43 @@ class Evaluator:
                 pass
                 # the files left are the .py or .pyc files
                 # print(each)
-        transparency_A_file_list = []
-        transparency_G_file_list = []
-        transparency_S_file_list = []
-        transparency_Inverse_file_list = []
+        print("unique_files", len(unique_files))
+        print("potential_files", len(potential_files))
+        print("convergence_files", len(convergence_files))
+        transparency_SS1_file_list = []
+        transparency_SS2_file_list = []
+        transparency_SS3_file_list = []
+        transparency_SS4_file_list = []
+        transparency_SS5_file_list = []
         for each in files_list:
-            if "_A_" in each:
-                transparency_A_file_list.append(each)
-            elif "_G_" in each:
-                transparency_G_file_list.append(each)
-            elif "_S_" in each:
-                transparency_S_file_list.append(each)
-            elif "_Inverse_" in each:
-                transparency_Inverse_file_list.append(each)
+            if "_SS0_" in each:
+                transparency_SS1_file_list.append(each)
+            elif "_SS0.4_" in each:
+                transparency_SS2_file_list.append(each)
+            elif "_SS0.8_" in each:
+                transparency_SS3_file_list.append(each)
+            elif "_SS1.0_" in each:
+                transparency_SS4_file_list.append(each)
             else:pass
                 # print(each)
+        print("transparency_SS2_file_list", len(transparency_SS2_file_list))
+        transparency_GG1_file_list = []
+        transparency_GG2_file_list = []
+        transparency_GG3_file_list = []
+        transparency_GG4_file_list = []
+        transparency_GG5_file_list = []
+        for each in files_list:
+            if "_GG0_" in each:
+                transparency_GG1_file_list.append(each)
+            elif "_GG0.4_" in each:
+                transparency_GG2_file_list.append(each)
+            elif "_GG0.8_" in each:
+                transparency_GG3_file_list.append(each)
+            elif "_GG1.0_" in each:
+                transparency_GG4_file_list.append(each)
+            else:pass
+                # print(each)
+        print("transparency_GG2_file_list", len(transparency_GG2_file_list))
         frequency_1_file_list = []
         frequency_5_file_list = []
         frequency_10_file_list = []
@@ -253,6 +275,8 @@ class Evaluator:
             elif "_F50_" in each:
                 frequency_50_file_list.append(each)
             else:pass
+        print("frequency_1_file_list: ", len(frequency_1_file_list))
+        print("frequency_5_file_list: ", len(frequency_5_file_list))
                 # print(each)
         # Potentional-K, with social frequency as the interaction
         curve_1_data_files = []
@@ -282,7 +306,7 @@ class Evaluator:
         # The first kind of figure: Fitness-K across different frequency
         if "1" in self.title:
             for each in selected_y_files:
-                if each in transparency_S_file_list:
+                if each in transparency_GG2_file_list:
                     if each in frequency_1_file_list:
                         curve_1_data_files.append(each)
                     elif each in frequency_5_file_list:
@@ -294,7 +318,10 @@ class Evaluator:
                     elif each in frequency_50_file_list:
                         curve_5_data_files.append(each)
             all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files, curve_5_data_files]
+            print("all_curves_data_files, figure type 1: ", np.array(all_curves_data_files).shape)
+            # print("all_curves_data_files, figure type 1: ", all_curves_data_files)
             for each in all_curves_data_files:
+                print(each)
                 curve_data = self.load_data_from_files(each)
                 all_curves_data.append(curve_data)
             print(np.array(all_curves_data).shape)
@@ -304,16 +331,17 @@ class Evaluator:
         # Second kind of figure: Fitness-K across directions
         elif "2" in self.title:
             for each in selected_y_files:
-                if each in frequency_50_file_list:
-                    if each in transparency_S_file_list:
+                if each in frequency_1_file_list:
+                    if each in transparency_GG1_file_list:
                         curve_1_data_files.append(each)
-                    elif each in transparency_G_file_list:
+                    elif each in transparency_GG2_file_list:
                         curve_2_data_files.append(each)
-                    elif each in transparency_A_file_list:
+                    elif each in transparency_GG3_file_list:
                         curve_3_data_files.append(each)
-                    elif each in transparency_Inverse_file_list:
+                    elif each in transparency_GG4_file_list:
                         curve_4_data_files.append(each)
             all_curves_data_files = [curve_1_data_files, curve_2_data_files, curve_3_data_files, curve_4_data_files]
+            # print("all_curves_data_files: ", all_curves_data_files)
             for each in all_curves_data_files:
                 curve_data = self.load_data_from_files(each)
                 all_curves_data.append(curve_data)
@@ -362,20 +390,27 @@ class Evaluator:
 
 if __name__ == '__main__':
     # Test Example
+    # figure type:
+    # 1: Fitness-K, with frequency as label
+    # 2: Fitness-K, with different GG/SS as label
+    # 3: Fitness-K, with quality
+
     # Test different types of socialization frequency-> The frequency doesn't matter
     # The reason is that the current version, agent only select the same state to copy
-    # title = '1-Unique-S'
-    # data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
-    # label_list = ["1", "5", "10", "20", "50"]
-    # y_label = "Unique Fitness"
-    # evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
-    # evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
-
-    # Test different kind ->
-    title = '2-Different Transparency Directions measured by Average-50'
-    data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
-    label_list = ["S", "G", "A", "Inverse"]
+    title = '1-Convergence-SS'
+    G_exposed_to_G_list = [0, 0.4, 0.8, 1.0]
+    S_exposed_to_S_list = [0, 0.4, 0.8, 1.0]
+    data_path = r'C:\Python_Workplace\hpc-0403\Transparency'
+    label_list = ["1", "5", "10", "20", "50"]
     y_label = "Average Fitness"
     evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
-    evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
+    evaluator.transparency_evaluation(label_list=label_list, y_label=y_label, mplot3d=True)
+
+    # Test different kind ->
+    # title = '2-Different Transparency Directions measured by Average-50'
+    # data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
+    # label_list = ["S", "G", "A", "Inverse"]
+    # y_label = "Average Fitness"
+    # evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)
+    # evaluator.transparency_evaluation(label_list=label_list, y_label=y_label)
 

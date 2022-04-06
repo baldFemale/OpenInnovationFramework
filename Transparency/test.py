@@ -299,11 +299,63 @@ temp = None
 # print(combination)
 # print(len(combination))
 
-inconsistent_len = 10 - int(0.5 * 10)
-inconsistent_index = np.random.choice(range(10), inconsistent_len, replace=False)
-print(inconsistent_index)
-test = np.random.choice(range(4))
-print(test)
-print(1 == 1.0)
-print(0.5 < 1)
-print(1.0 < 1.00)
+# inconsistent_len = 10 - int(0.5 * 10)
+# inconsistent_index = np.random.choice(range(10), inconsistent_len, replace=False)
+# print(inconsistent_index)
+# test = np.random.choice(range(4))
+# print(test)
+# print(1 == 1.0)
+# print(0.5 < 1)
+# print(1.0 < 1.00)
+
+# G_exposed_to_G_list = [0, 0.4, 0.8, 1.0]
+# S_exposed_to_S_list = [0, 0.4, 0.8, 1.0]
+# alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
+# test = [i for i in product(*alternative_pool)]
+# print(len(test))
+
+# 3D figure
+# def f(x, y):
+#     return np.sin(np.sqrt(x ** 2 + y ** 2))
+#
+# x = np.linspace(-6, 6, 30)
+# y = np.linspace(-6, 6, 30)
+#
+# X, Y = np.meshgrid(x, y)
+# Z = f(X, Y)
+# fig = plt.figure()
+# ax = plt.axes(projection='3d')
+# ax.contour3D(X, Y, Z, 50, cmap='binary')
+# ax.set_xlabel('x')
+# ax.set_ylabel('y')
+# ax.set_zlabel('z')
+# ax = plt.axes(projection='3d')
+# ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
+#                 cmap='viridis', edgecolor='none')
+# ax.set_title('surface')
+#
+# # ax = plt.axes(projection='3d')
+# # ax.plot_trisurf(x, y, Z,
+# #                 cmap='viridis', edgecolor='none');
+# plt.show()
+#
+# # Creating dataset
+# x = np.outer(np.linspace(-3, 3, 32), np.ones(32))
+# y = x.copy().T  # transpose
+# z = (np.sin(x ** 2) + np.cos(y ** 2))
+#
+# # Creating figure
+# fig2 = plt.figure(figsize=(14, 9))
+# ax2 = plt.axes(projection='3d')
+# # Creating plot
+# ax2.plot_surface(x, y, z)
+#
+# # show plot
+# plt.show()
+
+G_exposed_to_G_list = [0, 0.25, 0.5, 0.75, 1.0]
+# Quality
+S_exposed_to_S_list = [0, 0.25, 0.5, 0.75, 1.0]
+alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
+alternative_pool = [each for each in alternative_pool if sum(each) != 0]
+print(alternative_pool)
