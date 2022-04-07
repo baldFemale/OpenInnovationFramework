@@ -227,7 +227,7 @@ class Agent:
             self.personal_state_pool_rank_G = rank_temp
         elif which == "S":
             if len(self.state_pool_S) == 0:
-                raise ValueError("Need to assign the G state pool first")
+                raise ValueError("Need to assign the S state pool first")
             for state in self.state_pool_S:
                 cog_state_solution = self.change_state_to_cog_state(state=state)
                 perceived_fitness = self.landscape.query_cog_fitness(cog_state=cog_state_solution)

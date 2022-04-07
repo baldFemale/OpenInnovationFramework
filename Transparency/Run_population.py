@@ -70,21 +70,23 @@ if __name__ == '__main__':
     k = 0
     # quality = 1
     # openness = 1
-    # exposure_type = "Self-interested"
+    socialization_freq = 5
+    exposure_type = "Self-interested"
     # exposure_type = "Overall-ranking"
     # exposure_type = "Random"
     # socialization_freq = 1  # fix the frequency but add quality dimension
     alternative_pool = [G_exposed_to_G_list, S_exposed_to_S_list]
     for K in K_list:
         for G_exposed_to_G,  S_exposed_to_S in [i for i in product(*alternative_pool)]:
-            for socialization_freq in frequency_list:
-                for openness in openness_list:
-                    for exposure_type in exposure_type_list:
-                        for gs_proportion in gs_proportion_list:
-                            for quality in quality_list:
-                                p = mp.Process(target=loop, args=(k, K, exposure_type, socialization_freq, quality, openness,
-                                                                  S_exposed_to_S,G_exposed_to_G, gs_proportion))
-                                p.start()
+            if G_exposed_to_G + S_exposed_to_S == 0:  # bypass the zero socialization
+                continue
+            # for socialization_freq in frequency_list:
+            for openness in openness_list:
+                for gs_proportion in gs_proportion_list:
+                    for quality in quality_list:
+                        p = mp.Process(target=loop, args=(k, K, exposure_type, socialization_freq, quality, openness,
+                                                          S_exposed_to_S,G_exposed_to_G, gs_proportion))
+                        p.start()
 
 
     # all the parameters:

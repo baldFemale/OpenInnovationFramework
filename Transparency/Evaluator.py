@@ -400,7 +400,7 @@ if __name__ == '__main__':
     title = '1-Convergence-SS'
     G_exposed_to_G_list = [0, 0.4, 0.8, 1.0]
     S_exposed_to_S_list = [0, 0.4, 0.8, 1.0]
-    data_path = r'C:\Python_Workplace\hpc-0403\Transparency'
+    data_path = r'C:\Python_Workplace\hpc-0328\transparency_random'
     label_list = ["1", "5", "10", "20", "50"]
     y_label = "Average Fitness"
     evaluator = Evaluator(title=title, data_path=data_path, output_path=data_path)

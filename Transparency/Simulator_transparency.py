@@ -142,6 +142,11 @@ class Simulator:
         # both work to avoid the pool cache and incorrect accumulation
         overall_pool_rank = {}
         temp = []
+        # clear the cache
+        self.whole_state_pool_rank = []
+        self.S_state_pool_rank = []
+        self.G_state_pool_rank = []
+
         if (which == "All") or (which == "A"):
             for state in self.whole_state_pool:
                 overall_pool_rank["".join(state)] = 0
@@ -262,11 +267,11 @@ class Simulator:
         # first search is independent
         self.set_landscape()
         self.set_agent()
-        # agent0 = self.agents[0]
+        agent0 = self.agents[0]
         # No socialization
         if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0) or \
-                ((G_exposed_to_G == 0) and (S_exposed_to_S == 0)):
-            # print("Independent Search")
+                ((self.G_exposed_to_G == 0) and (self.S_exposed_to_S == 0)):
+            print("Independent Search")
             for agent in self.agents:
                 for _ in range(self.search_iteration):
                     agent.cognitive_local_search()
@@ -276,10 +281,10 @@ class Simulator:
                 agent.cognitive_local_search()
             # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
             # socialized search
-            self.create_state_pools()  # <- pool generation
+            self.create_state_pools()  # <- pool generation, agent's pool will be reset to none, cutting off the link and avoiding wrong pointer
             # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
             for i in range(self.search_iteration):
-                # print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+                print(agent0.cog_state, agent0.cog_fitness, agent0.state)
                 if i % socialization_freq == 0:
                     self.change_initial_state()  # <- rank generation
                 for agent in self.agents:
@@ -313,7 +318,7 @@ if __name__ == '__main__':
     S_exposed_to_S = 0
     G_exposed_to_G = 0.5
     agent_num = 500
-    search_iteration = 100
+    search_iteration = 20
     knowledge_num = 12
     # exposure_type = "Overall-ranking"
     exposure_type = "Self-interested"
