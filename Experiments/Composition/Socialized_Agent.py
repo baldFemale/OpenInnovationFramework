@@ -60,7 +60,9 @@ class Agent:
         # while freedom_space keep changing due to the current state occupation
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
         self.converged_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
+        self.converged_fitness_rank = 0
         self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
+        self.potential_fitness_rank = 0
 
         self.valid_state_bit = list(range(self.N))
         self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation

@@ -64,8 +64,9 @@ class Simulator:
 
         # Outcome Variables
         self.converged_fitness_landscape = []
-        self.potential_after_convergence_landscape = []
-        self.unique_fitness_landscape = 0  # count the number of unique fitness in the top 10%
+        self.converged_fitness_rank_landscape = []
+        self.potential_fitness_landscape = []
+        self.potential_fitness_rank_landscape = []
 
     def set_landscape(self):
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
@@ -297,13 +298,14 @@ class Simulator:
             # converge and analysis
         for agent in self.agents:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
-            agent.potential_fitness = self.landscape.query_potential_performance(cog_state=agent.cog_state, top=1)
+            agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
+            agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
+            agent.potential_fitness_rank = self.landscape.query_potential_fitness_rank(cog_state=agent.cog_state,top=1)
+
             self.converged_fitness_landscape.append(agent.converged_fitness)
-            self.potential_after_convergence_landscape.append(agent.potential_fitness)
-        unique_fitness_list = list(set(self.converged_fitness_landscape))
-        for fitness in unique_fitness_list:
-            if self.landscape.fitness_to_rank_dict[fitness] < 0.1 * self.state_num ** self.N:
-                self.unique_fitness_landscape += 1
+            self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
+            self.potential_fitness_landscape.append(agent.potential_fitness)
+            self.potential_fitness_rank_landscape.append(agent.potential_fitness_rank)
 
 
 if __name__ == '__main__':

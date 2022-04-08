@@ -203,15 +203,25 @@ class Landscape:
         self.cog_cache[cog_state_string] = cog_fitness
         return cog_fitness
 
-    def query_potential_performance(self, cog_state=None, top=1):
+    def query_potential_fitness(self, cog_state=None, top=1):
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.potential_cache.keys():
             return self.potential_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         position_potential = sorted(fitness_pool)[-top]
+        self.potential_cache[cog_state_string] = position_potential
+        return position_potential
+
+    def query_potential_fitness_rank(self, cog_state=None, top=1):
+        cog_state_string = ''.join([str(i) for i in cog_state])
+        if cog_state_string in self.potential_cache.keys():
+            position_potential = self.potential_cache[cog_state_string]
+        else:
+            alternatives = self.cog_state_alternatives(cog_state=cog_state)
+            fitness_pool = [self.query_fitness(each) for each in alternatives]
+            position_potential = sorted(fitness_pool)[-top]
         position_potential_rank = self.fitness_to_rank_dict[position_potential]
-        self.potential_cache[cog_state_string] = position_potential_rank
         return position_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):

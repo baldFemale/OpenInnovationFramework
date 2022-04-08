@@ -315,31 +315,27 @@ temp = None
 # print(len(test))
 
 # 3D figure
-def f(x, y):
-    return np.cos(np.sqrt(x ** 2 + y ** 2))
-
-x = np.linspace(-6, 6, 5)
-y = np.linspace(-6, 6, 5)
-
-X, Y = np.meshgrid(x, y)
-
-Z = f(X, Y)
-print(X)
-print("Z.shape: ", Z.shape)
-fig = plt.figure()
-ax = plt.axes(projection='3d')
-ax.contour3D(X, Y, Z, 50, cmap='binary')
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax = plt.axes(projection='3d')
-ax.plot_surface(X, Y, Z, rstride=1, cstride=1, edgecolor='none', color="grey")
-ax.set_title('surface')
-
+# def f(x, y):
+#     return np.cos(np.sqrt(x ** 2 + y ** 2))
+#
+# x = np.linspace(-6, 6, 5)
+# y = np.linspace(-6, 6, 5)
+#
+# X, Y = np.meshgrid(x, y)
+#
+# Z = f(X, Y)
+# print(X)
+# print("Z.shape: ", Z.shape)
+# fig = plt.figure()
 # ax = plt.axes(projection='3d')
-# ax.plot_trisurf(x, y, Z,
-#                 cmap='viridis', edgecolor='none');
-plt.show()
+# ax.contour3D(X, Y, Z, 50, cmap='binary')
+# ax.set_xlabel('x')
+# ax.set_ylabel('y')
+# ax.set_zlabel('z')
+# ax = plt.axes(projection='3d')
+# ax.plot_surface(X, Y, Z, rstride=1, cstride=1, edgecolor='none', color="grey")
+# ax.set_title('surface')
+# plt.show()
 
 # Creating dataset
 # x = np.outer(np.linspace(-3, 3, 32), np.ones(32))
@@ -365,3 +361,37 @@ plt.show()
 # data = np.array(data,dtype=object)
 # data = data.reshape((4,1))
 # print(data)
+
+#
+# # Simulation Configuration
+# landscape_iteration = 100
+# agent_num = 400
+# search_iteration = 50
+# # Parameter
+# N = 6
+# state_num = 4
+# knowledge_num = 8
+# K_list = [1, 3, 5]
+# frequency_list = [1]
+# openness_list = [1.0]
+# quality_list = [0, 0.25, 0.5, 0.75, 1.0]
+# G_exposed_to_G_list = [0.5]
+# S_exposed_to_S_list = [0.5]
+# gs_proportion_list = [0.5]
+# exposure_type_list = ["Self-interested"]
+#
+#
+# if __name__ == '__main__':
+#     k = 0
+#     for K in K_list:
+#         for socialization_freq in frequency_list:
+#             for openness in openness_list:
+#                 for quality in quality_list:
+#                     for G_exposed_to_G in G_exposed_to_G_list:
+#                         for S_exposed_to_S in S_exposed_to_S_list:
+#                             for gs_proportion in gs_proportion_list:
+#                                 for exposure_type in exposure_type_list:
+#                                     p = mp.Process(target=loop,
+#                                                    args=(k, K, exposure_type, socialization_freq, quality, openness,
+#                                                          S_exposed_to_S, G_exposed_to_G, gs_proportion))
+#                                     p.start()

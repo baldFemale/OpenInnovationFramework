@@ -30,9 +30,10 @@ exposure_type_list = ["Self-interested"]
 def loop(k=0, K=0, exposure_type=None, socialization_freq=None, quality=None, openness=None, S_exposed_to_S=None,
          G_exposed_to_G=None, gs_proportion=None):
     # After simulators
-    A_converged_potential_simulators = []
-    B_converged_fitness_simulators = []
-    C_unique_fitness_simulators = []
+    A_average_fitness_simulators = []
+    A_average_fitness_rank_simulators = []
+    B_potential_fitness_simulators = []
+    B_potential_fitness_rank_simulators = []
     for landscape_loop in range(landscape_iteration):
         simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration,
                               IM_type="Traditional Directed",
@@ -40,23 +41,27 @@ def loop(k=0, K=0, exposure_type=None, socialization_freq=None, quality=None, op
                               exposure_type=exposure_type, openness=openness, quality=quality,
                               S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
         simulator.process(socialization_freq=socialization_freq)
-        A_converged_potential_simulators.append(simulator.potential_after_convergence_landscape)
-        B_converged_fitness_simulators.append(simulator.converged_fitness_landscape)
-        C_unique_fitness_simulators.append(simulator.unique_fitness_landscape)
+        A_average_fitness_simulators.append(simulator.converged_fitness_landscape)
+        A_average_fitness_rank_simulators.append(simulator.converged_fitness_rank_landscape)
+        B_potential_fitness_simulators.append(simulator.potential_fitness_landscape)
+        B_potential_fitness_rank_simulators.append(simulator.potential_fitness_rank_landscape)
 
     basic_file_name = 'N' + str(N) + '_K' + str(K) + '_E' + str(knowledge_num) + '_' + \
                       exposure_type + '_SS' + str(S_exposed_to_S) + '_GG' + str(G_exposed_to_G) + '_F' +\
                       str(socialization_freq) + '_Prop' + str(gs_proportion) + "_Q" + str(quality) + "_O" + str(openness)
-    A_file_name_potential = "1Potential_" + basic_file_name
-    B_file_name_convergence = "2Convergence_" + basic_file_name
-    C_file_unique_fitness = "3Unique_" + basic_file_name
+    A_file_name_average = "1Average_" + basic_file_name
+    A_file_name_average_rank = "2AverageRank_" + basic_file_name
+    B_file_name_potential = "3Potential_" + basic_file_name
+    B_file_name_potential_rank = "4PotentialRank_" + basic_file_name
 
-    with open(A_file_name_potential, 'wb') as out_file:
-        pickle.dump(A_converged_potential_simulators, out_file)
-    with open(B_file_name_convergence, 'wb') as out_file:
-        pickle.dump(B_converged_fitness_simulators, out_file)
-    with open(C_file_unique_fitness, 'wb') as out_file:
-        pickle.dump(C_unique_fitness_simulators, out_file)
+    with open(A_file_name_average, 'wb') as out_file:
+        pickle.dump(A_average_fitness_simulators, out_file)
+    with open(A_file_name_average_rank, 'wb') as out_file:
+        pickle.dump(A_average_fitness_rank_simulators, out_file)
+    with open(B_file_name_potential, 'wb') as out_file:
+        pickle.dump(B_potential_fitness_simulators, out_file)
+    with open(B_file_name_potential_rank, 'wb') as out_file:
+        pickle.dump(B_potential_fitness_rank_simulators, out_file)
 
 
 if __name__ == '__main__':
