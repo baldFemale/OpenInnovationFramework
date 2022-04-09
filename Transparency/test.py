@@ -395,3 +395,7 @@ temp = None
 #                                                    args=(k, K, exposure_type, socialization_freq, quality, openness,
 #                                                          S_exposed_to_S, G_exposed_to_G, gs_proportion))
 #                                     p.start()
+
+x = "_Q1.0_O0.5_"
+y = x[:-1]
+print(y)

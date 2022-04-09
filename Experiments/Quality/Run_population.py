@@ -12,12 +12,12 @@ import multiprocessing as mp
 # Simulation Configuration
 landscape_iteration = 100
 agent_num = 400
-search_iteration = 50
+search_iteration = 100
 # Parameter
-N = 6
+N = 9
 state_num = 4
-knowledge_num = 8
-K_list = [1, 3, 5]
+knowledge_num = 16
+K_list = [2, 4, 6, 8]
 frequency_list = [1]
 openness_list = [1.0]
 quality_list = [0, 0.25, 0.5, 0.75, 1.0]
@@ -48,7 +48,7 @@ def loop(k=0, K=0, exposure_type=None, socialization_freq=None, quality=None, op
 
     basic_file_name = 'N' + str(N) + '_K' + str(K) + '_E' + str(knowledge_num) + '_' + \
                       exposure_type + '_SS' + str(S_exposed_to_S) + '_GG' + str(G_exposed_to_G) + '_F' +\
-                      str(socialization_freq) + '_Prop' + str(gs_proportion) + "_Q" + str(quality) + "_O" + str(openness)
+                      str(socialization_freq) + '_Prop' + str(gs_proportion) + "_Q" + str(quality) + "_O" + str(openness) + "_"
     A_file_name_average = "1Average_" + basic_file_name
     A_file_name_average_rank = "2AverageRank_" + basic_file_name
     B_file_name_potential = "3Potential_" + basic_file_name
