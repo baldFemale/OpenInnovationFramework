@@ -264,7 +264,7 @@ class Simulator:
             for agent in self.agents:
                 agent.state_pool_all = self.whole_state_pool
 
-    def process(self, socialization_freq=1):
+    def process(self, socialization_freq=1, footprint=False):
         # first search is independent
         self.set_landscape()
         self.set_agent()
@@ -285,7 +285,8 @@ class Simulator:
             self.create_state_pools()  # <- pool generation, agent's pool will be reset to none, cutting off the link and avoiding wrong pointer
             # print(simulator.whole_state_pool, simulator.G_state_pool, simulator.S_state_pool)
             for i in range(self.search_iteration):
-                print(agent0.cog_state, agent0.cog_fitness, agent0.state)
+                if footprint:
+                    print(agent0.cog_state, agent0.cog_fitness, agent0.state)
                 if i % socialization_freq == 0:
                     self.change_initial_state()  # <- rank generation
                 for agent in self.agents:
@@ -321,16 +322,16 @@ if __name__ == '__main__':
     G_exposed_to_G = 0.5
     agent_num = 500
     search_iteration = 20
-    knowledge_num = 12
+    knowledge_num = 16
     # exposure_type = "Overall-ranking"
     exposure_type = "Self-interested"
     # exposure_type = "Random"
     # if S_exposed_to_S and G_exposed_to_G are None, then it refers to whole state pool,
     # could be either self-interested rank or overall rank on the whole state pool
     simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration, IM_type=IM_type,
-                 K=K, k=k, gs_proportion=0.5, knowledge_num=knowledge_num,
+                 K=K, k=k, gs_proportion=0, knowledge_num=knowledge_num,
                  exposure_type=exposure_type, openness=openness, quality=quality,
                           S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
-    simulator.process(socialization_freq=1)
+    simulator.process(socialization_freq=1, footprint=True)
     print("END")
 

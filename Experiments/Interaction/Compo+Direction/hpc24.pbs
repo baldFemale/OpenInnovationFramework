@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P nk
 #PBS -j oe
-#PBS -N N9_Composition*Transparency
+#PBS -N N9_CompoDirection
 #PBS -q parallel24
 #PBS -l select=1:ncpus=24:mem=100gb
 #PBS -l walltime=240:00:00

@@ -126,16 +126,9 @@ class Evaluator:
         else:
             raise ValueError("Unsupported")
 
-
         selected_files_list = self.files_list
         print("file_name_reference: ", file_name_reference)
         print("selected_files_list: ", len(selected_files_list))
-        # if (dimension == "Openness") and (selected_files_list[2][-1] != "_"):
-        #     for i in range(len(selected_files_list)):
-        #         temp = selected_files_list[i]
-        #         if list(temp)[-1] != "_":
-        #             selected_files_list[i] = temp + "_"
-        #         print(selected_files_list[i])
         for each_file in selected_files_list:
             if "Coverage" in y_label:
                 if "2AverageRank" in each_file:
@@ -407,24 +400,25 @@ class Evaluator:
 
 
 if __name__ == '__main__':
-    data_foler = r'C:\Python_Workplace\hpc-0408\Experiments\Composition'
+    data_foler = r'C:\Python_Workplace\hpc-0408\Experiments_N9\Composition'
     output_folder = r'C:\Python_Workplace\hpc-0408\Experiments'
     ###############################################################
     # Simulation Configuration
     landscape_iteration = 100
     agent_num = 400
-    search_iteration = 50
+    search_iteration = 100
     # Parameter
-    N = 6
+    N = 9
     state_num = 4
-    knowledge_num = 8
-    K_list = [1, 3, 5]
+    knowledge_num = 16
+    K_list = [2, 4, 6, 8]
     frequency_list = [1]
     openness_list = [1.0]
     quality_list = [1.0]
     G_exposed_to_G_list = [0.5]
     S_exposed_to_S_list = [0.5]
-    gs_proportion_list = [0.25, 0.5, 0.75]
+    gs_proportion_list = [0, 0.25, 0.5, 0.75, 1.0]
+    exposure_type_list = ["Self-interested"]
     ###############################################################
     exposure_type = "Self-interested"
 

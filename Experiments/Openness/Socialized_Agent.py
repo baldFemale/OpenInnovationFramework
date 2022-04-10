@@ -100,6 +100,13 @@ class Agent:
                     selected_pool_index = np.random.choice((0, 1), p=[1-S_exposed_to_S, S_exposed_to_S])
                 else:
                     raise ValueError("Outlier of agent name: {0}".format(agent.name))
+
+            # fix bugs for gs_proportion = 0 (all G) and 1 (all S)
+            if (len(self.state_pool_G) == 0) and (selected_pool_index == 0):
+                selected_pool_index = 1
+            elif (len(self.state_pool_S) == 0) and (selected_pool_index == 1):
+                selected_pool_index = 0
+
             if selected_pool_index == 0:
                 self.create_personal_state_pool_rank(which="G")
                 if len(self.state_pool_G) != len(self.personal_state_pool_rank_G):
@@ -220,7 +227,8 @@ class Agent:
             self.personal_state_pool_rank_all = rank_temp
         elif which == "G":
             if len(self.state_pool_G) == 0:
-                raise ValueError("Need to assign the G state pool first")
+                if self.generalist_num != 0:
+                    raise ValueError("Need to assign the G state pool first")
             for state in self.state_pool_G:
                 cog_state_solution = self.change_state_to_cog_state(state=state)
                 perceived_fitness = self.landscape.query_cog_fitness(cog_state=cog_state_solution)
@@ -229,7 +237,8 @@ class Agent:
             self.personal_state_pool_rank_G = rank_temp
         elif which == "S":
             if len(self.state_pool_S) == 0:
-                raise ValueError("Need to assign the S state pool first")
+                if self.specialist_num != 0:
+                    raise ValueError("Need to assign the S state pool first")
             for state in self.state_pool_S:
                 cog_state_solution = self.change_state_to_cog_state(state=state)
                 perceived_fitness = self.landscape.query_cog_fitness(cog_state=cog_state_solution)
@@ -445,6 +454,7 @@ if __name__ == '__main__':
     agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
     agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
     agent.describe()
+    print("END")
 
 # does this search space or freedom space is too small and easy to memory for individuals??
 # because if we limit their knowledge, their search space is also limited.
