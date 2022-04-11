@@ -287,7 +287,10 @@ class Evaluator:
             # print("average_value: ", average_value)
             variation_value = np.var(np.array(each_curve), axis=1)
             # print("variation_value: ", variation_value)
-            ax.plot(self.K_list, average_value, label="{0}:{1}".format(dimension, lable))
+            if dimension == "Proportion":
+                ax.plot(self.K_list, average_value, label="{0} of G :{1}".format(dimension, lable))
+            else:
+                ax.plot(self.K_list, average_value, label="{0}:{1}".format(dimension, lable))
             if show_variance:
                 # draw the variance
                 lower = [x - y for x, y in zip(average_value, variation_value)]
@@ -310,7 +313,7 @@ class Evaluator:
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
 
-    def generate_solid_figure(self, title=None, percentage=10):
+    def generate_solid_figure(self, title=None, percentage=None, top_coverage=None):
         if title:
             self.title = title
         x = []
@@ -319,10 +322,10 @@ class Evaluator:
             for j in self.S_exposed_to_S_list:
                 x.append(i)  # horizonal
                 y.append(j)  # vertical
-        X = np.array(x).reshape((len(self.G_exposed_to_G_list), len(S_exposed_to_S_list)))
-        Y = np.array(y).reshape((len(self.G_exposed_to_G_list), len(S_exposed_to_S_list)))
+        X = np.array(x).reshape((len(self.G_exposed_to_G_list), len(self.S_exposed_to_S_list)))
+        Y = np.array(y).reshape((len(self.G_exposed_to_G_list), len(self.S_exposed_to_S_list)))
 
-        Z = np.zeros((3, 3, len(self.G_exposed_to_G_list), len(S_exposed_to_S_list)))
+        Z = np.zeros((3, len(self.K_list), len(self.G_exposed_to_G_list), len(self.S_exposed_to_S_list)))
         for x_index, x_value in enumerate(["_GG" + str(each) + "_" for each in self.G_exposed_to_G_list]):
             for y_index, y_value in enumerate(["_SS" + str(each) + "_" for each in self.S_exposed_to_S_list]):
                 for d, column_name in enumerate(["1Average", "2AverageRank", "3Potential"]):
@@ -338,7 +341,10 @@ class Evaluator:
                         if (column_name == "1Average") or (column_name == "3Potential"):
                             Z[d][k][x_index][y_index] = np.mean(data, axis=1)
                         elif column_name == "2AverageRank":
-                            Z[d][k][x_index][y_index] = np.count_nonzero(data <= percentage / 100 * (self.state_num ** self.N) / self.landscape_iteration)
+                            if percentage:
+                                Z[d][k][x_index][y_index] = np.count_nonzero(data <= percentage / 100 * (self.state_num ** self.N) / self.landscape_iteration)
+                            elif top_coverage:
+                                Z[d][k][x_index][y_index] = np.count_nonzero(data <= top_coverage)
         # print(Z)
         # # To avoid the curve go out side of the right place
         # # zlim = {
@@ -353,25 +359,32 @@ class Evaluator:
         # # }
         # # Z = Z.reshape((len(self.K_list), len(file_name_reference), len(self.G_exposed_to_G_list), len(S_exposed_to_S_list)))
         f = plt.figure(figsize=(30, 30))
+        # limitation_list = [[(0.570, 0.580), (0.525, 0.540), (0.51, 0.5225), (0.505, 0.525)],
+        #                    [(200, 350), (40,140), (40,120), (40,120)],
+        #                    [(0.905, 0.915), (0.89, 0.90), (0.886, 0.888), (0.884, 0.887)]]
+        limitation_list = [[(0.570, 0.580), (0.525, 0.540), (0.51, 0.5225), (0.505, 0.525)],
+                           [(60, 160), (20, 80), (20, 80), (20, 80)],
+                           [(0.905, 0.915), (0.89, 0.90), (0.886, 0.888), (0.884, 0.887)]]
         z_label_list = ["Average Fitness", "Coverage", "Potential Fitness"]
         for row, K_label in enumerate(self.K_list):
             for column, z_label in enumerate(z_label_list):
-                ax = f.add_subplot(3, 3, row*3+column+1, projection="3d")   # nrow, ncol, index
+                ax = f.add_subplot(len(self.K_list), 3, row*3+column+1, projection="3d")   # nrow, ncol, index
                 ax.plot_surface(X, Y, Z[column][row], color="grey")
-                if (column == 0) and (row == 0):
-                    ax.set_zlim(0.575, 0.595)
-                elif (column == 0) and (row != 0):
-                    ax.set_zlim(0.525, 0.55)
-                elif (column == 1) and (row == 0):
-                    ax.set_zlim(120, 220)
-                elif (column ==1) and (row != 0):
-                    ax.set_zlim(20, 120)
-                elif (column == 2) and (row == 0):
-                    ax.set_zlim(0.94, 0.95)
-                elif (column == 2) and (row == 1):
-                    ax.set_zlim(0.92, 0.93)
-                elif (column == 2) and (row == 2):
-                    ax.set_zlim(0.91, 0.92)
+                ax.set_zlim(limitation_list[column][row])
+                # if (column == 0) and (row == 0):
+                #     ax.set_zlim(0.575, 0.595)
+                # elif (column == 0) and (row != 0):
+                #     ax.set_zlim(0.525, 0.55)
+                # elif (column == 1) and (row == 0):
+                #     ax.set_zlim(120, 220)
+                # elif (column ==1) and (row != 0):
+                #     ax.set_zlim(20, 120)
+                # elif (column == 2) and (row == 0):
+                #     ax.set_zlim(0.94, 0.95)
+                # elif (column == 2) and (row == 1):
+                #     ax.set_zlim(0.92, 0.93)
+                # elif (column == 2) and (row == 2):
+                #     ax.set_zlim(0.91, 0.92)
                 ax.set_xlabel("G -> G Probability", fontsize="18", labelpad=10)
                 plt.xticks([0, 0.25, 0.5, 0.75, 1.0], [0, 0.25, 0.5, 0.75, 1.0], fontsize="12")
                 ax.set_ylabel("S -> S probability", fontsize="18", labelpad=10)
@@ -400,11 +413,10 @@ class Evaluator:
 
 
 if __name__ == '__main__':
-    data_foler = r'C:\Python_Workplace\hpc-0408\Experiments_N9\Composition'
-    output_folder = r'C:\Python_Workplace\hpc-0408\Experiments'
+    data_foler = r'C:\Python_Workplace\hpc-0408\Direction_fixedpool'
+    output_folder = r'C:\Python_Workplace\hpc-0408\Direction_fixedpool'
     ###############################################################
-    # Simulation Configuration
-    landscape_iteration = 100
+    landscape_iteration = 400
     agent_num = 400
     search_iteration = 100
     # Parameter
@@ -412,13 +424,12 @@ if __name__ == '__main__':
     state_num = 4
     knowledge_num = 16
     K_list = [2, 4, 6, 8]
-    frequency_list = [1]
+    frequency_list = [10]
     openness_list = [1.0]
     quality_list = [1.0]
-    G_exposed_to_G_list = [0.5]
-    S_exposed_to_S_list = [0.5]
-    gs_proportion_list = [0, 0.25, 0.5, 0.75, 1.0]
-    exposure_type_list = ["Self-interested"]
+    G_exposed_to_G_list = [0, 0.25, 0.5, 0.75, 1.0]
+    S_exposed_to_S_list = [0, 0.25, 0.5, 0.75, 1.0]
+    gs_proportion_list = [0.5]
     ###############################################################
     exposure_type = "Self-interested"
 
@@ -428,7 +439,7 @@ if __name__ == '__main__':
                                     openness_list=openness_list, quality_list=quality_list, G_exposed_to_G_list=G_exposed_to_G_list,
                                     S_exposed_to_S_list=S_exposed_to_S_list, gs_proportion_list=gs_proportion_list, knowledge_num=knowledge_num)
     evaluator.load_simulation_configuration(landscape_iteration=landscape_iteration, agent_num=agent_num, search_iteration=search_iteration)
-    evaluator.generate_one_dimension_figure(title=fore_title, dimension="Proportion", y_label="Average Fitness",
-                                            show_variance=False, percentage=10)
-    # evaluator.generate_solid_figure(title=fore_title, percentage=10)
+    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Quality", y_label="Coverage",
+    #                                         show_variance=False, percentage=10)
+    evaluator.generate_solid_figure(title=fore_title, top_coverage=100)
     print("END")

@@ -48,9 +48,7 @@ class Simulator:
         self.quality = quality
         # Direction
         self.G_exposed_to_G = G_exposed_to_G
-        self.G_exposed_to_S = 1 - G_exposed_to_G
         self.S_exposed_to_S = S_exposed_to_S
-        self.S_exposed_to_G = 1 - S_exposed_to_S
         # exposure type-> how the agent rank the state pool (self-interested or overall rank)
         self.exposure_type = exposure_type
         valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
@@ -103,23 +101,24 @@ class Simulator:
         self.S_state_pool = []
         self.whole_state_pool = []
         for agent in self.agents:
-            flag = np.random.choice((0, 1), p=[1-self.openness, self.openness])
-            if (flag == 1) and (self.quality == 1.0):
+            if (agent.fixed_openness_flag == 1) and (self.quality == 1.0):
                 if agent.name == "Generalist":
                     self.G_state_pool.append(agent.state)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(agent.state)
-            elif (flag == 1) and (self.quality < 1):
+            elif (agent.fixed_openness_flag == 1) and (self.quality < 1):
                 biased_state = list(agent.state)
                 inconsistent_len = self.N - int(self.quality * self.N)
                 inconsistent_index = np.random.choice(range(self.N), inconsistent_len, replace=False)
                 for index in inconsistent_index:
-                    biased_state[index] = str(np.random.choice(range(self.state_num)))
+                    original_element = agent.state[index]
+                    freedom_space = [i for i in range(self.state_num) if str(i) != original_element]
+                    biased_state[index] = str(np.random.choice(freedom_space))
                 if agent.name == "Generalist":
                     self.G_state_pool.append(biased_state)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(biased_state)
-            elif flag == 0:
+            elif agent.fixed_openness_flag == 0:
                 continue
             else:
                 raise ValueError("Unsupported cases")
@@ -277,6 +276,17 @@ class Simulator:
                 for _ in range(self.search_iteration):
                     agent.cognitive_local_search()
         else:
+            # fix the exposure pool across search iterations
+            # fix the willingness to share
+            for agent in self.agents:
+                if agent.name == "Generalist":
+                    selected_pool_index = np.random.choice((0, 1), p=[self.G_exposed_to_G, 1-self.G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
+                elif agent.name == "Specialist":
+                    selected_pool_index = np.random.choice((0, 1), p=[1-self.S_exposed_to_S, self.S_exposed_to_S])
+                else:
+                    raise ValueError("Outlier of agent name: {0}".format(agent.name))
+                agent.fixed_state_pool = selected_pool_index
+                agent.fixed_openness_flag = np.random.choice((0,1), p=[1-self.openness, self.openness])
             for agent in self.agents:
                 # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                 agent.cognitive_local_search()

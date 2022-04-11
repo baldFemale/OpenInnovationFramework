@@ -37,6 +37,7 @@ class Agent:
         self.personal_state_pool_rank_G = []  # self-generated after the pool assignment
         self.personal_state_pool_rank_S = []  # self-generated after the pool assignment
         self.personal_state_pool_rank_all = []
+        self.fixed_state_pool = None  # fix the pool over time; agent will not pick a pool every time
         self.overall_state_pool_rank_all = []  # assigned from externality; pay attention to the order
         self.overall_state_pool_rank_G = []
         self.overall_state_pool_rank_S = []
@@ -90,17 +91,17 @@ class Agent:
                 self.cog_fitness = comparison_cog_fitness
                 self.update_freedom_space()
         elif exposure_type == "Self-interested":
-            if (not S_exposed_to_S) and (not G_exposed_to_G):
-                # when these two parameter are None, refers to the whole state pool
-                selected_pool_index = -1
-            else:
-                if self.name == "Generalist":
-                    selected_pool_index = np.random.choice((0, 1), p=[G_exposed_to_G, 1-G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
-                elif self.name == "Specialist":
-                    selected_pool_index = np.random.choice((0, 1), p=[1-S_exposed_to_S, S_exposed_to_S])
-                else:
-                    raise ValueError("Outlier of agent name: {0}".format(agent.name))
-
+            # if (not S_exposed_to_S) and (not G_exposed_to_G):
+            #     # when these two parameter are None, refers to the whole state pool
+            #     selected_pool_index = -1
+            # else:
+            #     if self.name == "Generalist":
+            #         selected_pool_index = np.random.choice((0, 1), p=[G_exposed_to_G, 1-G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
+            #     elif self.name == "Specialist":
+            #         selected_pool_index = np.random.choice((0, 1), p=[1-S_exposed_to_S, S_exposed_to_S])
+            #     else:
+            #         raise ValueError("Outlier of agent name: {0}".format(agent.name))
+            selected_pool_index = self.fixed_state_pool
             # fix bugs for gs_proportion = 0 (all G) and 1 (all S)
             if (len(self.state_pool_G) == 0) and (selected_pool_index == 0):
                 selected_pool_index = 1

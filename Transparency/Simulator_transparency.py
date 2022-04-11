@@ -48,9 +48,7 @@ class Simulator:
         self.quality = quality
         # Direction
         self.G_exposed_to_G = G_exposed_to_G
-        self.G_exposed_to_S = 1 - G_exposed_to_G
         self.S_exposed_to_S = S_exposed_to_S
-        self.S_exposed_to_G = 1 - S_exposed_to_S
         # exposure type-> how the agent rank the state pool (self-interested or overall rank)
         self.exposure_type = exposure_type
         valid_exposure_type = ["Self-interested", "Overall-ranking", "Random"]
@@ -277,6 +275,15 @@ class Simulator:
                 for _ in range(self.search_iteration):
                     agent.cognitive_local_search()
         else:
+            # fix the exposure pool across search iterations
+            for agent in self.agents:
+                if agent.name == "Generalist":
+                    selected_pool_index = np.random.choice((0, 1), p=[self.G_exposed_to_G, 1-self.G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
+                elif agent.name == "Specialist":
+                    selected_pool_index = np.random.choice((0, 1), p=[1-self.S_exposed_to_S, self.S_exposed_to_S])
+                else:
+                    raise ValueError("Outlier of agent name: {0}".format(agent.name))
+                agent.fixed_state_pool = selected_pool_index
             for agent in self.agents:
                 # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                 agent.cognitive_local_search()
