@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -P nk
+#PBS -j oe
+#PBS -N N9_independent_200
+#PBS -q parallel24
+#PBS -l select=1:ncpus=24:mem=100gb
+#PBS -l walltime=240:00:00
+cd $PBS_O_WORKDIR;
+np=$(cat ${PBS_NODEFILE} | wc -l);
+source /etc/profile.d/rec_modules.sh
+module load miniconda
+bash
+. ~/.bashrc
+conda activate my_conda_env_name
+python Run_population.py

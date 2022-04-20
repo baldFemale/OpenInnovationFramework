@@ -10,8 +10,8 @@ import multiprocessing as mp
 
 
 # Simulation Configuration
-landscape_iteration = 1000
-agent_num = 100
+landscape_iteration = 500
+agent_num = 200
 search_iteration = 100
 # Parameter
 N = 9
@@ -19,7 +19,7 @@ state_num = 4
 knowledge_num = 16
 K_list = [2, 4, 6, 8]
 frequency_list = [10]
-openness_list = [1.0]
+openness_list = [0]  # independent search
 quality_list = [1.0]
 G_exposed_to_G_list = [0.5]
 S_exposed_to_S_list = [0.5]
