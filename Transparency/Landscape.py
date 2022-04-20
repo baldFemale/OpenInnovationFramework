@@ -198,6 +198,8 @@ class Landscape:
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        # print("Cog_state: ", cog_state)
+        # print("Cog_alternatives: ", alternatives)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         cog_fitness = sum(fitness_pool)/len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
@@ -233,6 +235,14 @@ class Landscape:
                 alternative_pool.append(["0", "1"])
             elif bit == "B":
                 alternative_pool.append(["2", "3"])
+            elif bit == "C":
+                alternative_pool.append(["0", "2"])
+            elif bit == "D":
+                alternative_pool.append(["1", "3"])
+            elif bit == "E":
+                alternative_pool.append(["0", "3"])
+            elif bit == "F":
+                alternative_pool.append(["1", "2"])
             elif bit == "*":
                 alternative_pool.append(["0", "1", "2", "3"])
             else:

@@ -46,7 +46,7 @@ class Agent:
 
         self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
 
-        self.valid_state_bit = list(range(self.N))
+        self.valid_state_bit = list(range(self.state_num))
         self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
 
         if not self.landscape:

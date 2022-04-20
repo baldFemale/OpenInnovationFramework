@@ -5,12 +5,21 @@
       <sourceFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization in Traditional Landscape" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Transparency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Experiments_V2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Transparency_2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive/up_Hetero_Factor_N10" />
+      <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles" />
+      <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive_8" />
+      <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive" />
+      <excludeFolder url="file://$MODULE_DIR$/Reproduction" />
+      <excludeFolder url="file://$MODULE_DIR$/Experiments" />
+      <excludeFolder url="file://$MODULE_DIR$/Resilience" />
+      <excludeFolder url="file://$MODULE_DIR$/ResultsPlot" />
+      <excludeFolder url="file://$MODULE_DIR$/Transparency" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

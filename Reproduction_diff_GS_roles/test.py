@@ -223,3 +223,7 @@ temp = None
 #         break
 #     break
 # print(C_row_match_temp)
+
+dict_g = {"A": [0,1], "B":[2,3]}
+x = 1
+print(dict_g[0])

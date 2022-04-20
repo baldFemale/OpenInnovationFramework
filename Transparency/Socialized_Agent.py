@@ -38,12 +38,13 @@ class Agent:
         self.personal_state_pool_rank_S = []  # self-generated after the pool assignment
         self.personal_state_pool_rank_all = []
         self.fixed_state_pool = None  # fix the pool over time; agent will not pick a pool every time
+        self.fixed_openness_flag = None
         self.overall_state_pool_rank_all = []  # assigned from externality; pay attention to the order
         self.overall_state_pool_rank_G = []
         self.overall_state_pool_rank_S = []
         # the order should be consistent in terms of state string and fitness
 
-        self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
+        self.generalist_knowledge_representation = ["A", "B", "C", "D", "E", "F"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
         self.generalist_num = 0
         self.specialist_num = 0
@@ -65,8 +66,8 @@ class Agent:
         self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
         self.potential_fitness_rank = 0
 
-        self.valid_state_bit = list(range(self.N))
-        self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
+        self.valid_state_bit = list(range(self.state_num))
+        self.valid_state_bit += ["A", "B", "C", "D", "E", "F", "*"]  # for cognitive representation
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")

@@ -232,7 +232,7 @@ class Simulator:
         for agent in self.agents:
             success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type, G_exposed_to_G=self.G_exposed_to_G,
                                                               S_exposed_to_S=self.S_exposed_to_S)
-        # print("success_count: ", success_count)
+        print("success_count: ", success_count)
 
     def tail_recursion(self):
         """
@@ -269,8 +269,7 @@ class Simulator:
         self.set_agent()
         agent0 = self.agents[0]
         # No socialization
-        if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0) or \
-                ((self.G_exposed_to_G == 0) and (self.S_exposed_to_S == 0)):
+        if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0):
             print("Independent Search")
             for agent in self.agents:
                 for _ in range(self.search_iteration):
@@ -331,17 +330,34 @@ if __name__ == '__main__':
     S_exposed_to_S = 0
     G_exposed_to_G = 0.5
     agent_num = 500
-    search_iteration = 20
-    knowledge_num = 16
+    search_iteration = 50
+    knowledge_num = 12
     # exposure_type = "Overall-ranking"
     exposure_type = "Self-interested"
     # exposure_type = "Random"
     # if S_exposed_to_S and G_exposed_to_G are None, then it refers to whole state pool,
     # could be either self-interested rank or overall rank on the whole state pool
     simulator = Simulator(N=N, state_num=state_num, agent_num=agent_num, search_iteration=search_iteration, IM_type=IM_type,
-                 K=K, k=k, gs_proportion=0, knowledge_num=knowledge_num,
+                 K=K, k=k, gs_proportion=0.5, knowledge_num=knowledge_num,
                  exposure_type=exposure_type, openness=openness, quality=quality,
                           S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
     simulator.process(socialization_freq=1, footprint=True)
+    count_GS = 0
+    count_GG = 0
+    count_SS = 0
+    count_SG = 0
+    for agent in simulator.agents:
+        if agent.name == "Generalist":
+            if agent.fixed_state_pool == 1:
+                count_GS += 1
+            else:
+                count_GG += 1
+        else:
+            if agent.fixed_state_pool == 1:
+                count_SS += 1
+            else:
+                count_SG += 1
+    print(count_GS, count_GG)
+    print(count_SS, count_SG)
     print("END")
 
