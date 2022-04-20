@@ -269,8 +269,7 @@ class Simulator:
         self.set_agent()
         agent0 = self.agents[0]
         # No socialization
-        if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0) or \
-                ((self.G_exposed_to_G == 0) and (self.S_exposed_to_S == 0)):
+        if (self.openness == 0) or (self.quality == 0) or (self.frequency == 0):
             print("Independent Search")
             for agent in self.agents:
                 for _ in range(self.search_iteration):

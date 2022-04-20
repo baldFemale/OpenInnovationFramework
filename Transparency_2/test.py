@@ -396,6 +396,9 @@ temp = None
 #                                                          S_exposed_to_S, G_exposed_to_G, gs_proportion))
 #                                     p.start()
 
-x = "_Q1.0_O0.5_"
-y = x[:-1]
-print(y)
+# data = np.array([[1,1,2], [3,3,4],[1,5,3], [1,6,8]])
+# data = data.reshape((1,-1))
+# print(data)
+# data = np.unique(data)
+# print(data)
+# print(type(data))

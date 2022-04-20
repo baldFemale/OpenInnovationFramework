@@ -10,7 +10,7 @@ import multiprocessing as mp
 
 
 # Simulation Configuration
-landscape_iteration = 500
+landscape_iteration = 1000
 agent_num = 100
 search_iteration = 100
 # Parameter

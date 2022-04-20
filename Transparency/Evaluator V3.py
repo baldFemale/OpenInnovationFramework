@@ -388,6 +388,7 @@ class Evaluator:
                         if (column_name == "1Average") or (column_name == "3Potential"):
                             Z[d][k][x_index][y_index] = np.mean(data, axis=1)
                         elif column_name == "2AverageRank":
+                            data = np.unique(data)
                             if percentage:
                                 Z[d][k][x_index][y_index] = np.count_nonzero(data <= percentage / 100 * (self.state_num ** self.N) / self.landscape_iteration)
                             elif top_coverage:
@@ -528,6 +529,7 @@ class Evaluator:
                         if (column_name == "1Average") or (column_name == "3Potential"):
                             Z[d][k][x_index][y_index] = np.mean(data, axis=1)
                         elif column_name == "2AverageRank":
+                            data = np.unique(data)
                             if percentage:
                                 Z[d][k][x_index][y_index] = np.count_nonzero(data <= percentage / 100 * (self.state_num ** self.N) / self.landscape_iteration)
                             elif top_coverage:
@@ -618,6 +620,7 @@ class Evaluator:
                         if (column_name == "1Average") or (column_name == "3Potential"):
                             Z[c][r][x_index][y_index] = np.mean(data, axis=1)
                         elif column_name == "2AverageRank":
+                            data = np.unique(data)
                             if percentage:
                                 Z[c][r][x_index][y_index] = np.count_nonzero(
                                     data <= percentage / 100 * (self.state_num ** self.N) / self.landscape_iteration)

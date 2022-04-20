@@ -46,7 +46,7 @@ class Landscape:
                              "a directed dependency (i.e., Influential Directed & Random Directed)."
                              "These two parameter cannot co-exist")
         if (K > self.N) or (k > self.N*self.N):
-            raise ValueError("K or k is too large than the size of N")
+            raise ValueError("K: {0} or k: {1} is too large than the size of N".format(K, k))
         valid_IM_type = ["None", "Traditional Directed", "Diagonal Mutual", "Random Mutual", "Factor Directed", "Influential Directed", "Random Directed"]
         if IM_type not in valid_IM_type:
             raise ValueError("Only support {0}".format(valid_IM_type))
@@ -221,6 +221,7 @@ class Landscape:
             alternatives = self.cog_state_alternatives(cog_state=cog_state)
             fitness_pool = [self.query_fitness(each) for each in alternatives]
             position_potential = sorted(fitness_pool)[-top]
+            self.potential_cache[cog_state_string] = position_potential
         position_potential_rank = self.fitness_to_rank_dict[position_potential]
         return position_potential_rank
 
