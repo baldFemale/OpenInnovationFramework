@@ -43,9 +43,10 @@ class Agent:
         # decision_space will not change over time,
         # while freedom_space keep changing due to the current state occupation
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
-        self.converge_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
-        self.potential = 0  # record the potential achievement; the position advantage to achieve a higher future performance
-
+        self.converged_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
+        self.converged_fitness_rank = 0
+        self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
+        self.potential_fitness_rank = 0
         self.first_time = True  # flag for the state adjustment of random initialization, as some element may be outside of the agent knowledge
 
         self.valid_state_bit = list(range(self.state_num))
@@ -246,7 +247,7 @@ class Agent:
         print("Current state list: ", self.state)
         print("Current cognitive state list: ", self.cog_state)
         print("Current cognitive fitness: ", self.cog_fitness)
-        print("Converged fitness: ", self.converge_fitness)
+        print("Converged fitness: ", self.converged_fitness)
         print("Knowledge/Manageable domain: ", self.knowledge_domain)
         print("Specialist knowledge domain: ", self.specialist_knowledge_domain)
         print("Generalist knowledge domain: ", self.generalist_knowledge_domain)
@@ -273,7 +274,7 @@ if __name__ == '__main__':
         agent.cognitive_local_search()
         # print(agent.cog_state)
     agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
-    agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
+    agent.converged_fitness = agent.landscape.query_fitness(state=agent.state)
     agent.describe()
 
 # does this search space or freedom space is too small and easy to memory for individuals??

@@ -325,7 +325,7 @@ if __name__ == '__main__':
     K = 2
     k = 0
     IM_type = "Traditional Directed"
-    openness = 0.5
+    openness = 0
     quality = 0.5
     S_exposed_to_S = 0
     G_exposed_to_G = 0.5
@@ -342,22 +342,5 @@ if __name__ == '__main__':
                  exposure_type=exposure_type, openness=openness, quality=quality,
                           S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
     simulator.process(socialization_freq=1, footprint=True)
-    count_GS = 0
-    count_GG = 0
-    count_SS = 0
-    count_SG = 0
-    for agent in simulator.agents:
-        if agent.name == "Generalist":
-            if agent.fixed_state_pool == 1:
-                count_GS += 1
-            else:
-                count_GG += 1
-        else:
-            if agent.fixed_state_pool == 1:
-                count_SS += 1
-            else:
-                count_SG += 1
-    print(count_GS, count_GG)
-    print(count_SS, count_SG)
     print("END")
 
