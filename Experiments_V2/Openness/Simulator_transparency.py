@@ -20,12 +20,19 @@ class Simulator:
         self.state_num = state_num
         # Landscape
         self.landscapes = None
+        # Pool state is for surface divergence/distance
         self.whole_state_pool = []
         self.G_state_pool = []
         self.S_state_pool = []
+        # Pool potential is for surface quality
+        self.whole_state_pool_potential = []  # not used so far; is a redundant variable
+        self.G_state_pool_potential = []  # to measure the surface quality
+        self.S_state_pool_potential = []
+        # Pool rank is for exposure likelihood
         self.whole_state_pool_rank = []  # only use the list instead of dict
         self.G_state_pool_rank = []  # and we keep the order consistent with state pool list
         self.S_state_pool_rank = []
+
         self.IM_type = IM_type
         self.K = K
         self.k = k
@@ -64,7 +71,12 @@ class Simulator:
         self.converged_fitness_landscape = []
         self.converged_fitness_rank_landscape = []
         self.potential_fitness_landscape = []
-        self.potential_fitness_rank_landscape = []
+
+        # Mechanism Variable
+        self.surface_divergence_G_landscape = []  # related to self.G_state_pool
+        self.surface_divergence_S_landscape = []
+        self.surface_quality_G_landscape = []  # related to self.G_state_pool_potential
+        self.surface_quality_S_landscape = []
 
     def set_landscape(self):
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
@@ -96,16 +108,23 @@ class Simulator:
         2) the information quality, captured by self.quality (how much of information to be shared)
         :return: three kinds of state pools
         """
-        # clear the pool cache from last time
-        self.G_state_pool = []
-        self.S_state_pool = []
+        # clear the pool cache from last time to avoid the accumulation
         self.whole_state_pool = []
+        self.G_state_pool = []  # to measure the surface diversity
+        self.S_state_pool = []  # and also used during the socialization
+
+        self.whole_state_pool_potential = []
+        self.G_state_pool_potential = []  # to measure the surface quality
+        self.S_state_pool_potential = []
+
         for agent in self.agents:
             if (agent.fixed_openness_flag == 1) and (self.quality == 1.0):
                 if agent.name == "Generalist":
                     self.G_state_pool.append(agent.state)
+                    self.G_state_pool_potential.append(agent.potential_fitness)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(agent.state)
+                    self.S_state_pool_potential.append(agent.potential_fitness)
             elif (agent.fixed_openness_flag == 1) and (self.quality < 1):
                 biased_state = list(agent.state)
                 inconsistent_len = self.N - int(self.quality * self.N)
@@ -116,8 +135,10 @@ class Simulator:
                     biased_state[index] = str(np.random.choice(freedom_space))
                 if agent.name == "Generalist":
                     self.G_state_pool.append(biased_state)
+                    self.G_state_pool_potential.append(agent.potential_fitness)
                 elif agent.name == "Specialist":
                     self.S_state_pool.append(biased_state)
+                    self.S_state_pool_potential.append(agent.potential_fitness)
             elif agent.fixed_openness_flag == 0:
                 continue
             else:
@@ -135,6 +156,10 @@ class Simulator:
         self.whole_state_pool = ["".join(each) for each in self.whole_state_pool]
         self.whole_state_pool = list(set(self.whole_state_pool))
         self.whole_state_pool = [list(each) for each in self.whole_state_pool]
+
+        self.whole_state_pool_potential = list(set(self.whole_state_pool_potential))
+        self.G_state_pool_potential = list(set(self.G_state_pool_potential))
+        self.S_state_pool_potential = list(set(self.S_state_pool_potential))
 
     def create_overall_rank(self, which="A"):
         # in this function, we use local temp to update the pool rank.
@@ -197,7 +222,7 @@ class Simulator:
             if len(self.S_state_pool_rank) != len(self.S_state_pool):
                 raise ValueError("rank length: {0}, pool length: {1}".format(len(self.S_state_pool_rank), len(self.S_state_pool)))
 
-    def change_initial_state(self):
+    def change_initial_state(self, footprint=False):
         """
         After we create the state pool and its rank, agents can update their initial state
         :param exposure_type: only three valid exposure types
@@ -232,7 +257,8 @@ class Simulator:
         for agent in self.agents:
             success_count += agent.update_state_from_exposure(exposure_type=self.exposure_type, G_exposed_to_G=self.G_exposed_to_G,
                                                               S_exposed_to_S=self.S_exposed_to_S)
-        print("success_count: ", success_count)
+        if footprint:
+            print("success_count: ", success_count)
 
     def tail_recursion(self):
         """
@@ -297,11 +323,16 @@ class Simulator:
                 if footprint:
                     print(agent0.cog_state, agent0.cog_fitness, agent0.state)
                 if i % socialization_freq == 0:
-                    self.change_initial_state()  # <- rank generation
+                    self.change_initial_state(footprint=True)  # <- rank generation
                 for agent in self.agents:
                     # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                     agent.cognitive_local_search()
                 self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
+                # record the dynamics of state pool or decision surface; for mechanism check
+                self.surface_divergence_G_landscape.append(self.G_state_pool)
+                self.surface_divergence_S_landscape.append(self.S_state_pool)
+                self.surface_quality_G_landscape.append(self.G_state_pool_potential)
+                self.surface_quality_S_landscape.append(self.S_state_pool_potential)
             self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
             # without tail recursion, the last loop would not update the rank, but its state pool is updated.
             # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
@@ -310,12 +341,10 @@ class Simulator:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
             agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
-            agent.potential_fitness_rank = self.landscape.query_potential_fitness_rank(cog_state=agent.cog_state,top=1)
 
             self.converged_fitness_landscape.append(agent.converged_fitness)
             self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
             self.potential_fitness_landscape.append(agent.potential_fitness)
-            self.potential_fitness_rank_landscape.append(agent.potential_fitness_rank)
 
 
 if __name__ == '__main__':
@@ -359,5 +388,12 @@ if __name__ == '__main__':
                 count_SG += 1
     print(count_GS, count_GG)
     print(count_SS, count_SG)
+    surface_quality_G, surface_quality_S = [], []
+    for each_qualities in simulator.surface_quality_G_landscape:
+        surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_G: ", surface_quality_G)
+    for each_qualities in simulator.surface_quality_S_landscape:
+        surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_S: ", surface_quality_S)
     print("END")
 

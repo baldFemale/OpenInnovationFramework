@@ -388,5 +388,12 @@ if __name__ == '__main__':
                 count_SG += 1
     print(count_GS, count_GG)
     print(count_SS, count_SG)
+    surface_quality_G, surface_quality_S = [], []
+    for each_qualities in simulator.surface_quality_G_landscape:
+        surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_G: ", surface_quality_G)
+    for each_qualities in simulator.surface_quality_S_landscape:
+        surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_S: ", surface_quality_S)
     print("END")
 

@@ -316,7 +316,7 @@ class Agent:
             self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
         self.cog_state = self.change_state_to_cog_state(self.state)
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_fitness)
+        self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
         self.update_freedom_space()
 
         # check the freedom space
@@ -357,7 +357,7 @@ class Agent:
                 self.cog_fitness = next_cog_fitness
                 # add the mapping during the search because we need the imitation
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
-                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_fitness)
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
         elif updated_position in self.specialist_knowledge_domain:
             cur_cog_state_with_default = self.cog_state.copy()
@@ -375,20 +375,12 @@ class Agent:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
-                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_fitness)
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
         else:
             raise ValueError("The picked next step go outside of G/S knowledge domain")
 
     def change_state_to_cog_state(self, state):
-        """
-        There are two kinds of unknown elements:
-            1) unknown in the width (outside of knowledge domain)-> masked with '*'
-            2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
-                For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
-        :param state: the intact state list
-        :return: masked state list
-        """
         cog_state = self.state.copy()
         if self.generalist_num != 0:  # there are some unknown depth (i.e., with G domain)
             for index, bit_value in enumerate(state):
