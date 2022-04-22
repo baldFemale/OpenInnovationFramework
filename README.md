@@ -63,3 +63,13 @@
 * Second, S has two advantages of 1) pushing the frontiers of search; 2) utilizing the potential of the crowd cooperation.
 * We further subdivide the direction of transparency, extending current literature on platform design.
 * The socialization or idea imitation happens during the search iteration. The frequence is every step by default.
+
+## Transparency_2
+* The G represnetation is revised into 6 combinations: ABCDEF, instead of the AB
+* The Agent size and the landscape iterations are adjusted
+* The experiments are the same as before. Adjust a little bit: from main effects to moderating effects
+
+## Transparency_3
+* The experiment structure is adjusted again: remove the frequency, remove the coverage (only average and maxinum are left), add the mechanism channel check (using original Direction) and using potential to measure the surface quality, adding the utilization degree, adding the surface divergence.
+* Accoridngly, the simulator's recording variables are changed to fit the experiments. Simulator will record the state pool in a surface character way.
+* The G shallow understanding is the same as transparency_2.
