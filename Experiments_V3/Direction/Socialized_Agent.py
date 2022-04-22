@@ -44,8 +44,7 @@ class Agent:
         self.overall_state_pool_rank_S = []
         # the order should be consistent in terms of state string and fitness
 
-        self.generalist_knowledge_representation = [["A", "B"], ["C", "D"], ["E", "F"]]  # for state_num=6, use ["A", "B", "C"]
-        self.generalist_combination = [{}]*self.N
+        self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
         self.generalist_num = 0
         self.specialist_num = 0
@@ -64,10 +63,11 @@ class Agent:
         self.cog_fitness = 0  # store the cog_fitness value for each step in search
         self.converged_fitness = 0  # in the final search loop, record the true fitness compared to the cog_fitness
         self.converged_fitness_rank = 0
-        self.potential_fitness = 0  # record the potential achievement;  also used in the pool potential (surface potential)
+        self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
+        self.potential_fitness_rank = 0
 
-        self.valid_state_bit = [str(i) for i in range(self.state_num)]
-        self.valid_state_bit += ["A", "B", "C", "D", "E", "F", "*"]  # for cognitive representation
+        self.valid_state_bit = list(range(self.N))
+        self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -90,8 +90,19 @@ class Agent:
                 self.state = comparison_state
                 self.cog_state = comparison_cog_state
                 self.cog_fitness = comparison_cog_fitness
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         elif exposure_type == "Self-interested":
+            # if (not S_exposed_to_S) and (not G_exposed_to_G):
+            #     # when these two parameter are None, refers to the whole state pool
+            #     selected_pool_index = -1
+            # else:
+            #     if self.name == "Generalist":
+            #         selected_pool_index = np.random.choice((0, 1), p=[G_exposed_to_G, 1-G_exposed_to_G])  # 0 refers to G pool, while 1 refers to S pool
+            #     elif self.name == "Specialist":
+            #         selected_pool_index = np.random.choice((0, 1), p=[1-S_exposed_to_S, S_exposed_to_S])
+            #     else:
+            #         raise ValueError("Outlier of agent name: {0}".format(agent.name))
             selected_pool_index = self.fixed_state_pool
             # fix bugs for gs_proportion = 0 (all G) and 1 (all S)
             if (len(self.state_pool_G) == 0) and (selected_pool_index == 0):
@@ -129,6 +140,7 @@ class Agent:
                 self.state = selected_state
                 self.cog_state = cog_pool_idea
                 self.cog_fitness = cog_fitness_pool_idea
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         elif exposure_type == "Overall-ranking":
             if (not G_exposed_to_G) and (not S_exposed_to_S):
@@ -163,6 +175,7 @@ class Agent:
                 self.state = selected_state
                 self.cog_state = cog_pool_idea
                 self.cog_fitness = cog_fitness_pool_idea
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         return success
 
@@ -292,36 +305,18 @@ class Agent:
         self.generalist_knowledge_domain = [
             cur for cur in self.knowledge_domain if cur not in self.specialist_knowledge_domain
         ]
-        for cur in self.generalist_knowledge_domain:
-            selected_combination = self.generalist_knowledge_representation[np.random.choice(len(self.generalist_knowledge_representation))]
-            self.decision_space += [str(cur) + i for i in selected_combination]
-            selected_combination_dict = {}
-            for i in selected_combination:
-                if i == "A":
-                    selected_combination_dict[i] = ["0", "1"]
-                elif i == "B":
-                    selected_combination_dict[i] = ["2", "3"]
-                elif i == "C":
-                    selected_combination_dict[i] = ["0", "2"]
-                elif i == "D":
-                    selected_combination_dict[i] = ["1", "3"]
-                elif i == "E":
-                    selected_combination_dict[i] = ["0","3"]
-                elif i == "F":
-                    selected_combination_dict[i] = ["1", "2"]
-                else:
-                    raise ValueError("Unsupported representation label")
-            self.generalist_combination[cur] = selected_combination_dict  # cache the combination for the cog-true transfermation
-        for cur in self.specialist_knowledge_domain:
-            self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
-        self.cog_state = self.change_state_to_cog_state(self.state)
+        self.cog_state = self.change_state_to_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
+        for cur in self.specialist_knowledge_domain:
+            self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
+        for cur in self.generalist_knowledge_domain:
+            self.decision_space += [str(cur) + i for i in self.generalist_knowledge_representation]
         self.update_freedom_space()
 
         # check the freedom space
         if len(self.freedom_space) != (self.state_num - 1) * self.specialist_num + self.generalist_num:
-            raise ValueError("Freedom space {1} has a mismatch with type {0}".format(name, self.freedom_space))
+            raise ValueError("Freedom space has a mismatch with type {0}".format(name))
 
     def update_freedom_space(self):
         state_occupation = [str(i) + j for i, j in enumerate(self.cog_state)]
@@ -359,6 +354,8 @@ class Agent:
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
                 self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
+            else:
+                self.cog_fitness = current_cog_fitness
         elif updated_position in self.specialist_knowledge_domain:
             cur_cog_state_with_default = self.cog_state.copy()
             next_cog_state = self.cog_state.copy()
@@ -377,20 +374,30 @@ class Agent:
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
                 self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
+            else:
+                self.cog_fitness = current_cog_fitness
         else:
             raise ValueError("The picked next step go outside of G/S knowledge domain")
 
     def change_state_to_cog_state(self, state):
+        """
+        There are two kinds of unknown elements:
+            1) unknown in the width (outside of knowledge domain)-> masked with '*'
+            2) unknown in the depth (outside of professional level)-> agents cannot select independently (i.e., masked by freedom space)
+                For team level, there could be some kind of mapping, learning, or communication to improve the cognitive accuracy.
+        :param state: the intact state list
+        :return: masked state list
+        """
         cog_state = self.state.copy()
         if self.generalist_num != 0:  # there are some unknown depth (i.e., with G domain)
             for index, bit_value in enumerate(state):
                 if index in self.generalist_knowledge_domain:
-                    combination_dict = self.generalist_combination[index]
-                    if not combination_dict:
-                        raise ValueError("The G representation combination is None")
-                    for label, label_value in combination_dict.items():
-                        if bit_value in label_value:
-                            cog_state[index] = label
+                    if bit_value in ["0", "1"]:
+                        cog_state[index] = "A"
+                    elif bit_value in ["2", "3"]:
+                        cog_state[index] = "B"
+                    else:
+                        raise ValueError("Only support for state number = 4")
         if len(self.knowledge_domain) < self.N:  # there are some unknown domains
             for index, bit_value in enumerate(self.state):
                 if index not in self.knowledge_domain:
@@ -407,18 +414,18 @@ class Agent:
             if index not in self.knowledge_domain:
                 state[index] = str(random.choice(range(self.state_num)))
             if index in self.generalist_knowledge_domain:
-                combination_dict = self.generalist_combination[index]
-                if not combination_dict:
-                    raise ValueError("The G representation combination is None")
-                for label, label_value in combination_dict.items():
-                    if bit_value == label:
-                        state[index] = random.choice(label_value)
+                if bit_value == "A":
+                    state[index] = random.choice(["0", "1"])
+                elif bit_value == "B":
+                    state[index] = random.choice(["2", "3"])
+                else:
+                    raise ValueError("Unsupported state element: ", bit_value)
         return state
 
     def state_legitimacy_check(self):
         for index, bit_value in enumerate(self.state):
             if bit_value not in self.valid_state_bit:
-                raise ValueError("Current state element: {0} is not legitimate".format(bit_value))
+                raise ValueError("Current state element/bit is not legitimate")
 
     def describe(self):
         print("*********Agent information********* ")
@@ -448,15 +455,12 @@ if __name__ == '__main__':
     landscape.initialize()
 
     agent = Agent(N=8, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=2, specialist_num=2)
+    agent.type(name="T shape", generalist_num=1, specialist_num=7)
     agent.describe()
-    agent.state_legitimacy_check()
     for _ in range(100):
         agent.cognitive_local_search()
-        print(agent.state)
-    # agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
+    agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
     agent.converged_fitness = agent.landscape.query_fitness(state=agent.state)
-    print(agent.converged_fitness)
     agent.describe()
     print("END")
 

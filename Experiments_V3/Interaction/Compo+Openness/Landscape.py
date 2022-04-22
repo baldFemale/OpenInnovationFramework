@@ -233,14 +233,6 @@ class Landscape:
                 alternative_pool.append(["0", "1"])
             elif bit == "B":
                 alternative_pool.append(["2", "3"])
-            elif bit == "C":
-                alternative_pool.append(["0", "2"])
-            elif bit == "D":
-                alternative_pool.append(["1", "3"])
-            elif bit == "E":
-                alternative_pool.append(["0", "3"])
-            elif bit == "F":
-                alternative_pool.append(["1", "2"])
             elif bit == "*":
                 alternative_pool.append(["0", "1", "2", "3"])
             else:

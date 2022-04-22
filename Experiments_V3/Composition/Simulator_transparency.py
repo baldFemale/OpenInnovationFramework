@@ -73,8 +73,6 @@ class Simulator:
         # Outcome Variables
         self.converged_fitness_landscape = []
         self.converged_fitness_rank_landscape = []
-        # self.potential_fitness_landscape = []
-
         # Mechanism Variable
         self.surface_divergence_G_landscape = []  # related to self.G_state_pool
         self.surface_divergence_S_landscape = []
@@ -361,11 +359,8 @@ class Simulator:
         for agent in self.agents:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
-            # agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
-
             self.converged_fitness_landscape.append(agent.converged_fitness)
             self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
-            # self.potential_fitness_landscape.append(agent.potential_fitness)  # remove the outcome of potential
 
 
 if __name__ == '__main__':
@@ -379,7 +374,7 @@ if __name__ == '__main__':
     quality = 0.5
     S_exposed_to_S = 0
     G_exposed_to_G = 0.5
-    agent_num = 500
+    agent_num = 200
     search_iteration = 50
     knowledge_num = 12
     # exposure_type = "Overall-ranking"
@@ -392,35 +387,48 @@ if __name__ == '__main__':
                  exposure_type=exposure_type, openness=openness, quality=quality,
                           S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
     simulator.process(socialization_freq=1, footprint=False)
-    count_GS = 0
-    count_GG = 0
-    count_SS = 0
-    count_SG = 0
-    count_open_G, count_open_S = 0, 0
+    # count_GS = 0
+    # count_GG = 0
+    # count_SS = 0
+    # count_SG = 0
+    # count_open_G, count_open_S = 0, 0
+    # for agent in simulator.agents:
+    #     if agent.name == "Generalist":
+    #         if agent.fixed_state_pool == 1:
+    #             count_GS += 1
+    #         else:
+    #             count_GG += 1
+    #         if agent.fixed_openness_flag == 1:
+    #             count_open_G += 1
+    #     else:
+    #         if agent.fixed_state_pool == 1:
+    #             count_SS += 1
+    #         else:
+    #             count_SG += 1
+    #         if agent.fixed_openness_flag == 1:
+    #             count_open_S += 1
+    # print("GG, GS: ", count_GG, count_GS)
+    # print("SS, SG", count_SS, count_SG)
+    # print("Openness G, S: ", count_open_G, count_open_S)
+    # surface_quality_G, surface_quality_S = [], []
+    # for each_qualities in simulator.surface_quality_G_landscape:
+    #     surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    # print("surface_quality_G: ", surface_quality_G)
+    # for each_qualities in simulator.surface_quality_S_landscape:
+    #     surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    # print("surface_quality_S: ", surface_quality_S)
+    G_pool = []
     for agent in simulator.agents:
         if agent.name == "Generalist":
-            if agent.fixed_state_pool == 1:
-                count_GS += 1
-            else:
-                count_GG += 1
-            if agent.fixed_openness_flag == 1:
-                count_open_G += 1
-        else:
-            if agent.fixed_state_pool == 1:
-                count_SS += 1
-            else:
-                count_SG += 1
-            if agent.fixed_openness_flag == 1:
-                count_open_S += 1
-    print("GG, GS: ", count_GG, count_GS)
-    print("SS, SG", count_SS, count_SG)
-    print("Openness G, S: ", count_open_G, count_open_S)
-    surface_quality_G, surface_quality_S = [], []
-    for each_qualities in simulator.surface_quality_G_landscape:
-        surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
-    print("surface_quality_G: ", surface_quality_G)
-    for each_qualities in simulator.surface_quality_S_landscape:
-        surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
-    print("surface_quality_S: ", surface_quality_S)
+            G_pool.append(agent.generalist_knowledge_domain)
+    G_pool_2 = []
+    for each_list in G_pool:
+        temp_list = []
+        for each_element in each_list:
+            temp_list.append(str(each_element))
+        G_pool_2.append(temp_list)
+    G_pool_2 = ["".join(each) for each in G_pool_2]
+    G_pool_2 = list(set(G_pool_2))
+    print(G_pool_2)
     print("END")
 
