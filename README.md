@@ -73,3 +73,5 @@
 * The experiment structure is adjusted again: remove the frequency, remove the coverage (only average and maxinum are left), add the mechanism channel check (using original Direction) and using potential to measure the surface quality, adding the utilization degree, adding the surface divergence.
 * Accoridngly, the simulator's recording variables are changed to fit the experiments. Simulator will record the state pool in a surface character way.
 * The G shallow understanding is the same as transparency_2.
+* In this version, G cannot conduct a efficient cognitive search
+
