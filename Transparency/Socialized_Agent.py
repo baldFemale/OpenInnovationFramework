@@ -44,7 +44,7 @@ class Agent:
         self.overall_state_pool_rank_S = []
         # the order should be consistent in terms of state string and fitness
 
-        self.generalist_knowledge_representation = ["A", "B", "C", "D", "E", "F"]  # for state_num=6, use ["A", "B", "C"]
+        self.generalist_knowledge_representation = ["A", "B"]  # for state_num=6, use ["A", "B", "C"]
         self.knowledge_domain = []
         self.generalist_num = 0
         self.specialist_num = 0
@@ -66,8 +66,8 @@ class Agent:
         self.potential_fitness = 0  # record the potential achievement; the position advantage to achieve a higher future performance
         self.potential_fitness_rank = 0
 
-        self.valid_state_bit = list(range(self.state_num))
-        self.valid_state_bit += ["A", "B", "C", "D", "E", "F", "*"]  # for cognitive representation
+        self.valid_state_bit = list(range(self.N))
+        self.valid_state_bit += ["A", "B", "*"]  # for cognitive representation
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -90,6 +90,7 @@ class Agent:
                 self.state = comparison_state
                 self.cog_state = comparison_cog_state
                 self.cog_fitness = comparison_cog_fitness
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         elif exposure_type == "Self-interested":
             # if (not S_exposed_to_S) and (not G_exposed_to_G):
@@ -139,6 +140,7 @@ class Agent:
                 self.state = selected_state
                 self.cog_state = cog_pool_idea
                 self.cog_fitness = cog_fitness_pool_idea
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         elif exposure_type == "Overall-ranking":
             if (not G_exposed_to_G) and (not S_exposed_to_S):
@@ -173,6 +175,7 @@ class Agent:
                 self.state = selected_state
                 self.cog_state = cog_pool_idea
                 self.cog_fitness = cog_fitness_pool_idea
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()
         return success
 
@@ -304,6 +307,7 @@ class Agent:
         ]
         self.cog_state = self.change_state_to_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
         for cur in self.specialist_knowledge_domain:
             self.decision_space += [str(cur) + str(i) for i in range(self.state_num)]
         for cur in self.generalist_knowledge_domain:
@@ -348,6 +352,7 @@ class Agent:
                 self.cog_fitness = next_cog_fitness
                 # add the mapping during the search because we need the imitation
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
             else:
                 self.cog_fitness = current_cog_fitness
@@ -367,6 +372,7 @@ class Agent:
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
                 self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
+                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
                 self.update_freedom_space()  # whenever state change, freedom space need to be changed
             else:
                 self.cog_fitness = current_cog_fitness
@@ -449,12 +455,12 @@ if __name__ == '__main__':
     landscape.initialize()
 
     agent = Agent(N=8, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=4, specialist_num=2)
+    agent.type(name="T shape", generalist_num=1, specialist_num=7)
     agent.describe()
     for _ in range(100):
         agent.cognitive_local_search()
     agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
-    agent.converge_fitness = agent.landscape.query_fitness(state=agent.state)
+    agent.converged_fitness = agent.landscape.query_fitness(state=agent.state)
     agent.describe()
     print("END")
 

@@ -448,7 +448,7 @@ if __name__ == '__main__':
     landscape.initialize()
 
     agent = Agent(N=8, landscape=landscape, state_num=4)
-    agent.type(name="Generalist", generalist_num=8, specialist_num=0)
+    agent.type(name="T shape", generalist_num=2, specialist_num=2)
     agent.describe()
     agent.state_legitimacy_check()
     for _ in range(100):

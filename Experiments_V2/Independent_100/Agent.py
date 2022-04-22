@@ -7,6 +7,8 @@
 import random
 import numpy as np
 from Landscape import Landscape
+import matplotlib.pyplot as plt
+
 
 class Agent:
 
@@ -264,11 +266,11 @@ class Agent:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=8, state_num=4)
-    landscape.type(IM_type="Factor Directed", K=0, k=24)
+    landscape.type(IM_type="Traditional Directed", K=0, k=24)
     landscape.initialize()
 
     agent = Agent(N=8, lr=0, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=1, specialist_num=7)
+    agent.type(name="Generalist", generalist_num=1, specialist_num=7)
     agent.describe()
     for _ in range(100):
         agent.cognitive_local_search()

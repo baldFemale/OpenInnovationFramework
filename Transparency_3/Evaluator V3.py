@@ -652,12 +652,60 @@ class Evaluator:
         output = self.output_path + "\\" + self.title
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
+
+    def new_G_assessment(self, y_label=None):
+        all_G_files, all_S_files = [], []
+        average_files, potential_files, average_rank_files = [], [], []
+        for file in self.files_list:
+            if "_Prop1.0_" in file:
+                all_G_files.append(file)
+            elif "_Prop0_" in file:
+                all_S_files.append(file)
+
+            if "1Average" in file:
+                average_files.append(file)
+            elif "3Potential" in file:
+                potential_files.append(file)
+            elif "2AverageRank" in file:
+                average_rank_files.append(file)
+
+        G_temp_file = []
+        for file in self.files_list:
+            if (file in all_G_files) and (file in average_files):
+                G_temp_file.append(file)
+        G_temp = self.load_data_from_files(G_temp_file)
+
+        S_temp_file = []
+        for file in self.files_list:
+            if (file in all_S_files) and (file in average_files):
+                S_temp_file.append(file)
+        S_temp = self.load_data_from_files(S_temp_file)
+
+        S_temp, G_temp = np.array(S_temp), np.array(G_temp)
+        print(S_temp.shape, G_temp.shape)
+        data = [G_temp, S_temp]
+        figure = plt.figure()
+        ax = figure.add_subplot()
+        for each_curve, label in zip(data, ["G", "S"]):
+            average_value = np.mean(np.mean(each_curve, axis=2), axis=1)
+            ax.plot(self.K_list, average_value, label=label)
+
+        ax.set_xlabel('K')  # Add an x-label to the axes.
+        ax.set_ylabel(str(y_label))  # Add a y-label to the axes.
+        my_x_ticks = np.arange(min(self.K_list), max(self.K_list)+1, self.K_list[1]-self.K_list[0])
+        plt.xticks(my_x_ticks)
+        ax.set_title(self.title)  # Add a title to the whole figure
+        plt.legend()
+        output = self.output_path + "\\" + self.title + "-" + str(y_label)
+        plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
+        plt.show()
+
 if __name__ == '__main__':
-    data_foler = r'C:\Python_Workplace\hpc-0413\Experiments\Interaction\Compo+Openness'
-    output_folder = r'C:\Python_Workplace\hpc-0413\Experiments'
+    data_foler = r'C:\Python_Workplace\hpc-0422\Independent_100'
+    output_folder = r'C:\Python_Workplace\hpc-0422'
     ###############################################################
-    landscape_iteration = 200
-    agent_num = 500
+    landscape_iteration = 1000
+    agent_num = 100
     search_iteration = 100
     # Parameter
     N = 9
@@ -665,11 +713,12 @@ if __name__ == '__main__':
     knowledge_num = 16
     K_list = [2, 4, 6, 8]
     frequency_list = [10]
-    openness_list = [0, 0.25, 0.5, 0.75, 1.0]
-    quality_list = [1.0]
+    openness_list = [0]  # independent search
+    quality_list = [0]
     G_exposed_to_G_list = [0.5]
     S_exposed_to_S_list = [0.5]
     gs_proportion_list = [0, 0.25, 0.5, 0.75, 1.0]
+    exposure_type_list = ["Self-interested"]
     ###############################################################
     exposure_type = "Self-interested"
 
@@ -681,14 +730,15 @@ if __name__ == '__main__':
     evaluator.load_simulation_configuration(landscape_iteration=landscape_iteration, agent_num=agent_num, search_iteration=search_iteration)
 
     # Main effect for one dimension except for Direction
-    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Quality", y_label="Coverage", show_variance=False, percentage=10, weighted_coverage=True)
+    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Proportion", y_label="Coverage", show_variance=False, percentage=10, weighted_coverage=True)
 
     # Main effect for Direction
     # evaluator.generate_solid_figure(title=fore_title, percentage=10)
 
     # Interaction effect for two dimension, which do not include Direction.
-    evaluator.generate_interaction_figure_1(title=fore_title, x_label="Composition", y_label="Openness", percentage=10)
+    # evaluator.generate_interaction_figure_1(title=fore_title, x_label="Composition", y_label="Openness", percentage=10)
 
     # Interaction effect for Direction (GG/SS) plus one more dimension
     # evaluator.generate_interaction_figure_2(title=fore_title, given_k=8, row_label="Composition", top_coverage=100)
+    evaluator.new_G_assessment(y_label="Average Fitness")
     print("END")
