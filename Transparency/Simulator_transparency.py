@@ -348,10 +348,11 @@ class Simulator:
                 # record the dynamics of state pool or decision surface; for mechanism check
                 self.surface_divergence_G_landscape.append(self.G_state_pool)  # Remove Duplicates
                 self.surface_divergence_S_landscape.append(self.S_state_pool)  # Remove Duplicates
-                self.surface_quality_G_landscape.append(self.G_state_pool_potential)  # with repetition
-                self.surface_quality_S_landscape.append(self.S_state_pool_potential)  # with repetition
-                self.surface_utilization_G_landscape.append(self.G_state_pool_utilization)  # with repetition
-                self.surface_utilization_S_landscape.append(self.S_state_pool_utilization)  # with repetition
+                # take the average, reduce the result volume
+                self.surface_quality_G_landscape.append(sum(self.G_state_pool_potential)/len(self.G_state_pool_potential))  # with repetition
+                self.surface_quality_S_landscape.append(sum(self.S_state_pool_potential)/len(self.S_state_pool_potential))  # with repetition
+                self.surface_utilization_G_landscape.append(sum(self.G_state_pool_utilization)/len(self.G_state_pool_utilization))  # with repetition
+                self.surface_utilization_S_landscape.append(sum(self.S_state_pool_utilization)/len(self.S_state_pool_utilization))  # with repetition
             self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
             # without tail recursion, the last loop would not update the rank, but its state pool is updated.
             # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
