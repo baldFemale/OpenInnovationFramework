@@ -6,7 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Socialization in Traditional Landscape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Transparency_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Experiments_V3" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Transparency" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
@@ -22,6 +21,8 @@
       <excludeFolder url="file://$MODULE_DIR$/Experiments_V2" />
       <excludeFolder url="file://$MODULE_DIR$/Transparency_2" />
       <excludeFolder url="file://$MODULE_DIR$/Transparency_3" />
+      <excludeFolder url="file://$MODULE_DIR$/Transparency" />
+      <excludeFolder url="file://$MODULE_DIR$/RobustExp" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
