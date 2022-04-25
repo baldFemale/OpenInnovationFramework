@@ -168,26 +168,6 @@ class Evaluator:
                                 dimension_files_list[index] = temp
                         else:
                             raise ValueError("Unsupported")
-            elif ("Potential Fitness" in y_label) or (("Potential" in y_label) and "Rank" not in y_label):
-                if "3Potential" in each_file:
-                    for index, each_reference in enumerate(file_name_reference):
-                        if dimension == "Quality":
-                            if "_Q" + str(each_reference) + '_' in each_file:
-                                temp = dimension_files_list[index].copy()
-                                temp.append(each_file)
-                                dimension_files_list[index] = temp
-                        elif dimension == "Openness":
-                            if "_O" + str(each_reference) + '_' in each_file:
-                                temp = dimension_files_list[index].copy()
-                                temp.append(each_file)
-                                dimension_files_list[index] = temp
-                        elif dimension == "Proportion":
-                            if "_Prop" + str(each_reference) + '_' in each_file:
-                                temp = dimension_files_list[index].copy()
-                                temp.append(each_file)
-                                dimension_files_list[index] = temp
-                        else:
-                            raise ValueError("Unsupported")
             elif "Maximum" in y_label:
                 if "1Average" in each_file:
                     for index, each_reference in enumerate(file_name_reference):
@@ -388,7 +368,7 @@ class Evaluator:
         Z = np.zeros((3, len(self.K_list), len(self.G_exposed_to_G_list), len(self.S_exposed_to_S_list)))
         for x_index, x_value in enumerate(["_GG" + str(each) + "_" for each in self.G_exposed_to_G_list]):
             for y_index, y_value in enumerate(["_SS" + str(each) + "_" for each in self.S_exposed_to_S_list]):
-                for d, column_name in enumerate(["1Average", "2AverageRank", "3Potential"]):
+                for d, column_name in enumerate(["1Average"]):
                     for k, k_name in enumerate(["_K" + str(each_k) + "_" for each_k in self.K_list]):
                         temp = []
                         for file in self.files_list:
@@ -667,183 +647,229 @@ class Evaluator:
         plt.show()
 
 
-    def count_divergence(self, state_1=None, state_2=None):
-        divergence = 0
-        for i in range(len(state_1)):
-            if state_1[i] != state_2[i]:
-                divergence += 1
-        return divergence
+    def get_mode_solution(self, pool):
+        mode_solution = []
+        for i in range(self.N):
+            count_0 = sum([1 if state[i] == "0" else 0 for state in pool])
+            count_1 = sum([1 if state[i] == "1" else 0 for state in pool])
+            count_2 = sum([1 if state[i] == "2" else 0 for state in pool])
+            count_3 = sum([1 if state[i] == "3" else 0 for state in pool])
+            max_count = max(count_0, count_1, count_2, count_3)
+            if count_0 == max_count:
+                mode_solution.append("0")
+            elif count_1 == max_count:
+                mode_solution.append("1")
+            elif count_2 == max_count:
+                mode_solution.append("2")
+            else:
+                mode_solution.append("3")
+        return mode_solution
 
-    # def generate_surface_main_effect_surface(self, title=fore_title, dimension=None, y_label=None):
-    #     if title:
-    #         self.title = title
-    #     openness_dimension = len(self.openness_list)
-    #     quality_list_dimension = len(self.quality_list)
-    #     gs_proportion_dimension = len(self.gs_proportion_list)
-    #     if dimension == "Quality":
-    #         dimension_files_list = [[]] * quality_list_dimension
-    #         file_name_reference = self.quality_list
-    #     elif dimension == "Openness":
-    #         dimension_files_list = [[]] * openness_dimension
-    #         file_name_reference = self.openness_list
-    #     elif dimension == "Proportion":
-    #         dimension_files_list = [[]] * gs_proportion_dimension
-    #         file_name_reference = self.gs_proportion_list
-    #     else:
-    #         raise ValueError("Unsupported")
-    #
-    #     selected_files_list = self.files_list
-    #     print("file_name_reference: ", file_name_reference)
-    #     print("selected_files_list: ", len(selected_files_list))
-    #     for each_file in selected_files_list:
-    #         if "Divergence" in y_label:
-    #             if ("3" + y_label) in each_file:
-    #                 for index, each_reference in enumerate(file_name_reference):
-    #                     if dimension == "Quality":
-    #                         if "_Q" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Openness":
-    #                         if "_O" + str(each_reference) + "_" in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Proportion":
-    #                         if "_Prop" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     else:
-    #                         raise ValueError("Unsupported")
-    #         elif "Quality" in y_label:
-    #             if ("4" + y_label) in each_file:
-    #                 for index, each_reference in enumerate(file_name_reference):
-    #                     if dimension == "Quality":
-    #                         if "_Q" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Openness":
-    #                         if "_O" + str(each_reference) + "_" in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Proportion":
-    #                         if "_Prop" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     else:
-    #                         raise ValueError("Unsupported")
-    #         elif "Utilization" in y_label:
-    #             if ("5" + y_label) in each_file:
-    #                 for index, each_reference in enumerate(file_name_reference):
-    #                     if dimension == "Quality":
-    #                         if "_Q" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Openness":
-    #                         if "_O" + str(each_reference) + "_" in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     elif dimension == "Proportion":
-    #                         if "_Prop" + str(each_reference) + '_' in each_file:
-    #                             temp = dimension_files_list[index].copy()
-    #                             temp.append(each_file)
-    #                             dimension_files_list[index] = temp
-    #                     else:
-    #                         raise ValueError("Unsupported")
-    #         else:
-    #             raise ValueError("Unsupported")
-    #     print(dimension_files_list)
-    #     dimension_files_list = np.array(dimension_files_list, dtype=object)
-    #     print("Dimension Files list shape: ", dimension_files_list.shape)
-    #     dimension_files_list = dimension_files_list.reshape((len(file_name_reference), len(self.K_list), -1))  # reference is also the label list
-    #     print("Dimension Files list shape: ", dimension_files_list.shape)
-    #     print("Dimension Files Example: \n", dimension_files_list[0])
-    #
-    #     all_curves_data = []
-    #     for each_curve_files in dimension_files_list:
-    #         # print(each_curve_files)
-    #         data_curve = self.load_data_from_folders(folder_list=each_curve_files)
-    #         all_curves_data.append(data_curve)
-    #     all_curves_data = np.array(all_curves_data, dtype=object)
-    #     print("Curves Data Shape (before): ", all_curves_data.shape)
-    #
-    #     # Coverage, Maximum, and Divergence need further calculations
-    #     if "Divergence" in y_label:
-    #         for d in range(all_curves_data.shape[0]):
-    #             for k in range(all_curves_data.shape[1]):
-    #                 for f in range(all_curves_data.shape[2]):
-    #                     for l in range(all_curves_data.shape[3]):
-    #                         pool_temp = list(all_curves_data[d][k][f][l])
-    #                         divergence_temp = []
-    #                         for each_solution_pool in pool_temp:
-    #                             # print(len(each_solution_pool))
-    #                             temp = ["".join(each) for each in each_solution_pool]
-    #                             temp = set(temp)
-    #                             divergence_temp.append(len(temp)/self.agent_num)
-    #                         all_curves_data[d][k][f][l] = divergence_temp  # 100 values
-    #     if "Quality" in y_label:
-    #         for d in range(all_curves_data.shape[0]):
-    #             for k in range(all_curves_data.shape[1]):
-    #                 for f in range(all_curves_data.shape[2]):
-    #                     for l in range(all_curves_data.shape[3]):
-    #                         pool_temp = list(all_curves_data[d][k][f][l])
-    #                         divergence_temp = 0
-    #                         for each_solution_pool in pool_temp:
-    #                             # print(len(each_solution_pool))
-    #                             temp = ["".join(each) for each in each_solution_pool]
-    #                             temp = set(temp)
-    #                             divergence_temp += len(temp)
-    #                         all_curves_data[d][k][f][l] = divergence_temp/100/200  # 100 values
-    #
-    #
-    #     print("Curves Data Shape (before2): ", all_curves_data.shape)
-    #     all_curves_data = all_curves_data.reshape((all_curves_data.shape[0], all_curves_data.shape[1], self.search_iteration -1)) # dim, K, search
-    #     print("Curves Data Shape (after): ", all_curves_data.shape)
-    #     self.data = all_curves_data
-    #     label_list = file_name_reference
-    #     # curves_data_shape: (5, 4, 5, 100); (5, 4, 100)
-    #
-    #
-    #     figure = plt.figure()
-    #     for row, K_label in enumerate(self.K_list):
-    #         for column, z_label in enumerate(z_label_list):
-    #             ax = figure.add_subplot()
-    #             for lable, each_curve in zip(label_list, all_curves_data):  # release the Agent type level
-    #                 # print("Curve Shape: ", np.array(each_curve).shape)
-    #                 average_value = np.mean(np.array(each_curve), axis=1)  #  (4, 500) -> (K, repeat)
-    #                 # print("average_value: ", average_value)
-    #                 if dimension == "Proportion":
-    #                     ax.plot(self.K_list, average_value, label="{0} of G :{1}".format(dimension, lable))
-    #                 else:
-    #                     ax.plot(self.K_list, average_value, label="{0}:{1}".format(dimension, lable))
-    #                 if show_variance:
-    #                     # draw the variance
-    #                     lower = [x - y for x, y in zip(average_value, variation_value)]
-    #                     upper = [x + y for x, y in zip(average_value, variation_value)]
-    #                     xaxis = list(range(len(lower)))
-    #                     ax.fill_between(x=xaxis, y1=lower, y2=upper, alpha=0.15)
-    #
-    #             ax.set_xlabel('K')  # Add an x-label to the axes.
-    #             ax.set_ylabel(str(y_label))  # Add a y-label to the axes.
-    #             my_x_ticks = np.arange(min(self.K_list), max(self.K_list)+1, self.K_list[1]-self.K_list[0])
-    #             plt.xticks(my_x_ticks)
-    #             ax.set_title(self.title)  # Add a title to the whole figure
-    #             plt.legend()
-    #
-    #     output = self.output_path + "\\" + self.title + "-" + dimension + "-" + str(y_label)
-    #     i = 1
-    #     while os.path.exists(output + ".png"):
-    #         i += 1
-    #         print("File Exists")
-    #         output = self.output_path + "\\" + self.title + "-" + dimension + "-" + y_label + "-" + str(i)
-    #     plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
-    #     plt.show()
+    def get_solution_distance(self, solution_a=None, solution_b=None):
+        counts = 0
+        for a, b in zip(solution_a, solution_b):
+            if a != b:
+                counts += 1
+        return counts
+
+    def generate_surface_evolution(self, title=None, dimension=None, GS_flag=''):
+        if title:
+            self.title = title
+        y_label_list = ["Divergence", "Quality", "Utilization"]
+        openness_dimension = len(self.openness_list)
+        quality_list_dimension = len(self.quality_list)
+        gs_proportion_dimension = len(self.gs_proportion_list)
+        if dimension == "Quality":
+            dimension_divergence_files = [[]] * quality_list_dimension
+            dimension_quality_files = [[]] * quality_list_dimension
+            dimension_utilization_files = [[]] * quality_list_dimension
+            file_name_reference = self.quality_list
+        elif dimension == "Openness":
+            dimension_divergence_files = [[]] * openness_dimension
+            dimension_quality_files = [[]] * openness_dimension
+            dimension_utilization_files = [[]] * openness_dimension
+            file_name_reference = self.openness_list
+        elif dimension == "Proportion":
+            dimension_divergence_files = [[]] * gs_proportion_dimension
+            dimension_quality_files = [[]] * gs_proportion_dimension
+            dimension_utilization_files = [[]] * gs_proportion_dimension
+            file_name_reference = self.gs_proportion_list
+        else:
+            raise ValueError("Unsupported")
+
+        selected_files_list = self.files_list
+        print("file_name_reference: ", file_name_reference)
+        print("selected_files_list: ", len(selected_files_list))
+        for each_file in selected_files_list:
+            if ("3Divergence" + GS_flag) in each_file:
+                for index, each_reference in enumerate(file_name_reference):
+                    if dimension == "Quality":
+                        if "_Q" + str(each_reference) + '_' in each_file:
+                            temp = dimension_divergence_files[index].copy()
+                            temp.append(each_file)
+                            dimension_divergence_files[index] = temp
+                    elif dimension == "Openness":
+                        if "_O" + str(each_reference) + "_" in each_file:
+                            temp = dimension_divergence_files[index].copy()
+                            temp.append(each_file)
+                            dimension_divergence_files[index] = temp
+                    elif dimension == "Proportion":
+                        if "_Prop" + str(each_reference) + '_' in each_file:
+                            temp = dimension_divergence_files[index].copy()
+                            temp.append(each_file)
+                            dimension_divergence_files[index] = temp
+                    else:
+                        raise ValueError("Unsupported")
+            if ("4Quality" + GS_flag) in each_file:
+                for index, each_reference in enumerate(file_name_reference):
+                    if dimension == "Quality":
+                        if "_Q" + str(each_reference) + '_' in each_file:
+                            temp = dimension_quality_files[index].copy()
+                            temp.append(each_file)
+                            dimension_quality_files[index] = temp
+                    elif dimension == "Openness":
+                        if "_O" + str(each_reference) + "_" in each_file:
+                            temp = dimension_quality_files[index].copy()
+                            temp.append(each_file)
+                            dimension_quality_files[index] = temp
+                    elif dimension == "Proportion":
+                        if "_Prop" + str(each_reference) + '_' in each_file:
+                            temp = dimension_quality_files[index].copy()
+                            temp.append(each_file)
+                            dimension_quality_files[index] = temp
+                    else:
+                        raise ValueError("Unsupported")
+            elif ("Utilization" + GS_flag) in each_file:
+                for index, each_reference in enumerate(file_name_reference):
+                    if dimension == "Quality":
+                        if "_Q" + str(each_reference) + '_' in each_file:
+                            temp = dimension_utilization_files[index].copy()
+                            temp.append(each_file)
+                            dimension_utilization_files[index] = temp
+                    elif dimension == "Openness":
+                        if "_O" + str(each_reference) + "_" in each_file:
+                            temp = dimension_utilization_files[index].copy()
+                            temp.append(each_file)
+                            dimension_utilization_files[index] = temp
+                    elif dimension == "Proportion":
+                        if "_Prop" + str(each_reference) + '_' in each_file:
+                            temp = dimension_utilization_files[index].copy()
+                            temp.append(each_file)
+                            dimension_utilization_files[index] = temp
+                    else:
+                        raise ValueError("Unsupported")
+            else:pass
+
+        dimension_divergence_files = np.array(dimension_divergence_files, dtype=object)
+        dimension_quality_files = np.array(dimension_quality_files, dtype=object)
+        dimension_utilization_files = np.array(dimension_utilization_files, dtype=object)
+        dimension_divergence_files = dimension_divergence_files.reshape((len(file_name_reference), len(self.K_list), -1))  # reference is also the label list
+        dimension_quality_files = dimension_quality_files.reshape(
+            (len(file_name_reference), len(self.K_list), -1))
+        dimension_utilization_files = dimension_utilization_files.reshape(
+            (len(file_name_reference), len(self.K_list), -1))
+        print("Divergence shape: ", dimension_divergence_files.shape)
+        print("Quality shape: ", dimension_quality_files.shape)
+        print("Utilization shape: ", dimension_utilization_files.shape)
+
+        divergence_curves_data = []
+        for each_curve_files in dimension_divergence_files:
+            # print(each_curve_files)
+            data_curve = self.load_data_from_folders(folder_list=each_curve_files)
+            divergence_curves_data.append(data_curve)
+        divergence_curves_data = np.array(divergence_curves_data, dtype=object)
+        print("Divergence Shape (before): ", divergence_curves_data.shape)
+
+        quality_curves_data = []
+        for each_curve_files in dimension_quality_files:
+            # print(each_curve_files)
+            data_curve = self.load_data_from_folders(folder_list=each_curve_files)
+            quality_curves_data.append(data_curve)
+        quality_curves_data = np.array(quality_curves_data, dtype=object)
+        print("Quality Shape (before): ", quality_curves_data.shape)
+
+        utilization_curves_data = []
+        for each_curve_files in dimension_utilization_files:
+            # print(each_curve_files)
+            data_curve = self.load_data_from_folders(folder_list=each_curve_files)
+            utilization_curves_data.append(data_curve)
+        utilization_curves_data = np.array(utilization_curves_data, dtype=object)
+        print("Utilization Shape (before): ", utilization_curves_data.shape)
+
+        for d in range(divergence_curves_data.shape[0]):
+            for k in range(divergence_curves_data.shape[1]):
+                for f in range(divergence_curves_data.shape[2]):
+                    for l in range(divergence_curves_data.shape[3]):
+                        pools_temp = list(divergence_curves_data[d][k][f][l])
+                        divergence_temp = []
+                        for solution_pool in pools_temp:
+                            mode_solution = self.get_mode_solution(pool=solution_pool)
+                            divegence_pool = sum(self.get_solution_distance(mode_solution, solution) for solution in solution_pool)
+                            divergence_temp.append(divegence_pool/self.agent_num)
+                        divergence_curves_data[d][k][f][l] = divergence_temp  # 100 values
+
+        for d in range(quality_curves_data.shape[0]):
+            for k in range(quality_curves_data.shape[1]):
+                for f in range(quality_curves_data.shape[2]):
+                    for l in range(quality_curves_data.shape[3]):
+                        pools_temp = list(quality_curves_data[d][k][f][l])
+                        quality_temp = []
+                        for quality_pool in pools_temp:
+                            overall_quality = sum(quality_pool)/len(quality_pool)
+                            quality_temp.append(overall_quality)
+                        quality_curves_data[d][k][f][l] = quality_temp  # 100 values
+
+        for d in range(utilization_curves_data.shape[0]):
+            for k in range(utilization_curves_data.shape[1]):
+                for f in range(utilization_curves_data.shape[2]):
+                    for l in range(utilization_curves_data.shape[3]):
+                        pools_temp = list(utilization_curves_data[d][k][f][l])
+                        utilization_temp = []
+                        for utilization_pool in pools_temp:
+                            overall_utilization = sum(utilization_pool)/len(utilization_pool)
+                            utilization_temp.append(overall_utilization)
+                        utilization_curves_data[d][k][f][l] = utilization_temp  # 100 values
+
+        divergence_curves_data = divergence_curves_data.reshape((divergence_curves_data.shape[0],
+                                                                 divergence_curves_data.shape[1], self.search_iteration, -1)) # dim, K, search
+        quality_curves_data = quality_curves_data.reshape((quality_curves_data.shape[0],
+                                                                 quality_curves_data.shape[1], self.search_iteration, -1)) # dim, K, search
+        utilization_curves_data = utilization_curves_data.reshape((utilization_curves_data.shape[0],
+                                                                 utilization_curves_data.shape[1], self.search_iteration, -1)) # dim, K, search
+        print("Divergence Shape (after): ", divergence_curves_data.shape)
+        print("Quality Shape (after): ", quality_curves_data.shape)
+        print("Utilization Shape (after): ", utilization_curves_data.shape)
+        label_list = file_name_reference
+
+        f = plt.figure()
+        all_curves_data = [divergence_curves_data, quality_curves_data, utilization_curves_data]
+        for row, K_label in enumerate(self.K_list):
+            for column, y_label in enumerate(y_label_list):
+                ax = f.add_subplot(len(self.K_list), 3, row*3+column+1)
+                for lable, each_curve in zip(label_list, all_curves_data[column]):  # release the Agent type level
+                    # print("Curve Shape: ", np.array(each_curve).shape)
+                    average_value = np.mean(np.array(each_curve), axis=1)  #  (4, 500) -> (K, repeat)
+                    # print("average_value: ", average_value)
+                    if dimension == "Proportion":
+                        ax.plot(range(self.search_iteration), average_value, label="{0} of G :{1}".format(dimension, lable))
+                    else:
+                        ax.plot(self.K_list, average_value, label="{0}:{1}".format(dimension, lable))
+
+                ax.set_xlabel('Search')  # Add an x-label to the axes.
+                ax.set_ylabel(str(y_label))  # Add a y-label to the axes.
+                # my_x_ticks = np.arange(min(self.K_list), max(self.K_list)+1, self.K_list[1]-self.K_list[0])
+                # plt.xticks(my_x_ticks)
+                ax.set_title(self.title)  # Add a title to the whole figure
+                plt.legend()
+
+        output = self.output_path + "\\" + self.title + "-" + dimension + "-"
+        i = 1
+        while os.path.exists(output + ".png"):
+            i += 1
+            print("File Exists")
+            output = self.output_path + "\\" + self.title + "-" + dimension + "-" + str(i)
+        plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
+        plt.show()
 
 if __name__ == '__main__':
     data_foler = r'C:\Python_Workplace\hpc-0422\Experiments_V3\Composition'
@@ -858,7 +884,7 @@ if __name__ == '__main__':
     knowledge_num = 16
     K_list = [2, 4, 6, 8]
     frequency_list = [1]
-    openness_list = [1.0]
+    openness_list = [1]
     quality_list = [1.0]
     G_exposed_to_G_list = [0.5]
     S_exposed_to_S_list = [0.5]
@@ -874,10 +900,10 @@ if __name__ == '__main__':
     evaluator.load_simulation_configuration(landscape_iteration=landscape_iteration, agent_num=agent_num, search_iteration=search_iteration)
 
     # Main effect for one dimension except for Direction
-    evaluator.generate_one_dimension_figure(title=fore_title, dimension="Proportion", y_label="Utilization", show_variance=False, percentage=0.1, top_coverage=None)
+    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Openness", y_label="Average", show_variance=False, percentage=0.1, top_coverage=None)
 
     # Surface evolution with search iterations
-    # evaluator.generate_surface_main_effect_surface(title=fore_title, dimension="Proportion", y_label="QualityG")
+    evaluator.generate_surface_evolution(title=fore_title, dimension="Proportion")
 
     # Main effect for Direction
     # evaluator.generate_solid_figure(title=fore_title, percentage=10)

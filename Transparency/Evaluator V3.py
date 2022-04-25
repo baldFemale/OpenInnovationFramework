@@ -652,20 +652,22 @@ class Evaluator:
         output = self.output_path + "\\" + self.title
         plt.savefig(output)  # save the figure before plt.show(). Otherwise, there is no information.
         plt.show()
+
+
 if __name__ == '__main__':
-    data_foler = r'C:\Python_Workplace\hpc-0413\Experiments\Interaction\Compo+Openness'
-    output_folder = r'C:\Python_Workplace\hpc-0413\Experiments'
+    data_foler = r'C:\Python_Workplace\hpc-0422\Experiments_V3\Composition'
+    output_folder = r'C:\Python_Workplace\hpc-0422\Experiments_V3'
     ###############################################################
-    landscape_iteration = 200
-    agent_num = 500
+    landscape_iteration = 1000
+    agent_num = 200
     search_iteration = 100
     # Parameter
     N = 9
     state_num = 4
     knowledge_num = 16
     K_list = [2, 4, 6, 8]
-    frequency_list = [10]
-    openness_list = [0, 0.25, 0.5, 0.75, 1.0]
+    frequency_list = [1]
+    openness_list = [1.0]
     quality_list = [1.0]
     G_exposed_to_G_list = [0.5]
     S_exposed_to_S_list = [0.5]
@@ -681,13 +683,13 @@ if __name__ == '__main__':
     evaluator.load_simulation_configuration(landscape_iteration=landscape_iteration, agent_num=agent_num, search_iteration=search_iteration)
 
     # Main effect for one dimension except for Direction
-    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Quality", y_label="Coverage", show_variance=False, percentage=10, weighted_coverage=True)
+    evaluator.generate_one_dimension_figure(title=fore_title, dimension="Proportion", y_label="Coverage", show_variance=False, percentage=0.1, weighted_coverage=False)
 
     # Main effect for Direction
     # evaluator.generate_solid_figure(title=fore_title, percentage=10)
 
     # Interaction effect for two dimension, which do not include Direction.
-    evaluator.generate_interaction_figure_1(title=fore_title, x_label="Composition", y_label="Openness", percentage=10)
+    # evaluator.generate_interaction_figure_1(title=fore_title, x_label="Composition", y_label="Openness", percentage=10)
 
     # Interaction effect for Direction (GG/SS) plus one more dimension
     # evaluator.generate_interaction_figure_2(title=fore_title, given_k=8, row_label="Composition", top_coverage=100)

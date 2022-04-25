@@ -396,6 +396,13 @@ temp = None
 #                                                          S_exposed_to_S, G_exposed_to_G, gs_proportion))
 #                                     p.start()
 
-x = "_Q1.0_O0.5_"
-y = x[:-1]
-print(y)
+# x = "_Q1.0_O0.5_"
+# y = x[:-1]
+# print(y)
+
+# divergence: Hanming Distance
+# def hamming_distance_v2(a, b):
+#     r = (1 << np.arange(8))[:,None]
+#     return np.count_nonzero((np.bitwise_xor(a,b) & r) != 0)
+# res = hamming_distance_v2(a="010", b="111")
+# print(res)

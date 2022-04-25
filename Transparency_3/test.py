@@ -414,3 +414,22 @@ temp = None
 # x2 = [1, 2, None, 4]
 # for a, b in zip(x1, x2):
 #     print(a, b)
+# def count_fun(state_1, state_2):
+#     count = 0
+#     for i in range(len(state_1)):
+#         if state_1[i] == state_2[i]:
+#             pass
+#         else:
+#             count += 1
+#     return count
+# pool = [["0", "1", "2"], ["0", "2", "3"], ["1", "2", "3"]]
+# count_ = 0
+# for each_solution in pool:
+#     count_ += sum([count_fun(each_solution, next_solution) for next_solution in pool])
+#     print(count_)
+
+
+a = "SS"
+b = None
+
+print(a+str(b))

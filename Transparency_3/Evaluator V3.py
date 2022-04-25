@@ -381,10 +381,13 @@ class Evaluator:
                         for file in self.files_list:
                             if (x_value in file) and (y_value in file) and (column_name in file) and (k_name) in file:
                                 temp.append(file)
+                        if len(temp) == 0:
+                            print(x_value, y_value, column_name, k_name)
+                            continue
                         data = self.load_data_from_files(files_list=temp)
                         data = np.array(data, dtype=object)
                         data = data.reshape(1, -1)
-                        # print(np.array(data).shape)
+                        print(np.array(data).shape)
                         if (column_name == "1Average") or (column_name == "3Potential"):
                             Z[d][k][x_index][y_index] = np.mean(data, axis=1)
                         elif column_name == "2AverageRank":
@@ -701,24 +704,23 @@ class Evaluator:
         plt.show()
 
 if __name__ == '__main__':
-    data_foler = r'C:\Python_Workplace\hpc-0422\Independent_100'
-    output_folder = r'C:\Python_Workplace\hpc-0422'
+    data_foler = r'C:\Python_Workplace\hpc-0422\Experiments_V3\Quality'
+    output_folder = r'C:\Python_Workplace\hpc-0422\Experiments_V3'
     ###############################################################
     landscape_iteration = 1000
-    agent_num = 100
+    agent_num = 200
     search_iteration = 100
     # Parameter
     N = 9
     state_num = 4
     knowledge_num = 16
     K_list = [2, 4, 6, 8]
-    frequency_list = [10]
-    openness_list = [0]  # independent search
-    quality_list = [0]
+    frequency_list = [1]
+    openness_list = [1]
+    quality_list = [0, 0.25, 0.5, 0.75, 1.0]
     G_exposed_to_G_list = [0.5]
     S_exposed_to_S_list = [0.5]
-    gs_proportion_list = [0, 0.25, 0.5, 0.75, 1.0]
-    exposure_type_list = ["Self-interested"]
+    gs_proportion_list = [0.5]
     ###############################################################
     exposure_type = "Self-interested"
 
@@ -730,15 +732,15 @@ if __name__ == '__main__':
     evaluator.load_simulation_configuration(landscape_iteration=landscape_iteration, agent_num=agent_num, search_iteration=search_iteration)
 
     # Main effect for one dimension except for Direction
-    # evaluator.generate_one_dimension_figure(title=fore_title, dimension="Proportion", y_label="Coverage", show_variance=False, percentage=10, weighted_coverage=True)
+    evaluator.generate_one_dimension_figure(title=fore_title, dimension="Quality", y_label="Maximum", show_variance=False, percentage=10, weighted_coverage=True)
 
     # Main effect for Direction
-    # evaluator.generate_solid_figure(title=fore_title, percentage=10)
+    # evaluator.generate_solid_figure(title=fore_title)
 
     # Interaction effect for two dimension, which do not include Direction.
     # evaluator.generate_interaction_figure_1(title=fore_title, x_label="Composition", y_label="Openness", percentage=10)
 
     # Interaction effect for Direction (GG/SS) plus one more dimension
     # evaluator.generate_interaction_figure_2(title=fore_title, given_k=8, row_label="Composition", top_coverage=100)
-    evaluator.new_G_assessment(y_label="Average Fitness")
+    # evaluator.new_G_assessment(y_label="Average Fitness")
     print("END")
