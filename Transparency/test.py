@@ -406,3 +406,9 @@ temp = None
 #     return np.count_nonzero((np.bitwise_xor(a,b) & r) != 0)
 # res = hamming_distance_v2(a="010", b="111")
 # print(res)
+
+test = np.array([[1,2,3], [1,2,3]])
+max_ = np.max(test, axis=1)
+print(max_)
+mean_ = np.mean(max_, axis=0)
+print(mean_)

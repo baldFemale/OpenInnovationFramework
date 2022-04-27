@@ -429,7 +429,10 @@ temp = None
 #     print(count_)
 
 
-a = "SS"
-b = None
 
-print(a+str(b))
+
+test = np.zeros((4,2))
+for i in range(4):
+    for j in range(2):
+        test[i][j] = 1
+print(test)
