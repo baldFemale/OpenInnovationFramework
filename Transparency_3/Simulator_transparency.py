@@ -348,12 +348,13 @@ class Simulator:
                     agent.cognitive_local_search()
                 self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
                 # record the dynamics of state pool or decision surface; for mechanism check
-                self.surface_divergence_G_landscape.append(self.G_state_pool)  # Remove Duplicates
-                self.surface_divergence_S_landscape.append(self.S_state_pool)  # Remove Duplicates
-                self.surface_quality_G_landscape.append(self.G_state_pool_potential)  # with repetition
-                self.surface_quality_S_landscape.append(self.S_state_pool_potential)  # with repetition
-                self.surface_utilization_G_landscape.append(self.G_state_pool_utilization)  # with repetition
-                self.surface_utilization_S_landscape.append(self.S_state_pool_utilization)  # with repetition
+                # this version measure the whole process of surface evolution
+                # self.surface_divergence_G_landscape.append(self.G_state_pool)  # Remove Duplicates
+                # self.surface_divergence_S_landscape.append(self.S_state_pool)  # Remove Duplicates
+                # self.surface_quality_G_landscape.append(self.G_state_pool_potential)  # with repetition
+                # self.surface_quality_S_landscape.append(self.S_state_pool_potential)  # with repetition
+                # self.surface_utilization_G_landscape.append(self.G_state_pool_utilization)  # with repetition
+                # self.surface_utilization_S_landscape.append(self.S_state_pool_utilization)  # with repetition
             self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
             # without tail recursion, the last loop would not update the rank, but its state pool is updated.
             # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
@@ -366,6 +367,7 @@ class Simulator:
             self.converged_fitness_landscape.append(agent.converged_fitness)
             self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
             # self.potential_fitness_landscape.append(agent.potential_fitness)  # remove the outcome of potential
+
 
 
 if __name__ == '__main__':
