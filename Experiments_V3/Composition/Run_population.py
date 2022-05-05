@@ -16,7 +16,7 @@ search_iteration = 100
 # Parameter
 N = 9
 state_num = 4
-knowledge_num = 16
+knowledge_num = 12
 K_list = [2, 4, 6, 8]
 frequency_list = [1]
 openness_list = [1.0]
@@ -48,12 +48,12 @@ def loop(k=0, K=0, exposure_type=None, socialization_freq=None, quality=None, op
         simulator.process(socialization_freq=socialization_freq)
         A_average_fitness_simulators.append(simulator.converged_fitness_landscape)
         A_average_fitness_rank_simulators.append(simulator.converged_fitness_rank_landscape)
-        B_surface_divergence_G_simulators.append(simulator.surface_divergence_G_landscape)
-        B_surface_divergence_S_simulators.append(simulator.surface_divergence_S_landscape)
-        C_surface_quality_G_simulators.append(simulator.surface_quality_G_landscape)
-        C_surface_quality_S_simulators.append(simulator.surface_quality_S_landscape)
-        D_surface_utilization_G_simulators.append(simulator.surface_utilization_G_landscape)
-        D_surface_utilization_S_simulators.append(simulator.surface_utilization_S_landscape)
+        B_surface_divergence_G_simulators.append(simulator.G_state_pool_divergence)
+        B_surface_divergence_S_simulators.append(simulator.S_state_pool_divergence)
+        C_surface_quality_G_simulators.append(simulator.G_state_pool_potential)
+        C_surface_quality_S_simulators.append(simulator.S_state_pool_potential)
+        D_surface_utilization_G_simulators.append(simulator.G_state_pool_utilization)
+        D_surface_utilization_S_simulators.append(simulator.S_state_pool_utilization)
 
     basic_file_name = 'N' + str(N) + '_K' + str(K) + '_E' + str(knowledge_num) + '_' + \
                       exposure_type + '_SS' + str(S_exposed_to_S) + '_GG' + str(G_exposed_to_G) + '_F' +\

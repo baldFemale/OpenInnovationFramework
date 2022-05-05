@@ -23,11 +23,14 @@ class Simulator:
         self.whole_state_pool = []
         self.G_state_pool = []
         self.S_state_pool = []
-        # Pool potential is for surface quality
+        # Surface divergence
+        self.S_state_pool_divergence = 0
+        self.G_state_pool_divergence = 0
+        # Surface potential
         self.whole_state_pool_potential = []  # not used so far; is a redundant variable
         self.G_state_pool_potential = []  # to measured the surface quality, measured when agent share
         self.S_state_pool_potential = []
-        # Utilization degree is for the mechanism of utilizing each other's potential
+        # Surface utilization
         self.whole_state_pool_utilization = []
         self.G_state_pool_utilization = []  # measured by the (true_fitness / max_potential)
         self.S_state_pool_utilization = []
@@ -73,13 +76,7 @@ class Simulator:
         # Outcome Variables
         self.converged_fitness_landscape = []
         self.converged_fitness_rank_landscape = []
-        # Mechanism Variable
-        self.surface_divergence_G_landscape = []  # related to self.G_state_pool
-        self.surface_divergence_S_landscape = []
-        self.surface_quality_G_landscape = []  # related to self.G_state_pool_potential
-        self.surface_quality_S_landscape = []
-        self.surface_utilization_G_landscape = []
-        self.surface_utilization_S_landscape = []
+        # self.potential_fitness_landscape = []
 
     def set_landscape(self):
         self.landscape = Landscape(N=self.N, state_num=self.state_num)
@@ -148,10 +145,7 @@ class Simulator:
                 raise ValueError("Unsupported cases")
         # before unique, measure the utilization degree; the utilization could include the repeated
         # (to keep the sequence order)
-        ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
-        self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]
-        ave_fitness_list_S = [self.landscape.query_fitness(state=state) for state in self.S_state_pool]
-        self.S_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_S, self.S_state_pool_potential)]
+
         # print("before_average_len: ", len(ave_fitness_list_G), len(ave_fitness_list_S))
         # print("before_potential_len: ", len(self.G_state_pool_potential), len(self.S_state_pool_potential))
         # remove all the operation, because agent could get to convergence
@@ -345,22 +339,38 @@ class Simulator:
                     # once search, agent will update its cog_state, state, cog_fitness; but not for fitness
                     agent.cognitive_local_search()
                 self.create_state_pools()  # <- pool generation  -> there is a mis-match between rank and pool
-                # record the dynamics of state pool or decision surface; for mechanism check
-                self.surface_divergence_G_landscape.append(self.G_state_pool)  # Remove Duplicates
-                self.surface_divergence_S_landscape.append(self.S_state_pool)  # Remove Duplicates
-                self.surface_quality_G_landscape.append(self.G_state_pool_potential)  # with repetition
-                self.surface_quality_S_landscape.append(self.S_state_pool_potential)  # with repetition
-                self.surface_utilization_G_landscape.append(self.G_state_pool_utilization)  # with repetition
-                self.surface_utilization_S_landscape.append(self.S_state_pool_utilization)  # with repetition
             self.tail_recursion()  # This is for information consistency in the Simulator class. For bug control.
             # without tail recursion, the last loop would not update the rank, but its state pool is updated.
             # Thus, the length of state pool and pool rank is unequal. It would be confusing for code review and bug check.
-            # converge and analysis
+        # Only record the surface feature after convergence
         for agent in self.agents:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
-            self.converged_fitness_landscape.append(agent.converged_fitness)
-            self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
+            # agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
+        ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
+        self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]
+        self.G_state_pool_utilization = sum(self.G_state_pool_utilization)/len(self.G_state_pool)
+        ave_fitness_list_S = [self.landscape.query_fitness(state=state) for state in self.S_state_pool]
+        self.S_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_S, self.S_state_pool_potential)]
+        self.S_state_pool_utilization = sum(self.S_state_pool_utilization)/len(self.S_state_pool_utilization)
+        # calculate the pair-wise distance to measure the surface divergence
+        self.G_state_pool_divergence = self.pair_wise_distance(state_pool=self.G_state_pool)
+        self.S_state_pool_divergence = self.pair_wise_distance(state_pool=self.S_state_pool)
+
+    def pair_wise_distance(self, state_pool=None):
+        distance = 0
+        for state in state_pool:
+            distance += sum([self.count_divergence(state, next_) for next_ in state_pool]) / len(state_pool)
+        distance = distance/len(state_pool)
+        return distance
+
+    def count_divergence(self, state_1=None, state_2=None):
+        divergence = 0
+        for i in range(len(state_1)):
+            if state_1[i] != state_2[i]:
+                divergence += 1
+        return divergence
+
 
 
 if __name__ == '__main__':
@@ -386,42 +396,36 @@ if __name__ == '__main__':
                  K=K, k=k, gs_proportion=0.5, knowledge_num=knowledge_num,
                  exposure_type=exposure_type, openness=openness, quality=quality,
                           S_exposed_to_S=S_exposed_to_S, G_exposed_to_G=G_exposed_to_G)
-    simulator.process(socialization_freq=1, footprint=True)
-    # count_GS = 0
-    # count_GG = 0
-    # count_SS = 0
-    # count_SG = 0
-    # count_open_G, count_open_S = 0, 0
-    # for agent in simulator.agents:
-    #     if agent.name == "Generalist":
-    #         if agent.fixed_state_pool == 1:
-    #             count_GS += 1
-    #         else:
-    #             count_GG += 1
-    #         if agent.fixed_openness_flag == 1:
-    #             count_open_G += 1
-    #     else:
-    #         if agent.fixed_state_pool == 1:
-    #             count_SS += 1
-    #         else:
-    #             count_SG += 1
-    #         if agent.fixed_openness_flag == 1:
-    #             count_open_S += 1
-    # print("GG, GS: ", count_GG, count_GS)
-    # print("SS, SG", count_SS, count_SG)
-    # print("Openness G, S: ", count_open_G, count_open_S)
-    # surface_quality_G, surface_quality_S = [], []
-    # for each_qualities in simulator.surface_quality_G_landscape:
-    #     surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
-    # print("surface_quality_G: ", surface_quality_G)
-    # for each_qualities in simulator.surface_quality_S_landscape:
-    #     surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
-    # print("surface_quality_S: ", surface_quality_S)
-    # G_pool = []
-    # for agent in simulator.agents:
-    #     if agent.name == "Generalist":
-    #         G_pool.append(agent.generalist_knowledge_domain)
-    # G_pool = list(set(["".join(each) for each in G_pool]))
-    # print(G_pool)
+    simulator.process(socialization_freq=1, footprint=False)
+    count_GS = 0
+    count_GG = 0
+    count_SS = 0
+    count_SG = 0
+    count_open_G, count_open_S = 0, 0
+    for agent in simulator.agents:
+        if agent.name == "Generalist":
+            if agent.fixed_state_pool == 1:
+                count_GS += 1
+            else:
+                count_GG += 1
+            if agent.fixed_openness_flag == 1:
+                count_open_G += 1
+        else:
+            if agent.fixed_state_pool == 1:
+                count_SS += 1
+            else:
+                count_SG += 1
+            if agent.fixed_openness_flag == 1:
+                count_open_S += 1
+    print("GG, GS: ", count_GG, count_GS)
+    print("SS, SG", count_SS, count_SG)
+    print("Openness G, S: ", count_open_G, count_open_S)
+    surface_quality_G, surface_quality_S = [], []
+    for each_qualities in simulator.surface_quality_G_landscape:
+        surface_quality_G.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_G: ", surface_quality_G)
+    for each_qualities in simulator.surface_quality_S_landscape:
+        surface_quality_S.append(np.mean(np.array(each_qualities, dtype=object), axis=0))
+    print("surface_quality_S: ", surface_quality_S)
     print("END")
 
