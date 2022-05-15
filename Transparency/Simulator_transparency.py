@@ -31,9 +31,9 @@ class Simulator:
         self.G_state_pool_potential = []  # to measured the surface quality, measured when agent share
         self.S_state_pool_potential = []
         # Surface utilization
-        self.whole_state_pool_utilization = []
-        self.G_state_pool_utilization = []  # measured by the (true_fitness / max_potential)
-        self.S_state_pool_utilization = []
+        self.whole_state_pool_utilization = 0
+        self.G_state_pool_utilization = 0  # measured by the (true_fitness / max_potential)
+        self.S_state_pool_utilization = 0
         # Pool rank is for exposure likelihood
         self.whole_state_pool_rank = []  # only use the list instead of dict
         self.G_state_pool_rank = []  # and we keep the order consistent with state pool list
@@ -347,15 +347,20 @@ class Simulator:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
             # agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
-        ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
-        self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]
-        self.G_state_pool_utilization = sum(self.G_state_pool_utilization)/len(self.G_state_pool)
-        ave_fitness_list_S = [self.landscape.query_fitness(state=state) for state in self.S_state_pool]
-        self.S_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_S, self.S_state_pool_potential)]
-        self.S_state_pool_utilization = sum(self.S_state_pool_utilization)/len(self.S_state_pool_utilization)
+        if self.gs_proportion != 0:  # all the S, len(G_pool) = 0 and cannot be divided.
+            ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
+            self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]
+            self.G_state_pool_utilization = sum(self.G_state_pool_utilization)/len(self.G_state_pool)
+        if self.gs_proportion != 1:  # all the G, len(S_pool) = 0 and cannot be divided.
+            ave_fitness_list_S = [self.landscape.query_fitness(state=state) for state in self.S_state_pool]
+            self.S_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_S, self.S_state_pool_potential)]
+            self.S_state_pool_utilization = sum(self.S_state_pool_utilization)/len(self.S_state_pool_utilization)
+
         # calculate the pair-wise distance to measure the surface divergence
-        self.G_state_pool_divergence = self.pair_wise_distance(state_pool=self.G_state_pool)
-        self.S_state_pool_divergence = self.pair_wise_distance(state_pool=self.S_state_pool)
+        if self.gs_proportion != 0:
+            self.G_state_pool_divergence = self.pair_wise_distance(state_pool=self.G_state_pool)
+        if self.gs_proportion != 1:
+            self.S_state_pool_divergence = self.pair_wise_distance(state_pool=self.S_state_pool)
 
     def pair_wise_distance(self, state_pool=None):
         distance = 0

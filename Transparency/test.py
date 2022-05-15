@@ -198,11 +198,11 @@ temp = None
 
 
 
-# file = r'C:\Python_Workplace\hpc-0126\nk\Factor\5IM_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
-# with open(file, 'rb') as in_file:
-#     IM = pickle.load(in_file)
-# # for each in np.array(IM):
-# #     print(each)
+file = r'C:\Python_Workplace\hpc-0515\Experiments_V3\Composition\1Average_N9_K4_E12_Self-interested_SS0.5_GG0.5_F1_Prop0.25_Q1.0_O1.0_'
+with open(file, 'rb') as in_file:
+    IM = pickle.load(in_file)
+    for each in np.array(IM):
+        print(each)
 # file = r'C:\Python_Workplace\hpc-0126\nk\Factor\6Knowledge_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
 # with open(file, 'rb') as in_file:
 #     knowledge_domain = pickle.load(in_file)
@@ -407,8 +407,10 @@ temp = None
 # res = hamming_distance_v2(a="010", b="111")
 # print(res)
 
-test = np.array([[1,2,3], [1,2,3]])
-max_ = np.max(test, axis=1)
-print(max_)
-mean_ = np.mean(max_, axis=0)
-print(mean_)
+# test = np.array([[1,2,3], [1,2,3]])
+# max_ = np.max(test, axis=1)
+# print(max_)
+# mean_ = np.mean(max_, axis=0)
+# print(mean_)
+
+# 3DivergenceG_N9_K2_E12_Self-interested_SS0.5_GG0.5_F1_Prop0.25_Q1.0_O1.0_
