@@ -198,11 +198,14 @@ temp = None
 
 
 
-file = r'C:\Python_Workplace\hpc-0515\Experiments_V3\Composition\1Average_N9_K4_E12_Self-interested_SS0.5_GG0.5_F1_Prop0.25_Q1.0_O1.0_'
+file = r'C:\Python_Workplace\hpc-0522\Experiments_V3\Direction\1Average_N9_K2_E12_Self-interested_SS0.5_GG0.75_F1_Prop0.5_Q1.0_O1.0_'
 with open(file, 'rb') as in_file:
     IM = pickle.load(in_file)
     for each in np.array(IM):
         print(each)
+print(len(IM))
+# print(sum(IM)/len(IM))
+# print(sum([sum(each) for each in IM]) / len(IM) / len(IM[0]))
 # file = r'C:\Python_Workplace\hpc-0126\nk\Factor\6Knowledge_Generalist_Factor Directed_N10_K0_k44_E20_G10_S0'
 # with open(file, 'rb') as in_file:
 #     knowledge_domain = pickle.load(in_file)

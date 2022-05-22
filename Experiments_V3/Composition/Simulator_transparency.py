@@ -347,6 +347,8 @@ class Simulator:
             agent.converged_fitness = self.landscape.query_fitness(state=agent.state)
             agent.converged_fitness_rank = self.landscape.fitness_to_rank_dict[agent.converged_fitness]
             # agent.potential_fitness = self.landscape.query_potential_fitness(cog_state=agent.cog_state, top=1)
+            self.converged_fitness_landscape.append(agent.converged_fitness)
+            self.converged_fitness_rank_landscape.append(agent.converged_fitness_rank)
         if self.gs_proportion != 0:  # all the S, len(G_pool) = 0 and cannot be divided.
             ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
             self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]

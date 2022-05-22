@@ -11,5 +11,5 @@ source /etc/profile.d/rec_modules.sh
 module load miniconda
 bash
 . ~/.bashrc
-conda activate my_conda_env_name
+conda activate /home/svu/e0546117/.conda/miniconda/4.9/envs/my_conda_env
 python Run_population.py

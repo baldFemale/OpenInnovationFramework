@@ -1,0 +1,8 @@
+In this version, the G representation goes back to [A, B] system
+The outcome variables are limited within Average and Maximum fitness
+The IVs are limited within Composition, Openness, and Quality
+The Direction dimension is moved into the mechanism check experiments. And we only consider three extreme case: GG, SS, GS, SG
+To enable the mechanism of surface reinforcement, we add more surface-related variables, including the surface divergence, surface quality, surface utilization
+
+The simulation configuration is adjusted into more Landscape iteration and less agent number.
+
