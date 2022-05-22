@@ -1,9 +1,9 @@
 #!/bin/bash
 #PBS -P nk
 #PBS -j oe
-#PBS -N N9_Direction
+#PBS -N N9_Direction_CV
 #PBS -q parallel20
-#PBS -l select=1:ncpus=20:mem=100gb
+#PBS -l select=1:ncpus=20:mem=180gb
 #PBS -l walltime=240:00:00
 cd $PBS_O_WORKDIR;
 np=$(cat ${PBS_NODEFILE} | wc -l);

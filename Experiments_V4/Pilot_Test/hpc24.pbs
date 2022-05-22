@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -P nk
 #PBS -j oe
-#PBS -N N9_Direction_CC
+#PBS -N Pilot_Test
 #PBS -q parallel24
-#PBS -l select=1:ncpus=24:mem=180gb
-#PBS -l walltime=240:00:00
+#PBS -l select=1:ncpus=24:mem=20gb
+#PBS -l walltime=10:00:00
 cd $PBS_O_WORKDIR;
 np=$(cat ${PBS_NODEFILE} | wc -l);
 source /etc/profile.d/rec_modules.sh
