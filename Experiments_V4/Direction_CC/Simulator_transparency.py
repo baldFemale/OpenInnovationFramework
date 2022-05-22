@@ -352,11 +352,11 @@ class Simulator:
         if self.gs_proportion != 0:  # all the S, len(G_pool) = 0 and cannot be divided.
             ave_fitness_list_G = [self.landscape.query_fitness(state=state) for state in self.G_state_pool]
             self.G_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_G, self.G_state_pool_potential)]
-            self.G_state_pool_utilization = sum(self.G_state_pool_utilization)/len(self.G_state_pool)
+            self.G_state_pool_utilization = sum(self.G_state_pool_utilization)/(len(self.G_state_pool) + 1)
         if self.gs_proportion != 1:  # all the G, len(S_pool) = 0 and cannot be divided.
             ave_fitness_list_S = [self.landscape.query_fitness(state=state) for state in self.S_state_pool]
             self.S_state_pool_utilization = [ave/potential for ave, potential in zip(ave_fitness_list_S, self.S_state_pool_potential)]
-            self.S_state_pool_utilization = sum(self.S_state_pool_utilization)/len(self.S_state_pool_utilization)
+            self.S_state_pool_utilization = sum(self.S_state_pool_utilization)/(len(self.S_state_pool_utilization) + 1)
 
         # calculate the pair-wise distance to measure the surface divergence
         if self.gs_proportion != 0:
@@ -367,8 +367,8 @@ class Simulator:
     def pair_wise_distance(self, state_pool=None):
         distance = 0
         for state in state_pool:
-            distance += sum([self.count_divergence(state, next_) for next_ in state_pool]) / len(state_pool)
-        distance = distance/len(state_pool)
+            distance += sum([self.count_divergence(state, next_) for next_ in state_pool]) / (len(state_pool) + 1)
+        distance = distance / (len(state_pool) + 1)
         return distance
 
     def count_divergence(self, state_1=None, state_2=None):

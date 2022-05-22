@@ -18,11 +18,11 @@ N = 9
 state_num = 4
 knowledge_num = 12
 K_list = [2, 4, 6, 8]
-frequency_list = [1]
-openness_list = [0, 0.25, 0.5, 0.75, 1.0]
+frequency_list = [0, 5, 10, 20]
+openness_list = [1.0]
 quality_list = [1.0]
-G_exposed_to_G_list = [0.5]
-S_exposed_to_S_list = [0.5]
+G_exposed_to_G_list = [0, 0.5, 1.0]
+S_exposed_to_S_list = [0, 0.5, 1.0]
 gs_proportion_list = [0, 0.25, 0.5, 0.75, 1.0]
 exposure_type_list = ["Self-interested"]
 
