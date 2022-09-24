@@ -10,6 +10,7 @@ import os
 import re
 import scipy
 
+
 class Evaluator:
     def __init__(self, title=None, data_path='', output_path=''):
         if not title:
