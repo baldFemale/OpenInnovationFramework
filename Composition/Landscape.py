@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from collections import defaultdict
 from itertools import product
 import numpy as np
@@ -12,7 +13,7 @@ class Landscape:
         self.k = None
         self.IM_type = None
         self.state_num = state_num
-        self.IM, self.dependency_map = np.eye(self.N, dtype=int), [[]]*self.N  # [[]] & {int:[]}
+        self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
@@ -148,7 +149,7 @@ class Landscape:
         for i in range(len(state)):
             dependency = self.dependency_map[i]
             bin_index = "".join([str(state[j]) for j in dependency])
-            bin_index = str(state[i]) + bin_index  # add the first element
+            bin_index = str(state[i]) + bin_index
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
         return np.mean(res)
@@ -188,40 +189,45 @@ class Landscape:
 
     def query_fitness(self, state):
         """
-        Query the average fitness from the landscape cache for *intact* decision string
+        Query the accurate fitness from the landscape cache for *intact* decision string
+        *intact* means there only [0,1,2,3] without any ["A", "B", "*"] masking.
         """
         bits = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bits]
 
     def query_cog_fitness(self, cog_state=None):
+        """
+        Query the cognitive (average) fitness given a cognitive state
+                For S domain, there is only one alternative, so it follows the default search
+                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
+        :param cog_state: the cognitive state
+        :return: the average across the alternative pool.
+        """
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
-        cog_fitness = sum(fitness_pool)/len(alternatives)
+        cog_fitness = sum(fitness_pool) / len(alternatives)
         self.cog_cache[cog_state_string] = cog_fitness
         return cog_fitness
 
-    def query_potential_fitness(self, cog_state=None, top=1):
+    def query_potential_performance(self, cog_state=None, top=1):
+        """
+        Query the potential (max be default) given a cognitive position
+        :param cog_state: the cognitive state list
+        :param top: take the maximum by default
+        :return: the potential fitness, measured by the rank
+         (e.g., 1 refers to this position have a potential to reach the global maximum)
+        """
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.potential_cache.keys():
             return self.potential_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         position_potential = sorted(fitness_pool)[-top]
-        self.potential_cache[cog_state_string] = position_potential
-        return position_potential
-
-    def query_potential_fitness_rank(self, cog_state=None, top=1):
-        cog_state_string = ''.join([str(i) for i in cog_state])
-        if cog_state_string in self.potential_cache.keys():
-            position_potential = self.potential_cache[cog_state_string]
-        else:
-            alternatives = self.cog_state_alternatives(cog_state=cog_state)
-            fitness_pool = [self.query_fitness(each) for each in alternatives]
-            position_potential = sorted(fitness_pool)[-top]
         position_potential_rank = self.fitness_to_rank_dict[position_potential]
+        self.potential_cache[cog_state_string] = position_potential_rank
         return position_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):
@@ -254,4 +260,7 @@ if __name__ == '__main__':
     cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     a = landscape.query_cog_fitness(cog_state)
     print(a)
+    cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
+    b = landscape.cog_state_alternatives(cog_state=cog_state)
+    print(b)
 
