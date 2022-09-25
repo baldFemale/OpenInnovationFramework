@@ -17,64 +17,51 @@ class Generalist:
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
         self.generalist_knowledge_representation = ["A", "B"]
-        self.expertise_domain = np.random.choice(range(self.N), expertise_amount / 2).tolist()
-        self.cog_state = self.state_2_cog_state()
-        self.cog_fitness = None
+        self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.fitness = None
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
+        if expertise_amount % 2 != 0:
+            raise ValueError("Expertise amount needs to be a even number")
+        if expertise_amount > self.N * 2:
+            raise ValueError("Expertise amount should be less than {0}.".format(self.N * 2))
 
-    def leaning_from_exposure(self, pool=None):
-        pass
+    def learn(self, pool=None):
+        exposure_state = np.random.choice(pool)
+        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        if cog_fitness_of_exposure_state > self.cog_fitness:
+            self.cog_state = cog_exposure_state
+            self.cog_fitness = cog_fitness_of_exposure_state
 
-    def cognitive_local_search(self):
-        """
-        The core of this model where we define a consistent cognitive search framework for G/S role
-        The Generalist domain follows the average pooling search
-        The Specialist domain follows the mindset search
-        There is a final random mapping after cognitive convergence, to map a vague state into a definite state
-        """
-        if len(self.decision_space) == 0:
-            raise ValueError("Haven't initialize the decision space; Need to run type() function first")
-        next_step = random.choice(self.freedom_space)
-        updated_index, updated_value = next_step[0], next_step[1]  # both are string
-        if updated_index in self.generalist_domain:
-            next_cog_state = self.cog_state.copy()
-            next_cog_state[int(updated_index)] = updated_value
-            current_cog_fitness = self.landscape.query_cog_fitness(self.cog_state)
-            next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state)
-            if next_cog_fitness > current_cog_fitness:
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                # add the mapping during the search because we need the imitation
-                self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
-                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
-                self.update_freedom_space()  # whenever state change, freedom space need to be changed
-        elif updated_index in self.specialist_domain:
-            cur_cog_state_with_default = self.cog_state.copy()
-            next_cog_state = self.cog_state.copy()
-            next_cog_state[int(updated_index)] = updated_value
-            next_cog_state_with_default = next_cog_state.copy()
-            # replace the * with default value, that is, mindset
-            for default_mindset in self.default_elements_in_unknown_domain:
-                # default_mindset "32" refers to "2" in location "3"
-                cur_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
-                next_cog_state_with_default[int(default_mindset[0])] = default_mindset[1]
-            current_cog_fitness = self.landscape.query_cog_fitness(cur_cog_state_with_default)
-            next_cog_fitness = self.landscape.query_cog_fitness(next_cog_state_with_default)
-            if next_cog_fitness > current_cog_fitness:
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.state = self.change_cog_state_to_state(cog_state=self.cog_state)
-                self.potential_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
-                self.update_freedom_space()  # whenever state change, freedom space need to be changed
-            else:
-                self.cog_fitness = current_cog_fitness
+    def search(self):
+        next_cog_state = self.cog_state.copy()
+        index = np.random.choice(self.expertise_domain)
+        if next_cog_state[index] == "A":
+            next_cog_state[index] = "B"
         else:
-            raise ValueError("The picked next step go outside of G/S knowledge domain")
+            next_cog_state[index] = "A"
+        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+
+    def distant_jump(self):
+        distant_state = np.random.choice(range(self.state_num), self.N).tolist()
+        distant_state = [str(i) for i in distant_state]
+        cog_distant_state = self.state_2_cog_state(state=distant_state)
+        cog_fitness_of_distant_state = self.landscape.query_cog_fitness(cog_state=cog_distant_state)
+        if cog_fitness_of_distant_state > self.cog_fitness:
+            self.cog_state = cog_distant_state
+            self.cog_fitness = cog_fitness_of_distant_state
+            return True
+        else:
+            return False
 
     def state_2_cog_state(self, state=None):
         cog_state = self.state.copy()
@@ -119,15 +106,17 @@ if __name__ == '__main__':
     landscape = Landscape(N=8, state_num=4)
     landscape.type(IM_type="Factor Directed", K=0, k=42)
     landscape.initialize()
-
-    agent = Agent(N=8, landscape=landscape, state_num=4)
-    agent.type(name="T shape", generalist_num=1, specialist_num=7)
-    agent.describe()
-    for _ in range(100):
-        agent.cognitive_local_search()
-    agent.state = agent.change_cog_state_to_state(cog_state=agent.cog_state)
-    agent.converged_fitness = agent.landscape.query_fitness(state=agent.state)
-    agent.describe()
+    generalist = Generalist(N=8, landscape=landscape, state_num=4, expertise_amount=16)
+    jump_count = 0
+    for _ in range(1000):
+        generalist.search()
+        if generalist.distant_jump():
+            jump_count += 1
+        # print(generalist.cog_fitness)
+    print("jump_count: ", jump_count)
+    generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
+    generalist.fitness = landscape.query_fitness(state=generalist.state)
+    generalist.describe()
     print("END")
 
 # does this search space or freedom space is too small and easy to memory for individuals??
