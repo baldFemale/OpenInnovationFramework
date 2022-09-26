@@ -17,10 +17,12 @@ class Specialist:
         self.landscape = landscape
         self.N = N
         self.state_num = state_num
+        self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 4, replace=False).tolist()
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
-        self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 4, replace=False).tolist()
-        self.fitness = self.landscape.query_fitness(state=self.state)
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.fitness = None
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -33,18 +35,18 @@ class Specialist:
 
     def learn(self, pool=None):
         exposure_state = np.random.choice(pool)
-        exposure_fitness = self.landscape.query_fitness(state=exposure_state)
-        if exposure_fitness > self.fitness:
-            self.state = exposure_state
-            self.fitness = exposure_fitness
+        exposure_cog_state = self.state_2_cog_state(state=exposure_state)
+        exposure_cog_fitness = self.landscape.query_cog_fitness(cog_state=exposure_cog_state)
+        if exposure_cog_fitness > self.cog_fitness:
+            self.cog_state = exposure_cog_state
+            self.cog_fitness = exposure_cog_fitness
 
     def search(self):
         next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)
-        if next_cog_state[index] == "A":
-            next_cog_state[index] = "B"
-        else:
-            next_cog_state[index] = "A"
+        space = ["0", "1", "2", "3"]
+        space.remove(self.state[index])
+        next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
@@ -53,69 +55,53 @@ class Specialist:
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
         distant_state = [str(i) for i in distant_state]
-        cog_distant_state = self.state_2_cog_state(state=distant_state)
-        cog_fitness_of_distant_state = self.landscape.query_cog_fitness(cog_state=cog_distant_state)
-        if cog_fitness_of_distant_state > self.cog_fitness:
-            self.cog_state = cog_distant_state
-            self.cog_fitness = cog_fitness_of_distant_state
+        distant_cog_state = self.state_2_cog_state(state=distant_state)
+        distant_cog_fitness = self.landscape.query_cog_fitness(cog_state=distant_cog_state)
+        if distant_cog_fitness > self.cog_fitness:
+            self.cog_state = distant_cog_state
+            self.cog_fitness = distant_cog_fitness
             return True
         else:
             return False
 
     def state_2_cog_state(self, state=None):
-        cog_state = self.state.copy()
-        for index, bit_value in enumerate(state):
-            if index in self.expertise_domain:
-                if bit_value in ["0", "1"]:
-                    cog_state[index] = "A"
-                elif bit_value in ["2", "3"]:
-                    cog_state[index] = "B"
-                else:
-                    raise ValueError("Only support for state number = 4")
-            else:
-                cog_state[index] = "*"
-        return cog_state
+        cog_state = state.copy()
+        return ["*" if index not in self.expertise_domain else bit for index, bit in enumerate(cog_state)]
 
     def cog_state_2_state(self, cog_state=None):
         state = cog_state.copy()
-        for index, bit_value in enumerate(cog_state):
-            if index not in self.expertise_domain:
-                state[index] = str(random.choice(range(self.state_num)))
-            else:
-                if bit_value == "A":
-                    state[index] = random.choice(["0", "1"])
-                elif bit_value == "B":
-                    state[index] = random.choice(["2", "3"])
-                else:
-                    raise ValueError("Unsupported state element: ", bit_value)
-        return state
+        return [np.random.choice(["0", "1", "2", "3"]) if bit == "*" else bit for bit in state]
 
     def describe(self):
         print("N: ", self.N)
         print("State number: ", self.state_num)
-        print("Current state list: ", self.state)
-        print("Current cognitive state list: ", self.cog_state)
-        print("Current cognitive fitness: ", self.cog_fitness)
+        print("Current state: ", self.state)
+        print("Current cognitive state: ", self.cog_state)
         print("Converged fitness: ", self.fitness)
+        print("Current cognitive fitness: ", self.cog_fitness)
         print("Expertise domain: ", self.expertise_domain)
 
 
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=8, state_num=4)
-    landscape.type(IM_type="Factor Directed", K=0, k=42)
+    landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
-    generalist = Generalist(N=8, landscape=landscape, state_num=4, expertise_amount=16)
+    specialist = Specialist(N=8, landscape=landscape, state_num=4, expertise_amount=16)
+    # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
+    # cog_state = specialist.state_2_cog_state(state=state)
+    # specialist.describe()
+    # print(cog_state)
     jump_count = 0
     for _ in range(1000):
-        generalist.search()
-        if generalist.distant_jump():
+        specialist.search()
+        if specialist.distant_jump():
             jump_count += 1
         # print(generalist.cog_fitness)
     print("jump_count: ", jump_count)
-    generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
-    generalist.fitness = landscape.query_fitness(state=generalist.state)
-    generalist.describe()
+    specialist.state = specialist.cog_state_2_state(cog_state=specialist.cog_state)
+    specialist.fitness = landscape.query_fitness(state=specialist.state)
+    specialist.describe()
     print("END")
 
 # does this search space or freedom space is too small and easy to memory for individuals??

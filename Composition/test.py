@@ -6,6 +6,6 @@
 # Observing PEP 8 coding style
 import numpy as np
 
-
-x = np.random.choice(range(4), 10).tolist()
-print(x)
+state = ["0", "1", "2", "3", "*"]
+state.remove("0")
+print(state)
