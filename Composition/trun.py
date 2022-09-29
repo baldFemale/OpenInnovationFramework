@@ -75,8 +75,8 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     # expertise_amount = 12
-    generalist_expertise = 4
-    specialist_expertise = 1
+    generalist_expertise = 8
+    specialist_expertise = 4
     K_list = [2, 4, 6, 8]
     performance_across_K = []
     jump_count_across_K = []
