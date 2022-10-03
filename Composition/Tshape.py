@@ -119,23 +119,33 @@ if __name__ == '__main__':
     landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
     t_shape = Tshape(N=8, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
-    jump_count = 0
-    for _ in range(1000):
+    # jump_count = 0
+    # for _ in range(1000):
+    #     t_shape.search()
+    #     if t_shape.distant_jump():
+    #         jump_count += 1
+    #     # print(generalist.cog_fitness)
+    # print("jump_count: ", jump_count)
+    # t_shape.state = t_shape.cog_state_2_state(cog_state=t_shape.cog_state)
+    # t_shape.fitness = landscape.query_fitness(state=t_shape.state)
+    # t_shape.describe()
+    # print("END")
+
+    # Test for the search rounds upper boundary
+    cog_performance_across_time = []
+    for _ in range(100):
         t_shape.search()
-        if t_shape.distant_jump():
-            jump_count += 1
-        # print(generalist.cog_fitness)
-    print("jump_count: ", jump_count)
+        t_shape.distant_jump()
+        cog_performance_across_time.append(t_shape.cog_fitness)
     t_shape.state = t_shape.cog_state_2_state(cog_state=t_shape.cog_state)
     t_shape.fitness = landscape.query_fitness(state=t_shape.state)
-    t_shape.describe()
-    print("END")
-
-# does this search space or freedom space is too small and easy to memory for individuals??
-# because if we limit their knowledge, their search space is also limited.
-# Compared to the original setting of full-known knowledge, their search space is limited.
-# Thus, we can increase the knowledge number to make it comparable to the original full-knowledge setting.
-# [0, 0, 1, 3, 3, 3, 2, 0, 1, 0]
-# [2, 1, 1, 1, 3, 3, 0, 3, 1, 0]
-
-
+    print(t_shape.fitness, t_shape.cog_fitness)
+    import matplotlib.pyplot as plt
+    x = range(100)
+    plt.plot(x, cog_performance_across_time, "r-", label="G")
+    # plt.title('Diversity Decrease')
+    plt.xlabel('Time', fontweight='bold', fontsize=10)
+    plt.ylabel('Performance', fontweight='bold', fontsize=10)
+    plt.legend(frameon=False, ncol=3, fontsize=10)
+    # plt.savefig("GST_performance_K.png", transparent=True, dpi=1200)
+    plt.show()

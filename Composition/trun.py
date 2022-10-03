@@ -6,6 +6,7 @@
 # Observing PEP 8 coding style
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 from Tshape import Tshape
 from Landscape import Landscape
 import multiprocessing as mp
@@ -38,7 +39,8 @@ def func_2(N=None, K=None, state_num=None, generalist_expertise=None, specialist
         performance_across_agent.append(agent.fitness)
     performance_average = sum(performance_across_agent) / len(performance_across_agent)
     jump_average = sum(jump_count_across_agent) / len(jump_count_across_agent)
-    return_dict[loop] = [performance_average, jump_average]
+    performance_deviation = np.std(performance_across_agent)
+    return_dict[loop] = [performance_average, jump_average, performance_deviation]
     sema.release()
 
 
@@ -72,14 +74,15 @@ if __name__ == '__main__':
     landscape_iteration = 200
     agent_num = 200
     search_iteration = 100
-    N = 9
+    N = 6
     state_num = 4
     # expertise_amount = 12
-    generalist_expertise = 8
+    generalist_expertise = 4
     specialist_expertise = 4
-    K_list = [2, 4, 6, 8]
+    K_list = [1, 2, 3, 4, 5]
     performance_across_K = []
     jump_count_across_K = []
+    deviation_across_K = []
     concurrency = 20
     sema = Semaphore(concurrency)
     for K in K_list:
@@ -97,13 +100,18 @@ if __name__ == '__main__':
         performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
         result_1 = [result[0] for result in performance_across_landscape]  # performance
         result_2 = [result[1] for result in performance_across_landscape]  # jump count
+        result_3 = [result[2] for result in performance_across_landscape]  # deviation
         result_1 = sum(result_1) / len(result_1)
         result_2 = sum(result_2) / len(result_2)
+        result_3 = sum(result_3) / len(result_3)
         performance_across_K.append(result_1)
         jump_count_across_K.append(result_2)
+        deviation_across_K.append(result_3)
     with open("t_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
     with open("t_jump_across_K", 'wb') as out_file:
         pickle.dump(jump_count_across_K, out_file)
+    with open("t_deviation_across_K", 'wb') as out_file:
+        pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
