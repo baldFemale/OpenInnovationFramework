@@ -247,12 +247,6 @@ class Landscape:
             raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
 
-    def generate_divergence_pool(self, divergence=None):
-        pass
-
-    def generate_quality_pool(self, quality=None):
-        pass
-
 
 if __name__ == '__main__':
     # Test Example
