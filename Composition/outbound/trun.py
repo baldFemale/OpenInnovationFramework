@@ -88,7 +88,7 @@ if __name__ == '__main__':
     sema = Semaphore(concurrency)
     for K in K_list:
         temp_1, temp_2, temp_3 = [], [], []
-        for _ in range(5):
+        for _ in range(10):
             manager = mp.Manager()
             return_dict = manager.dict()
             jobs = []

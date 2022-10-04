@@ -79,7 +79,8 @@ class Tshape:
         cog_state = self.state.copy()
         for index, bit_value in enumerate(state):
             if index not in self.expertise_domain:
-                cog_state[index] = "*"
+                pass  # remove the ambiguity
+                # cog_state[index] = "*"
             elif index in self.generalist_domain:
                 if bit_value in ["0", "1"]:
                     cog_state[index] = "A"
@@ -87,6 +88,7 @@ class Tshape:
                     cog_state[index] = "B"
                 else:
                     raise ValueError("Only support for state number = 4")
+            else:pass  # specialist_domain
         return cog_state
 
     def cog_state_2_state(self, cog_state=None):
