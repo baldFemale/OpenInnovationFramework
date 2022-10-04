@@ -190,7 +190,7 @@ class Landscape:
     def query_fitness(self, state):
         """
         Query the accurate fitness from the landscape cache for *intact* decision string
-        *intact* means there only [0,1,2,3] without any ["A", "B", "*"] masking.
+        *intact* means there is only [0,1,2,3] without any ["A", "B", "*"] ambiguity.
         """
         bits = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bits]
@@ -231,6 +231,11 @@ class Landscape:
         return position_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):
+        """
+        Generate all possible alternatives from a given cognitive state (ambiguity)
+        :param cog_state: cognitive state
+        :return: alternative state list
+        """
         alternative_pool = []
         for bit in cog_state:
             if bit in ["0", "1", "2", "3"]:
