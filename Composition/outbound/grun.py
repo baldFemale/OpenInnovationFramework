@@ -14,6 +14,7 @@ import time
 from multiprocessing import Pool
 from multiprocessing import Semaphore
 import pickle
+import math
 
 
 # mp version
@@ -75,10 +76,10 @@ if __name__ == '__main__':
             performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
             temp_1 += [result[0] for result in performance_across_landscape]  # performance
             temp_2 += [result[1] for result in performance_across_landscape]  # jump count
-            temp_3 += [result[2] for result in performance_across_landscape]  # deviation
+            temp_3 += [result[2] ** 2 for result in performance_across_landscape]  # deviation has a formula to take average
         result_1 = sum(temp_1) / len(temp_1)
         result_2 = sum(temp_2) / len(temp_2)
-        result_3 = sum(temp_3) / len(temp_3)
+        result_3 = math.sqrt(sum(temp_3) / len(temp_3))
         performance_across_K.append(result_1)
         jump_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
