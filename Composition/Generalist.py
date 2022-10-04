@@ -74,14 +74,15 @@ class Generalist:
                 else:
                     raise ValueError("Only support for state number = 4")
             else:
-                cog_state[index] = "*"
+                pass  # remove the ambiguity in the unknown domain-> mindset or untunable domain
         return cog_state
 
     def cog_state_2_state(self, cog_state=None):
         state = cog_state.copy()
         for index, bit_value in enumerate(cog_state):
             if index not in self.expertise_domain:
-                state[index] = str(random.choice(range(self.state_num)))
+                pass  # remove the ambiguity in the unknown domain
+                # state[index] = str(random.choice(range(self.state_num)))
             else:
                 if bit_value == "A":
                     state[index] = random.choice(["0", "1"])

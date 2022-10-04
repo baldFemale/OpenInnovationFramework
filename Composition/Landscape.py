@@ -325,10 +325,9 @@ if __name__ == '__main__':
     # print(len(state_pool))
 
     # Test the quality generation
-    state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
-    for state in state_pool:
-        print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+    # state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
+    # for state in state_pool:
+    #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
 
     # print(state_pool)
     # print(len(state_pool))
-
