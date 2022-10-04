@@ -72,8 +72,8 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
-    agent_num = 200
+    landscape_iteration = 200
+    agent_num = 400
     search_iteration = 100
     N = 6
     state_num = 4
@@ -88,20 +88,22 @@ if __name__ == '__main__':
         manager = mp.Manager()
         return_dict = manager.dict()
         jobs = []
-        for loop in range(landscape_iteration):
-            sema.acquire()  # !!!!!!!!!!!!!!!!!!!!!!
-            p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
-            jobs.append(p)
-            p.start()
-        for proc in jobs:
-            proc.join()
-        performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
-        result_1 = [result[0] for result in performance_across_landscape]  # performance
-        result_2 = [result[1] for result in performance_across_landscape]  # jump count
-        result_3 = [result[2] for result in performance_across_landscape]  # deviation
-        result_1 = sum(result_1) / len(result_1)
-        result_2 = sum(result_2) / len(result_2)
-        result_3 = sum(result_3) / len(result_3)
+        temp_1, temp_2, temp_3 = [], [], []
+        for _ in range(5):
+            for loop in range(landscape_iteration):
+                sema.acquire()  # !!!!!!!!!!!!!!!!!!!!!!
+                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
+                jobs.append(p)
+                p.start()
+            for proc in jobs:
+                proc.join()
+            performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
+            temp_1 += [result[0] for result in performance_across_landscape]  # performance
+            temp_2 += [result[1] for result in performance_across_landscape]  # jump count
+            temp_3 += [result[2] for result in performance_across_landscape]  # deviation
+        result_1 = sum(temp_1) / len(temp_1)
+        result_2 = sum(temp_2) / len(temp_2)
+        result_3 = sum(temp_3) / len(temp_3)
         performance_across_K.append(result_1)
         jump_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
