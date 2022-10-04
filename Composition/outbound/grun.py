@@ -57,14 +57,14 @@ if __name__ == '__main__':
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
-    concurrency = 20
+    concurrency = 24
     sema = Semaphore(concurrency)
     for K in K_list:
-        manager = mp.Manager()
-        return_dict = manager.dict()
-        jobs = []
         temp_1, temp_2, temp_3 = [], [], []
         for _ in range(5):
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
                 p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
