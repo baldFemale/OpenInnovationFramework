@@ -39,7 +39,7 @@ class Tshape:
             raise ValueError("The expertise domain should not be greater than N")
 
     def learn(self, pool=None):
-        exposure_state = np.random.choice(pool)
+        exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
         cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
         if cog_fitness_of_exposure_state > self.cog_fitness:

@@ -33,13 +33,15 @@ class Specialist:
         if expertise_amount > self.N * 4:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
 
-    def learn(self, pool=None):
+    def learn_from_pool(self, pool=None):
         exposure_state = np.random.choice(pool)
-        exposure_cog_state = self.state_2_cog_state(state=exposure_state)
-        exposure_cog_fitness = self.landscape.query_cog_fitness(cog_state=exposure_cog_state)
-        if exposure_cog_fitness > self.cog_fitness:
-            self.cog_state = exposure_cog_state
-            self.cog_fitness = exposure_cog_fitness
+        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        if cog_fitness_of_exposure_state > self.cog_fitness:
+            self.cog_state = cog_exposure_state
+            self.cog_fitness = cog_fitness_of_exposure_state
+            return True
+        return False
 
     def search(self):
         next_cog_state = self.cog_state.copy()
@@ -68,11 +70,12 @@ class Specialist:
     def state_2_cog_state(self, state=None):
         return state
         # cog_state = state.copy()
-        # return ["*" if index not in self.expertise_domain else bit for index, bit in enumerate(cog_state)]
+        # return [bit for bit in cog_state]
 
     def cog_state_2_state(self, cog_state=None):
-        state = cog_state.copy()
-        return [np.random.choice(["0", "1", "2", "3"]) if bit == "*" else bit for bit in state]
+        # state = cog_state.copy()
+        # return [np.random.choice(["0", "1", "2", "3"]) if bit == "*" else bit for bit in state]
+        return cog_state
 
     def describe(self):
         print("N: ", self.N)
@@ -95,10 +98,10 @@ if __name__ == '__main__':
     # specialist.describe()
     # print(cog_state)
     jump_count = 0
-    for _ in range(1000):
+    for _ in range(100):
         specialist.search()
-        if specialist.distant_jump():
-            jump_count += 1
+        # if specialist.distant_jump():
+        #     jump_count += 1
         # print(generalist.cog_fitness)
     print("jump_count: ", jump_count)
     specialist.state = specialist.cog_state_2_state(cog_state=specialist.cog_state)

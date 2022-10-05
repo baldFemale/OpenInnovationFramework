@@ -300,7 +300,9 @@ class Landscape:
         for state, rank in self.state_to_rank_dict.items():
             if abs(rank - reference) / (self.N ** self.state_num) <= 0.05:
                 alternative_state_pool.append(state)
-        return np.random.choice(alternative_state_pool, 18, replace=False)
+        result = np.random.choice(alternative_state_pool, 18, replace=False)  #this is a string state: "33300201", instead of list
+        result = [list(each) for each in result]
+        return result
 
 
 if __name__ == '__main__':
@@ -325,9 +327,9 @@ if __name__ == '__main__':
     # print(len(state_pool))
 
     # Test the quality generation
-    # state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
-    # for state in state_pool:
-    #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+    state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
+    for state in state_pool:
+        print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
 
     # print(state_pool)
     # print(len(state_pool))
