@@ -19,6 +19,7 @@ class Landscape:
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
+        self.state_to_rank_dict = {}
         self.potential_cache = {}  # cache the potential of the position
 
     def describe(self):
@@ -167,8 +168,12 @@ class Landscape:
         """
         value_list = sorted(list(self.cache.values()), key=lambda x: -x)
         fitness_to_rank_dict = {}
+        state_to_rank_dict = {}
         for index, value in enumerate(value_list):
             fitness_to_rank_dict[value] = index+1
+        for state, fitness in self.cache.items():
+            state_to_rank_dict[state] = fitness_to_rank_dict[fitness]
+        self.state_to_rank_dict = state_to_rank_dict
         self.fitness_to_rank_dict = fitness_to_rank_dict
 
     def initialize(self, norm=True):
@@ -247,6 +252,56 @@ class Landscape:
             raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
 
+    def generate_divergence_pool(self, divergence=None):
+        """
+        Randomly select one seed state, and form the pool around a given divergence being away from the seed
+        For example
+        1) random seed: 1 1 1 1 1 1 (N=6)
+        2) 1 bit divergence: C_6^1 * 3 = 18 alternatives
+        3) 2 bits divergence: C_6^2 * 3^2 = 15 * 9 = 135 alternatives
+        4) In order to make the pool length the same across divergence, limit it into 18
+        :param divergence: change how many bits to shape the pool
+        :return:a list of pool
+        """
+        state_pool = []
+        seed_state = np.random.choice(range(self.state_num), self.N).tolist()
+        seed_state = [str(i) for i in seed_state]  # state format: string
+        print("seed_state: ", seed_state)
+        if divergence == 1:
+            for index in range(self.N):
+                alternative_state = seed_state.copy()
+                freedom_space = ["0", "1", "2", "3"]
+                freedom_space.remove(seed_state[index])
+                for bit in freedom_space:
+                    alternative_state[index] = bit
+                    state_pool.append(alternative_state.copy())
+            return state_pool
+        while True:
+            index_for_change = np.random.choice(range(self.N), divergence, replace=False)
+            alternative_state = seed_state.copy()
+            for index in index_for_change:
+                freedom_space = ["0", "1", "2", "3"]
+                freedom_space.remove(seed_state[index])
+                alternative_state[index] = freedom_space[np.random.choice(range(3))]
+            if alternative_state not in state_pool:
+                state_pool.append(alternative_state.copy())
+            if len(state_pool) >= 18:
+                break
+        return state_pool
+
+    def generate_quality_pool(self, quality_percentage=None):
+        """
+        Form the pool around a given quality percentage (e.g., 50% - 60%)
+        :param quality:
+        :return:
+        """
+        alternative_state_pool = []
+        reference = quality_percentage * (self.N ** self.state_num)
+        for state, rank in self.state_to_rank_dict.items():
+            if abs(rank - reference) / (self.N ** self.state_num) <= 0.05:
+                alternative_state_pool.append(state)
+        return np.random.choice(alternative_state_pool, 18, replace=False)
+
 
 if __name__ == '__main__':
     # Test Example
@@ -256,11 +311,23 @@ if __name__ == '__main__':
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.type(IM_type="Factor Directed", k=44)
     landscape.initialize()
-    landscape.describe()
-    cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
-    a = landscape.query_cog_fitness(cog_state)
-    print(a)
-    cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
-    b = landscape.cog_state_alternatives(cog_state=cog_state)
-    print(b)
+    # landscape.describe()
+    # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
+    # a = landscape.query_cog_fitness(cog_state)
+    # print(a)
+    # cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
+    # b = landscape.cog_state_alternatives(cog_state=cog_state)
+    # print(b)
 
+    # Test the divergence generation
+    # state_pool = landscape.generate_divergence_pool(divergence=2)
+    # print(state_pool)
+    # print(len(state_pool))
+
+    # Test the quality generation
+    # state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
+    # for state in state_pool:
+    #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+
+    # print(state_pool)
+    # print(len(state_pool))

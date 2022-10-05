@@ -20,7 +20,7 @@ class Specialist:
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 4, replace=False).tolist()
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
-        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_state = self.state_2_cog_state(state=self.state)  # will be the same as state, thus search accurately
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.fitness = None
 
@@ -43,7 +43,8 @@ class Specialist:
 
     def search(self):
         next_cog_state = self.cog_state.copy()
-        index = np.random.choice(self.expertise_domain)
+        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+        # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]
         space.remove(self.state[index])
         next_cog_state[index] = np.random.choice(space)
@@ -65,8 +66,9 @@ class Specialist:
             return False
 
     def state_2_cog_state(self, state=None):
-        cog_state = state.copy()
-        return ["*" if index not in self.expertise_domain else bit for index, bit in enumerate(cog_state)]
+        return state
+        # cog_state = state.copy()
+        # return ["*" if index not in self.expertise_domain else bit for index, bit in enumerate(cog_state)]
 
     def cog_state_2_state(self, cog_state=None):
         state = cog_state.copy()

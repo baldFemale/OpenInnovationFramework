@@ -39,48 +39,48 @@ with open(t_deviation_file, 'rb') as infile:
     t_deviation = pickle.load(infile)
 
 #############
-data_folder_2 = r"E:\data\gst-1003\outbound\outbound"
-g_performance_file_2 = data_folder_2 + r"\g_performance_across_K"
-s_performance_file_2 = data_folder_2 + r"\s_performance_across_K"
-t_performance_file_2 = data_folder_2 + r"\t_performance_across_K"
-with open(g_performance_file_2, 'rb') as infile:
-    g_performance_2 = pickle.load(infile)
-with open(s_performance_file_2, 'rb') as infile:
-    s_performance_2 = pickle.load(infile)
-with open(t_performance_file_2, 'rb') as infile:
-    t_performance_2 = pickle.load(infile)
+# data_folder_2 = r"E:\data\gst-1003\outbound\outbound"
+# g_performance_file_2 = data_folder_2 + r"\g_performance_across_K"
+# s_performance_file_2 = data_folder_2 + r"\s_performance_across_K"
+# t_performance_file_2 = data_folder_2 + r"\t_performance_across_K"
+# with open(g_performance_file_2, 'rb') as infile:
+#     g_performance_2 = pickle.load(infile)
+# with open(s_performance_file_2, 'rb') as infile:
+#     s_performance_2 = pickle.load(infile)
+# with open(t_performance_file_2, 'rb') as infile:
+#     t_performance_2 = pickle.load(infile)
+#
+# g_jump_file_2 = data_folder_2 + r"\g_jump_across_K"
+# s_jump_file_2 = data_folder_2 + r"\s_jump_across_K"
+# t_jump_file_2 = data_folder_2 + r"\t_jump_across_K"
+# with open(g_jump_file_2, 'rb') as infile:
+#     g_jump_2 = pickle.load(infile)
+# with open(s_jump_file_2, 'rb') as infile:
+#     s_jump_2 = pickle.load(infile)
+# with open(t_jump_file_2, 'rb') as infile:
+#     t_jump_2 = pickle.load(infile)
+#
+# g_deviation_file_2 = data_folder_2 + r"\g_deviation_across_K"
+# s_deviation_file_2 = data_folder_2 + r"\s_deviation_across_K"
+# t_deviation_file_2 = data_folder_2 + r"\t_deviation_across_K"
+# with open(g_deviation_file_2, 'rb') as infile:
+#     g_deviation_2 = pickle.load(infile)
+# with open(s_deviation_file_2, 'rb') as infile:
+#     s_deviation_2 = pickle.load(infile)
+# with open(t_deviation_file_2, 'rb') as infile:
+#     t_deviation_2 = pickle.load(infile)
+#
+# g_performance = [(a + b) / 2 for a, b in zip(g_performance, g_performance_2)]
+# s_performance = [(a + b) / 2 for a, b in zip(s_performance, s_performance_2)]
+# t_performance = [(a + b) / 2 for a, b in zip(t_performance, t_performance_2)]
 
-g_jump_file_2 = data_folder_2 + r"\g_jump_across_K"
-s_jump_file_2 = data_folder_2 + r"\s_jump_across_K"
-t_jump_file_2 = data_folder_2 + r"\t_jump_across_K"
-with open(g_jump_file_2, 'rb') as infile:
-    g_jump_2 = pickle.load(infile)
-with open(s_jump_file_2, 'rb') as infile:
-    s_jump_2 = pickle.load(infile)
-with open(t_jump_file_2, 'rb') as infile:
-    t_jump_2 = pickle.load(infile)
+# g_jump = [(a + b) / 2 for a, b in zip(g_jump, g_jump_2)]
+# s_jump = [(a + b) / 2 for a, b in zip(s_jump, s_jump_2)]
+# t_jump = [(a + b) / 2 for a, b in zip(t_jump, t_jump_2)]
 
-g_deviation_file_2 = data_folder_2 + r"\g_deviation_across_K"
-s_deviation_file_2 = data_folder_2 + r"\s_deviation_across_K"
-t_deviation_file_2 = data_folder_2 + r"\t_deviation_across_K"
-with open(g_deviation_file_2, 'rb') as infile:
-    g_deviation_2 = pickle.load(infile)
-with open(s_deviation_file_2, 'rb') as infile:
-    s_deviation_2 = pickle.load(infile)
-with open(t_deviation_file_2, 'rb') as infile:
-    t_deviation_2 = pickle.load(infile)
-
-g_performance = [(a + b) / 2 for a, b in zip(g_performance, g_performance_2)]
-s_performance = [(a + b) / 2 for a, b in zip(s_performance, s_performance_2)]
-t_performance = [(a + b) / 2 for a, b in zip(t_performance, t_performance_2)]
-
-g_jump = [(a + b) / 2 for a, b in zip(g_jump, g_jump_2)]
-s_jump = [(a + b) / 2 for a, b in zip(s_jump, s_jump_2)]
-t_jump = [(a + b) / 2 for a, b in zip(t_jump, t_jump_2)]
-
-g_deviation = [(a + b) / 2 for a, b in zip(g_deviation, g_deviation_2)]
-s_deviation = [(a + b) / 2 for a, b in zip(s_deviation, s_deviation_2)]
-t_deviation = [(a + b) / 2 for a, b in zip(t_deviation, t_deviation_2)]
+# g_deviation = [(a + b) / 2 for a, b in zip(g_deviation, g_deviation_2)]
+# s_deviation = [(a + b) / 2 for a, b in zip(s_deviation, s_deviation_2)]
+# t_deviation = [(a + b) / 2 for a, b in zip(t_deviation, t_deviation_2)]
 
 # Performance
 x = [1, 2, 3, 4, 5]
