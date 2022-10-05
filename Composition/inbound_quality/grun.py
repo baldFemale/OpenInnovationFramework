@@ -85,11 +85,11 @@ if __name__ == '__main__':
         performance_across_K.append(result_1)
         learn_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("g_performance_across_quality", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_learn_across_K", 'wb') as out_file:
+    with open("g_learn_across_quality", 'wb') as out_file:
         pickle.dump(learn_count_across_K, out_file)
-    with open("g_deviation_across_K", 'wb') as out_file:
+    with open("g_deviation_across_quality", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

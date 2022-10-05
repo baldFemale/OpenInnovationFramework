@@ -4,10 +4,9 @@
 # @FileName: run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import numpy as np
-
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 from Tshape import Tshape
 from Landscape import Landscape
 import multiprocessing as mp
@@ -18,16 +17,16 @@ import pickle
 import math
 
 
-def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None, quality=None):
+def func_2(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+         search_iteration=None, loop=None, return_dict=None, sema=None, divergence=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        crowd.append(specialist)
-    pool = landscape.generate_quality_pool(quality_percentage=quality)
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        crowd.append(t_shape)
+    pool = landscape.generate_divergence_pool(divergence=divergence)
     learn_count_across_agent = []
     performance_across_agent = []
     for agent in crowd:
@@ -47,6 +46,31 @@ def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None
     sema.release()
 
 
+def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None, search_iteration=None):
+    landscape = Landscape(N=N, state_num=state_num)
+    landscape.type(IM_type="Traditional Directed", K=K, k=0)
+    landscape.initialize()
+    crowd = []
+    for _ in range(agent_num):
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        crowd.append(t_shape)
+    jump_count_across_agent = []
+    performance_across_agent = []
+    for agent in crowd:
+        jump_count = 0
+        for _ in range(search_iteration):
+            agent.search()
+            if agent.distant_jump():
+                jump_count += 1
+        agent.state = agent.cog_state_2_state(cog_state=agent.cog_state)
+        agent.fitness = landscape.query_fitness(state=agent.state)
+        jump_count_across_agent.append(jump_count)
+        performance_across_agent.append(agent.fitness)
+    performance_average = sum(performance_across_agent) / len(performance_across_agent)
+    jump_average = sum(jump_count_across_agent) / len(jump_count_across_agent)
+    return [performance_average, jump_average]
+
+
 if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 200
@@ -54,15 +78,17 @@ if __name__ == '__main__':
     search_iteration = 100
     N = 6
     state_num = 4
-    expertise_amount = 8
+    # expertise_amount = 12
+    generalist_expertise = 4
+    specialist_expertise = 4
     K = 3
-    quality_list = [0.2, 0.4, 0.6, 0.8]
+    divergence_list = [1, 2, 3, 4, 5, 6]
     performance_across_K = []
-    learn_count_across_K = []
+    jump_count_across_K = []
     deviation_across_K = []
     concurrency = 24
     sema = Semaphore(concurrency)
-    for quality in quality_list:
+    for divergence in divergence_list:
         temp_1, temp_2, temp_3 = [], [], []
         for _ in range(10):
             manager = mp.Manager()
@@ -70,7 +96,8 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()  # !!!!!!!!!!!!!!!!!!!!!!
-                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema, quality))
+                p = mp.Process(target=func_2, args=(
+                N, K, state_num, generalist_expertise, specialist_expertise, agent_num, search_iteration, loop, return_dict, sema, divergence))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -83,13 +110,13 @@ if __name__ == '__main__':
         result_2 = sum(temp_2) / len(temp_2)
         result_3 = math.sqrt(sum(temp_3) / len(temp_3))
         performance_across_K.append(result_1)
-        learn_count_across_K.append(result_2)
+        jump_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
-    with open("s_performance_across_quality", 'wb') as out_file:
+    with open("t_performance_across_divergence", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("s_learn_across_quality", 'wb') as out_file:
-        pickle.dump(learn_count_across_K, out_file)
-    with open("s_deviation_across_quality", 'wb') as out_file:
+    with open("t_jump_across_divergence", 'wb') as out_file:
+        pickle.dump(jump_count_across_K, out_file)
+    with open("t_deviation_across_divergence", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

@@ -5,7 +5,6 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-
 from Generalist import Generalist
 from Specialist import Specialist
 from Tshape import Tshape
@@ -18,16 +17,17 @@ import pickle
 import math
 
 
+# mp version
 def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None, quality=None):
+         search_iteration=None, loop=None, return_dict=None, sema=None, divergence=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        crowd.append(specialist)
-    pool = landscape.generate_quality_pool(quality_percentage=quality)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        crowd.append(generalist)
+    pool = landscape.generate_divergence_pool(divergence=divergence)
     learn_count_across_agent = []
     performance_across_agent = []
     for agent in crowd:
@@ -56,21 +56,21 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 8
     K = 3
-    quality_list = [0.2, 0.4, 0.6, 0.8]
-    performance_across_K = []
+    divergence_list = [1, 2, 3, 4, 5, 6]
+    performance_across_K = []  # across divergence actually
     learn_count_across_K = []
     deviation_across_K = []
     concurrency = 24
     sema = Semaphore(concurrency)
-    for quality in quality_list:
+    for divergence in divergence_list:
         temp_1, temp_2, temp_3 = [], [], []
         for _ in range(10):
             manager = mp.Manager()
             return_dict = manager.dict()
             jobs = []
             for loop in range(landscape_iteration):
-                sema.acquire()  # !!!!!!!!!!!!!!!!!!!!!!
-                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema, quality))
+                sema.acquire()
+                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema, divergence))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -85,11 +85,11 @@ if __name__ == '__main__':
         performance_across_K.append(result_1)
         learn_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
-    with open("s_performance_across_quality", 'wb') as out_file:
+    with open("g_performance_across_divergence", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("s_learn_across_quality", 'wb') as out_file:
+    with open("g_learn_across_divergence", 'wb') as out_file:
         pickle.dump(learn_count_across_K, out_file)
-    with open("s_deviation_across_quality", 'wb') as out_file:
+    with open("g_deviation_across_divergence", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
