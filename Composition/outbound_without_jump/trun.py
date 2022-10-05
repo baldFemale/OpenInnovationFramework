@@ -72,19 +72,19 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 400
     search_iteration = 100
     N = 6
     state_num = 4
     # expertise_amount = 12
-    generalist_expertise = 4
+    generalist_expertise = 8
     specialist_expertise = 4
     K_list = [1, 2, 3, 4, 5]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
-    concurrency = 24
+    concurrency = 30
     sema = Semaphore(concurrency)
     for K in K_list:
         temp_1, temp_2, temp_3 = [], [], []
