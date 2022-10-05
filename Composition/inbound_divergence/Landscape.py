@@ -266,7 +266,7 @@ class Landscape:
         state_pool = []
         seed_state = np.random.choice(range(self.state_num), self.N).tolist()
         seed_state = [str(i) for i in seed_state]  # state format: string
-        print("seed_state: ", seed_state)
+        # print("seed_state: ", seed_state)
         if divergence == 1:
             for index in range(self.N):
                 alternative_state = seed_state.copy()
