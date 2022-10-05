@@ -38,15 +38,12 @@ class Tshape:
         if len(self.expertise_domain) > self.N:
             raise ValueError("The expertise domain should not be greater than N")
 
-    def learn_from_pool(self, pool=None):
-        exposure_state = pool[np.random.choice(len(pool))]
-        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
-        if cog_fitness_of_exposure_state > self.cog_fitness:
-            self.cog_state = cog_exposure_state
-            self.cog_fitness = cog_fitness_of_exposure_state
-            return True
-        return False
+    def elaborate_from_state(self, state=None):
+        # replace the initial state with the given exposure / generation from others
+        self.state = state.copy()
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.search()
 
     def search(self):
         next_cog_state = self.cog_state.copy()

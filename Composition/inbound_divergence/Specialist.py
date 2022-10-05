@@ -33,15 +33,12 @@ class Specialist:
         if expertise_amount > self.N * 4:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
 
-    def learn_from_pool(self, pool=None):
-        exposure_state = pool[np.random.choice(len(pool))]
-        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
-        if cog_fitness_of_exposure_state > self.cog_fitness:
-            self.cog_state = cog_exposure_state
-            self.cog_fitness = cog_fitness_of_exposure_state
-            return True
-        return False
+    def elaborate_from_state(self, state=None):
+        # replace the initial state with the given exposure / generation from others
+        self.state = state.copy()
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.search()
 
     def search(self):
         next_cog_state = self.cog_state.copy()
