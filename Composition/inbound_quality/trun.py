@@ -84,7 +84,7 @@ if __name__ == '__main__':
     K = 3
     quality_list = [0.2, 0.4, 0.6, 0.8]
     performance_across_K = []
-    jump_count_across_K = []
+    learn_count_across_K = []
     deviation_across_K = []
     concurrency = 24
     sema = Semaphore(concurrency)
@@ -110,12 +110,12 @@ if __name__ == '__main__':
         result_2 = sum(temp_2) / len(temp_2)
         result_3 = math.sqrt(sum(temp_3) / len(temp_3))
         performance_across_K.append(result_1)
-        jump_count_across_K.append(result_2)
+        learn_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
     with open("t_performance_across_quality", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("t_jump_across_quality", 'wb') as out_file:
-        pickle.dump(jump_count_across_K, out_file)
+    with open("t_learn_across_quality", 'wb') as out_file:
+        pickle.dump(learn_count_across_K, out_file)
     with open("t_deviation_across_quality", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
