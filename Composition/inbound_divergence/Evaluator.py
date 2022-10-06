@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import pickle
 
-data_folder = r"E:\data\gst-1003\inbound_divergence"
+data_folder = r"E:\data\gst-1005\inbound_divergence"
 g_performance_file = data_folder + r"\g_performance_across_divergence"
 s_performance_file = data_folder + r"\s_performance_across_divergence"
 t_performance_file = data_folder + r"\t_performance_across_divergence"

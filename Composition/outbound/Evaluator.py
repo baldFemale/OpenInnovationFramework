@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import pickle
 
-data_folder = r"E:\data\gst-1003\outbound"
+data_folder = r"E:\data\gst-1005\outbound"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
@@ -92,7 +92,7 @@ plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\GST_performance_K.png", transparent=True, dpi=1200)
+plt.savefig(data_folder + r"\GST_performance_K.png", transparent=True, dpi=200)
 plt.clf()
 
 # Jump
@@ -104,7 +104,7 @@ plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Jump', fontweight='bold', fontsize=10)
 plt.xticks(x)
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\GST_jump_K.png", transparent=True, dpi=1200)
+plt.savefig(data_folder + r"\GST_jump_K.png", transparent=True, dpi=200)
 plt.clf()
 
 # Deviation
@@ -116,7 +116,7 @@ plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Deviation', fontweight='bold', fontsize=10)
 plt.xticks(x)
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\GST_deviation_K.png", transparent=True, dpi=1200)
+plt.savefig(data_folder + r"\GST_deviation_K.png", transparent=True, dpi=200)
 plt.clf()
 # plt.show()
 print("END")
