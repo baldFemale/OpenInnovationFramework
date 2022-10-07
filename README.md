@@ -75,3 +75,10 @@
 * The G shallow understanding is the same as transparency_2.
 * In this version, G cannot conduct a efficient cognitive search
 
+## Composition
+* Recall the "distant jump" operation from Levinthal (1997)
+* Remove the average pooling over unkown domain, in order to reduce the variance
+* Remove the random mapping after cognitive convergence, further reduce the variance
+* Keep the divergence and quality dimension, but still doubt their theoretical and technical validity
+
+
