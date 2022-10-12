@@ -90,7 +90,7 @@ class Specialist:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=8, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=5, k=0)
+    landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
     specialist = Specialist(N=8, landscape=landscape, state_num=4, expertise_amount=16)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
@@ -100,11 +100,10 @@ if __name__ == '__main__':
     jump_count = 0
     for _ in range(100):
         specialist.search()
-        print(specialist.cog_state, specialist.cog_fitness)
         # if specialist.distant_jump():
         #     jump_count += 1
         # print(generalist.cog_fitness)
-    # print("jump_count: ", jump_count)
+    print("jump_count: ", jump_count)
     specialist.state = specialist.cog_state_2_state(cog_state=specialist.cog_state)
     specialist.fitness = landscape.query_fitness(state=specialist.state)
     specialist.describe()

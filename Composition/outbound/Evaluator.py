@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import pickle
 
-data_folder = r"E:\data\gst-1005\outbound"
+data_folder = r"E:\data\gst-1010\outbound"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"

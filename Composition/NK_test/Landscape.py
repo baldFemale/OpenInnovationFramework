@@ -307,13 +307,13 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=6, state_num=4)
+    landscape = Landscape(N=8, state_num=4)
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
-    landscape.type(IM_type="Traditional Directed", K=5)
+    landscape.type(IM_type="Factor Directed", k=44)
     landscape.initialize()
-    landscape.describe()
+    # landscape.describe()
     # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     # a = landscape.query_cog_fitness(cog_state)
     # print(a)
@@ -327,9 +327,9 @@ if __name__ == '__main__':
     # print(len(state_pool))
 
     # Test the quality generation
-    # state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
-    # for state in state_pool:
-    #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+    state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
+    for state in state_pool:
+        print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
 
     # print(state_pool)
     # print(len(state_pool))
