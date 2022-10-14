@@ -19,13 +19,14 @@ import math
 
 # mp version
 def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+         search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        generalist.align_default_state(loop=hyper_loop*hyper_iteration+loop)
         crowd.append(generalist)
     jump_count_across_agent = []
     performance_across_agent = []
@@ -48,13 +49,20 @@ def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 100
     agent_num = 400
-    search_iteration = 100
-    N = 6
+    search_iteration = 200
+    hyper_iteration = 20
+    N = 10
     state_num = 4
-    expertise_amount = 12
-    K_list = [1, 2, 3, 4, 5]
+    expertise_amount = 20
+    K_list = [0, 1, 2, 3, 4, 5]
+    default_state_list = []
+    for _ in range(hyper_iteration * landscape_iteration):
+        default_state = np.random.choice(range(state_num), N).tolist()
+        default_state_list.append([str(i) for i in default_state])
+    with open("default_state_list", "wb") as out_file:
+        pickle.dump(default_state_list, out_file)
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
@@ -62,13 +70,13 @@ if __name__ == '__main__':
     sema = Semaphore(concurrency)
     for K in K_list:
         temp_1, temp_2, temp_3 = [], [], []
-        for _ in range(20):
+        for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:

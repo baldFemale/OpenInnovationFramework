@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import pickle
 
-data_folder = r"E:\data\gst-1010\outbound_without_mapping"
+data_folder = r"E:\data\gst-1014\NK_test"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
@@ -39,7 +39,7 @@ with open(t_deviation_file, 'rb') as infile:
     t_deviation = pickle.load(infile)
 
 # Performance
-x = [1, 2, 3, 4, 5]
+x = [0, 1, 2, 3, 4, 5]
 plt.plot(x, g_performance, "r-", label="G")
 plt.plot(x, s_performance, "b-", label="S")
 plt.plot(x, t_performance, "g-", label="T")
