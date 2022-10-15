@@ -18,7 +18,7 @@ import math
 
 
 # mp version
-def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
@@ -28,28 +28,20 @@ def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         generalist.align_default_state(loop=hyper_loop*hyper_iteration+loop)
         crowd.append(generalist)
-    jump_count_across_agent = []
-    performance_across_agent = []
     for agent in crowd:
-        jump_count = 0
         for _ in range(search_iteration):
             agent.search()
-        # agent.state = agent.cog_state_2_state(cog_state=agent.cog_state)
-        # agent.fitness = landscape.query_fitness(state=agent.state)
-        # jump_count_across_agent.append(jump_count)
-        performance_across_agent.append(agent.cog_fitness)
-    performance_average = sum(performance_across_agent) / len(performance_across_agent)
-    jump_average = sum(jump_count_across_agent) / len(jump_count_across_agent)
+    performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
-    return_dict[loop] = [performance_average, jump_average, performance_deviation]
+    return_dict[loop] = [performance_across_agent, performance_deviation]
     sema.release()
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 200
     agent_num = 400
-    search_iteration = 200
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 20
     N = 10
     state_num = 4
@@ -66,34 +58,35 @@ if __name__ == '__main__':
     deviation_across_K = []
     concurrency = 30
     sema = Semaphore(concurrency)
+    original_performance_data_across_K = []
     for K in K_list:
-        temp_1, temp_2, temp_3 = [], [], []
+        temp_1, temp_2 = [], []
         for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
                 proc.join()
             performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
-            temp_1 += [result[0] for result in performance_across_landscape]  # performance
-            temp_2 += [result[1] for result in performance_across_landscape]  # jump count
-            temp_3 += [result[2] ** 2 for result in performance_across_landscape]  # deviation has a formula to take average
+            for result in performance_across_landscape:
+                # using += means we don't differentiate different landscapes
+                temp_1 += result[0]  # result[0] is a list across agents
+                temp_2 += [result[1] ** 2 for result in performance_across_landscape]  # deviation across agent
         result_1 = sum(temp_1) / len(temp_1)
-        result_2 = sum(temp_2) / len(temp_2)
-        result_3 = math.sqrt(sum(temp_3) / len(temp_3))
+        result_2 = math.sqrt(sum(temp_2) / len(temp_2))
         performance_across_K.append(result_1)
-        jump_count_across_K.append(result_2)
-        deviation_across_K.append(result_3)
+        deviation_across_K.append(result_2)
+        original_performance_data_across_K.append(temp_1)
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_jump_across_K", 'wb') as out_file:
-        pickle.dump(jump_count_across_K, out_file)
     with open("g_deviation_across_K", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
+    with open("g_original_data_across_K", "wb") as out_file:
+        pickle.dump(original_performance_data_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

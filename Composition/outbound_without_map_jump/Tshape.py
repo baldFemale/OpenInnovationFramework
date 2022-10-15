@@ -7,6 +7,7 @@
 import random
 import numpy as np
 from Landscape import Landscape
+import pickle
 
 
 class Tshape:
@@ -27,10 +28,6 @@ class Tshape:
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.fitness = None
 
-        # Mechanism: overlap with IM
-        self.row_overlap = 0
-        self.column_overlap = 0
-
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
@@ -41,6 +38,16 @@ class Tshape:
             raise ValueError("Specialist expertise amount needs to be a product of 4")
         if len(self.expertise_domain) > self.N:
             raise ValueError("The expertise domain should not be greater than N")
+
+    def align_default_state(self, loop=None):
+        with open("default_state_list", "rb") as infile:
+            default_state_list = pickle.load(infile)
+        default_state = default_state_list[loop]
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                self.state[index] = default_state[index]
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]

@@ -135,19 +135,19 @@ class Generalist:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=10, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=2, k=0)
+    landscape.type(IM_type="Traditional Directed", K=0, k=0)
     landscape.initialize()
     generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
-    jump_count = 0
+    # jump_count = 0
     search_iteration = 500
     performance_across_time = []
     for _ in range(search_iteration):
         generalist.search()
-        if generalist.distant_jump():
-            jump_count += 1
+        # if generalist.distant_jump():
+        #     jump_count += 1
         performance_across_time.append(generalist.cog_fitness)
         # print(generalist.cog_fitness)
-    print("jump_count: ", jump_count)
+    # print("jump_count: ", jump_count)
     generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
     generalist.fitness = landscape.query_fitness(state=generalist.state)
     performance_across_time.append(generalist.fitness)
