@@ -4,6 +4,7 @@
 # @FileName: Agent.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
+import pickle
 import random
 import numpy as np
 from Landscape import Landscape
@@ -32,6 +33,16 @@ class Specialist:
             raise ValueError("Expertise amount needs to be a even number")
         if expertise_amount > self.N * 4:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
+
+    def align_default_state(self, loop=None):
+        with open("default_state_list", "rb") as infile:
+            default_state_list = pickle.load(infile)
+        default_state = default_state_list[loop]
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                self.state[index] = default_state[index]
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
