@@ -6,8 +6,9 @@
 # Observing PEP 8 coding style
 import matplotlib.pyplot as plt
 import pickle
+from matplotlib import container
 
-data_folder = r"E:\data\gst-1010\outbound"
+data_folder = r"E:\data\gst-1014\outbound"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
@@ -83,18 +84,7 @@ with open(t_deviation_file, 'rb') as infile:
 # t_deviation = [(a + b) / 2 for a, b in zip(t_deviation, t_deviation_2)]
 
 # Performance
-x = [1, 2, 3, 4, 5]
-plt.plot(x, g_performance, "r-", label="G")
-plt.plot(x, s_performance, "b-", label="S")
-plt.plot(x, t_performance, "g-", label="T")
-# plt.title('Diversity Decrease')
-plt.xlabel('K', fontweight='bold', fontsize=10)
-plt.ylabel('Performance', fontweight='bold', fontsize=10)
-plt.xticks(x)
-plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\GST_performance_K.png", transparent=True, dpi=200)
-plt.clf()
-
+x = [0, 1, 2, 3, 4, 5]
 # Jump
 plt.plot(x, g_jump, "r-", label="G")
 plt.plot(x, s_jump, "b-", label="S")
@@ -103,20 +93,41 @@ plt.plot(x, t_jump, "g-", label="T")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Jump', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.legend(frameon=False, ncol=3, fontsize=10)
+plt.legend(frameon=False, ncol=1, fontsize=10)
 plt.savefig(data_folder + r"\GST_jump_K.png", transparent=True, dpi=200)
 plt.clf()
 
 # Deviation
-plt.plot(x, g_deviation, "r-", label="G")
-plt.plot(x, s_deviation, "b-", label="S")
-plt.plot(x, t_deviation, "g-", label="T")
-# plt.title('Diversity Decrease')
-plt.xlabel('K', fontweight='bold', fontsize=10)
-plt.ylabel('Deviation', fontweight='bold', fontsize=10)
-plt.xticks(x)
-plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\GST_deviation_K.png", transparent=True, dpi=200)
-plt.clf()
+# plt.plot(x, g_deviation, "r-", label="G")
+# plt.plot(x, s_deviation, "b-", label="S")
+# plt.plot(x, t_deviation, "g-", label="T")
+# # plt.title('Diversity Decrease')
+# plt.xlabel('K', fontweight='bold', fontsize=10)
+# plt.ylabel('Deviation', fontweight='bold', fontsize=10)
+# plt.xticks(x)
+# plt.legend(frameon=False, ncol=3, fontsize=10)
+# plt.savefig(data_folder + r"\GST_deviation_K.png", transparent=True, dpi=200)
+# plt.clf()
 # plt.show()
+
+# Error bar figure
+
+fig, (ax1) = plt.subplots(1, 1)
+ax1.errorbar(x, g_performance, yerr=g_deviation, color="g", fmt="-", capsize=5, capthick=0.8, ecolor="g", label="G")
+ax1.errorbar(x, s_performance, yerr=s_deviation, color="b", fmt="-", capsize=5, capthick=0.8, ecolor="b", label="S")
+ax1.errorbar(x, t_performance, yerr=t_deviation, color="r", fmt="-", capsize=5, capthick=0.8, ecolor="r", label="T")
+plt.xlabel('Complexity', fontweight='bold', fontsize=10)
+plt.ylabel('Performance', fontweight='bold', fontsize=10)
+plt.xticks(x)
+handles, labels = ax1.get_legend_handles_labels()
+handles = [h[0] if isinstance(h, container.ErrorbarContainer) else h for h in handles]
+plt.legend(handles, labels, numpoints=1, frameon=False)
+plt.savefig(data_folder + r"\GST_performance_K.png", transparent=True, dpi=200)
+plt.show()
+
+
+# two sample t-test
+from scipy import stats
+t_result = stats.ttest_ind(g_performance, t_performance, equal_var=False)
+print(t_result)
 print("END")

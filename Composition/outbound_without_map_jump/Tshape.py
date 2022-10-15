@@ -27,6 +27,10 @@ class Tshape:
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.fitness = None
 
+        # Mechanism: overlap with IM
+        self.row_overlap = 0
+        self.column_overlap = 0
+
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):

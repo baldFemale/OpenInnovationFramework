@@ -4,9 +4,9 @@
 # @FileName: run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import numpy as np
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 from Tshape import Tshape
 from Landscape import Landscape
 import multiprocessing as mp
@@ -17,16 +17,16 @@ import pickle
 import math
 
 
-# mp version
-def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func_2(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+         search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        crowd.append(generalist)
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        t_shape.align_default_state(loop=hyper_loop*hyper_iteration+loop)
+        crowd.append(t_shape)
     jump_count_across_agent = []
     performance_across_agent = []
     for agent in crowd:
@@ -35,10 +35,10 @@ def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None
             agent.search()
             if agent.distant_jump():
                 jump_count += 1
-        # agent.state = agent.cog_state_2_state(cog_state=agent.cog_state)
-        # agent.fitness = landscape.query_fitness(state=agent.state)
+        agent.state = agent.cog_state_2_state(cog_state=agent.cog_state)
+        agent.fitness = landscape.query_fitness(state=agent.state)
         jump_count_across_agent.append(jump_count)
-        performance_across_agent.append(agent.cog_fitness)
+        performance_across_agent.append(agent.fitness)
     performance_average = sum(performance_across_agent) / len(performance_across_agent)
     jump_average = sum(jump_count_across_agent) / len(jump_count_across_agent)
     performance_deviation = np.std(performance_across_agent)
@@ -46,15 +46,44 @@ def func_2(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None
     sema.release()
 
 
+def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None, search_iteration=None):
+    landscape = Landscape(N=N, state_num=state_num)
+    landscape.type(IM_type="Traditional Directed", K=K, k=0)
+    landscape.initialize()
+    crowd = []
+    for _ in range(agent_num):
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        t_shape.align_default_state(loop=loop)
+        crowd.append(t_shape)
+    jump_count_across_agent = []
+    performance_across_agent = []
+    for agent in crowd:
+        jump_count = 0
+        for _ in range(search_iteration):
+            agent.search()
+            if agent.distant_jump():
+                jump_count += 1
+        agent.state = agent.cog_state_2_state(cog_state=agent.cog_state)
+        agent.fitness = landscape.query_fitness(state=agent.state)
+        jump_count_across_agent.append(jump_count)
+        performance_across_agent.append(agent.fitness)
+    performance_average = sum(performance_across_agent) / len(performance_across_agent)
+    jump_average = sum(jump_count_across_agent) / len(jump_count_across_agent)
+    return [performance_average, jump_average]
+
+
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 100
     agent_num = 400
-    search_iteration = 100
-    N = 6
+    search_iteration = 200
+    hyper_iteration = 20
+    N = 10
     state_num = 4
-    expertise_amount = 12
-    K_list = [1, 2, 3, 4, 5]
+    # expertise_amount = 20
+    generalist_expertise = 8
+    specialist_expertise = 12
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
@@ -62,13 +91,14 @@ if __name__ == '__main__':
     sema = Semaphore(concurrency)
     for K in K_list:
         temp_1, temp_2, temp_3 = [], [], []
-        for _ in range(20):
+        for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
             jobs = []
             for loop in range(landscape_iteration):
-                sema.acquire()
-                p = mp.Process(target=func_2, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
+                sema.acquire()  # !!!!!!!!!!!!!!!!!!!!!!
+                p = mp.Process(target=func_2, args=(
+                N, K, state_num, generalist_expertise, specialist_expertise, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -83,11 +113,11 @@ if __name__ == '__main__':
         performance_across_K.append(result_1)
         jump_count_across_K.append(result_2)
         deviation_across_K.append(result_3)
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("t_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_jump_across_K", 'wb') as out_file:
+    with open("t_jump_across_K", 'wb') as out_file:
         pickle.dump(jump_count_across_K, out_file)
-    with open("g_deviation_across_K", 'wb') as out_file:
+    with open("t_deviation_across_K", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

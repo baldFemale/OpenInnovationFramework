@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # expertise_amount = 20
     generalist_expertise = 8
     specialist_expertise = 12
-    K_list = [0, 1, 2, 3, 4, 5]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []

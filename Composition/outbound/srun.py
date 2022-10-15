@@ -81,7 +81,7 @@ if __name__ == '__main__':
     N = 10
     state_num = 4
     expertise_amount = 20
-    K_list = [0, 1, 2, 3, 4, 5]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []

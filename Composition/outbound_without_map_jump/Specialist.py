@@ -4,6 +4,7 @@
 # @FileName: Agent.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
+import pickle
 import random
 import numpy as np
 from Landscape import Landscape
@@ -24,6 +25,10 @@ class Specialist:
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
         self.fitness = None
 
+        # Mechanism: overlap with IM
+        self.row_overlap = 0
+        self.column_overlap = 0
+
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
@@ -32,6 +37,28 @@ class Specialist:
             raise ValueError("Expertise amount needs to be a even number")
         if expertise_amount > self.N * 4:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
+
+    def get_overlap_with_IM(self):
+        influence_matrix = self.landscape.IM
+        row_overlap, column_overlap = 0, 0
+        for row in range(self.N):
+            if row in self.expertise_domain:
+                row_overlap += sum(influence_matrix[row])
+        for column in range(self.N):
+            if column in self.expertise_domain:
+                column_overlap += sum(influence_matrix[:, column])
+        self.column_overlap = column_overlap
+        self.row_overlap = row_overlap
+
+    def align_default_state(self, loop=None):
+        with open("default_state_list", "rb") as infile:
+            default_state_list = pickle.load(infile)
+        default_state = default_state_list[loop]
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                self.state[index] = default_state[index]
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -89,24 +116,37 @@ class Specialist:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
+    search_iteration = 500
+    landscape = Landscape(N=10, state_num=4)
     landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
-    specialist = Specialist(N=8, landscape=landscape, state_num=4, expertise_amount=16)
+    specialist = Specialist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
     # cog_state = specialist.state_2_cog_state(state=state)
     # specialist.describe()
     # print(cog_state)
     jump_count = 0
-    for _ in range(100):
+    performance_across_time = []
+    for _ in range(search_iteration):
         specialist.search()
-        # if specialist.distant_jump():
-        #     jump_count += 1
-        # print(generalist.cog_fitness)
+        performance_across_time.append(specialist.cog_fitness)
     print("jump_count: ", jump_count)
     specialist.state = specialist.cog_state_2_state(cog_state=specialist.cog_state)
     specialist.fitness = landscape.query_fitness(state=specialist.state)
+    performance_across_time.append(specialist.fitness)
     specialist.describe()
+    import matplotlib.pyplot as plt
+    import numpy as np
+    x = np.arange(search_iteration+1)
+    plt.plot(x, performance_across_time, "r-", label="G")
+    # plt.title('Diversity Decrease')
+    plt.xlabel('Iteration', fontweight='bold', fontsize=10)
+    plt.ylabel('Performance', fontweight='bold', fontsize=10)
+    # plt.xticks(x)
+    plt.legend(frameon=False, ncol=3, fontsize=10)
+    plt.savefig("S_performance.png", transparent=True, dpi=200)
+    plt.show()
+    plt.clf()
     print("END")
 
 # does this search space or freedom space is too small and easy to memory for individuals??
