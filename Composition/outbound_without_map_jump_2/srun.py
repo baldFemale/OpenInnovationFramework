@@ -4,9 +4,10 @@
 # @FileName: run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
+import numpy as np
+
 from Generalist import Generalist
 from Specialist import Specialist
-import numpy as np
 from Tshape import Tshape
 from Landscape import Landscape
 import multiprocessing as mp
@@ -17,16 +18,16 @@ import pickle
 import math
 
 
-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
-        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        t_shape.align_default_state(loop=hyper_loop*hyper_iteration+loop)
-        crowd.append(t_shape)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        specialist.align_default_state(loop=hyper_loop*hyper_iteration+loop)
+        crowd.append(specialist)
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
@@ -41,17 +42,15 @@ if __name__ == '__main__':
     landscape_iteration = 100
     agent_num = 400
     search_iteration = 200
-    hyper_iteration = 20
+    hyper_iteration = 10
     N = 10
     state_num = 4
-    # expertise_amount = 20
-    generalist_expertise = 4
-    specialist_expertise = 16
+    expertise_amount = 20
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
-    concurrency = 30
+    concurrency = 20
     sema = Semaphore(concurrency)
     original_performance_data_across_K = []
     for K in K_list:
@@ -62,7 +61,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -76,12 +75,12 @@ if __name__ == '__main__':
         result_2 = math.sqrt(sum(temp_2) / len(temp_2))
         performance_across_K.append(result_1)
         deviation_across_K.append(result_2)
-        original_performance_data_across_K.append(temp_1)
-    with open("t_performance_across_K", 'wb') as out_file:
+        # original_performance_data_across_K.append(temp_1)
+    with open("s_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("t_deviation_across_K", 'wb') as out_file:
+    with open("s_deviation_across_K", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
-    with open("t_original_data_across_K", "wb") as out_file:
-        pickle.dump(original_performance_data_across_K, out_file)
+    # with open("s_original_data_across_K", "wb") as out_file:
+    #     pickle.dump(original_performance_data_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
