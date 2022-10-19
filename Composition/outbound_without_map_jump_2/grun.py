@@ -42,7 +42,7 @@ if __name__ == '__main__':
     landscape_iteration = 100
     agent_num = 400
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 10
+    hyper_iteration = 40
     N = 10
     state_num = 4
     expertise_amount = 20
@@ -56,9 +56,10 @@ if __name__ == '__main__':
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
-    concurrency = 20
+    concurrency = 25
     sema = Semaphore(concurrency)
     original_performance_data_across_K = []
+    original_deviation_data_across_K = []
     for K in K_list:
         temp_1, temp_2 = [], []
         for hyper_loop in range(hyper_iteration):
@@ -75,19 +76,22 @@ if __name__ == '__main__':
             performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
             for result in performance_across_landscape:
                 # using += means we don't differentiate different landscapes
-                temp_1 += result[0]  # result[0] is a list across agents
-                temp_2 += [result[1] ** 2 for result in performance_across_landscape]  # deviation across agent
+                temp_1.append(sum(result[0]) / len(result[0]))  # result[0] is a list across agents, take an average-> landscape level
+                temp_2.append(result[1])  # result[1] is the standard deviation
         result_1 = sum(temp_1) / len(temp_1)
-        result_2 = math.sqrt(sum(temp_2) / len(temp_2))
+        result_2 = math.sqrt(sum([sd ** 2 for sd in temp_2]) / (hyper_iteration * landscape_iteration))
         performance_across_K.append(result_1)
         deviation_across_K.append(result_2)
-        # original_performance_data_across_K.append(temp_1)
+        original_performance_data_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
+        original_deviation_data_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
     with open("g_deviation_across_K", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
-    # with open("g_original_data_across_K", "wb") as out_file:
-    #     pickle.dump(original_performance_data_across_K, out_file)
+    with open("g_original_performance_data_across_K", "wb") as out_file:
+        pickle.dump(original_performance_data_across_K, out_file)
+    with open("g_original_deviation_data_across_K", "wb") as out_file:
+        pickle.dump(original_deviation_data_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 

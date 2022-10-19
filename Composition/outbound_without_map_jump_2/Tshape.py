@@ -130,10 +130,10 @@ class Tshape:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
+    landscape = Landscape(N=10, state_num=4)
     landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
-    t_shape = Tshape(N=8, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
+    t_shape = Tshape(N=10, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
     # jump_count = 0
     # for _ in range(1000):
     #     t_shape.search()
@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
     # Test for the search rounds upper boundary
     cog_performance_across_time = []
-    for _ in range(100):
+    for _ in range(200):
         t_shape.search()
         t_shape.distant_jump()
         cog_performance_across_time.append(t_shape.cog_fitness)
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     t_shape.fitness = landscape.query_fitness(state=t_shape.state)
     print(t_shape.fitness, t_shape.cog_fitness)
     import matplotlib.pyplot as plt
-    x = range(100)
+    x = range(200)
     plt.plot(x, cog_performance_across_time, "r-", label="G")
     # plt.title('Diversity Decrease')
     plt.xlabel('Time', fontweight='bold', fontsize=10)
