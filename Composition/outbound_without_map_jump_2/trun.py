@@ -52,7 +52,6 @@ if __name__ == '__main__':
     jump_count_across_K = []
     deviation_across_K = []
     concurrency = 25
-    sema = Semaphore(concurrency)
     original_performance_data_across_K = []
     original_deviation_data_across_K = []
     for K in K_list:
@@ -60,6 +59,7 @@ if __name__ == '__main__':
         for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
+            sema = Semaphore(concurrency)
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
