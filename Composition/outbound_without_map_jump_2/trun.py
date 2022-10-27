@@ -45,8 +45,8 @@ if __name__ == '__main__':
     N = 10
     state_num = 4
     # expertise_amount = 20
-    generalist_expertise = 12  # 2 * 6
-    specialist_expertise = 8    # 4 * 2
+    generalist_expertise = 12  # 2 * 6: six G domains
+    specialist_expertise = 8    # 4 * 2: two S domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []

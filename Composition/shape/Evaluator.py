@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pickle
 from matplotlib import container
 
-data_folder = r"E:\data\gst-1014\outbound"
+data_folder = r"E:\data\gst-1018\shape"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
@@ -19,15 +19,15 @@ with open(s_performance_file, 'rb') as infile:
 with open(t_performance_file, 'rb') as infile:
     t_performance = pickle.load(infile)
 
-g_jump_file = data_folder + r"\g_jump_across_K"
-s_jump_file = data_folder + r"\s_jump_across_K"
-t_jump_file = data_folder + r"\t_jump_across_K"
-with open(g_jump_file, 'rb') as infile:
-    g_jump = pickle.load(infile)
-with open(s_jump_file, 'rb') as infile:
-    s_jump = pickle.load(infile)
-with open(t_jump_file, 'rb') as infile:
-    t_jump = pickle.load(infile)
+# g_jump_file = data_folder + r"\g_jump_across_K"
+# s_jump_file = data_folder + r"\s_jump_across_K"
+# t_jump_file = data_folder + r"\t_jump_across_K"
+# with open(g_jump_file, 'rb') as infile:
+#     g_jump = pickle.load(infile)
+# with open(s_jump_file, 'rb') as infile:
+#     s_jump = pickle.load(infile)
+# with open(t_jump_file, 'rb') as infile:
+#     t_jump = pickle.load(infile)
 
 g_deviation_file = data_folder + r"\g_deviation_across_K"
 s_deviation_file = data_folder + r"\s_deviation_across_K"
@@ -84,18 +84,18 @@ with open(t_deviation_file, 'rb') as infile:
 # t_deviation = [(a + b) / 2 for a, b in zip(t_deviation, t_deviation_2)]
 
 # Performance
-x = [0, 1, 2, 3, 4, 5]
+x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 # Jump
-plt.plot(x, g_jump, "r-", label="G")
-plt.plot(x, s_jump, "b-", label="S")
-plt.plot(x, t_jump, "g-", label="T")
-# plt.title('Diversity Decrease')
-plt.xlabel('K', fontweight='bold', fontsize=10)
-plt.ylabel('Jump', fontweight='bold', fontsize=10)
-plt.xticks(x)
-plt.legend(frameon=False, ncol=1, fontsize=10)
-plt.savefig(data_folder + r"\GST_jump_K.png", transparent=True, dpi=200)
-plt.clf()
+# plt.plot(x, g_jump, "r-", label="G")
+# plt.plot(x, s_jump, "b-", label="S")
+# plt.plot(x, t_jump, "g-", label="T")
+# # plt.title('Diversity Decrease')
+# plt.xlabel('K', fontweight='bold', fontsize=10)
+# plt.ylabel('Jump', fontweight='bold', fontsize=10)
+# plt.xticks(x)
+# plt.legend(frameon=False, ncol=1, fontsize=10)
+# plt.savefig(data_folder + r"\GST_jump_K.png", transparent=True, dpi=200)
+# plt.clf()
 
 # Deviation
 # plt.plot(x, g_deviation, "r-", label="G")
