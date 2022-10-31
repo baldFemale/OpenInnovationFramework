@@ -7,6 +7,7 @@
 import random
 import numpy as np
 from Landscape import Landscape
+import pickle
 
 
 class Tshape:
@@ -38,12 +39,37 @@ class Tshape:
         if len(self.expertise_domain) > self.N:
             raise ValueError("The expertise domain should not be greater than N")
 
-    def elaborate_from_state(self, state=None):
-        # replace the initial state with the given exposure / generation from others
-        self.state = state.copy()
+    def align_default_state(self, loop=None):
+        with open("default_state_list", "rb") as infile:
+            default_state_list = pickle.load(infile)
+        default_state = default_state_list[loop]
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                self.state[index] = default_state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.search()
+
+    def get_overlap_with_IM(self):
+        influence_matrix = self.landscape.IM
+        row_overlap, column_overlap = 0, 0
+        for row in range(self.N):
+            if row in self.expertise_domain:
+                row_overlap += sum(influence_matrix[row])
+        for column in range(self.N):
+            if column in self.expertise_domain:
+                column_overlap += sum(influence_matrix[:][column])
+        self.column_overlap = column_overlap
+        self.row_overlap = row_overlap
+
+    def learn_from_pool(self, pool=None):
+        exposure_state = pool[np.random.choice(len(pool))]
+        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        if cog_fitness_of_exposure_state > self.cog_fitness:
+            self.cog_state = cog_exposure_state
+            self.cog_fitness = cog_fitness_of_exposure_state
+            return True
+        return False
 
     def search(self):
         next_cog_state = self.cog_state.copy()
@@ -116,10 +142,10 @@ class Tshape:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
+    landscape = Landscape(N=10, state_num=4)
     landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
-    t_shape = Tshape(N=8, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
+    t_shape = Tshape(N=10, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
     # jump_count = 0
     # for _ in range(1000):
     #     t_shape.search()
@@ -134,7 +160,7 @@ if __name__ == '__main__':
 
     # Test for the search rounds upper boundary
     cog_performance_across_time = []
-    for _ in range(100):
+    for _ in range(200):
         t_shape.search()
         t_shape.distant_jump()
         cog_performance_across_time.append(t_shape.cog_fitness)
@@ -142,7 +168,7 @@ if __name__ == '__main__':
     t_shape.fitness = landscape.query_fitness(state=t_shape.state)
     print(t_shape.fitness, t_shape.cog_fitness)
     import matplotlib.pyplot as plt
-    x = range(100)
+    x = range(200)
     plt.plot(x, cog_performance_across_time, "r-", label="G")
     # plt.title('Diversity Decrease')
     plt.xlabel('Time', fontweight='bold', fontsize=10)

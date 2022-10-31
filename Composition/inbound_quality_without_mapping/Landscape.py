@@ -189,7 +189,7 @@ class Landscape:
             normalizor = max(self.cache.values())
             min_normalizor = min(self.cache.values())
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k]-min_normalizor)/(normalizor-min_normalizor)
+                self.cache[k] = (self.cache[k] - min_normalizor) / (normalizor - min_normalizor)
         self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
@@ -311,9 +311,9 @@ if __name__ == '__main__':
     # landscape.help() # just record some key hints
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
-    landscape.type(IM_type="Factor Directed", k=44)
+    landscape.type(IM_type="Traditional Directed", K=2)
     landscape.initialize()
-    # landscape.describe()
+    landscape.describe()
     # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     # a = landscape.query_cog_fitness(cog_state)
     # print(a)
@@ -327,9 +327,26 @@ if __name__ == '__main__':
     # print(len(state_pool))
 
     # Test the quality generation
-    state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
-    for state in state_pool:
-        print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+    # state_pool = landscape.generate_quality_pool(quality_percentage=0.5)
+    # for state in state_pool:
+    #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
+
+    # Test the overlap calculation using IM
+    expertise_domain = [0, 1, 2, 3]
+    # row_overlap = 0
+    # for row in range(len(landscape.IM)):
+    #     k = int(sum(landscape.IM[row]))
+    #     if row in expertise_domain:
+    #         row_overlap += k*4
+    # print("row_overlap: ", row_overlap)
+    column_overlap = 0
+    for column in range(len(landscape.IM)):
+        k = int(sum(landscape.IM[:, column]))
+        print(landscape.IM[:, column])
+        if column in expertise_domain:
+            column_overlap += k*4
+            print(k*4)
+    print("column_overlap: ", column_overlap)
 
     # print(state_pool)
     # print(len(state_pool))
