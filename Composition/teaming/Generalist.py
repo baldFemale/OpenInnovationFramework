@@ -13,6 +13,7 @@ import pickle
 class Generalist:
     def __init__(self, N=None, landscape=None, state_num=4, expertise_amount=None):
         self.landscape = landscape
+        self.name = "Generalist"
         self.N = N
         self.state_num = state_num
         self.state = np.random.choice(range(self.state_num), self.N).tolist()

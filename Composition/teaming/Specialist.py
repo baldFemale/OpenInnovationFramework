@@ -16,6 +16,7 @@ class Specialist:
         For Specialist, there is no depth penalty or shallow understanding ambiguity
         """
         self.landscape = landscape
+        self.name = "Specialist"
         self.N = N
         self.state_num = state_num
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 4, replace=False).tolist()
@@ -60,14 +61,20 @@ class Specialist:
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
-    def learn_from_pool(self, pool=None):
-        exposure_state = pool[np.random.choice(len(pool))]
-        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
-        if cog_fitness_of_exposure_state > self.cog_fitness:
-            self.cog_state = cog_exposure_state
-            self.cog_fitness = cog_fitness_of_exposure_state
-            return True
+    def learn_from_teammate(self, teammate_state=None):
+        next_state = teammate_state.copy()
+        if ("A" in teammate_state) or ("B" in teammate_state):
+            for index, bit_value in enumerate(teammate_state):
+                if index in self.expertise_domain:
+                    if bit_value == "A":
+                        next_state[index] = random.choice(["0", "1"])
+                    elif bit_value == "B":
+                        next_state[index] = random.choice(["2", "3"])
+                    else:pass  # retain the exact bit
+                else:
+                    pass
+            cog_exposure_state = self.state_2_cog_state(state=teammate_state)
+
         return False
 
     def search(self):

@@ -14,6 +14,7 @@ class Tshape:
     def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
         self.landscape = landscape
         self.N = N
+        self.name = "T-shape"
         self.state_num = state_num
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string

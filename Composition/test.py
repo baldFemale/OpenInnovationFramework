@@ -40,19 +40,3 @@ import numpy as np
 # for index, each in enumerate(x):
 #     distance += get_distance(state=each, state_list=x[index+1::])
 # print(distance / len(x))
-
-x = [['3', '3', '1', '2', '0', '2', '0', '0'],
-     ['3', '1', '1', '2', '1', '2', '0', '0'],
-     ['1', '1', '1', '2', '0', '2', '3', '2'],
-     ['3', '3', '1', '2', '0', '2', '1', '2']]
-# # y = ['3', '3', '1', '2', '0', '2', '0', '0']
-# y = np.random.choice(x)
-# print(y)
-x = list("33300201")
-print(x)
-# if y not in x:
-#     print("T")
-
-# space = ["0", "1", "2", "3"]
-# space.remove("1")
-# print(space)
