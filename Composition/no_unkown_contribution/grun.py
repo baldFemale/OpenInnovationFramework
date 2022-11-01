@@ -43,10 +43,10 @@ if __name__ == '__main__':
     agent_num = 400
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 10
-    N = 10
+    N = 9
     state_num = 4
-    expertise_amount = 20
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    expertise_amount = 12
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     default_state_list = []
     for _ in range(hyper_iteration * landscape_iteration):
         default_state = np.random.choice(range(state_num), N).tolist()

@@ -43,10 +43,10 @@ if __name__ == '__main__':
     agent_num = 400
     search_iteration = 200
     hyper_iteration = 10
-    N = 10
+    N = 9
     state_num = 4
-    expertise_amount = 20  # C_9_3
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    expertise_amount = 12  # C_9_3
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []

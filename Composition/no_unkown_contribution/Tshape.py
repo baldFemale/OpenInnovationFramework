@@ -71,7 +71,7 @@ class Tshape:
             free_space = ["0", "1", "2", "3"]
             free_space.remove(self.cog_state[index])
             next_cog_state[index] = np.random.choice(free_space)
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness

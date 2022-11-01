@@ -42,12 +42,12 @@ if __name__ == '__main__':
     agent_num = 400
     search_iteration = 200
     hyper_iteration = 10
-    N = 10
+    N = 9
     state_num = 4
     # expertise_amount = 20
-    generalist_expertise = 8  # 2 * 4: four G domains
-    specialist_expertise = 12    # 4 * 3: three S domains
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    generalist_expertise = 4  # 2 * 4: four G domains
+    specialist_expertise = 8    # 4 * 3: three S domains
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []

@@ -75,7 +75,7 @@ class Generalist:
             next_cog_state[index] = "B"
         else:
             next_cog_state[index] = "A"
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
