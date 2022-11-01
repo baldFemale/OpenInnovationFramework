@@ -186,10 +186,11 @@ class Landscape:
         self.store_cache()
         # normalization
         if norm:
-            normalizor = max(self.cache.values())
+            max_normalizor = max(self.cache.values())
             min_normalizor = min(self.cache.values())
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k]-min_normalizor)/(normalizor-min_normalizor)
+                # self.cache[k] = (self.cache[k] - max_normalizor) / (max_normalizor - min_normalizor)
+                self.cache[k] = self.cache[k] / max_normalizor
         self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
@@ -350,3 +351,9 @@ if __name__ == '__main__':
 
     # print(state_pool)
     # print(len(state_pool))
+    import matplotlib.pyplot as plt
+    data = landscape.cache.values()
+    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    plt.xlabel("Range")
+    plt.ylabel("Count")
+    plt.show()
