@@ -25,7 +25,8 @@ class Tshape:
         self.generalist_domain = np.random.choice(free_space, generalist_expertise // 2, replace=False).tolist()
         self.expertise_domain = self.specialist_domain + self.generalist_domain
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
         self.fitness = None
 
         if not self.landscape:
@@ -47,7 +48,8 @@ class Tshape:
             if index not in self.expertise_domain:
                 self.state[index] = default_state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -80,7 +82,8 @@ class Tshape:
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
         distant_state = [str(i) for i in distant_state]
         cog_distant_state = self.state_2_cog_state(state=distant_state)
-        cog_fitness_of_distant_state = self.landscape.query_cog_fitness(cog_state=cog_distant_state)
+        cog_fitness_of_distant_state = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=cog_distant_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_distant_state > self.cog_fitness:
             self.cog_state = cog_distant_state
             self.cog_fitness = cog_fitness_of_distant_state
