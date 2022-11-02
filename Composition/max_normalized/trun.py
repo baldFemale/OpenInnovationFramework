@@ -21,7 +21,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
          search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
-    landscape.initialize()
+    landscape.initialize(norm=False)
     crowd = []
     for _ in range(agent_num):
         t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)

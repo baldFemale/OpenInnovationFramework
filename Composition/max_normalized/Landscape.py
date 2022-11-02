@@ -345,7 +345,7 @@ if __name__ == '__main__':
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.type(IM_type="Traditional Directed", K=2)
-    landscape.initialize()
+    landscape.initialize(norm=False)
     landscape.describe()
     # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     # a = landscape.query_cog_fitness(cog_state)
@@ -389,9 +389,9 @@ if __name__ == '__main__':
 
     # print(state_pool)
     # print(len(state_pool))
-    # import matplotlib.pyplot as plt
-    # data = landscape.cache.values()
-    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    # plt.xlabel("Range")
-    # plt.ylabel("Count")
-    # plt.show()
+    import matplotlib.pyplot as plt
+    data = landscape.cache.values()
+    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    plt.xlabel("Range")
+    plt.ylabel("Count")
+    plt.show()
