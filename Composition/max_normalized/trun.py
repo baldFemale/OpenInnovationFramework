@@ -30,9 +30,10 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
-    performance_across_agent = [agent.cog_fitness for agent in crowd]
+    performance_across_agent = [agent.fitness for agent in crowd]
+    cog_performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
-    return_dict[loop] = [performance_across_agent, performance_deviation]
+    return_dict[loop] = [performance_across_agent, performance_deviation, cog_performance_across_agent]
     sema.release()
 
 
@@ -48,14 +49,17 @@ if __name__ == '__main__':
     generalist_expertise = 4  # 2 * 4: four G domains
     specialist_expertise = 8    # 4 * 3: three S domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
     performance_across_K = []
-    jump_count_across_K = []
+    cog_performance_across_K = []
     deviation_across_K = []
     concurrency = 25
+
     original_performance_data_across_K = []
+    original_cog_performance_data_across_K = []
     original_deviation_data_across_K = []
     for K in K_list:
-        temp_1, temp_2 = [], []
+        temp_1, temp_2, temp_3 = [], [], []
         for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -73,18 +77,27 @@ if __name__ == '__main__':
                 # using += means we don't differentiate different landscapes
                 temp_1.append(sum(result[0]) / len(result[0]))  # result[0] is a list across agents, take an average-> landscape level
                 temp_2.append(result[1])  # result[1] is the standard deviation
+                temp_3.append(sum(result[2]) / len(result[2]))
         result_1 = sum(temp_1) / len(temp_1)
         result_2 = math.sqrt(sum([sd ** 2 for sd in temp_2]) / (hyper_iteration * landscape_iteration))
+        result_3 = sum(temp_3) / len(temp_3)
+
         performance_across_K.append(result_1)
         deviation_across_K.append(result_2)
+        cog_performance_across_K.append(result_3)
+
         original_performance_data_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
         original_deviation_data_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
+        original_cog_performance_data_across_K.append(temp_3)  # shape: K * {hyper_iteration * landscape_iteration}
+
     with open("t_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
     with open("t_deviation_across_K", 'wb') as out_file:
         pickle.dump(deviation_across_K, out_file)
     with open("t_original_performance_data_across_K", "wb") as out_file:
         pickle.dump(original_performance_data_across_K, out_file)
+    with open("t_original_cog_performance_data_across_K", "wb") as out_file:
+        pickle.dump(original_cog_performance_data_across_K, out_file)
     with open("t_original_deviation_data_across_K", "wb") as out_file:
         pickle.dump(original_deviation_data_across_K, out_file)
     t1 = time.time()

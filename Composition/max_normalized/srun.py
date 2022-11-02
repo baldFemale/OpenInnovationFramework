@@ -31,8 +31,8 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
-    cog_performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_across_agent = [agent.fitness for agent in crowd]  # only the last fitness value (convergence)
+    cog_performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
     return_dict[loop] = [performance_across_agent, performance_deviation, cog_performance_across_agent]
     sema.release()
