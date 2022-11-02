@@ -40,7 +40,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 100
     agent_num = 400
-    search_iteration = 200
+    search_iteration = 100
     hyper_iteration = 10
     N = 9
     state_num = 4

@@ -137,7 +137,7 @@ class Tshape:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=10, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=4, k=0)
+    landscape.type(IM_type="Traditional Directed", K=3, k=0)
     landscape.initialize()
     t_shape = Tshape(N=10, landscape=landscape, state_num=4, generalist_expertise=8, specialist_expertise=8)
     # jump_count = 0
@@ -154,19 +154,19 @@ if __name__ == '__main__':
 
     # Test for the search rounds upper boundary
     cog_performance_across_time = []
-    for _ in range(200):
+    performance_across_time = []
+    for _ in range(100):
         t_shape.search()
-        t_shape.distant_jump()
         cog_performance_across_time.append(t_shape.cog_fitness)
-    t_shape.state = t_shape.cog_state_2_state(cog_state=t_shape.cog_state)
-    t_shape.fitness = landscape.query_fitness(state=t_shape.state)
-    print(t_shape.fitness, t_shape.cog_fitness)
+        performance_across_time.append(t_shape.fitness)
     import matplotlib.pyplot as plt
-    x = range(200)
-    plt.plot(x, cog_performance_across_time, "r-", label="G")
+    x = range(100)
+    plt.plot(x, cog_performance_across_time, "k--", label="Partial Fitness")
+    plt.plot(x, performance_across_time, "k-", label="Absolute Fitness")
     # plt.title('Diversity Decrease')
     plt.xlabel('Time', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     plt.legend(frameon=False, ncol=3, fontsize=10)
     # plt.savefig("GST_performance_K.png", transparent=True, dpi=1200)
     plt.show()
+
