@@ -22,8 +22,8 @@ class Specialist:
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
         self.cog_state = self.state_2_cog_state(state=self.state)  # will be the same as state, thus search accurately
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.fitness = None
+        self.cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
         # Mechanism: overlap with IM
         self.row_overlap = 0
@@ -58,12 +58,13 @@ class Specialist:
             if index not in self.expertise_domain:
                 self.state[index] = default_state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_without_unknown(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_exposure_state > self.cog_fitness:
             self.cog_state = cog_exposure_state
             self.cog_fitness = cog_fitness_of_exposure_state
@@ -77,16 +78,17 @@ class Specialist:
         space = ["0", "1", "2", "3"]
         space.remove(self.state[index])
         next_cog_state[index] = np.random.choice(space)
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
         distant_state = [str(i) for i in distant_state]
         distant_cog_state = self.state_2_cog_state(state=distant_state)
-        distant_cog_fitness = self.landscape.query_cog_fitness(cog_state=distant_cog_state)
+        distant_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=distant_cog_state, expertise_domain=self.expertise_domain)
         if distant_cog_fitness > self.cog_fitness:
             self.cog_state = distant_cog_state
             self.cog_fitness = distant_cog_fitness
@@ -116,35 +118,33 @@ class Specialist:
 
 if __name__ == '__main__':
     # Test Example
-    search_iteration = 500
-    landscape = Landscape(N=10, state_num=4)
+    search_iteration = 200
+    landscape = Landscape(N=9, state_num=4)
     landscape.type(IM_type="Traditional Directed", K=4, k=0)
     landscape.initialize()
-    specialist = Specialist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
+    specialist = Specialist(N=9, landscape=landscape, state_num=4, expertise_amount=12)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
     # cog_state = specialist.state_2_cog_state(state=state)
     # specialist.describe()
     # print(cog_state)
-    jump_count = 0
     performance_across_time = []
+    cog_performance_across_time = []
     for _ in range(search_iteration):
         specialist.search()
-        performance_across_time.append(specialist.cog_fitness)
-    print("jump_count: ", jump_count)
-    specialist.state = specialist.cog_state_2_state(cog_state=specialist.cog_state)
-    specialist.fitness = landscape.query_fitness(state=specialist.state)
-    performance_across_time.append(specialist.fitness)
+        performance_across_time.append(specialist.fitness)
+        cog_performance_across_time.append(specialist.cog_fitness)
     specialist.describe()
     import matplotlib.pyplot as plt
     import numpy as np
-    x = np.arange(search_iteration+1)
-    plt.plot(x, performance_across_time, "r-", label="G")
+    x = np.arange(search_iteration)
+    plt.plot(x, performance_across_time, "k-", label="Absolute Fitness")
+    plt.plot(x, cog_performance_across_time, "k--", label="Partial Fitness")
     # plt.title('Diversity Decrease')
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
     plt.legend(frameon=False, ncol=3, fontsize=10)
-    plt.savefig("S_performance.png", transparent=True, dpi=200)
+    # plt.savefig("S_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()
     print("END")

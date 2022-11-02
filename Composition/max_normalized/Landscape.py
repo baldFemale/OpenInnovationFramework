@@ -153,7 +153,7 @@ class Landscape:
             bin_index = str(state[i]) + bin_index
             index = int(bin_index, self.state_num)
             res.append(self.FC[i][index])
-        return np.mean(res)
+        return sum(res) / len(res)
 
     def store_cache(self,):
         all_states = [state for state in product(range(self.state_num), repeat=self.N)]
@@ -215,7 +215,39 @@ class Landscape:
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         cog_fitness = sum(fitness_pool) / len(alternatives)
+        # print("full_fitness_pool: ", fitness_pool)
         self.cog_cache[cog_state_string] = cog_fitness
+        return cog_fitness
+
+    def query_cog_fitness_without_unknown(self, cog_state=None, expertise_domain=None):
+        """
+        Query the cognitive (average) fitness given a cognitive state
+                For S domain, there is only one alternative, so it follows the default search
+                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
+        :param cog_state: the cognitive state
+        :return: the average across the alternative pool.
+        """
+        cog_state_string = ''.join([str(i) for i in cog_state])
+        if cog_state_string in self.cog_cache.keys():
+            return self.cog_cache[cog_state_string]
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        partial_fitness_pool = []
+        for state in alternatives:
+            partial_FC_across_bits = []  # only the expertise domains have fitness contribution
+            for index in range(self.N):
+                if index not in expertise_domain:
+                    continue
+                else:
+                    # the unknown domain will still affect the condition
+                    dependency = self.dependency_map[index]
+                    bin_index = "".join([str(state[d]) for d in dependency])
+                    bin_index = str(state[index]) + bin_index
+                    FC_index = int(bin_index, self.state_num)
+                    partial_FC_across_bits.append(self.FC[index][FC_index])
+            # print("partial_FC_across_bits: ", partial_FC_across_bits)
+            partial_fitness = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
+            partial_fitness_pool.append(partial_fitness)
+        cog_fitness = sum(partial_fitness_pool) / len(partial_fitness_pool)
         return cog_fitness
 
     def query_potential_performance(self, cog_state=None, top=1):
@@ -318,9 +350,15 @@ if __name__ == '__main__':
     # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     # a = landscape.query_cog_fitness(cog_state)
     # print(a)
-    # cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
-    # b = landscape.cog_state_alternatives(cog_state=cog_state)
-    # print(b)
+    cog_state = ['A', '1', '1', '1', '1', '3', '1', '2']
+    b = landscape.cog_state_alternatives(cog_state=cog_state)
+    print(b)
+
+    cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
+    cog_fitness = landscape.query_cog_fitness_without_unknown(cog_state=cog_state, expertise_domain=[0, 1, 2])
+    print("partial_cog_fitness: ", cog_fitness)
+    cog_fitness_2 = landscape.query_cog_fitness(cog_state=cog_state)
+    print("full_cog_fitness: ", cog_fitness_2)
 
     # Test the divergence generation
     # state_pool = landscape.generate_divergence_pool(divergence=2)
@@ -333,27 +371,27 @@ if __name__ == '__main__':
     #     print(state, landscape.cache[state], landscape.fitness_to_rank_dict[landscape.cache[state]])
 
     # Test the overlap calculation using IM
-    expertise_domain = [0, 1, 2, 3]
+    # expertise_domain = [0, 1, 2, 3]
     # row_overlap = 0
     # for row in range(len(landscape.IM)):
     #     k = int(sum(landscape.IM[row]))
     #     if row in expertise_domain:
     #         row_overlap += k*4
     # print("row_overlap: ", row_overlap)
-    column_overlap = 0
-    for column in range(len(landscape.IM)):
-        k = int(sum(landscape.IM[:, column]))
-        print(landscape.IM[:, column])
-        if column in expertise_domain:
-            column_overlap += k*4
-            print(k*4)
-    print("column_overlap: ", column_overlap)
+    # column_overlap = 0
+    # for column in range(len(landscape.IM)):
+    #     k = int(sum(landscape.IM[:, column]))
+    #     print(landscape.IM[:, column])
+    #     if column in expertise_domain:
+    #         column_overlap += k*4
+    #         print(k*4)
+    # print("column_overlap: ", column_overlap)
 
     # print(state_pool)
     # print(len(state_pool))
-    import matplotlib.pyplot as plt
-    data = landscape.cache.values()
-    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.show()
+    # import matplotlib.pyplot as plt
+    # data = landscape.cache.values()
+    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.show()

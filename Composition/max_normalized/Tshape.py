@@ -25,8 +25,9 @@ class Tshape:
         self.generalist_domain = np.random.choice(free_space, generalist_expertise // 2, replace=False).tolist()
         self.expertise_domain = self.specialist_domain + self.generalist_domain
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.fitness = None
+        self.cog_fitness = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
@@ -47,12 +48,15 @@ class Tshape:
             if index not in self.expertise_domain:
                 self.state[index] = default_state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_exposure_state > self.cog_fitness:
             self.cog_state = cog_exposure_state
             self.cog_fitness = cog_fitness_of_exposure_state
@@ -71,16 +75,18 @@ class Tshape:
             free_space = ["0", "1", "2", "3"]
             free_space.remove(self.cog_state[index])
             next_cog_state[index] = np.random.choice(free_space)
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
         distant_state = [str(i) for i in distant_state]
         cog_distant_state = self.state_2_cog_state(state=distant_state)
-        cog_fitness_of_distant_state = self.landscape.query_cog_fitness(cog_state=cog_distant_state)
+        cog_fitness_of_distant_state = self.landscape.\
+            query_cog_fitness_without_unknown(cog_state=cog_distant_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_distant_state > self.cog_fitness:
             self.cog_state = cog_distant_state
             self.cog_fitness = cog_fitness_of_distant_state
