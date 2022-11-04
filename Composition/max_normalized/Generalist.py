@@ -20,8 +20,8 @@ class Generalist:
         self.generalist_knowledge_representation = ["A", "B"]
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
         # Mechanism: overlap with IM
         self.row_overlap = 0
@@ -57,14 +57,14 @@ class Generalist:
                 self.state[index] = default_state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         # the partial cog_fitness as the search reference
-        self.cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
         # the absolute cog_fitness as the true fitness
         self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_without_unknown(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_exposure_state > self.cog_fitness:
             self.cog_state = cog_exposure_state
             self.cog_fitness = cog_fitness_of_exposure_state

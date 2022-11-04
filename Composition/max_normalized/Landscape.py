@@ -18,9 +18,10 @@ class Landscape:
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
+        self.potential_cache = {}  # cache the potential of the position
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
-        self.potential_cache = {}  # cache the potential of the position
+
 
     def describe(self):
         print("*********LandScape information********* ")
@@ -201,25 +202,27 @@ class Landscape:
         bits = "".join([str(state[i]) for i in range(len(state))])
         return self.cache[bits]
 
-    def query_cog_fitness(self, cog_state=None):
+    def query_cog_fitness_full(self, cog_state=None):
         """
         Query the cognitive (average) fitness given a cognitive state
                 For S domain, there is only one alternative, so it follows the default search
                 For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
         :param cog_state: the cognitive state
-        :return: the average across the alternative pool.
+        :return: the average across the alternative pool; the potential (maximum) fitness
         """
         cog_state_string = ''.join([str(i) for i in cog_state])
         if cog_state_string in self.cog_cache.keys():
-            return self.cog_cache[cog_state_string]
+            return self.cog_cache[cog_state_string], self.potential_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
+        potential_fitness = max(fitness_pool)
         cog_fitness = sum(fitness_pool) / len(alternatives)
         # print("full_fitness_pool: ", fitness_pool)
         self.cog_cache[cog_state_string] = cog_fitness
-        return cog_fitness
+        self.potential_cache[cog_state_string] = potential_fitness
+        return cog_fitness, potential_fitness
 
-    def query_cog_fitness_without_unknown(self, cog_state=None, expertise_domain=None):
+    def query_cog_fitness_partial(self, cog_state=None, expertise_domain=None):
         """
         Query the cognitive (average) fitness given a cognitive state
                 For S domain, there is only one alternative, so it follows the default search
@@ -231,7 +234,7 @@ class Landscape:
         if cog_state_string in self.cog_cache.keys():
             return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
-        partial_fitness_pool = []
+        partial_fitness_alternatives = []
         for state in alternatives:
             partial_FC_across_bits = []  # only the expertise domains have fitness contribution
             for index in range(self.N):
@@ -245,28 +248,10 @@ class Landscape:
                     FC_index = int(bin_index, self.state_num)
                     partial_FC_across_bits.append(self.FC[index][FC_index])
             # print("partial_FC_across_bits: ", partial_FC_across_bits)
-            partial_fitness = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
-            partial_fitness_pool.append(partial_fitness)
-        cog_fitness = sum(partial_fitness_pool) / len(partial_fitness_pool)
+            partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
+            partial_fitness_alternatives.append(partial_fitness_state)
+        cog_fitness = sum(partial_fitness_alternatives) / len(partial_fitness_alternatives) / max(self.cache.values())
         return cog_fitness
-
-    def query_potential_performance(self, cog_state=None, top=1):
-        """
-        Query the potential (max be default) given a cognitive position
-        :param cog_state: the cognitive state list
-        :param top: take the maximum by default
-        :return: the potential fitness, measured by the rank
-         (e.g., 1 refers to this position have a potential to reach the global maximum)
-        """
-        cog_state_string = ''.join([str(i) for i in cog_state])
-        if cog_state_string in self.potential_cache.keys():
-            return self.potential_cache[cog_state_string]
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)
-        fitness_pool = [self.query_fitness(each) for each in alternatives]
-        position_potential = sorted(fitness_pool)[-top]
-        position_potential_rank = self.fitness_to_rank_dict[position_potential]
-        self.potential_cache[cog_state_string] = position_potential_rank
-        return position_potential_rank
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []

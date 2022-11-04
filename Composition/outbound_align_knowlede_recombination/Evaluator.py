@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"E:\data\gst-1018\outbound_without_map_jump_4"
+data_folder = r"E:\data\gst-1102\outbound_align_knowlede_recombination"
 g_performance_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
@@ -32,8 +32,9 @@ with open(t_deviation_file, 'rb') as infile:
     t_deviation = pickle.load(infile)
 
 # Performance
-x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+t_performance = t_performance[:-1]
+t_deviation = t_deviation[:-1]
 # Deviation
 plt.plot(x, g_deviation, "r-", label="G")
 plt.plot(x, s_deviation, "b-", label="S")

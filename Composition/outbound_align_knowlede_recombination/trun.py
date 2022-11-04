@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # expertise_amount = 20
     generalist_expertise = 4  # 2*2: two G domains
     specialist_expertise = 8  # 4*2: two S domains
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
