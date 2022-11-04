@@ -18,21 +18,13 @@ import math
 
 
 # mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def g_fun(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, landscape=None,
          search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
-    landscape = Landscape(N=N, state_num=state_num)
-    landscape.type(IM_type="Traditional Directed", K=K, k=0)
-    landscape.initialize(norm=True)  # with the normalization
-    crowd = []
-    for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        generalist.align_default_state(loop=hyper_loop*hyper_iteration+loop)
-        crowd.append(generalist)
-    for agent in crowd:
-        for _ in range(search_iteration):
-            agent.search()
-    performance_across_agent = [agent.fitness for agent in crowd]
-    cog_performance_across_agent = [agent.cog_fitness for agent in crowd]
+
+    generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+    generalist.align_default_state()
+    g_performance_across_agent = [agent.fitness for agent in g_crowd]
+    g_cog_performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
     return_dict[loop] = [performance_across_agent, performance_deviation, cog_performance_across_agent]
     sema.release()
@@ -48,13 +40,6 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    default_state_list = []
-    for _ in range(hyper_iteration * landscape_iteration):
-        default_state = np.random.choice(range(state_num), N).tolist()
-        default_state_list.append([str(i) for i in default_state])
-    with open("default_state_list", "wb") as out_file:
-        pickle.dump(default_state_list, out_file)
-
     performance_across_K = []
     cog_performance_across_K = []
     deviation_across_K = []
@@ -71,8 +56,16 @@ if __name__ == '__main__':
             sema = Semaphore(concurrency)
             jobs = []
             for loop in range(landscape_iteration):
+                # align the landscape
+                landscape = Landscape(N=N, state_num=state_num)
+                landscape.type(IM_type="Traditional Directed", K=K, k=0)
+                landscape.initialize(norm=True)  # with the normalization
+
+                # align the initial state
+                default_state = np.random.choice(range(state_num), N).tolist()
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
+                p = mp.Process(target=g_fun, args=(N, K, state_num, expertise_amount, agent_num, landscape,
+                                                  search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:

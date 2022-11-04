@@ -21,7 +21,7 @@ class Generalist:
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
         # Mechanism: overlap with IM
         self.row_overlap = 0
@@ -48,18 +48,11 @@ class Generalist:
         self.column_overlap = column_overlap
         self.row_overlap = row_overlap
 
-    def align_default_state(self, loop=None):
-        with open("default_state_list", "rb") as infile:
-            default_state_list = pickle.load(infile)
-        default_state = default_state_list[loop]
-        for index in range(self.N):
-            if index not in self.expertise_domain:
-                self.state[index] = default_state[index]
+    def align_default_state(self, initial_state=None):
+        self.state = initial_state
         self.cog_state = self.state_2_cog_state(state=self.state)
-        # the partial cog_fitness as the search reference
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        # the absolute cog_fitness as the true fitness
-        self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -82,7 +75,7 @@ class Generalist:
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()

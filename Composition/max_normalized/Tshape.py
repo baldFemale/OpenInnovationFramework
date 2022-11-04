@@ -39,13 +39,8 @@ class Tshape:
         if len(self.expertise_domain) > self.N:
             raise ValueError("The expertise domain should not be greater than N")
 
-    def align_default_state(self, loop=None):
-        with open("default_state_list", "rb") as infile:
-            default_state_list = pickle.load(infile)
-        default_state = default_state_list[loop]
-        for index in range(self.N):
-            if index not in self.expertise_domain:
-                self.state[index] = default_state[index]
+    def align_default_state(self, initial_state=None):
+        self.state = initial_state
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
@@ -168,7 +163,7 @@ if __name__ == '__main__':
     # plt.title('Diversity Decrease')
     plt.xlabel('Time', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
-    plt.legend(frameon=False, ncol=3, fontsize=10)
+    plt.legend()
     # plt.savefig("GST_performance_K.png", transparent=True, dpi=1200)
     plt.show()
 
