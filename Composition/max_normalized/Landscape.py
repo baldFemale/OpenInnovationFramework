@@ -16,6 +16,8 @@ class Landscape:
         self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
+        self.max_normalizer = 1
+        self.norm = True
         # self.contribution_cache = {}  # the original 1D fitness list before averaging: state_num ^ N: [N]
         self.cog_cache = {}  # for coordination where agents have some unknown element that might be changed by teammates
         self.potential_cache = {}  # cache the potential of the position
@@ -185,13 +187,14 @@ class Landscape:
         """
         self.create_fitness_config()
         self.store_cache()
+        self.norm = norm
         # normalization
-        if norm:
-            max_normalizor = max(self.cache.values())
-            min_normalizor = min(self.cache.values())
+        if self.norm:
+            self.max_normalizer = max(self.cache.values())
+            # min_normalizor = min(self.cache.values())
             for k in self.cache.keys():
                 # self.cache[k] = (self.cache[k] - max_normalizor) / (max_normalizor - min_normalizor)
-                self.cache[k] = self.cache[k] / max_normalizor
+                self.cache[k] = self.cache[k] / self.max_normalizer
         self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
@@ -250,7 +253,12 @@ class Landscape:
             # print("partial_FC_across_bits: ", partial_FC_across_bits)
             partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
             partial_fitness_alternatives.append(partial_fitness_state)
-        cog_fitness = sum(partial_fitness_alternatives) / len(partial_fitness_alternatives) / max(self.cache.values())
+        print("before: ", sum(partial_fitness_alternatives) / len(partial_fitness_alternatives))
+        if self.norm:
+            cog_fitness = sum(partial_fitness_alternatives) / len(partial_fitness_alternatives) / self.max_normalizer
+        else:
+            cog_fitness = sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+        print("after: ", cog_fitness)
         return cog_fitness
 
     def cog_state_alternatives(self, cog_state=None):
@@ -330,20 +338,21 @@ if __name__ == '__main__':
     # landscape.type(IM_type="Influential Directed", k=20, influential_num=2)
     # landscape.type(IM_type="Factor Directed", k=20, factor_num=2)
     landscape.type(IM_type="Traditional Directed", K=2)
-    landscape.initialize(norm=False)
+    landscape.initialize(norm=True)
     landscape.describe()
     # cog_state = ['*', 'B', '1', '1', 'A', '3', 'A', '2']
     # a = landscape.query_cog_fitness(cog_state)
     # print(a)
-    cog_state = ['A', '1', '1', '1', '1', '3', '1', '2']
-    b = landscape.cog_state_alternatives(cog_state=cog_state)
-    print(b)
+    # cog_state = ['A', '1', '1', '1', '1', '3', '1', '2']
+    # b = landscape.cog_state_alternatives(cog_state=cog_state)
+    # print(b)
 
     cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
-    cog_fitness = landscape.query_cog_fitness_without_unknown(cog_state=cog_state, expertise_domain=[0, 1, 2])
+    cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=range(len(cog_state)))
     print("partial_cog_fitness: ", cog_fitness)
-    cog_fitness_2 = landscape.query_cog_fitness(cog_state=cog_state)
+    cog_fitness_2 = landscape.query_cog_fitness_full(cog_state=cog_state)
     print("full_cog_fitness: ", cog_fitness_2)
+    print("max_cache: ", max(landscape.cache.values()))
 
     # Test the divergence generation
     # state_pool = landscape.generate_divergence_pool(divergence=2)
