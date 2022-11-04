@@ -28,9 +28,9 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
     initial_state = np.random.choice(range(state_num), N).tolist()
     initial_state = [str(i) for i in initial_state]
 
-    g_crowd = []
+    g_crowd = []  # 8 Generalist domains
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=16)
         generalist.align_default_state(initial_state=initial_state)
         g_crowd.append(generalist)
     g_performance_across_agent = []
@@ -44,9 +44,9 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
         g_potential_performance_across_agent.append(agent.potential_fitness)
         g_deviation = np.std(g_performance_across_agent)
 
-    s_crowd = []
+    s_crowd = []  # 8 Specialist domains
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=32)
         specialist.align_default_state(initial_state=initial_state)
         s_crowd.append(specialist)
     s_performance_across_agent = []
@@ -60,9 +60,9 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
         s_potential_performance_across_agent.append(agent.potential_fitness)
         s_deviation = np.std(s_performance_across_agent)
 
-    t_crowd = []
+    t_crowd = []  # 4 Specialist domains + 4 Generalist domains
     for _ in range(agent_num):
-        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=8, specialist_expertise=16)
         t_shape.align_default_state(initial_state=initial_state)
         t_crowd.append(t_shape)
     t_performance_across_agent = []
@@ -87,12 +87,12 @@ if __name__ == '__main__':
     landscape_iteration = 50
     agent_num = 400
     search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 20
-    N = 9
+    hyper_iteration = 40
+    N = 10
     state_num = 4
-    expertise_amount = 12
-    generalist_expertise = 4
-    specialist_expertise = 8
+    # expertise_amount = 20
+    # generalist_expertise = 8
+    # specialist_expertise = 12
     concurrency = 50
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
@@ -117,8 +117,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=fun, args=(N, K, state_num, expertise_amount, generalist_expertise, specialist_expertise,
-                                                   agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=fun, args=(N, K, state_num, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             # wait for all the new child processes to terminate
