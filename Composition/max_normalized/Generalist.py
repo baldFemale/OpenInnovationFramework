@@ -59,7 +59,7 @@ class Generalist:
         # the partial cog_fitness as the search reference
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
         # the absolute cog_fitness as the true fitness
-        self.fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -78,10 +78,11 @@ class Generalist:
             next_cog_state[index] = "B"
         else:
             next_cog_state[index] = "A"
-        next_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
