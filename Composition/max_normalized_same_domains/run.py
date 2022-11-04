@@ -60,7 +60,7 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
         s_potential_performance_across_agent.append(agent.potential_fitness)
         s_deviation = np.std(s_performance_across_agent)
 
-    t_crowd = []  # 4 Specialist domains + 4 Generalist domains
+    t_crowd = []  # 4 Specialist domains plus 4 Generalist domains
     for _ in range(agent_num):
         t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=8, specialist_expertise=16)
         t_shape.align_default_state(initial_state=initial_state)
