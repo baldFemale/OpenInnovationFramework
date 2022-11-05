@@ -25,13 +25,13 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize(norm=True)  # with the normalization
     # align the initial state
-    initial_state = np.random.choice(range(state_num), N).tolist()
-    initial_state = [str(i) for i in initial_state]
+    # initial_state = np.random.choice(range(state_num), N).tolist()
+    # initial_state = [str(i) for i in initial_state]
 
     g_crowd = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=20)
-        generalist.align_default_state(initial_state=initial_state)
+        # generalist.align_default_state(initial_state=initial_state)
         g_crowd.append(generalist)
     g_performance_across_agent = []
     g_cog_performance_across_agent = []
@@ -47,7 +47,7 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
     s_crowd = []
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=40)
-        specialist.align_default_state(initial_state=initial_state)
+        # specialist.align_default_state(initial_state=initial_state)
         s_crowd.append(specialist)
     s_performance_across_agent = []
     s_cog_performance_across_agent = []
@@ -63,7 +63,7 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
     t_crowd = []
     for _ in range(agent_num):
         t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=10, specialist_expertise=20)
-        t_shape.align_default_state(initial_state=initial_state)
+        # t_shape.align_default_state(initial_state=initial_state)
         t_crowd.append(t_shape)
     t_performance_across_agent = []
     t_cog_performance_across_agent = []
