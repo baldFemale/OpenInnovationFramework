@@ -85,8 +85,8 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 5
-    agent_num = 10
+    landscape_iteration = 100
+    agent_num = 400
     search_iteration = 100  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 10
     N = 9
@@ -191,13 +191,13 @@ if __name__ == '__main__':
         t_original_performance_across_para.append(t_original_performance)
         t_original_cog_performance_across_para.append(t_original_cog_performance)
 
-    print(g_original_performance_across_para)
-    print(len(g_original_performance_across_para[0]))
-    print(np.mean(g_original_performance_across_para[0]), np.std(g_original_performance_across_para[0]))
-    print(np.mean(s_original_performance_across_para[0]), np.std(s_original_performance_across_para[0]))
-    from scipy import stats
-    t_value, p_value = stats.ttest_ind(g_original_performance_across_para[0], s_original_performance_across_para[0])
-    print("p-value: ", p_value)
+    # print(g_original_performance_across_para)
+    # print(len(g_original_performance_across_para[0]))
+    # print(np.mean(g_original_performance_across_para[0]), np.std(g_original_performance_across_para[0]))
+    # print(np.mean(s_original_performance_across_para[0]), np.std(s_original_performance_across_para[0]))
+    # from scipy import stats
+    # t_value, p_value = stats.ttest_ind(g_original_performance_across_para[0], s_original_performance_across_para[0])
+    # print("p-value: ", p_value)
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(g_performance_across_para, out_file)
     with open("g_cog_performance_across_K", 'wb') as out_file:

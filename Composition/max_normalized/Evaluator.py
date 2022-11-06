@@ -118,13 +118,13 @@ average_across_iteration_across_k = []
 for row in range(len(g_original_performance)):
     average_across_iteration = []
     one_k_performance = g_original_performance[row]
-    print(one_k_performance[0], one_k_performance[400], one_k_performance[800])
-    # for index in range(len(one_k_performance)):
-    #     if (index + 1) % 400 == 0:
-    #         temp_average =
-    #         average_across_iteration.append(temp_average)
-    #         print(index, temp_average)
-    # average_across_iteration_across_k.append(average_across_iteration)
+    # print(one_k_performance[0], one_k_performance[400], one_k_performance[800])
+    for index in range(len(one_k_performance)):
+        if (index + 1) % 100 == 0:
+            temp_average = sum(one_k_performance[:index+1]) / (index + 1)
+            average_across_iteration.append(temp_average)
+            print(index, temp_average)
+    average_across_iteration_across_k.append(average_across_iteration)
 
 x = np.arange(100, 1001, 100)
 for index, data in enumerate(average_across_iteration_across_k):
