@@ -4,8 +4,8 @@
 # @FileName: Agent.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-from Landscape import Landscape
 import numpy as np
+from Landscape import Landscape
 
 
 class Specialist:
@@ -129,7 +129,6 @@ if __name__ == '__main__':
         cog_performance_across_time.append(specialist.cog_fitness)
     specialist.describe()
     import matplotlib.pyplot as plt
-    import numpy as np
     x = np.arange(search_iteration)
     plt.plot(x, performance_across_time, "k-", label="Absolute Fitness")
     plt.plot(x, cog_performance_across_time, "k--", label="Partial Fitness")
