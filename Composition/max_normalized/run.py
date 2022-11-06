@@ -192,6 +192,7 @@ if __name__ == '__main__':
         t_original_cog_performance_across_para.append(t_original_cog_performance)
 
     # print(g_original_performance_across_para)
+    # print(s_original_performance_across_para)
     # print(len(g_original_performance_across_para[0]))
     # print(np.mean(g_original_performance_across_para[0]), np.std(g_original_performance_across_para[0]))
     # print(np.mean(s_original_performance_across_para[0]), np.std(s_original_performance_across_para[0]))

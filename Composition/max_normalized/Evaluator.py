@@ -102,7 +102,7 @@ x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
 
 # Testing the iteration boundary
-data_folder = r"E:\data\gst-1102\max_normalized"
+data_folder = r"E:\data\gst-1102\max_normalized_3"
 g_original_performance_file = data_folder + r"\g_original_performance_data_across_K"
 s_original_performance_file = data_folder + r"\s_original_performance_data_across_K"
 t_original_performance_file = data_folder + r"\t_original_performance_data_across_K"
@@ -120,13 +120,13 @@ for row in range(len(g_original_performance)):
     one_k_performance = g_original_performance[row]
     # print(one_k_performance[0], one_k_performance[400], one_k_performance[800])
     for index in range(len(one_k_performance)):
-        if (index + 1) % 100 == 0:
+        if (index + 1) % 4000 == 0:
             temp_average = sum(one_k_performance[:index+1]) / (index + 1)
             average_across_iteration.append(temp_average)
             print(index, temp_average)
     average_across_iteration_across_k.append(average_across_iteration)
 
-x = np.arange(100, 1001, 100)
+x = np.arange(0, len(g_original_performance), 4000)
 for index, data in enumerate(average_across_iteration_across_k):
     plt.plot(x, data, label="K={0}".format(index))
 # plt.title('Diversity Decrease')
