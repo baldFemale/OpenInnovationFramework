@@ -4,8 +4,28 @@
 # @FileName: test.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
+import numpy
 import numpy as np
+from multiprocessing import Semaphore
+import multiprocessing as mp
 
+# Test whether the random number across repetitions are the same
+def func():
+    random_number = np.random.uniform(0, 1)
+    print(random_number)
+
+if __name__ == '__main__':
+    for index in range(10):
+        manager = mp.Manager()
+        return_dict = manager.dict()
+        sema = Semaphore(100)
+        jobs = []
+        for loop in range(30):
+            sema.acquire()
+            p = mp.Process(target=func)
+            jobs.append(p)
+            p.start()
+        print("*" * 10, index)
 # def func(divergence=None):
 #     state_pool = []
 #     seed_state = np.random.choice(range(4), 6).tolist()

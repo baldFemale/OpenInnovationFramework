@@ -115,11 +115,11 @@ with open(t_original_performance_file, 'rb') as infile:
 
 
 average_across_iteration_across_k = []
-for row in range(len(s_original_performance)):
+for row in range(len(g_original_performance)):
     average_across_iteration = []
-    one_k_performance = s_original_performance[row]
+    one_k_performance = g_original_performance[row]
     for index in range(len(one_k_performance)):
-        if (index + 1) % 40000 == 0:
+        if (index + 1) % 400 == 0:
             temp_average = sum(one_k_performance[:index]) / (index + 1)
             average_across_iteration.append(temp_average)
             print(index, temp_average)
@@ -133,6 +133,6 @@ plt.xlabel('Repetition', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 # plt.xticks(x)
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\S_performance_across_repetition.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\G_performance_across_repetition.png", transparent=False, dpi=200)
 plt.clf()
 plt.show()

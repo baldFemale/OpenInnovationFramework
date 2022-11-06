@@ -4,10 +4,8 @@
 # @FileName: Agent.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import random
 import numpy as np
 from Landscape import Landscape
-import pickle
 
 
 class Generalist:
