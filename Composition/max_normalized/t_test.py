@@ -7,6 +7,10 @@
 # two sample t-test
 from scipy import stats
 import pickle
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
 
 data_folder = r"E:\data\gst-1102\max_normalized_3"
 g_original_cog_performance_file = data_folder + r"\g_original_cog_performance_data_across_K"
@@ -31,87 +35,110 @@ with open(t_original_cog_performance_file, 'rb') as infile:
 
 
 K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-print("========G vs. S=========")
-for index, K in enumerate(K_list):
-    list_a = g_original_performance[index]
-    list_b = s_original_performance[index]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+# distribution comparison
+K = 0
+list_a = g_original_performance[K]
+list_b = s_original_performance[K]
+list_c = t_original_performance[K]
+for sample_size in [20, 50, 100, 200, 500, 1000]:
+    list_a_2 = np.random.choice(list_a, sample_size, replace=False)
+    list_b_2 = np.random.choice(list_b, sample_size, replace=False)
+    list_c_2 = np.random.choice(list_c, sample_size, replace=False)
+    # kwargs = dict(histtype="stepfilled", alpha=0.3, bins=40)
+    # plt.hist(list_a, **kwargs, label="G")
+    # plt.hist(list_b, **kwargs, label="S")
+    # plt.hist(list_c, **kwargs, label="T")
+    # plt.legend()
+    # plt.savefig("Distribution_comparison.png")
+    # plt.show()
 
-print("========G vs. T=========")
-for index, K in enumerate(K_list):
-    list_a = g_original_performance[index]
-    list_b = t_original_performance[index]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+    t_value_1, p_value_1 = stats.ttest_ind(list_a_2, list_b_2)
+    t_value_2, p_value_2 = stats.ttest_ind(list_b_2, list_c_2)
+    print("a-b={0} (p-value={1})".format(np.mean(list_a_2)-np.mean(list_b_2), p_value_1))
+    print("b-c={0} (p-value={1})".format(np.mean(list_b_2)-np.mean(list_c_2), p_value_2))
+    print(sample_size, "*********")
 
-print("========S vs. T=========")
-for index, K in enumerate(K_list):
-    list_a = s_original_performance[index]
-    list_b = t_original_performance[index]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
-
-
-print("========G across K=========")
-for index, K in enumerate(K_list):
-    if index == len(K_list) - 1:
-        break
-    list_a = g_original_performance[index]
-    list_b = g_original_performance[index+1]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
-
-print("========S across K=========")
-for index, K in enumerate(K_list):
-    if index == len(K_list) - 1:
-        break
-    list_a = s_original_performance[index]
-    list_b = s_original_performance[index+1]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
-
-print("========T across K=========")
-for index, K in enumerate(K_list):
-    if index == len(K_list) - 1:
-        break
-    list_a = t_original_performance[index]
-    list_b = t_original_performance[index+1]
-    t_value, p_value = stats.ttest_ind(list_a, list_b)
-    # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
-    # print('p-value for two tailed test is %f' % p_value)
-    alpha = 0.05
-    if p_value <= alpha:
-        print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
-    else:
-        print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+# print("========G vs. S=========")
+# for index, K in enumerate(K_list):
+#     list_a = g_original_performance[index]
+#     list_b = s_original_performance[index]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+#
+# print("========G vs. T=========")
+# for index, K in enumerate(K_list):
+#     list_a = g_original_performance[index]
+#     list_b = t_original_performance[index]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+#
+# print("========S vs. T=========")
+# for index, K in enumerate(K_list):
+#     list_a = s_original_performance[index]
+#     list_b = t_original_performance[index]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+#
+#
+# print("========G across K=========")
+# for index, K in enumerate(K_list):
+#     if index == len(K_list) - 1:
+#         break
+#     list_a = g_original_performance[index]
+#     list_b = g_original_performance[index+1]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+#
+# print("========S across K=========")
+# for index, K in enumerate(K_list):
+#     if index == len(K_list) - 1:
+#         break
+#     list_a = s_original_performance[index]
+#     list_b = s_original_performance[index+1]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))
+#
+# print("========T across K=========")
+# for index, K in enumerate(K_list):
+#     if index == len(K_list) - 1:
+#         break
+#     list_a = t_original_performance[index]
+#     list_b = t_original_performance[index+1]
+#     t_value, p_value = stats.ttest_ind(list_a, list_b)
+#     # print('Test statistic is %f'%float("{:.6f}".format(t_value)))
+#     # print('p-value for two tailed test is %f' % p_value)
+#     alpha = 0.05
+#     if p_value <= alpha:
+#         print("K={0}: {1} Sig. p-value={2}".format(K, sum(list_a) / len(list_a) - sum(list_b) / len(list_b), p_value))
+#     else:
+#         print("K={0}: {1} Not Sig.".format(K, sum(list_a) / len(list_a) - sum(list_b / len(list_b)), p_value))

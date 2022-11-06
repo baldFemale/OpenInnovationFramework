@@ -21,6 +21,7 @@ import math
 def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expertise=None,
         specialist_expertise=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     # align the landscape
+    np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize(norm=True)  # with the normalization
@@ -43,7 +44,7 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
         g_cog_performance_across_agent.append(agent.cog_fitness)
         g_potential_performance_across_agent.append(agent.potential_fitness)
         g_deviation = np.std(g_performance_across_agent)
-
+    print(g_crowd[0].cog_fitness)
     s_crowd = []
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
@@ -84,17 +85,18 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    agent_num = 400
+    landscape_iteration = 5
+    agent_num = 10
     search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 20
+    hyper_iteration = 10
     N = 9
     state_num = 4
     expertise_amount = 12
     generalist_expertise = 4
     specialist_expertise = 8
     concurrency = 50
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0]
 
     g_performance_across_para, g_cog_performance_across_para, g_potential_performance_across_para, g_deviation_across_para = [], [], [], []
     s_performance_across_para, s_cog_performance_across_para, s_potential_performance_across_para, s_deviation_across_para = [], [], [], []
@@ -189,6 +191,13 @@ if __name__ == '__main__':
         t_original_performance_across_para.append(t_original_performance)
         t_original_cog_performance_across_para.append(t_original_cog_performance)
 
+    print(g_original_performance_across_para)
+    print(len(g_original_performance_across_para[0]))
+    print(np.mean(g_original_performance_across_para[0]), np.std(g_original_performance_across_para[0]))
+    print(np.mean(s_original_performance_across_para[0]), np.std(s_original_performance_across_para[0]))
+    from scipy import stats
+    t_value, p_value = stats.ttest_ind(g_original_performance_across_para[0], s_original_performance_across_para[0])
+    print("p-value: ", p_value)
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(g_performance_across_para, out_file)
     with open("g_cog_performance_across_K", 'wb') as out_file:
