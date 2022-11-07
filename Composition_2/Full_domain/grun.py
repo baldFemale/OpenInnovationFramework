@@ -46,8 +46,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
                     diversity += 1
     diversity = diversity * 2 / (N * agent_num * (agent_num - 1))
     performance_across_agent = [agent.cog_fitness for agent in crowd]
-    performance_deviation = np.std(performance_across_agent)
-    return_dict[loop] = [performance_across_agent, performance_deviation, diversity]
+    return_dict[loop] = [performance_across_agent, diversity]
     sema.release()
 
 
@@ -62,14 +61,12 @@ if __name__ == '__main__':
     expertise_amount = 20
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
-    jump_count_across_K = []
-    deviation_across_K = []
     diversity_across_K = []
     concurrency = 25
-    original_performance_data_across_K = []
-    original_deviation_data_across_K = []
+    original_performance_across_K = []
+    original_diversity_across_K = []
     for K in K_list:
-        temp_1, temp_2, temp_3 = [], [], []
+        temp_1, temp_2 = [], []
         for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -86,22 +83,19 @@ if __name__ == '__main__':
             for result in performance_across_landscape:
                 # using += means we don't differentiate different landscapes
                 temp_1.append(sum(result[0]) / len(result[0]))  # result[0] is a list across agents, take an average-> landscape level
-                temp_2.append(result[1])  # result[1] is the standard deviation
-                temp_3
+                temp_2.append(result[1])  # the diversity of the convergence
         result_1 = sum(temp_1) / len(temp_1)
-        result_2 = math.sqrt(sum([sd ** 2 for sd in temp_2]) / (hyper_iteration * landscape_iteration))
+        result_2 = sum(temp_2) / len(temp_2)
         performance_across_K.append(result_1)
-        deviation_across_K.append(result_2)
-        original_performance_data_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
-        original_deviation_data_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
+        diversity_across_K.append(result_2)
+        original_performance_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
+        original_diversity_across_K.append(temp_2)
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_deviation_across_K", 'wb') as out_file:
-        pickle.dump(deviation_across_K, out_file)
-    with open("g_original_performance_data_across_K", "wb") as out_file:
-        pickle.dump(original_performance_data_across_K, out_file)
-    with open("g_original_deviation_data_across_K", "wb") as out_file:
-        pickle.dump(original_deviation_data_across_K, out_file)
+    with open("g_original_performance_across_K", "wb") as out_file:
+        pickle.dump(original_performance_across_K, out_file)
+    with open("g_original_diversity_across_K", "wb") as out_file:
+        pickle.dump(original_diversity_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
