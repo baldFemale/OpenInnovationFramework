@@ -19,23 +19,43 @@ import math
 
 
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
+         search_iteration=None, loop=None, return_dict=None, sema=None):
+    np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
     crowd = []
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        specialist.align_default_state(loop=hyper_loop*hyper_iteration+loop)
         crowd.append(specialist)
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
+
+    diversity = 0
+    state_pool = [agent.cog_state for agent in crowd]
+    for index, agent in enumerate(crowd):
+        if index >= agent_num - 1:
+            break
+        selected_pool = state_pool[index+1::]
+        for cog_state in selected_pool:
+            for i in range(N):
+                if agent.cog_state[i] == cog_state[i]:
+                    continue
+                else:
+                    diversity += 1
+    diversity = diversity * 2 / (N * agent_num * (agent_num - 1))
     performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
-    return_dict[loop] = [performance_across_agent, performance_deviation]
+    return_dict[loop] = [performance_across_agent, performance_deviation, diversity]
     sema.release()
 
+def get_distance(self, a=None, b=None):
+    acc = 0
+    for i in range(self.m):
+        if a[i] != b[i]:
+            acc += 1
+    return acc
 
 if __name__ == '__main__':
     t0 = time.time()
@@ -45,7 +65,7 @@ if __name__ == '__main__':
     hyper_iteration = 10
     N = 10
     state_num = 4
-    expertise_amount = 20  # C_9_3
+    expertise_amount = 40  # C_9_3
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     performance_across_K = []
     jump_count_across_K = []
@@ -62,7 +82,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:

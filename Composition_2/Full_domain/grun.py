@@ -19,7 +19,8 @@ import math
 
 # mp version
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, hyper_loop=None, hyper_iteration=None, return_dict=None, sema=None):
+         search_iteration=None, loop=None, return_dict=None, sema=None):
+    np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(IM_type="Traditional Directed", K=K, k=0)
     landscape.initialize()
@@ -30,9 +31,23 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
+
+    diversity = 0
+    state_pool = [agent.cog_state for agent in crowd]
+    for index, agent in enumerate(crowd):
+        if index >= agent_num - 1:
+            break
+        selected_pool = state_pool[index+1::]
+        for cog_state in selected_pool:
+            for i in range(N):
+                if agent.cog_state[i] == cog_state[i]:
+                    continue
+                else:
+                    diversity += 1
+    diversity = diversity * 2 / (N * agent_num * (agent_num - 1))
     performance_across_agent = [agent.cog_fitness for agent in crowd]
     performance_deviation = np.std(performance_across_agent)
-    return_dict[loop] = [performance_across_agent, performance_deviation]
+    return_dict[loop] = [performance_across_agent, performance_deviation, diversity]
     sema.release()
 
 
@@ -49,11 +64,12 @@ if __name__ == '__main__':
     performance_across_K = []
     jump_count_across_K = []
     deviation_across_K = []
+    diversity_across_K = []
     concurrency = 25
     original_performance_data_across_K = []
     original_deviation_data_across_K = []
     for K in K_list:
-        temp_1, temp_2 = [], []
+        temp_1, temp_2, temp_3 = [], [], []
         for hyper_loop in range(hyper_iteration):
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -61,7 +77,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, hyper_loop, hyper_iteration, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -71,6 +87,7 @@ if __name__ == '__main__':
                 # using += means we don't differentiate different landscapes
                 temp_1.append(sum(result[0]) / len(result[0]))  # result[0] is a list across agents, take an average-> landscape level
                 temp_2.append(result[1])  # result[1] is the standard deviation
+                temp_3
         result_1 = sum(temp_1) / len(temp_1)
         result_2 = math.sqrt(sum([sd ** 2 for sd in temp_2]) / (hyper_iteration * landscape_iteration))
         performance_across_K.append(result_1)
