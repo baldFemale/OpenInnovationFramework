@@ -1,8 +1,0 @@
-#!/bin/bash
-#SBATCH --time=3-00:00:00
-#SBATCH --job-name=FullG
-#SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=50gb
-#SBATCH --partition=long
-python grun.py

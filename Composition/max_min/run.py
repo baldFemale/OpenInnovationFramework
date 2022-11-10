@@ -79,22 +79,25 @@ def fun(N=None, K=None, state_num=None, expertise_amount=None, generalist_expert
     return_dict[loop] = [g_performance_across_agent, g_cog_performance_across_agent, g_potential_performance_across_agent, g_deviation,
                          s_performance_across_agent, s_cog_performance_across_agent, s_potential_performance_across_agent, s_deviation,
                          t_performance_across_agent, t_cog_performance_across_agent, t_potential_performance_across_agent, t_deviation]
+    test_state = [str(each) for each in [1] * N]
+    test_fitness = landscape.query_fitness(state=test_state)
+    print("loop: {0}, landscape: {1}, G_state: {2}".format(loop, test_fitness, g_crowd[0].cog_state))
     sema.release()
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    agent_num = 400
+    landscape_iteration = 5
+    agent_num = 10
     search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 20
+    hyper_iteration = 2
     N = 9
     state_num = 4
     expertise_amount = 12
     generalist_expertise = 4
     specialist_expertise = 8
     concurrency = 50
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0]
 
     g_performance_across_para, g_cog_performance_across_para, g_potential_performance_across_para, g_deviation_across_para = [], [], [], []
     s_performance_across_para, s_cog_performance_across_para, s_potential_performance_across_para, s_deviation_across_para = [], [], [], []
@@ -189,6 +192,7 @@ if __name__ == '__main__':
         t_original_performance_across_para.append(t_original_performance)
         t_original_cog_performance_across_para.append(t_original_cog_performance)
 
+    print(g_original_performance)
     with open("g_performance_across_K", 'wb') as out_file:
         pickle.dump(g_performance_across_para, out_file)
     with open("g_cog_performance_across_K", 'wb') as out_file:

@@ -10,7 +10,7 @@ import numpy as np
 from matplotlib import container
 
 
-# data_folder = r"E:\data\gst-1102\max_normalized_3"
+# data_folder = r"E:\data\gst-1102\max_min_2"
 # g_performance_file = data_folder + r"\g_performance_across_K"
 # g_cog_performance_file = data_folder + r"\g_cog_performance_across_K"
 # g_potential_performance_file = data_folder + r"\g_cog_performance_across_K"
@@ -68,11 +68,11 @@ from matplotlib import container
 #     s_deviation = pickle.load(infile)
 # with open(t_deviation_file, 'rb') as infile:
 #     t_deviation = pickle.load(infile)
-
-# Performance
-x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-
-# Error bar figure
+#
+# # Performance
+# x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+#
+# # Error bar figure
 # fig, (ax1) = plt.subplots(1, 1)
 # ax1.errorbar(x, g_performance, yerr=g_deviation, color="g", fmt="-", capsize=5, capthick=0.8, ecolor="g", label="G")
 # ax1.errorbar(x, s_performance, yerr=s_deviation, color="b", fmt="-", capsize=5, capthick=0.8, ecolor="b", label="S")
@@ -102,7 +102,7 @@ x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
 
 # Testing the iteration boundary
-data_folder = r"E:\data\gst-1102\max_normalized_3"
+data_folder = r"E:\data\gst-1102\max_min_2"
 g_original_performance_file = data_folder + r"\g_original_performance_data_across_K"
 s_original_performance_file = data_folder + r"\s_original_performance_data_across_K"
 t_original_performance_file = data_folder + r"\t_original_performance_data_across_K"
@@ -114,25 +114,22 @@ with open(t_original_performance_file, 'rb') as infile:
     t_original_performance = pickle.load(infile)
 
 
-average_across_iteration_across_k = []
-for row in range(len(s_original_performance)):
-    average_across_iteration = []
-    one_k_performance = s_original_performance[row]
-    for index in range(len(one_k_performance)):
-        if (index + 1) % 40000 == 0:
-            temp_average = sum(one_k_performance[:index]) / (index + 1)
-            average_across_iteration.append(temp_average)
-            print(index, temp_average)
-    average_across_iteration_across_k.append(average_across_iteration)
-
-x = np.arange(100, 1001, 100)
-for index, data in enumerate(average_across_iteration_across_k):
-    plt.plot(x, data, label="K={0}".format(index))
-# plt.title('Diversity Decrease')
-plt.xlabel('Repetition', fontweight='bold', fontsize=10)
-plt.ylabel('Performance', fontweight='bold', fontsize=10)
-# plt.xticks(x)
-plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\S_performance_across_repetition.png", transparent=False, dpi=200)
-plt.clf()
-plt.show()
+g_0 = g_original_performance[0]
+s_0 = s_original_performance[0]
+t_0 = t_original_performance[0]
+# print(g_0)
+print(g_0[0], g_0[399], g_0[799], g_0[1199])
+print(s_0[0], s_0[399], s_0[799], s_0[1199])
+print(s_0[1], s_0[400], s_0[800], s_0[1200])
+print(t_0[0], t_0[399], t_0[799], t_0[1199])
+# x = np.arange(100, 1001, 100)
+# for index, data in enumerate(average_across_iteration_across_k):
+#     plt.plot(x, data, label="K={0}".format(index))
+# # plt.title('Diversity Decrease')
+# plt.xlabel('Repetition', fontweight='bold', fontsize=10)
+# plt.ylabel('Performance', fontweight='bold', fontsize=10)
+# # plt.xticks(x)
+# plt.legend(frameon=False, ncol=3, fontsize=10)
+# plt.savefig(data_folder + r"\S_performance_across_repetition.png", transparent=False, dpi=200)
+# plt.clf()
+# plt.show()
