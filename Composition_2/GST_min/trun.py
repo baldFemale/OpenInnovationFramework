@@ -23,7 +23,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     landscape.type(K=K)
     landscape.initialize()
     for state, value in landscape.cache.items():
-        if value == 1:
+        if value == min(landscape.cache.values()):
             initial_state = list(state)
     crowd = []
     for _ in range(agent_num):

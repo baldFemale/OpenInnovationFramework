@@ -22,13 +22,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize()
-    for state, value in landscape.cache.items():
-        if value == 1:
-            initial_state = list(state)
     crowd = []
     for _ in range(agent_num):
         t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        t_shape.align_default_state(state=initial_state)
         crowd.append(t_shape)
     for agent in crowd:
         for _ in range(search_iteration):
