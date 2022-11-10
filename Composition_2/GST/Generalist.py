@@ -20,8 +20,8 @@ class Generalist:
         self.generalist_knowledge_representation = ["A", "B"]
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.fitness = None
+        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
         # Mechanism: overlap with IM
         self.row_overlap = 0
@@ -48,20 +48,16 @@ class Generalist:
         self.column_overlap = column_overlap
         self.row_overlap = row_overlap
 
-    def align_default_state(self, loop=None):
-        with open("default_state_list", "rb") as infile:
-            default_state_list = pickle.load(infile)
-        default_state = default_state_list[loop]
-        for index in range(self.N):
-            if index not in self.expertise_domain:
-                self.state[index] = default_state[index]
+    def align_default_state(self, initial_state=None):
+        self.state = initial_state
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness(cog_state=cog_exposure_state)
+        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_exposure_state > self.cog_fitness:
             self.cog_state = cog_exposure_state
             self.cog_fitness = cog_fitness_of_exposure_state
@@ -75,16 +71,17 @@ class Generalist:
             next_cog_state[index] = "B"
         else:
             next_cog_state[index] = "A"
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def distant_jump(self):
         distant_state = np.random.choice(range(self.state_num), self.N).tolist()
         distant_state = [str(i) for i in distant_state]
         cog_distant_state = self.state_2_cog_state(state=distant_state)
-        cog_fitness_of_distant_state = self.landscape.query_cog_fitness(cog_state=cog_distant_state)
+        cog_fitness_of_distant_state = self.landscape.query_cog_fitness_without_unknown(cog_state=cog_distant_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_distant_state > self.cog_fitness:
             self.cog_state = cog_distant_state
             self.cog_fitness = cog_fitness_of_distant_state
