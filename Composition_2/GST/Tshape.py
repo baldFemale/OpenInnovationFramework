@@ -39,11 +39,13 @@ class Tshape:
         if len(self.expertise_domain) > self.N:
             raise ValueError("The expertise domain should not be greater than N")
 
-    def align_default_state(self, initial_state=None):
-        self.state = initial_state
+    def align_default_state(self, state=None):
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                self.state[index] = state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+        self.fitness = self.landscape.query_fitness(state=self.state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
