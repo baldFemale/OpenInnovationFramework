@@ -42,13 +42,12 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
+    landscape_iteration = 100
     agent_num = 100
     search_iteration = 200
-    hyper_iteration = 4
+    hyper_iteration = 5
     N = 9
     state_num = 4
-    # expertise_amount = 20
     generalist_expertise = 4  # 2 * 4: four G domains
     specialist_expertise = 8    # 4 * 3: three S domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]

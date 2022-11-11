@@ -35,6 +35,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
+    print("fitness: ", crowd[0].fitness)
     performance_across_agent = [agent.fitness for agent in crowd]
     potential_across_agent = [agent.potential_fitness for agent in crowd]
     return_dict[loop] = [performance_across_agent, potential_across_agent]
@@ -43,10 +44,10 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
+    landscape_iteration = 100
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 4
+    hyper_iteration = 5
     N = 9
     state_num = 4
     expertise_amount = 12
