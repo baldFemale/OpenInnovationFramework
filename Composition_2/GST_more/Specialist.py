@@ -15,6 +15,7 @@ class Specialist:
         """
         For Specialist, there is no depth penalty or shallow understanding ambiguity
         """
+        np.random.seed(None)
         self.landscape = landscape
         self.N = N
         self.state_num = state_num

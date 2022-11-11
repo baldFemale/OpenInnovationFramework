@@ -12,6 +12,7 @@ import pickle
 
 class Tshape:
     def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
+        np.random.seed(None)
         self.landscape = landscape
         self.N = N
         self.state_num = state_num
@@ -48,6 +49,7 @@ class Tshape:
         self.fitness = self.landscape.query_fitness(state=self.state)
 
     def learn_from_pool(self, pool=None):
+        np.random.seed(None)
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
         cog_fitness_of_exposure_state = self.landscape.\

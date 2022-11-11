@@ -20,6 +20,7 @@ import math
 
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
+    np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize()

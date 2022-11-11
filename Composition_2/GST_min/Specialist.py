@@ -70,6 +70,7 @@ class Specialist:
         return False
 
     def search(self):
+        np.random.seed(None)
         next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain

@@ -12,6 +12,7 @@ import pickle
 
 class Generalist:
     def __init__(self, N=None, landscape=None, state_num=4, expertise_amount=None):
+        np.random.seed(None)
         self.landscape = landscape
         self.N = N
         self.state_num = state_num

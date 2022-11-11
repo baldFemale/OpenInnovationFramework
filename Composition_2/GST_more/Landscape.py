@@ -8,6 +8,7 @@ import numpy as np
 class Landscape:
 
     def __init__(self, N, state_num=4):
+        np.random.seed(None)
         self.N = N
         self.K = None
         self.state_num = state_num
