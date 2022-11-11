@@ -19,6 +19,7 @@ import math
 
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
+    np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize()
@@ -48,8 +49,8 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     # expertise_amount = 20
-    generalist_expertise = 8  # 2 * 4: four G domains
-    specialist_expertise = 12    # 4 * 3: three S domains
+    generalist_expertise = 4  # 2 * 4: four G domains
+    specialist_expertise = 8    # 4 * 3: three S domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance_across_K = []
     potential_across_K = []
