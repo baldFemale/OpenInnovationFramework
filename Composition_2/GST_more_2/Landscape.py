@@ -8,7 +8,6 @@ import numpy as np
 class Landscape:
 
     def __init__(self, N, state_num=4):
-        np.random.seed(None)
         self.N = N
         self.K = None
         self.state_num = state_num
@@ -112,8 +111,8 @@ class Landscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                self.cache[k] = self.cache[k] / self.max_normalizer
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                # self.cache[k] = self.cache[k] / self.max_normalizer
         self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
