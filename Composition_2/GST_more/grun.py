@@ -69,8 +69,8 @@ if __name__ == '__main__':
             performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
             for result in performance_across_landscape:
                 # using += means we don't differentiate different landscapes
-                temp_1.append(sum(result[0]) / len(result[0]))  # result[0] is a list across agents, take an average-> landscape level
-                temp_2.append(sum(result[1]) / len(result[1]))   # potential
+                temp_1 += result[0]  # result[0] is a list across agents, take an average-> landscape level
+                temp_2 += result[1]   # potential
         result_1 = sum(temp_1) / len(temp_1)
         result_2 = sum(temp_2) / len(temp_2)
         performance_across_K.append(result_1)
