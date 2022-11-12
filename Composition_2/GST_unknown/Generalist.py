@@ -110,8 +110,8 @@ class Generalist:
         state = cog_state.copy()
         for index, bit_value in enumerate(cog_state):
             if index not in self.expertise_domain:
-                pass  # remove the ambiguity in the unknown domain
-                # state[index] = str(random.choice(range(self.state_num)))
+                # pass  # remove the ambiguity in the unknown domain
+                state[index] = str(random.choice(range(self.state_num)))
             else:
                 if bit_value == "A":
                     state[index] = random.choice(["0", "1"])
@@ -142,11 +142,7 @@ if __name__ == '__main__':
     performance_across_time = []
     for _ in range(search_iteration):
         generalist.search()
-        # if generalist.distant_jump():
-        #     jump_count += 1
         performance_across_time.append(generalist.cog_fitness)
-        # print(generalist.cog_fitness)
-    # print("jump_count: ", jump_count)
     generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
     generalist.fitness = landscape.query_fitness(state=generalist.state)
     performance_across_time.append(generalist.fitness)

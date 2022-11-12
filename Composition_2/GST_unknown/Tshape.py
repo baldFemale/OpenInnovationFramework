@@ -94,8 +94,8 @@ class Tshape:
         cog_state = self.state.copy()
         for index, bit_value in enumerate(state):
             if index not in self.expertise_domain:
-                pass  # remove the ambiguity
-                # cog_state[index] = "*"
+                # pass  # remove the ambiguity
+                cog_state[index] = "*"
             elif index in self.generalist_domain:
                 if bit_value in ["0", "1"]:
                     cog_state[index] = "A"
@@ -133,7 +133,7 @@ class Tshape:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=3, k=0)
+    landscape.type(K=3)
     landscape.initialize()
     t_shape = Tshape(N=9, landscape=landscape, state_num=4, generalist_expertise=4, specialist_expertise=8)
     # jump_count = 0
@@ -148,6 +148,14 @@ if __name__ == '__main__':
     # t_shape.describe()
     # print("END")
 
+    # test the partial fitness and full fitness
+    # test_state = ['B', 'A', '*', '*', '0', '*', '0', '*', '*']
+    # partial_fitness = landscape.query_cog_fitness_partial(cog_state=test_state, expertise_domain=[4, 6, 0, 1])
+    # print("partial_fitness: ", partial_fitness)
+    # full_fitness = landscape.query_cog_fitness_full(cog_state=test_state)
+    # print("full_fitness: ", full_fitness)
+
+
     # Test for the search rounds upper boundary
     cog_performance_across_time = []
     performance_across_time = []
@@ -157,6 +165,8 @@ if __name__ == '__main__':
         cog_performance_across_time.append(t_shape.cog_fitness)
         performance_across_time.append(t_shape.fitness)
         potential_performance_across_time.append(t_shape.potential_fitness)
+        t_shape.describe()
+
     import matplotlib.pyplot as plt
     x = range(50)
     plt.plot(x, cog_performance_across_time, "k--", label="Partial Fitness")

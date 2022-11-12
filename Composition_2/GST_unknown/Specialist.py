@@ -95,14 +95,17 @@ class Specialist:
             return False
 
     def state_2_cog_state(self, state=None):
-        return state
-        # cog_state = state.copy()
-        # return [bit for bit in cog_state]
+        # return state
+        cog_state = state.copy()
+        for index in range(self.N):
+            if index not in self.expertise_domain:
+                cog_state[index] = "*"
+        return cog_state
 
     def cog_state_2_state(self, cog_state=None):
-        # state = cog_state.copy()
-        # return [np.random.choice(["0", "1", "2", "3"]) if bit == "*" else bit for bit in state]
-        return cog_state
+        # return cog_state
+        state = cog_state.copy()
+        return [np.random.choice(["0", "1", "2", "3"]) if bit == "*" else bit for bit in state]
 
     def describe(self):
         print("N: ", self.N)
