@@ -7,6 +7,15 @@
       <sourceFolder url="file://$MODULE_DIR$/Transparency_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Transparency" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Composition" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_mid" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_mid_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_min" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_min_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more_2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
