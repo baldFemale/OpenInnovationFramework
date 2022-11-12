@@ -35,7 +35,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
-    print("fitness: ", crowd[0].fitness)
+    # print("fitness: ", crowd[0].fitness)
     performance_across_agent = [agent.fitness for agent in crowd]
     potential_across_agent = [agent.potential_fitness for agent in crowd]
     return_dict[loop] = [performance_across_agent, potential_across_agent]
