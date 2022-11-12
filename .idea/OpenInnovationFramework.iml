@@ -16,6 +16,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_min_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_unknown" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Teaming" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Teaming/GST_max" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
