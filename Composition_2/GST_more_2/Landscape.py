@@ -131,16 +131,11 @@ class Landscape:
         :param cog_state: the cognitive state
         :return: the average across the alternative pool; the potential (maximum) fitness
         """
-        cog_state_string = ''.join([str(i) for i in cog_state])
-        if cog_state_string in self.cog_cache.keys():
-            return self.cog_cache[cog_state_string], self.potential_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         potential_fitness = max(fitness_pool)
         cog_fitness = sum(fitness_pool) / len(alternatives)
         # print("full_fitness_pool: ", fitness_pool)
-        self.cog_cache[cog_state_string] = cog_fitness
-        self.potential_cache[cog_state_string] = potential_fitness
         return cog_fitness, potential_fitness
 
     def query_cog_fitness_partial(self, cog_state=None, expertise_domain=None):
@@ -151,9 +146,6 @@ class Landscape:
         :param cog_state: the cognitive state
         :return: the average across the alternative pool.
         """
-        cog_state_string = ''.join([str(i) for i in cog_state])
-        if cog_state_string in self.cog_cache.keys():
-            return self.cog_cache[cog_state_string]
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         partial_fitness_alternatives = []
         for state in alternatives:
@@ -168,7 +160,6 @@ class Landscape:
                     bin_index = str(state[index]) + bin_index
                     FC_index = int(bin_index, self.state_num)
                     partial_FC_across_bits.append(self.FC[index][FC_index])
-            # print("partial_FC_across_bits: ", partial_FC_across_bits)
             # No need to normalize; it doesn't change the relative rank and thus doesn't change the search
             partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
             partial_fitness_alternatives.append(partial_fitness_state)
