@@ -4,9 +4,9 @@
 # @FileName: run.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import numpy as np
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 from Tshape import Tshape
 from Landscape import Landscape
 import multiprocessing as mp
@@ -17,25 +17,19 @@ import pickle
 import math
 
 
-# mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
-    landscape.initialize(norm=True)
-    for state, value in landscape.cache.items():
-        if value == 1:
-            initial_state = list(state)
+    landscape.initialize()
     crowd = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        generalist.align_default_state(state=initial_state)
-        crowd.append(generalist)
+        t_shape = Tshape(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        crowd.append(t_shape)
     for agent in crowd:
         for _ in range(search_iteration):
             agent.search()
-    # print("fitness: ", crowd[0].fitness)
     performance_across_agent = [agent.fitness for agent in crowd]
     potential_across_agent = [agent.potential_fitness for agent in crowd]
     return_dict[loop] = [performance_across_agent, potential_across_agent]
@@ -45,12 +39,14 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 100
-    agent_num = 200
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    agent_num = 100
+    search_iteration = 200
     hyper_iteration = 5
     N = 9
     state_num = 4
-    expertise_amount = 12
+    # expertise_amount = 20
+    generalist_expertise = 4  # 2 * 4: four G domains
+    specialist_expertise = 8    # 4 * 3: three S domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance_across_K = []
     potential_across_K = []
@@ -66,7 +62,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -82,15 +78,13 @@ if __name__ == '__main__':
         potential_across_K.append(result_2)
         original_performance_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
         original_potential_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("t_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_potential_across_K", 'wb') as out_file:
+    with open("t_potential_across_K", 'wb') as out_file:
         pickle.dump(potential_across_K, out_file)
-    with open("g_original_performance_across_K", "wb") as out_file:
+    with open("t_original_performance_across_K", "wb") as out_file:
         pickle.dump(original_performance_across_K, out_file)
-    with open("g_original_potential_across_K", "wb") as out_file:
+    with open("t_original_potential_across_K", "wb") as out_file:
         pickle.dump(original_potential_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
