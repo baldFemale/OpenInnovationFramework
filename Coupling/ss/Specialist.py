@@ -82,17 +82,29 @@ class Specialist:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-    def distant_jump(self):
-        distant_state = np.random.choice(range(self.state_num), self.N).tolist()
-        distant_state = [str(i) for i in distant_state]
-        distant_cog_state = self.state_2_cog_state(state=distant_state)
-        distant_cog_fitness = self.landscape.query_cog_fitness_without_unknown(cog_state=distant_cog_state, expertise_domain=self.expertise_domain)
-        if distant_cog_fitness > self.cog_fitness:
-            self.cog_state = distant_cog_state
-            self.cog_fitness = distant_cog_fitness
-            return True
-        else:
-            return False
+    def double_search(self, co_state=None, co_expertise_domain=None):
+        next_cog_state = self.cog_state.copy()
+        for index in range(self.N):
+            if index in self.expertise_domain:
+                # retain the private configuration
+                continue
+            else:
+                # for unknown domains, follow the co-state
+                if index in co_expertise_domain:
+                    next_cog_state[index] = co_state[index]
+                # for double unknown domains, retain the private configuration
+                else:
+                    continue
+        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+        # thus will not change the unknown domain
+        space = ["0", "1", "2", "3"]
+        space.remove(self.state[index])
+        next_cog_state[index] = np.random.choice(space)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def state_2_cog_state(self, state=None):
         return state

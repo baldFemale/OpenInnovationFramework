@@ -77,18 +77,34 @@ class Tshape:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-    def distant_jump(self):
-        distant_state = np.random.choice(range(self.state_num), self.N).tolist()
-        distant_state = [str(i) for i in distant_state]
-        cog_distant_state = self.state_2_cog_state(state=distant_state)
-        cog_fitness_of_distant_state = self.landscape.\
-            query_cog_fitness_without_unknown(cog_state=cog_distant_state, expertise_domain=self.expertise_domain)
-        if cog_fitness_of_distant_state > self.cog_fitness:
-            self.cog_state = cog_distant_state
-            self.cog_fitness = cog_fitness_of_distant_state
-            return True
+    def double_search(self, co_state=None, co_expertise_domain=None):
+        next_cog_state = self.cog_state.copy()
+        for index in range(self.N):
+            if index in self.expertise_domain:
+                # retain the private configuration
+                continue
+            else:
+                # for unknown domains, follow the co-state
+                if index in co_expertise_domain:
+                    next_cog_state[index] = co_state[index]
+                # for double unknown domains, retain the private configuration
+                else:
+                    continue
+        index = np.random.choice(self.expertise_domain)
+        if index in self.generalist_domain:
+            if next_cog_state[index] == "A":
+                next_cog_state[index] = "B"
+            else:
+                next_cog_state[index] = "A"
         else:
-            return False
+            free_space = ["0", "1", "2", "3"]
+            free_space.remove(self.cog_state[index])
+            next_cog_state[index] = np.random.choice(free_space)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def state_2_cog_state(self, state=None):
         cog_state = self.state.copy()
