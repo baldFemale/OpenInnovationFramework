@@ -30,7 +30,8 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         crowd_1.append(agent_1)
         agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False)
-        other_domains = np.random.choice(list(range(N)).remove(agent_1.expertise_domain), expertise_amount // 2 - len(overlap_domains), replace=False)
+        free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
+        other_domains = np.random.choice(free_domains, expertise_amount // 2 - len(overlap_domains), replace=False)
         agent_2.expertise_domain = overlap_domains + other_domains
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
         agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
@@ -50,20 +51,20 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
+    landscape_iteration = 100
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 10
+    hyper_iteration = 5
     N = 9
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance1_across_K = []
     performance2_across_K = []
-    concurrency = 50
+    concurrency = 100
     original1_across_K = []
     original2_across_K = []
-    for g_overlap in [1, 2, 3]:
+    for g_overlap in [5, 4, 3]:
         for K in K_list:
             temp_1, temp_2 = [], []
             for hyper_loop in range(hyper_iteration):
