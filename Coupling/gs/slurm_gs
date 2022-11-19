@@ -7,4 +7,6 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-python ssrun.py
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate py39
+python gsrun.py
