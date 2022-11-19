@@ -4,5 +4,7 @@
 # @FileName: test.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-x = "123123"
-print(list(x))
+x = [1, 2]
+y = []
+z = x + y
+print(z)

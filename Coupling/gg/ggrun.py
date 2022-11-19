@@ -31,7 +31,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False)
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        other_domains = np.random.choice(free_domains, expertise_amount // 2 - len(overlap_domains), replace=False)
+        other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False)
         agent_2.expertise_domain = overlap_domains + other_domains
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
         agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
