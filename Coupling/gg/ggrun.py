@@ -54,14 +54,14 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 1
-    agent_num = 10
+    landscape_iteration = 100
+    agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 1
+    hyper_iteration = 5
     N = 9
     state_num = 4
     expertise_amount = 12
-    K_list = [0]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance1_across_K = []
     performance2_across_K = []
     concurrency = 1
