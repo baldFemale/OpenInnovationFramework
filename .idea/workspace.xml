@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="finish the run_resilience">
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Unix line seperator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/slurm_gg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/slurm_gs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/slurm_ss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +91,7 @@
       <workItem from="1652067196399" duration="146000" />
       <workItem from="1652073531556" duration="12000" />
       <workItem from="1668879155974" duration="1160000" />
-      <workItem from="1668880363662" duration="71000" />
+      <workItem from="1668880363662" duration="896000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -152,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668879664625</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Unix line seperator">
+      <created>1668880544669</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1668880544669</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +166,8 @@
     <MESSAGE value="变更" />
     <MESSAGE value="adding comments" />
     <MESSAGE value="finish the run_resilience" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish the run_resilience" />
+    <MESSAGE value="Unix line seperator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Unix line seperator" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
