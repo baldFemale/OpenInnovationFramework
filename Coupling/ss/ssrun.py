@@ -26,9 +26,9 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape.initialize(norm=True)
     crowd_1, crowd_2 = [], []
     for _ in range(agent_num):
-        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_1 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd_1.append(agent_1)
-        agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
 
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
         if s_overlap < expertise_amount // 4:
@@ -58,17 +58,17 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 50
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 5
+    hyper_iteration = 10
     N = 9
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     performance1_across_K = []
     performance2_across_K = []
-    concurrency = 100
+    concurrency = 50
     original1_across_K = []
     original2_across_K = []
     for s_overlap in [3, 2, 1, 0]:
