@@ -29,10 +29,13 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd_1.append(agent_1)
         agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False)
+        overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False).tolist()
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False)
+        other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
+        # print("expertise 1: ", agent_1.expertise_domain)
+        # print("expertise 2: ", agent_2.expertise_domain)
+        # print("overlap: ", len([i for i in agent_2.expertise_domain if i in agent_1.expertise_domain]))
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
         agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
         agent_2.fitness, agent_2.potential_fitness = agent_2.landscape.query_cog_fitness_full(cog_state=agent_2.cog_state)
@@ -51,17 +54,17 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
-    agent_num = 100
+    landscape_iteration = 1
+    agent_num = 10
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 5
+    hyper_iteration = 1
     N = 9
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0]
     performance1_across_K = []
     performance2_across_K = []
-    concurrency = 100
+    concurrency = 1
     original1_across_K = []
     original2_across_K = []
     for g_overlap in [5, 4, 3]:

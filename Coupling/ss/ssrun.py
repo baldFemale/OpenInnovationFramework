@@ -32,11 +32,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
         if s_overlap < expertise_amount // 4:
-            other_domains = np.random.choice(free_domains, expertise_amount // 4 - s_overlap, replace=False)
+            other_domains = np.random.choice(free_domains, expertise_amount // 4 - s_overlap, replace=False).tolist()
         else:
             other_domains = []
         if s_overlap != 0:
-            overlap_domains = np.random.choice(agent_1.expertise_domain, s_overlap, replace=False)
+            overlap_domains = np.random.choice(agent_1.expertise_domain, s_overlap, replace=False).tolist()
             agent_2.expertise_domain = overlap_domains + other_domains
         else:
             agent_2.expertise_domain = other_domains
