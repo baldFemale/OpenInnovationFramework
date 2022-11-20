@@ -83,18 +83,24 @@ class Specialist:
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def double_search(self, co_state=None, co_expertise_domain=None):
+        # learning from coupled agent
         next_cog_state = self.cog_state.copy()
         for index in range(self.N):
             if index in self.expertise_domain:
-                # retain the private configuration
-                continue
+                if index in co_expertise_domain:
+                    changed_cog_state = next_cog_state.copy()
+                    changed_cog_state[index] = co_state[index]
+                    if landscape.query_cog_fitness_partial(cog_state=changed_cog_state) > self.cog_fitness:
+                        next_cog_state[index] = co_state[index]
+                else:  # retain the private configuration
+                    pass
             else:
                 # for unknown domains, follow the co-state
                 if index in co_expertise_domain:
                     next_cog_state[index] = co_state[index]
-                # for double unknown domains, retain the private configuration
+                # for unknown domains to both agents, retain the private configuration
                 else:
-                    continue
+                    pass
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]

@@ -3,7 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Tshape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,14 +356,7 @@
       <workItem from="1668841285184" duration="7821000" />
       <workItem from="1668932891982" duration="200000" />
       <workItem from="1668933101711" duration="96000" />
-      <workItem from="1668933206325" duration="6498000" />
-    </task>
-    <task id="LOCAL-00136" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
-      <created>1667651040851</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1667651040851</updated>
+      <workItem from="1668933206325" duration="6995000" />
     </task>
     <task id="LOCAL-00137" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
       <created>1667651933143</created>
@@ -693,7 +694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668945998831</updated>
     </task>
-    <option name="localTasksCounter" value="185" />
+    <task id="LOCAL-00185" summary="Fix bugs in the double search">
+      <created>1668947152415</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1668947152415</updated>
+    </task>
+    <option name="localTasksCounter" value="186" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,7 +710,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add IM overlap mechanism" />
     <MESSAGE value="test the version of no jumping, no mapping:&#10;--Only record the cog_fitness as the convergence&#10;--Keep the original convergence data, not differentiate the landscapes" />
     <MESSAGE value="Teaming-up" />
     <MESSAGE value="Test the normalization algorithm&#10;--using max-normalizer" />
@@ -727,7 +734,8 @@
     <MESSAGE value="Team-up" />
     <MESSAGE value="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type" />
     <MESSAGE value="Re-run the minimum alignment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-run the minimum alignment" />
+    <MESSAGE value="Fix bugs in the double search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs in the double search" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
