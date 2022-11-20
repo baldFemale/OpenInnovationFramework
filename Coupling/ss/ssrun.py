@@ -17,7 +17,7 @@ import pickle
 import math
 
 
-# G + G
+# S + S
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, s_overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
