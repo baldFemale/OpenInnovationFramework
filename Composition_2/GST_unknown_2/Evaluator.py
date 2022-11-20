@@ -9,18 +9,8 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"E:\data\gst-1112\GST_max"
+data_folder = r"E:\data\gst-1112\Composition_2\GST_unknown_2"
 g_performance_file = data_folder + r"\g_performance_across_K"
-s_performance_file = data_folder + r"\s_performance_across_K"
-t_performance_file = data_folder + r"\t_performance_across_K"
-with open(g_performance_file, 'rb') as infile:
-    g_performance = pickle.load(infile)
-with open(s_performance_file, 'rb') as infile:
-    s_performance = pickle.load(infile)
-with open(t_performance_file, 'rb') as infile:
-    t_performance = pickle.load(infile)
-
-g_diversity_file = data_folder + r"\g_performance_across_K"
 s_performance_file = data_folder + r"\s_performance_across_K"
 t_performance_file = data_folder + r"\t_performance_across_K"
 with open(g_performance_file, 'rb') as infile:
