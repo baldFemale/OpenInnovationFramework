@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="" />
+    <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Tshape.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -345,21 +348,7 @@
       <workItem from="1668841285184" duration="7821000" />
       <workItem from="1668932891982" duration="200000" />
       <workItem from="1668933101711" duration="96000" />
-      <workItem from="1668933206325" duration="5234000" />
-    </task>
-    <task id="LOCAL-00134" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
-      <created>1667570280993</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1667570280993</updated>
-    </task>
-    <task id="LOCAL-00135" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
-      <created>1667650929419</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1667650929419</updated>
+      <workItem from="1668933206325" duration="6498000" />
     </task>
     <task id="LOCAL-00136" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
       <created>1667651040851</created>
@@ -690,7 +679,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668945843264</updated>
     </task>
-    <option name="localTasksCounter" value="183" />
+    <task id="LOCAL-00183" summary="Re-run the minimum alignment">
+      <created>1668945919025</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1668945919025</updated>
+    </task>
+    <task id="LOCAL-00184" summary="Re-run the minimum alignment">
+      <created>1668945998831</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1668945998831</updated>
+    </task>
+    <option name="localTasksCounter" value="185" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

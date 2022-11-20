@@ -82,14 +82,20 @@ class Tshape:
         for index in range(self.N):
             if index in self.expertise_domain:
                 # retain the private configuration
-                continue
+                if index not in co_expertise_domain:
+                    pass
+                else:
+                    changed_cog_state = next_cog_state.copy()
+                    changed_cog_state[index] = co_state[index]
+                    if landscape.query_cog_fitness_partial(cog_state=changed_cog_state) > self.cog_fitness:
+                        next_cog_state[index] = co_state[index]
             else:
                 # for unknown domains, follow the co-state
                 if index in co_expertise_domain:
                     next_cog_state[index] = co_state[index]
                 # for double unknown domains, retain the private configuration
                 else:
-                    continue
+                    pass
         index = np.random.choice(self.expertise_domain)
         if index in self.generalist_domain:
             if next_cog_state[index] == "A":
