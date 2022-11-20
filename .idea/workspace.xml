@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="23BFFbmCQJVVYAWtvIdFAhuwjF2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Coupling&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Coupling" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_unknown" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Teaming" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_more_2" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_more" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_mid" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition\teaming" />
+      <recent name="C:\Python_Workplace\OpenInnovationFramework\Experiments_V4" />
+      <recent name="C:\Python_Workplace\OpenInnovationFramework\Experiments_V3\Surface" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Evaluator (2)">
+    <configuration name="Evaluator (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Composition_2/GST_unknown_2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_unknown_2/Evaluator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Evaluator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Coupling/gg" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Coupling/gg/Evaluator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Landscape (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Composition_2/GST_unknown" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_unknown/Landscape.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Tshape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Composition_2/GST_unknown" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_unknown/Tshape.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Coupling/ss" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Coupling/ss/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Evaluator (2)" />
+        <item itemvalue="Python.Evaluator" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.Landscape (1)" />
+        <item itemvalue="Python.Tshape" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="" />
+      <created>1641199470431</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1641199470431</updated>
+      <workItem from="1641199473254" duration="8349000" />
+      <workItem from="1641231952107" duration="16091000" />
+      <workItem from="1641301352747" duration="318000" />
+      <workItem from="1641301961979" duration="8664000" />
+      <workItem from="1641641360058" duration="5807000" />
+      <workItem from="1641899925754" duration="304000" />
+      <workItem from="1641900265725" duration="1394000" />
+      <workItem from="1641909329264" duration="47000" />
+      <workItem from="1641975144082" duration="9333000" />
+      <workItem from="1642062247853" duration="13844000" />
+      <workItem from="1642142900230" duration="9106000" />
+      <workItem from="1642419712381" duration="222000" />
+      <workItem from="1642419950378" duration="10518000" />
+      <workItem from="1642566264615" duration="8298000" />
+      <workItem from="1642839614359" duration="3556000" />
+      <workItem from="1643024517848" duration="1763000" />
+      <workItem from="1643026314865" duration="3447000" />
+      <workItem from="1643093843722" duration="5040000" />
+      <workItem from="1643115580193" duration="1472000" />
+      <workItem from="1643188238297" duration="1053000" />
+      <workItem from="1644929677926" duration="70000" />
+      <workItem from="1644930217244" duration="3134000" />
+      <workItem from="1645969563806" duration="4023000" />
+      <workItem from="1646054031560" duration="9329000" />
+      <workItem from="1646123840964" duration="377000" />
+      <workItem from="1646126912889" duration="778000" />
+      <workItem from="1646835180562" duration="5657000" />
+      <workItem from="1647505533831" duration="2256000" />
+      <workItem from="1647671358114" duration="699000" />
+      <workItem from="1647690864544" duration="22492000" />
+      <workItem from="1647868048244" duration="156000" />
+      <workItem from="1647868217666" duration="172000" />
+      <workItem from="1647868435657" duration="170000" />
+      <workItem from="1647868617566" duration="183000" />
+      <workItem from="1647868816593" duration="14842000" />
+      <workItem from="1648109463413" duration="17537000" />
+      <workItem from="1648194817091" duration="59443000" />
+      <workItem from="1648715959015" duration="1931000" />
+      <workItem from="1648823249641" duration="4016000" />
+      <workItem from="1648968337066" duration="12163000" />
+      <workItem from="1649136995894" duration="1085000" />
+      <workItem from="1649176672812" duration="6407000" />
+      <workItem from="1649244101301" duration="9168000" />
+      <workItem from="1649256550465" duration="2335000" />
+      <workItem from="1649271651026" duration="539000" />
+      <workItem from="1649306745343" duration="36206000" />
+      <workItem from="1649388528555" duration="8921000" />
+      <workItem from="1649424595472" duration="13576000" />
+      <workItem from="1649499880854" duration="671000" />
+      <workItem from="1649514687647" duration="6207000" />
+      <workItem from="1649578842421" duration="7024000" />
+      <workItem from="1649672883822" duration="9040000" />
+      <workItem from="1649922802321" duration="3581000" />
+      <workItem from="1650282147029" duration="22790000" />
+      <workItem from="1650437715710" duration="939000" />
+      <workItem from="1650452713707" duration="10238000" />
+      <workItem from="1650605833344" duration="10752000" />
+      <workItem from="1650619282094" duration="9610000" />
+      <workItem from="1650867641508" duration="1612000" />
+      <workItem from="1650871463254" duration="40552000" />
+      <workItem from="1650974033574" duration="19650000" />
+      <workItem from="1651666533101" duration="983000" />
+      <workItem from="1651667775964" duration="612000" />
+      <workItem from="1651758078937" duration="2724000" />
+      <workItem from="1652600384072" duration="11010000" />
+      <workItem from="1652688873303" duration="37000" />
+      <workItem from="1652689018694" duration="596000" />
+      <workItem from="1653203183533" duration="6580000" />
+      <workItem from="1653283635257" duration="3508000" />
+      <workItem from="1654080908148" duration="2138000" />
+      <workItem from="1654235615181" duration="50000" />
+      <workItem from="1655470553800" duration="1835000" />
+      <workItem from="1655534296096" duration="2182000" />
+      <workItem from="1656416214184" duration="2537000" />
+      <workItem from="1656419209323" duration="9430000" />
+      <workItem from="1656745803380" duration="612000" />
+      <workItem from="1664022480717" duration="22966000" />
+      <workItem from="1664282709665" duration="1757000" />
+      <workItem from="1664287152595" duration="1042000" />
+      <workItem from="1664441124713" duration="427000" />
+      <workItem from="1664441708880" duration="2487000" />
+      <workItem from="1664806168459" duration="22329000" />
+      <workItem from="1664938384253" duration="14950000" />
+      <workItem from="1665021847710" duration="3242000" />
+      <workItem from="1665133164313" duration="621000" />
+      <workItem from="1665146655411" duration="1447000" />
+      <workItem from="1665149764831" duration="1377000" />
+      <workItem from="1665748483574" duration="3910000" />
+      <workItem from="1665820939075" duration="10158000" />
+      <workItem from="1665844936384" duration="369000" />
+      <workItem from="1665846199428" duration="2620000" />
+      <workItem from="1665993862846" duration="623000" />
+      <workItem from="1666012329693" duration="9374000" />
+      <workItem from="1666253091491" duration="210000" />
+      <workItem from="1666880768832" duration="554000" />
+      <workItem from="1666948278339" duration="573000" />
+      <workItem from="1667035606394" duration="441000" />
+      <workItem from="1667047010119" duration="5950000" />
+      <workItem from="1667225048350" duration="4002000" />
+      <workItem from="1667309346050" duration="79000" />
+      <workItem from="1667309460664" duration="3797000" />
+      <workItem from="1667373932549" duration="5423000" />
+      <workItem from="1667548314398" duration="14588000" />
+      <workItem from="1667637076289" duration="8277000" />
+      <workItem from="1667724743345" duration="10006000" />
+      <workItem from="1667829142410" duration="3404000" />
+      <workItem from="1667996114216" duration="5047000" />
+      <workItem from="1668067477652" duration="3387000" />
+      <workItem from="1668075174152" duration="5054000" />
+      <workItem from="1668083391483" duration="1640000" />
+      <workItem from="1668147814496" duration="74000" />
+      <workItem from="1668156858241" duration="2865000" />
+      <workItem from="1668169939605" duration="187000" />
+      <workItem from="1668231622239" duration="12340000" />
+      <workItem from="1668325559998" duration="3661000" />
+      <workItem from="1668413763929" duration="621000" />
+      <workItem from="1668606328310" duration="28000" />
+      <workItem from="1668681254445" duration="8617000" />
+      <workItem from="1668758407622" duration="35000" />
+      <workItem from="1668770775217" duration="1079000" />
+      <workItem from="1668841285184" duration="7821000" />
+      <workItem from="1668932891982" duration="200000" />
+      <workItem from="1668933101711" duration="96000" />
+      <workItem from="1668933206325" duration="5234000" />
+    </task>
+    <task id="LOCAL-00134" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667570280993</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1667570280993</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667650929419</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1667650929419</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667651040851</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1667651040851</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667651933143</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1667651933143</updated>
+    </task>
+    <task id="LOCAL-00138" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667726250599</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1667726250599</updated>
+    </task>
+    <task id="LOCAL-00139" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
+      <created>1667733510505</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1667733510505</updated>
+    </task>
+    <task id="LOCAL-00140" summary="T-test and density distribution">
+      <created>1667737886934</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1667737886934</updated>
+    </task>
+    <task id="LOCAL-00141" summary="T-test and density distribution">
+      <created>1667738090461</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1667738090461</updated>
+    </task>
+    <task id="LOCAL-00142" summary="T-test and density distribution">
+      <created>1667738659823</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1667738659823</updated>
+    </task>
+    <task id="LOCAL-00143" summary="T-test and density distribution">
+      <created>1667740221234</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1667740221234</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Control the domain number">
+      <created>1667806245527</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1667806245527</updated>
+    </task>
+    <task id="LOCAL-00145" summary="Control the domain number">
+      <created>1667826968550</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1667826968550</updated>
+    </task>
+    <task id="LOCAL-00146" summary="simplify the all domain codes">
+      <created>1667827641577</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1667827641577</updated>
+    </task>
+    <task id="LOCAL-00147" summary="simplify the all domain codes">
+      <created>1667830977632</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1667830977632</updated>
+    </task>
+    <task id="LOCAL-00148" summary="Simplify the code version">
+      <created>1668067933225</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1668067933226</updated>
+    </task>
+    <task id="LOCAL-00149" summary="Simplify the code version">
+      <created>1668070399391</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1668070399391</updated>
+    </task>
+    <task id="LOCAL-00150" summary="Simplify the code version">
+      <created>1668078688845</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1668078688845</updated>
+    </task>
+    <task id="LOCAL-00151" summary="Simplify the code version">
+      <created>1668080874726</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1668080874727</updated>
+    </task>
+    <task id="LOCAL-00152" summary="Simplify the code version">
+      <created>1668084551825</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1668084551825</updated>
+    </task>
+    <task id="LOCAL-00153" summary="Simplify the code version">
+      <created>1668085423419</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1668085423419</updated>
+    </task>
+    <task id="LOCAL-00154" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668157180185</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1668157180185</updated>
+    </task>
+    <task id="LOCAL-00155" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668157245821</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1668157245821</updated>
+    </task>
+    <task id="LOCAL-00156" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668157385735</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1668157385735</updated>
+    </task>
+    <task id="LOCAL-00157" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668159888534</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159888534</updated>
+    </task>
+    <task id="LOCAL-00158" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668160240861</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1668160240861</updated>
+    </task>
+    <task id="LOCAL-00159" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668160297461</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1668160297461</updated>
+    </task>
+    <task id="LOCAL-00160" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668160358781</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1668160358781</updated>
+    </task>
+    <task id="LOCAL-00161" summary="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process">
+      <created>1668160398521</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1668160398521</updated>
+    </task>
+    <task id="LOCAL-00162" summary="Fix the bug in original performance data&#10;-- using += operation instead of append">
+      <created>1668233240868</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1668233240868</updated>
+    </task>
+    <task id="LOCAL-00163" summary="Fix the bug in original performance data&#10;-- using += operation instead of append&#10;-- Evaluator">
+      <created>1668238531683</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1668238531683</updated>
+    </task>
+    <task id="LOCAL-00164" summary="Teaming-up version">
+      <created>1668238684476</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1668238684476</updated>
+    </task>
+    <task id="LOCAL-00165" summary="Teaming-up version">
+      <created>1668252010252</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1668252010252</updated>
+    </task>
+    <task id="LOCAL-00166" summary="Teaming-up version">
+      <created>1668258090910</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1668258090910</updated>
+    </task>
+    <task id="LOCAL-00167" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668260268822</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1668260268822</updated>
+    </task>
+    <task id="LOCAL-00168" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668260573374</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1668260573374</updated>
+    </task>
+    <task id="LOCAL-00169" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668260897006</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1668260897006</updated>
+    </task>
+    <task id="LOCAL-00170" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668261033761</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1668261033761</updated>
+    </task>
+    <task id="LOCAL-00171" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668409270335</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1668409270335</updated>
+    </task>
+    <task id="LOCAL-00172" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668409566911</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1668409566911</updated>
+    </task>
+    <task id="LOCAL-00173" summary="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness">
+      <created>1668689159713</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1668689159713</updated>
+    </task>
+    <task id="LOCAL-00174" summary="Team-up">
+      <created>1668758425323</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1668758425324</updated>
+    </task>
+    <task id="LOCAL-00175" summary="Team-up">
+      <created>1668842043813</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1668842043814</updated>
+    </task>
+    <task id="LOCAL-00176" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668842949386</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1668842949386</updated>
+    </task>
+    <task id="LOCAL-00177" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668844236694</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1668844236694</updated>
+    </task>
+    <task id="LOCAL-00178" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668847545231</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1668847545231</updated>
+    </task>
+    <task id="LOCAL-00179" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668850601042</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1668850601042</updated>
+    </task>
+    <task id="LOCAL-00180" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668851111935</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1668851111936</updated>
+    </task>
+    <task id="LOCAL-00181" summary="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type">
+      <created>1668937303131</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1668937303131</updated>
+    </task>
+    <task id="LOCAL-00182" summary="Re-run the minimum alignment">
+      <created>1668945843264</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1668945843264</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add IM overlap mechanism" />
+    <MESSAGE value="test the version of no jumping, no mapping:&#10;--Only record the cog_fitness as the convergence&#10;--Keep the original convergence data, not differentiate the landscapes" />
+    <MESSAGE value="Teaming-up" />
+    <MESSAGE value="Test the normalization algorithm&#10;--using max-normalizer" />
+    <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains." />
+    <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains.&#10;--Keep the knowledge recombination constant between G and S" />
+    <MESSAGE value="Fix bugs for query_cog_fitness_without_unknown_domain" />
+    <MESSAGE value="Change the search assessment framework&#10;-- Cognitive search is based on cognitive fitness, which is a partial fitness based on the fitness contribution of the expertise domains. In other words, unknown domains doesn't account for the fitness contribution except for the condition. (fitness contribution is a conditional value)&#10;--The performance curve will record the absolute fitness which is an average pooling value across all domains (including expertise domains and unknown domains)" />
+    <MESSAGE value="Change the search assessment framework&#10;-- Cognitive search is based on cognitive fitness, which is a partial fitness based on the fitness contribution of the expertise domains. In other words, unknown domains doesn't account for the fitness contribution except for the condition. (fitness contribution is a conditional value)&#10;--The performance curve will record the absolute fitness which is an average pooling value across all domains (including expertise domains and unknown domains)&#10;--Remove the normalization to make the comparison between partial fitness and full fitness fair." />
+    <MESSAGE value="Change the search assessment framework&#10;-- Cognitive search is based on cognitive fitness, which is a partial fitness based on the fitness contribution of the expertise domains. In other words, unknown domains doesn't account for the fitness contribution except for the condition. (fitness contribution is a conditional value). The normalization is based on full maximum normalizer&#10;--The performance curve will record the absolute fitness which is an average pooling value across all domains (including expertise domains and unknown domains)" />
+    <MESSAGE value="Change the search assessment framework&#10;-- Cognitive search is based on cognitive fitness, which is a partial fitness based on the fitness contribution of the expertise domains. In other words, unknown domains doesn't account for the fitness contribution except for the condition. (fitness contribution is a conditional value). The normalization is based on full maximum normalizer&#10;--The performance curve will record the absolute fitness which is an average pooling value across all domains (including expertise domains and unknown domains)&#10;--Fix the normalization rule into maximum-normalization&#10;If losing normalization, landscape distribution is not central at 0.5" />
+    <MESSAGE value="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)" />
+    <MESSAGE value="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)" />
+    <MESSAGE value="T-test and density distribution" />
+    <MESSAGE value="Control the domain number" />
+    <MESSAGE value="simplify the all domain codes" />
+    <MESSAGE value="Simplify the code version" />
+    <MESSAGE value="Fix the multiprocessing bug in Linux&#10;-- add np.random.seed(None) in each process" />
+    <MESSAGE value="Fix the bug in original performance data&#10;-- using += operation instead of append" />
+    <MESSAGE value="Fix the bug in original performance data&#10;-- using += operation instead of append&#10;-- Evaluator" />
+    <MESSAGE value="Teaming-up version" />
+    <MESSAGE value="Fix the bugs that partial_fitness use the same cache as the full fitness;&#10;&#10;--Actually we are always measure the partial fitness" />
+    <MESSAGE value="Team-up" />
+    <MESSAGE value="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type" />
+    <MESSAGE value="Re-run the minimum alignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-run the minimum alignment" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape.coverage" NAME="Landscape Coverage Results" MODIFIED="1668069400085" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Composition_2/GST" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1668258444566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Composition_2/GST_unknown" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$t_test.coverage" NAME="t_test Coverage Results" MODIFIED="1667735379207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Composition/max_normalized" />
+  </component>
+</project>
