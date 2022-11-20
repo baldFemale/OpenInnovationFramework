@@ -43,9 +43,10 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
     for index in range(agent_num):
         for _ in range(search_iteration):
-            crowd_1[index].double_search(co_state=crowd_2[index].state, co_expertise_domain=crowd_2[index].expertise_domain)
-            crowd_2[index].double_search(co_state=crowd_1[index].state, co_expertise_domain=crowd_1[index].expertise_domain)
-
+            crowd_1[index].double_search(co_state=crowd_2[index].cog_state, co_expertise_domain=crowd_2[index].expertise_domain)
+            crowd_2[index].double_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
+            print("overlap: ", [i for i in crowd_1[index].expertise_domain if i in crowd_2[index].expertise_domain])
+            print(crowd_1[index].cog_state, crowd_2[index].cog_state)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
@@ -54,20 +55,21 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    agent_num = 100
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 10
+    landscape_iteration = 1
+    agent_num = 10
+    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
+    hyper_iteration = 1
     N = 9
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    performance1_across_K = []
-    performance2_across_K = []
-    concurrency = 50
-    original1_across_K = []
-    original2_across_K = []
-    for g_overlap in [5, 4, 3]:
+    K_list = [0]
+    # for g_overlap in [5, 4, 3]:
+    for g_overlap in [5]:
+        performance1_across_K = []
+        performance2_across_K = []
+        concurrency = 50
+        original1_across_K = []
+        original2_across_K = []
         for K in K_list:
             temp_1, temp_2 = [], []
             for hyper_loop in range(hyper_iteration):
