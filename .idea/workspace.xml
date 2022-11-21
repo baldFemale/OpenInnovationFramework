@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_T" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,14 +362,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="4055000" />
-    </task>
-    <task id="LOCAL-00144" summary="Control the domain number">
-      <created>1667806245527</created>
-      <option name="number" value="00144" />
-      <option name="presentableId" value="LOCAL-00144" />
-      <option name="project" value="LOCAL" />
-      <updated>1667806245527</updated>
+      <workItem from="1669029685047" duration="4837000" />
     </task>
     <task id="LOCAL-00145" summary="Control the domain number">
       <created>1667826968550</created>
@@ -695,7 +700,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669036534687</updated>
     </task>
-    <option name="localTasksCounter" value="193" />
+    <task id="LOCAL-00193" summary="N12 robust">
+      <created>1669036867871</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1669036867871</updated>
+    </task>
+    <option name="localTasksCounter" value="194" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
