@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,22 +61,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Coupling&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Composition_2",
+    "settings.editor.selected.configurable": "preferences.sourceCode"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Coupling" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_unknown" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Teaming" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_more_2" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_more" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Composition_2\GST_mid" />
@@ -352,14 +362,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="2004000" />
-    </task>
-    <task id="LOCAL-00142" summary="T-test and density distribution">
-      <created>1667738659823</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1667738659823</updated>
+      <workItem from="1669029685047" duration="3717000" />
     </task>
     <task id="LOCAL-00143" summary="T-test and density distribution">
       <created>1667740221234</created>
@@ -697,7 +700,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669030724111</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="Fix bugs in the double search">
+      <created>1669032401209</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1669032401209</updated>
+    </task>
+    <option name="localTasksCounter" value="192" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
