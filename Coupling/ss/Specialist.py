@@ -90,7 +90,7 @@ class Specialist:
                 if index in co_expertise_domain:
                     changed_cog_state = next_cog_state.copy()
                     changed_cog_state[index] = co_state[index]
-                    if landscape.query_cog_fitness_partial(cog_state=changed_cog_state) > self.cog_fitness:
+                    if self.landscape.query_cog_fitness_partial(cog_state=changed_cog_state) > self.cog_fitness:
                         next_cog_state[index] = co_state[index]
                 else:  # retain the private configuration
                     pass
