@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Tshape.py" afterDir="false" />
@@ -357,14 +361,7 @@
       <workItem from="1668932891982" duration="200000" />
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
-      <workItem from="1669007906985" duration="1113000" />
-    </task>
-    <task id="LOCAL-00139" summary="Design two more Experiments&#10;&#10;-- Compare N=10, expertise_amount = 20  versus N=9, G=6, S=3 (expertise_amount=12)&#10;-- Keep the domain number constant, i.e., the expertise amount is different (knowledge is difference, to cater the empirical misunderstanding)">
-      <created>1667733510505</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1667733510505</updated>
+      <workItem from="1669007906985" duration="3656000" />
     </task>
     <task id="LOCAL-00140" summary="T-test and density distribution">
       <created>1667737886934</created>
@@ -702,7 +699,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668947968740</updated>
     </task>
-    <option name="localTasksCounter" value="188" />
+    <task id="LOCAL-00188" summary="Fix bugs in the double search">
+      <created>1669013934419</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1669013934419</updated>
+    </task>
+    <option name="localTasksCounter" value="189" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

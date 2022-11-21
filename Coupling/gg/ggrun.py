@@ -33,20 +33,20 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
         other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
-        # print("expertise 1: ", agent_1.expertise_domain)
-        # print("expertise 2: ", agent_2.expertise_domain)
-        # print("overlap: ", len([i for i in agent_2.expertise_domain if i in agent_1.expertise_domain]))
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
         agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
         agent_2.fitness, agent_2.potential_fitness = agent_2.landscape.query_cog_fitness_full(cog_state=agent_2.cog_state)
         crowd_2.append(agent_2)
 
     for index in range(agent_num):
+        print("expertise 1: ", crowd_1[index].expertise_domain)
+        print("expertise 2: ", crowd_2[index].expertise_domain)
+        print("overlap: ", len([i for i in crowd_2[index].expertise_domain if i in crowd_1[index].expertise_domain]))
         for _ in range(search_iteration):
             crowd_1[index].double_search(co_state=crowd_2[index].cog_state, co_expertise_domain=crowd_2[index].expertise_domain)
             crowd_2[index].double_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
-            print("overlap: ", [i for i in crowd_1[index].expertise_domain if i in crowd_2[index].expertise_domain])
-            print(crowd_1[index].cog_state, crowd_2[index].cog_state)
+            # print("overlap: ", [i for i in crowd_1[index].expertise_domain if i in crowd_2[index].expertise_domain])
+            # print(crowd_1[index].cog_state, crowd_2[index].cog_state)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]

@@ -150,7 +150,7 @@ class Landscape:
                 if index not in expertise_domain:
                     continue
                 else:
-                    # the unknown domain will still affect the condition
+                    # the unknown domain will still affect the condition of the conditional fitness
                     dependency = self.dependency_map[index]
                     bin_index = "".join([str(state[d]) for d in dependency])
                     bin_index = str(state[index]) + bin_index
