@@ -39,9 +39,9 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         crowd_2.append(agent_2)
 
     for index in range(agent_num):
-        print("expertise 1: ", crowd_1[index].expertise_domain)
-        print("expertise 2: ", crowd_2[index].expertise_domain)
-        print("overlap: ", len([i for i in crowd_2[index].expertise_domain if i in crowd_1[index].expertise_domain]))
+        # print("expertise 1: ", crowd_1[index].expertise_domain)
+        # print("expertise 2: ", crowd_2[index].expertise_domain)
+        # print("overlap: ", len([i for i in crowd_2[index].expertise_domain if i in crowd_1[index].expertise_domain]))
         for _ in range(search_iteration):
             crowd_1[index].double_search(co_state=crowd_2[index].cog_state, co_expertise_domain=crowd_2[index].expertise_domain)
             crowd_2[index].double_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
@@ -55,16 +55,16 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 1
-    agent_num = 10
-    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 1
+    landscape_iteration = 50
+    agent_num = 100
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    hyper_iteration = 10
     N = 9
     state_num = 4
     expertise_amount = 12
-    K_list = [0]
-    # for g_overlap in [5, 4, 3]:
-    for g_overlap in [5]:
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    for g_overlap in [5, 4, 3]:
+    # for g_overlap in [4]:
         performance1_across_K = []
         performance2_across_K = []
         concurrency = 50

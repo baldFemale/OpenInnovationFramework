@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/Tshape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Tshape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,14 +350,8 @@
       <workItem from="1668932891982" duration="200000" />
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
-      <workItem from="1669007906985" duration="3656000" />
-    </task>
-    <task id="LOCAL-00140" summary="T-test and density distribution">
-      <created>1667737886934</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1667737886934</updated>
+      <workItem from="1669007906985" duration="3718000" />
+      <workItem from="1669029685047" duration="986000" />
     </task>
     <task id="LOCAL-00141" summary="T-test and density distribution">
       <created>1667738090461</created>
@@ -706,7 +689,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669013934419</updated>
     </task>
-    <option name="localTasksCounter" value="189" />
+    <task id="LOCAL-00189" summary="Fix bugs in the double search">
+      <created>1669029354747</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1669029354747</updated>
+    </task>
+    <option name="localTasksCounter" value="190" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
