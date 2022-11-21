@@ -66,12 +66,12 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    performance1_across_K = []
-    performance2_across_K = []
     concurrency = 50
-    original1_across_K = []
-    original2_across_K = []
     for s_overlap in [3, 2, 1, 0]:
+        performance1_across_K = []
+        performance2_across_K = []
+        original1_across_K = []
+        original2_across_K = []
         for K in K_list:
             temp_1, temp_2 = [], []
             for hyper_loop in range(hyper_iteration):

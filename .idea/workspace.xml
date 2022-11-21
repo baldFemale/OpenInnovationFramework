@@ -4,7 +4,8 @@
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -351,14 +352,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="986000" />
-    </task>
-    <task id="LOCAL-00141" summary="T-test and density distribution">
-      <created>1667738090461</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1667738090461</updated>
+      <workItem from="1669029685047" duration="2004000" />
     </task>
     <task id="LOCAL-00142" summary="T-test and density distribution">
       <created>1667738659823</created>
@@ -696,7 +690,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669029354747</updated>
     </task>
-    <option name="localTasksCounter" value="190" />
+    <task id="LOCAL-00190" summary="Fix bugs in the double search">
+      <created>1669030724111</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1669030724111</updated>
+    </task>
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
