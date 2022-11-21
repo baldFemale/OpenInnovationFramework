@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +77,7 @@
       <recent name="C:\Python_Workplace\OpenInnovationFramework\Experiments_V3\Surface" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Evaluator (2)">
+  <component name="RunManager" selected="Python.Generalist">
     <configuration name="Evaluator (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,6 +122,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Generalist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Composition_2/GST_max_N12" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Landscape (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -145,28 +155,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_unknown/Landscape.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Tshape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Composition_2/GST_unknown" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Composition_2/GST_unknown/Tshape.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -221,11 +209,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Generalist" />
         <item itemvalue="Python.Evaluator (2)" />
         <item itemvalue="Python.Evaluator" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.Landscape (1)" />
-        <item itemvalue="Python.Tshape" />
       </list>
     </recent_temporary>
   </component>
@@ -362,14 +350,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="3717000" />
-    </task>
-    <task id="LOCAL-00143" summary="T-test and density distribution">
-      <created>1667740221234</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1667740221234</updated>
+      <workItem from="1669029685047" duration="4055000" />
     </task>
     <task id="LOCAL-00144" summary="Control the domain number">
       <created>1667806245527</created>
@@ -707,7 +688,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669032401209</updated>
     </task>
-    <option name="localTasksCounter" value="192" />
+    <task id="LOCAL-00192" summary="N12 robust">
+      <created>1669036534687</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1669036534687</updated>
+    </task>
+    <option name="localTasksCounter" value="193" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +704,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="test the version of no jumping, no mapping:&#10;--Only record the cog_fitness as the convergence&#10;--Keep the original convergence data, not differentiate the landscapes" />
     <MESSAGE value="Teaming-up" />
     <MESSAGE value="Test the normalization algorithm&#10;--using max-normalizer" />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains." />
@@ -741,7 +728,8 @@
     <MESSAGE value="Team-up&#10;--fix bugs: need to use tolist() after numpy.random.choice; otherwise cannot use &quot;+&quot; to extend the list type" />
     <MESSAGE value="Re-run the minimum alignment" />
     <MESSAGE value="Fix bugs in the double search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs in the double search" />
+    <MESSAGE value="N12 robust" />
+    <option name="LAST_COMMIT_MESSAGE" value="N12 robust" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

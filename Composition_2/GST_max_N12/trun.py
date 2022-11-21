@@ -42,15 +42,15 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 50
     agent_num = 100
     search_iteration = 200
-    hyper_iteration = 5
-    N = 9
+    hyper_iteration = 4
+    N = 12
     state_num = 4
-    generalist_expertise = 4  # 2 * 4: four G domains
-    specialist_expertise = 8    # 4 * 3: three S domains
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    generalist_expertise = 8  # 2 * 4: four G domains
+    specialist_expertise = 8    # 4 * 2: three S domains
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     performance_across_K = []
     potential_across_K = []
     concurrency = 50
