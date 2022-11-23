@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_T" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Composition_2/Topology/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +56,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Composition_2",
-    "settings.editor.selected.configurable": "preferences.sourceCode"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -362,14 +348,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="4837000" />
-    </task>
-    <task id="LOCAL-00145" summary="Control the domain number">
-      <created>1667826968550</created>
-      <option name="number" value="00145" />
-      <option name="presentableId" value="LOCAL-00145" />
-      <option name="project" value="LOCAL" />
-      <updated>1667826968550</updated>
+      <workItem from="1669029685047" duration="6232000" />
     </task>
     <task id="LOCAL-00146" summary="simplify the all domain codes">
       <created>1667827641577</created>
@@ -707,7 +686,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669036867871</updated>
     </task>
-    <option name="localTasksCounter" value="194" />
+    <task id="LOCAL-00194" summary="Test the topology of multi-state landscape">
+      <created>1669039029936</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1669039029936</updated>
+    </task>
+    <option name="localTasksCounter" value="195" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +702,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Teaming-up" />
     <MESSAGE value="Test the normalization algorithm&#10;--using max-normalizer" />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains." />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains.&#10;--Keep the knowledge recombination constant between G and S" />
@@ -741,7 +726,8 @@
     <MESSAGE value="Re-run the minimum alignment" />
     <MESSAGE value="Fix bugs in the double search" />
     <MESSAGE value="N12 robust" />
-    <option name="LAST_COMMIT_MESSAGE" value="N12 robust" />
+    <MESSAGE value="Test the topology of multi-state landscape" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test the topology of multi-state landscape" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

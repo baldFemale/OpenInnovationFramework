@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Coupling/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Coupling/gs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Coupling/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max_N12" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
