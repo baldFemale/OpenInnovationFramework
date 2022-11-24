@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,14 +349,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="11502000" />
-    </task>
-    <task id="LOCAL-00147" summary="simplify the all domain codes">
-      <created>1667830977632</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1667830977632</updated>
+      <workItem from="1669029685047" duration="13943000" />
     </task>
     <task id="LOCAL-00148" summary="Simplify the code version">
       <created>1668067933225</created>
@@ -694,7 +687,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669203293307</updated>
     </task>
-    <option name="localTasksCounter" value="196" />
+    <task id="LOCAL-00196" summary="Using priority">
+      <created>1669290580961</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1669290580962</updated>
+    </task>
+    <option name="localTasksCounter" value="197" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -703,7 +703,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains." />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains.&#10;--Keep the knowledge recombination constant between G and S" />
     <MESSAGE value="Fix bugs for query_cog_fitness_without_unknown_domain" />
     <MESSAGE value="Change the search assessment framework&#10;-- Cognitive search is based on cognitive fitness, which is a partial fitness based on the fitness contribution of the expertise domains. In other words, unknown domains doesn't account for the fitness contribution except for the condition. (fitness contribution is a conditional value)&#10;--The performance curve will record the absolute fitness which is an average pooling value across all domains (including expertise domains and unknown domains)" />
@@ -728,7 +727,8 @@
     <MESSAGE value="N12 robust" />
     <MESSAGE value="Test the topology of multi-state landscape" />
     <MESSAGE value="N12 Robustness" />
-    <option name="LAST_COMMIT_MESSAGE" value="N12 Robustness" />
+    <MESSAGE value="Using priority" />
+    <option name="LAST_COMMIT_MESSAGE" value="Using priority" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

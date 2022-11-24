@@ -18,7 +18,7 @@ import math
 
 
 # G + S
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amount=None, agent_num=None,
          search_iteration=None, overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
@@ -26,13 +26,13 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape.initialize(norm=True)
     crowd_1, crowd_2 = [], []
     for _ in range(agent_num):
-        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=g_expertise_amount)
         crowd_1.append(agent_1)
-        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=s_expertise_amount)
 
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        if overlap < expertise_amount // 4:  # with overlap
-            other_domains = np.random.choice(free_domains, expertise_amount // 4 - overlap, replace=False).tolist()
+        if overlap < s_expertise_amount // 4:  # with overlap
+            other_domains = np.random.choice(free_domains, s_expertise_amount // 4 - overlap, replace=False).tolist()
         else:  # without overlap
             other_domains = []
         if overlap != 0:
@@ -62,10 +62,11 @@ if __name__ == '__main__':
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 10
-    N = 9
+    N = 12
     state_num = 4
-    expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    g_expertise_amount = 12
+    s_expertise_amount = 12
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
     for overlap in [3, 2, 1, 0]:
         performance1_across_K = []
@@ -81,7 +82,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, overlap, loop, return_dict, sema))
+                    p = mp.Process(target=func, args=(N, K, state_num, g_expertise_amount, s_expertise_amount, agent_num, search_iteration, overlap, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()
                 for proc in jobs:

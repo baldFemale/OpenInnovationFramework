@@ -62,10 +62,10 @@ if __name__ == '__main__':
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 10
-    N = 9
+    N = 12
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
     for s_overlap in [3, 2, 1, 0]:
         performance1_across_K = []
