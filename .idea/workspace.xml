@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d44c4d6d-a1fa-4aaf-8f2a-6b64d607c83c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,14 +349,7 @@
       <workItem from="1668933101711" duration="96000" />
       <workItem from="1668933206325" duration="7574000" />
       <workItem from="1669007906985" duration="3718000" />
-      <workItem from="1669029685047" duration="6232000" />
-    </task>
-    <task id="LOCAL-00146" summary="simplify the all domain codes">
-      <created>1667827641577</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1667827641577</updated>
+      <workItem from="1669029685047" duration="11502000" />
     </task>
     <task id="LOCAL-00147" summary="simplify the all domain codes">
       <created>1667830977632</created>
@@ -693,7 +687,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669039029936</updated>
     </task>
-    <option name="localTasksCounter" value="195" />
+    <task id="LOCAL-00195" summary="N12 Robustness">
+      <created>1669203293307</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1669203293307</updated>
+    </task>
+    <option name="localTasksCounter" value="196" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,7 +703,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Test the normalization algorithm&#10;--using max-normalizer" />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains." />
     <MESSAGE value="Change the assumption on unknown domains&#10;--Remove the fitness contribution of unknown domain&#10;--Unknown domain only constrain the condition of other tuneable domains.&#10;--Keep the knowledge recombination constant between G and S" />
     <MESSAGE value="Fix bugs for query_cog_fitness_without_unknown_domain" />
@@ -727,7 +727,8 @@
     <MESSAGE value="Fix bugs in the double search" />
     <MESSAGE value="N12 robust" />
     <MESSAGE value="Test the topology of multi-state landscape" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test the topology of multi-state landscape" />
+    <MESSAGE value="N12 Robustness" />
+    <option name="LAST_COMMIT_MESSAGE" value="N12 Robustness" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
