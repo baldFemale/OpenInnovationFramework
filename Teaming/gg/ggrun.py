@@ -17,7 +17,7 @@ import pickle
 import math
 
 
-# G + G
+# Need to follow the four/three regimes from Gavetti 2005's paper
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, g_overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)

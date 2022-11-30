@@ -1,37 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Unix line seperator">
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/ggrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gg/slurm_gg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/gsrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/slurm_gs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/gs/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/slurm_ss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/ssrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teaming/ss/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Align the search result into one team solution">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coupling/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coupling/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coupling/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teaming/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Teaming/gg/ggrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +171,7 @@
       <workItem from="1668879155974" duration="1160000" />
       <workItem from="1668880363662" duration="896000" />
       <workItem from="1669693176756" duration="2803000" />
-      <workItem from="1669812170684" duration="6050000" />
+      <workItem from="1669812170684" duration="8194000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -268,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669818865503</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Align the search result into one team solution">
+      <created>1669824511101</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1669824511101</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +261,8 @@
     <MESSAGE value="adding comments" />
     <MESSAGE value="finish the run_resilience" />
     <MESSAGE value="Unix line seperator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Unix line seperator" />
+    <MESSAGE value="Align the search result into one team solution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Align the search result into one team solution" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />

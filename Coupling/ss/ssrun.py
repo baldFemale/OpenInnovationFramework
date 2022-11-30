@@ -61,7 +61,7 @@ if __name__ == '__main__':
     landscape_iteration = 50
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 10
+    hyper_iteration = 4
     N = 12
     state_num = 4
     expertise_amount = 12
