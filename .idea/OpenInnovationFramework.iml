@@ -44,7 +44,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Experiments_V4" />
       <excludeFolder url="file://$MODULE_DIR$/Transparency" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (Python_Workplace)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
