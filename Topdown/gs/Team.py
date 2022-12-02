@@ -27,7 +27,7 @@ class Team:
         self.agent_2.align_default_state(state=self.solution)
 
     def search(self):
-        # Agent 1 search
+        # Agent 1 search : Generalist
         self.agent_1.align_default_state(state=self.solution)
         next_cog_state = self.agent_1.cog_state.copy()
         index = np.random.choice(self.agent_1.expertise_domain)
@@ -40,16 +40,16 @@ class Team:
         if next_cog_fitness > self.agent_1.cog_fitness:
             self.agent_1.cog_state = next_cog_state
             self.agent_1.cog_fitness = next_cog_fitness
-            self.agent_1.solution[index] = self.agent_1.cog_state[index]
+            self.solution[index] = self.agent_1.cog_state[index]
 
-        # Agent 2 search
+        # Agent 2 search: Specialist
         self.agent_2.align_default_state(state=self.solution)
         next_cog_state = self.agent_2.cog_state.copy()
-        index = np.random.choice(self.agent_2.expertise_domain)
-        if next_cog_state[index] == "A":
-            next_cog_state[index] = "B"
-        else:
-            next_cog_state[index] = "A"
+        index = np.random.choice(self.agent_2.expertise_domain)  # only select from the expertise domain,
+        # thus will not change the unknown domain
+        space = ["0", "1", "2", "3"]
+        space.remove(self.agent_2.state[index])
+        next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.agent_2.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
                                                                             expertise_domain=self.agent_2.expertise_domain)
         if next_cog_fitness > self.agent_2.cog_fitness:

@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/Team.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Team.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gg/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Team.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Team.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +210,7 @@
       <workItem from="1669907215301" duration="3104000" />
       <workItem from="1669971976480" duration="4946000" />
       <workItem from="1669994618769" duration="5893000" />
-      <workItem from="1670004156998" duration="2317000" />
+      <workItem from="1670004156998" duration="3414000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -323,7 +324,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670004378644</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
+      <created>1670006650689</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1670006650689</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

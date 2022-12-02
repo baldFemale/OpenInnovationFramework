@@ -25,10 +25,6 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
-
-    # Generate the initial team solution
-    team_solution = np.random.choice(range(state_num), N).tolist()
-    team_solution = [str(i) for i in team_solution]  # state format: string
     team_list = []
     for _ in range(agent_num):
         agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)

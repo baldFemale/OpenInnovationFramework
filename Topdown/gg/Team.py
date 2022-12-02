@@ -40,7 +40,7 @@ class Team:
         if next_cog_fitness > self.agent_1.cog_fitness:
             self.agent_1.cog_state = next_cog_state
             self.agent_1.cog_fitness = next_cog_fitness
-            self.agent_1.solution[index] = self.agent_1.cog_state[index]
+            self.solution[index] = self.agent_1.cog_state[index]
 
         # Agent 2 search
         self.agent_2.align_default_state(state=self.solution)
