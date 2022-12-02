@@ -27,6 +27,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Priority" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Priority/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Priority/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Priority/sg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Priority/ss" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
