@@ -34,19 +34,28 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
-        agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
-        agent_2.fitness, agent_2.potential_fitness = agent_2.landscape.query_cog_fitness_full(cog_state=agent_2.cog_state)
+        agent_2.cog_fitness = landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
         crowd_2.append(agent_2)
-
     for index in range(agent_num):
         # print("expertise 1: ", crowd_1[index].expertise_domain)
         # print("expertise 2: ", crowd_2[index].expertise_domain)
         # print("overlap: ", len([i for i in crowd_2[index].expertise_domain if i in crowd_1[index].expertise_domain]))
         for _ in range(search_iteration):
-            crowd_1[index].double_search(co_state=crowd_2[index].cog_state, co_expertise_domain=crowd_2[index].expertise_domain)
-            crowd_2[index].double_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
+            crowd_1[index].search()
+            crowd_2[index].search()
             # print("overlap: ", [i for i in crowd_1[index].expertise_domain if i in crowd_2[index].expertise_domain])
             # print(crowd_1[index].cog_state, crowd_1[index].fitness, crowd_2[index].cog_state, crowd_2[index].fitness)
+        # After convergence, they integrate their own solution into one solution
+        # The integration only results in the potential change in the respective unknown domains
+        # print("fitness_before: ", crowd_1[index].fitness, crowd_2[index].fitness)
+        for di in range(N):
+            if (di in crowd_2[index].expertise_domain) and (di not in crowd_1[index].expertise_domain):
+                crowd_1[index].cog_state[di] = str(crowd_2[index].cog_state[di])
+            if (di in crowd_1[index].expertise_domain) and (di not in crowd_2[index].expertise_domain):
+                crowd_2[index].cog_state[di] = str(crowd_1[index].cog_state[di])
+        crowd_1[index].fitness, crowd_1[index].potential_fitness = landscape.query_cog_fitness_full(cog_state=crowd_1[index].cog_state)
+        crowd_2[index].fitness, crowd_2[index].potential_fitness = landscape.query_cog_fitness_full(cog_state=crowd_2[index].cog_state)
+        # print("fitness_after: ", crowd_1[index].fitness, crowd_2[index].fitness)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
@@ -56,9 +65,9 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 50
-    agent_num = 100
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 10
+    agent_num = 50
+    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
+    hyper_iteration = 4
     N = 12
     state_num = 4
     expertise_amount = 12
