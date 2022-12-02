@@ -32,6 +32,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Priority/gs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Priority/sg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Priority/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Topdown" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Topdown/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Topdown/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Topdown/ss" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

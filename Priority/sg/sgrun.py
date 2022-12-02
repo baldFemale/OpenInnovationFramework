@@ -39,9 +39,10 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
         crowd_2.append(agent_2)
     for index in range(agent_num):
         for _ in range(search_iteration):
-            crowd_1[index].search()
-            # the second agent, specialist, will always follow the solution of generalist
-            crowd_2[index].priority_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
+            crowd_2[index].search()
+            # the first agent, generalist, will always follow the solution of specialist
+            crowd_1[index].priority_search(co_state=crowd_2[index].cog_state,
+                                           co_expertise_domain=crowd_2[index].expertise_domain)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
