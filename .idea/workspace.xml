@@ -2,13 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/gs/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alignment/ss/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/sg/slurm_sg" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,13 +76,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
@@ -211,6 +240,7 @@
       <workItem from="1669971976480" duration="4946000" />
       <workItem from="1669994618769" duration="5893000" />
       <workItem from="1670004156998" duration="3414000" />
+      <workItem from="1670007944033" duration="412000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>

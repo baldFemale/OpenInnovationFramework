@@ -18,11 +18,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_unknown_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max_N12" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Alignment" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Alignment/GST_max" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Alignment/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Alignment/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Alignment/ss" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gs" isTestSource="false" />
@@ -36,6 +31,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Topdown/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Topdown/gs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Topdown/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Coordination" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Coordination/GST_max" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Coordination/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Coordination/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Coordination/ss" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
