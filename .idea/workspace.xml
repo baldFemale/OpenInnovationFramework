@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="remove the random package usage&#10;adjust the requested memory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Tshape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +48,17 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Autonomy/ss",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gs",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\ss" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gs" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Generalist">
@@ -207,7 +210,7 @@
       <workItem from="1669994618769" duration="5893000" />
       <workItem from="1670004156998" duration="3414000" />
       <workItem from="1670007944033" duration="660000" />
-      <workItem from="1670055510505" duration="4344000" />
+      <workItem from="1670055510505" duration="4443000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -377,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670061775525</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="remove the random package usage&#10;adjust the requested memory">
+      <created>1670061823958</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1670061823958</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

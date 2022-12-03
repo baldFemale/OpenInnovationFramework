@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
 from collections import defaultdict
 from itertools import product
 import numpy as np
@@ -150,7 +149,7 @@ class Landscape:
                 if index not in expertise_domain:
                     continue
                 else:
-                    # the unknown domain will still affect the condition
+                    # the unknown domain will still affect the condition of the conditional fitness
                     dependency = self.dependency_map[index]
                     bin_index = "".join([str(state[d]) for d in dependency])
                     bin_index = str(state[index]) + bin_index
@@ -241,9 +240,10 @@ if __name__ == '__main__':
     list_cache = list(landscape.cache.values())
     print("sd:", np.std(list_cache))
 
-    cog_state = ['A', 'A', '1', '1', '1', '3', '1', '2']
+    cog_state = ['1', '1', '1', '1', '1', '3', '1', '2']
     cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=range(len(cog_state)))
     # cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=[1, 2, 3])
+    print("Alternatives: ", landscape.cog_state_alternatives(cog_state=cog_state))
     print("partial_cog_fitness: ", cog_fitness)
     print("normalized partial fitness: ", cog_fitness / landscape.max_normalizer)
     cog_fitness_2 = landscape.query_cog_fitness_full(cog_state=cog_state)
@@ -255,4 +255,3 @@ if __name__ == '__main__':
     plt.xlabel("Range")
     plt.ylabel("Count")
     plt.show()
-

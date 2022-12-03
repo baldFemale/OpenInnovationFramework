@@ -4,7 +4,6 @@
 # @FileName: Agent.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-import random
 import numpy as np
 from Landscape import Landscape
 import pickle
@@ -152,9 +151,9 @@ class Generalist:
                 # state[index] = str(random.choice(range(self.state_num)))
             else:
                 if bit_value == "A":
-                    state[index] = random.choice(["0", "1"])
+                    state[index] = np.random.choice(["0", "1"])
                 elif bit_value == "B":
-                    state[index] = random.choice(["2", "3"])
+                    state[index] = np.random.choice(["2", "3"])
                 else:
                     raise ValueError("Unsupported state element: ", bit_value)
         return state
