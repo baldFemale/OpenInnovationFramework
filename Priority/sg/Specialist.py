@@ -56,7 +56,7 @@ class Specialist:
                 self.state[index] = state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness = self.landscape.query_fitness(state=self.state)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     # Test Example
     search_iteration = 200
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=4, k=0)
+    landscape.type(K=4)
     landscape.initialize()
     specialist = Specialist(N=9, landscape=landscape, state_num=4, expertise_amount=12)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
