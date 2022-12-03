@@ -45,7 +45,7 @@ class Tshape:
                 self.state[index] = state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness = self.landscape.query_fitness(state=self.state)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
