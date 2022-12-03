@@ -129,7 +129,6 @@ class Generalist:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-
     def state_2_cog_state(self, state=None):
         cog_state = self.state.copy()
         for index, bit_value in enumerate(state):
@@ -173,7 +172,7 @@ class Generalist:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=10, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=0, k=0)
+    landscape.type(K=0)
     landscape.initialize()
     generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
     # jump_count = 0

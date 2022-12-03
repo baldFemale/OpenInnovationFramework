@@ -156,7 +156,7 @@ if __name__ == '__main__':
     # Test Example
     search_iteration = 200
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=4, k=0)
+    landscape.type(K=4)
     landscape.initialize()
     specialist = Specialist(N=9, landscape=landscape, state_num=4, expertise_amount=12)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]

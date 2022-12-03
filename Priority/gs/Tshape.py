@@ -176,7 +176,7 @@ class Tshape:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=3, k=0)
+    landscape.type(K=3)
     landscape.initialize()
     t_shape = Tshape(N=9, landscape=landscape, state_num=4, generalist_expertise=4, specialist_expertise=8)
     # jump_count = 0

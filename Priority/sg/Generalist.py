@@ -172,7 +172,7 @@ class Generalist:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=10, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=0, k=0)
+    landscape.type(K=0)
     landscape.initialize()
     generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
     # jump_count = 0
