@@ -45,7 +45,7 @@ class Tshape:
                 self.state[index] = state[index]
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness = self.landscape.query_fitness(state=self.state)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
@@ -112,6 +112,27 @@ class Tshape:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
+    def priority_search(self, co_state=None, co_expertise_domain=None):
+        # learning from coupled agent
+        next_cog_state = self.cog_state.copy()
+        for index in range(self.N):
+            if index in co_expertise_domain:
+                next_cog_state[index] = co_state[index]
+            else:
+                pass
+        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+        # thus will not change the unknown domain
+        space = ["0", "1", "2", "3"]
+        space.remove(self.state[index])
+        next_cog_state[index] = np.random.choice(space)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+                                                                    expertise_domain=self.expertise_domain)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+
+
     def state_2_cog_state(self, state=None):
         cog_state = self.state.copy()
         for index, bit_value in enumerate(state):
@@ -155,7 +176,7 @@ class Tshape:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(IM_type="Traditional Directed", K=3, k=0)
+    landscape.type(K=3)
     landscape.initialize()
     t_shape = Tshape(N=9, landscape=landscape, state_num=4, generalist_expertise=4, specialist_expertise=8)
     # jump_count = 0

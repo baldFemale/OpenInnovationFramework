@@ -80,6 +80,7 @@ class Generalist:
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def double_search(self, co_state=None, co_expertise_domain=None):
+        # learning from coupled agent
         next_cog_state = self.cog_state.copy()
         for index in range(self.N):
             if index in self.expertise_domain:
@@ -103,6 +104,26 @@ class Generalist:
         else:
             next_cog_state[index] = "A"
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+
+    def priority_search(self, co_state=None, co_expertise_domain=None):
+        # learning from coupled agent
+        next_cog_state = self.cog_state.copy()
+        for index in range(self.N):
+            if index in co_expertise_domain:
+                next_cog_state[index] = co_state[index]
+            else:
+                pass
+        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+        # thus will not change the unknown domain
+        space = ["0", "1", "2", "3"]
+        space.remove(self.state[index])
+        next_cog_state[index] = np.random.choice(space)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+                                                                    expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -151,21 +172,23 @@ class Generalist:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=10, state_num=4)
-    landscape.type(K=5)
+    landscape.type(K=0)
     landscape.initialize()
-    print("Landscape completed!")
-    generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=12)
+    generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
     # jump_count = 0
-    search_iteration = 100
+    search_iteration = 500
     performance_across_time = []
     for _ in range(search_iteration):
         generalist.search()
+        # if generalist.distant_jump():
+        #     jump_count += 1
         performance_across_time.append(generalist.cog_fitness)
-        print(generalist.cog_fitness)
+        # print(generalist.cog_fitness)
+    # print("jump_count: ", jump_count)
     generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
-    generalist.fitness = landscape.query_cog_fitness_full(cog_state=generalist.cog_state)[0]
+    generalist.fitness = landscape.query_fitness(state=generalist.state)
     performance_across_time.append(generalist.fitness)
-    generalist.describe()
+    # generalist.describe()
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration+1)
@@ -177,7 +200,7 @@ if __name__ == '__main__':
     plt.legend(frameon=False, ncol=3, fontsize=10)
     plt.savefig("G_performance.png", transparent=True, dpi=200)
     plt.show()
-    # plt.clf()
+    plt.clf()
     print("END")
 
 
