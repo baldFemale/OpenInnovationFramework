@@ -3,107 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Priority/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Priority/sg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/sgrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/sgrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,17 +52,17 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gg",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss",
     "settings.editor.selected.configurable": "preferences.editor"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\gs" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Generalist">
@@ -307,7 +214,7 @@
       <workItem from="1669994618769" duration="5893000" />
       <workItem from="1670004156998" duration="3414000" />
       <workItem from="1670007944033" duration="660000" />
-      <workItem from="1670055510505" duration="5028000" />
+      <workItem from="1670055510505" duration="5321000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -491,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670061988879</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
+      <created>1670062526245</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1670062526245</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -153,7 +153,8 @@ class Tshape:
         state = cog_state.copy()
         for index, bit_value in enumerate(cog_state):
             if index not in self.expertise_domain:
-                state[index] = str(random.choice(range(self.state_num)))
+                # state[index] = str(random.choice(range(self.state_num)))
+                pass
             elif index in self.generalist_domain:
                 if bit_value == "A":
                     state[index] = random.choice(["0", "1"])
