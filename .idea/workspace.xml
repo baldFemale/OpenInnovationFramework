@@ -3,33 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="fix the bugs in the function of &quot;align default state&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/sg/slurm_sg" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Topdown/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +215,7 @@
       <workItem from="1669994618769" duration="5893000" />
       <workItem from="1670004156998" duration="3414000" />
       <workItem from="1670007944033" duration="660000" />
-      <workItem from="1670055510505" duration="3221000" />
+      <workItem from="1670055510505" duration="4255000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -382,7 +364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670060513987</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix the bugs in the function of &quot;align default state&quot;">
+      <created>1670060691867</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1670060691867</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

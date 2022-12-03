@@ -5,7 +5,6 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import pickle
-import random
 import numpy as np
 from Landscape import Landscape
 
