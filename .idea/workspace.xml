@@ -3,14 +3,39 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_max_N12/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_mid_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_mid_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_min_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_min_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_more_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_more_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/GST_unknown_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Composition_2/Topology/Tshape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,17 +77,17 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Composition_2/Topology",
     "settings.editor.selected.configurable": "preferences.editor"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\gs" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\Topology" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_unknown_2" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_more_2" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_more" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_min_2" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Generalist">
@@ -214,7 +239,7 @@
       <workItem from="1669994618769" duration="5893000" />
       <workItem from="1670004156998" duration="3414000" />
       <workItem from="1670007944033" duration="660000" />
-      <workItem from="1670055510505" duration="5321000" />
+      <workItem from="1670055510505" duration="5532000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -405,7 +430,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670062526245</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
+      <created>1670062821037</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1670062821037</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
