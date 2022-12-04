@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"F:\data\gst-1112\2\Coupling\gg"
+data_folder = r"F:\data\gst-1112\Autonomy_1\gg"
 g1_performance_2_file = data_folder + r"\g1_performance_across_K_2"
 g1_performance_4_file = data_folder + r"\g1_performance_across_K_4"
 g1_performance_6_file = data_folder + r"\g1_performance_across_K_6"
@@ -40,9 +40,9 @@ plt.plot(x, g1_performance_6, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("G2 Coupling across Overlap")
+plt.title("Autonomy_GG_G1")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\G1_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Autonomy_GG_G1.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 
@@ -54,9 +54,9 @@ plt.plot(x, g2_performance_6, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("G2 Coupling across Overlap")
+plt.title("Autonomy_GG_G2")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\G2_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Autonomy_GG_G1.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 print("END")
