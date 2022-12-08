@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Update the previous code with the same agent setting">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Autonomy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Python_Workplace/OpenInnovationFramework&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -221,7 +220,8 @@
       <workItem from="1670247456612" duration="4664000" />
       <workItem from="1670317752488" duration="2628000" />
       <workItem from="1670434104762" duration="1351000" />
-      <workItem from="1670481556844" duration="2703000" />
+      <workItem from="1670481556844" duration="3461000" />
+      <workItem from="1670493385430" duration="107000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -454,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670319200620</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Update the previous code with the same agent setting">
+      <created>1670485373646</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1670485373646</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
