@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Update the previous code with the same agent setting">
-      <change afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_00_08_[变更]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_00_08___.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +219,9 @@
       <workItem from="1670174554712" duration="1346000" />
       <workItem from="1670176052628" duration="3889000" />
       <workItem from="1670247456612" duration="4664000" />
-      <workItem from="1670317752488" duration="849000" />
+      <workItem from="1670317752488" duration="2628000" />
+      <workItem from="1670434104762" duration="1351000" />
+      <workItem from="1670481556844" duration="2703000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -448,7 +447,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670184675023</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Update the previous code with the same agent setting">
+      <created>1670319200620</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1670319200620</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

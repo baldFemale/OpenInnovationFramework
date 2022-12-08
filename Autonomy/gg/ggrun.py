@@ -48,7 +48,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         # After convergence, they integrate their own solution into one solution
         # The integration only results in the potential change in the respective unknown domains
         # print("fitness_before: ", crowd_1[index].fitness, crowd_2[index].fitness)
-        for di in range(N):
+        for di in range(N):  # minimum alignment in the final solution
             if (di in crowd_2[index].expertise_domain) and (di not in crowd_1[index].expertise_domain):
                 crowd_1[index].cog_state[di] = str(crowd_2[index].cog_state[di])
             if (di in crowd_1[index].expertise_domain) and (di not in crowd_2[index].expertise_domain):
