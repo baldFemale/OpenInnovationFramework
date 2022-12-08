@@ -4,20 +4,6 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization in Traditional Landscape" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Transparency_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Transparency" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_mid" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_mid_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_min" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_min_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_more_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_unknown_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Composition_2/GST_max_N12" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Autonomy/gs" isTestSource="false" />
@@ -36,26 +22,41 @@
       <sourceFolder url="file://$MODULE_DIR$/Coordination/gg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Coordination/gs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Coordination/ss" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles/.idea" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/Transparency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/Transparency_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max_N12" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_mid" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_mid_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_min" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_min_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_unknown_2" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/Socialized_innovation_crowdsourcing" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive/up_Hetero_Factor_N10" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction_diff_GS_roles" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive_8" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction_cognitive" />
-      <excludeFolder url="file://$MODULE_DIR$/Reproduction" />
-      <excludeFolder url="file://$MODULE_DIR$/Resilience" />
-      <excludeFolder url="file://$MODULE_DIR$/ResultsPlot" />
-      <excludeFolder url="file://$MODULE_DIR$/Experiments_V1" />
-      <excludeFolder url="file://$MODULE_DIR$/Experiments_V2" />
-      <excludeFolder url="file://$MODULE_DIR$/Transparency_2" />
-      <excludeFolder url="file://$MODULE_DIR$/RobustExp" />
-      <excludeFolder url="file://$MODULE_DIR$/Transparency_3" />
-      <excludeFolder url="file://$MODULE_DIR$/Experiments_V3" />
-      <excludeFolder url="file://$MODULE_DIR$/Experiments_V5" />
-      <excludeFolder url="file://$MODULE_DIR$/Experiments_V4" />
-      <excludeFolder url="file://$MODULE_DIR$/Transparency" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_cognitive/up_Hetero_Factor_N10" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_cognitive_8" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_cognitive" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Resilience" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/ResultsPlot" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Experiments_V1" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Experiments_V2" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Transparency_2" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/RobustExp" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Transparency_3" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Experiments_V3" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Experiments_V5" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Experiments_V4" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Transparency" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Composition" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (Python_Workplace)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
