@@ -1,0 +1,10 @@
+#!/bin/bash
+#SBATCH --time=3-00:00:00
+#SBATCH --job-name=gs2_topdown
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=junyili@u.nus.edu
+#SBATCH --mem=150gb
+#SBATCH --partition=long
+#SBATCH --cpus-per-task=50
+#SBATCH --ntasks=1
+python gsrun_2.py
