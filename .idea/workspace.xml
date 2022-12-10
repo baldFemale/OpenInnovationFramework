@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Reshape the project structure">
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs_22" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/gsrun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/ssrun_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +59,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gs",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Coordination/ss",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,11 +70,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gs" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\Topology" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_unknown_2" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Composition_2\GST_more_2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -232,7 +241,7 @@
       <workItem from="1670508274583" duration="44000" />
       <workItem from="1670508381917" duration="8000" />
       <workItem from="1670509762702" duration="982000" />
-      <workItem from="1670693446037" duration="614000" />
+      <workItem from="1670693446037" duration="1458000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -486,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670507849029</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Reshape the project structure">
+      <created>1670694097422</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1670694097422</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -68,7 +68,7 @@ if __name__ == '__main__':
     s_expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for overlap in [3, 0]:
+    for overlap in [2, 1]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
