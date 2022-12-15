@@ -8,7 +8,6 @@ import numpy as np
 from Generalist import Generalist
 from Specialist import Specialist
 from Tshape import Tshape
-from Team import Team
 from Landscape import Landscape
 import multiprocessing as mp
 import time
@@ -25,27 +24,26 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
-    team_list = []
+    crowd_1, crowd_2 = [], []
     for _ in range(agent_num):
         agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=g_expertise_amount)
+        crowd_1.append(agent_1)
         agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=s_expertise_amount)
         overlap_domains = np.random.choice(agent_1.expertise_domain, overlap, replace=False).tolist()
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
         other_domains = np.random.choice(free_domains, s_expertise_amount // 4 - overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
-        team = Team(agent_1=agent_1, agent_2=agent_2, state_num=state_num, N=N)
-        team_list.append(team)
-    for team in team_list:
+        agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
+        agent_2.cog_fitness = landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state,
+                                                                  expertise_domain=agent_2.expertise_domain)
+        crowd_2.append(agent_2)
+    for index in range(agent_num):
         for _ in range(search_iteration):
-            team.search()
-    # need to query the full fitnee after convergence
-    for team in team_list:
-        team.agent_1.fitness, team.agent_1.potential_fitness = \
-            landscape.query_cog_fitness_full(cog_state=team.agent_1.cog_state)
-        team.agent_2.fitness, team.agent_2.potential_fitness = \
-            landscape.query_cog_fitness_full(cog_state=team.agent_2.cog_state)
-    performance_across_agent_1 = [team.agent_1.fitness for team in team_list]
-    performance_across_agent_2 = [team.agent_2.fitness for team in team_list]
+            crowd_1[index].search()
+            # the second agent, specialist, will always follow the solution of generalist
+            crowd_2[index].priority_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
+    performance_across_agent_1 = [agent.fitness for agent in crowd_1]
+    performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
     sema.release()
 
@@ -62,7 +60,7 @@ if __name__ == '__main__':
     s_expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for overlap in [0]:
+    for overlap in [3, 2, 1, 0]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []

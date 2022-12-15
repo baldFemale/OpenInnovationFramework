@@ -18,20 +18,20 @@ import pickle
 import math
 
 
-# G + S
-def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amount=None, agent_num=None,
-         search_iteration=None, overlap=None, loop=None, return_dict=None, sema=None):
+# S + S
+def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+         search_iteration=None, s_overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
     team_list = []
     for _ in range(agent_num):
-        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=g_expertise_amount)
-        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=s_expertise_amount)
-        overlap_domains = np.random.choice(agent_1.expertise_domain, overlap, replace=False).tolist()
+        agent_1 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        overlap_domains = np.random.choice(agent_1.expertise_domain, s_overlap, replace=False).tolist()
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        other_domains = np.random.choice(free_domains, s_expertise_amount // 4 - overlap, replace=False).tolist()
+        other_domains = np.random.choice(free_domains, expertise_amount // 4 - s_overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
         team = Team(agent_1=agent_1, agent_2=agent_2, state_num=state_num, N=N)
         team_list.append(team)
@@ -58,11 +58,10 @@ if __name__ == '__main__':
     hyper_iteration = 4
     N = 12
     state_num = 4
-    g_expertise_amount = 12
-    s_expertise_amount = 12
+    expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for overlap in [0]:
+    for s_overlap in [1]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
@@ -76,7 +75,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, g_expertise_amount, s_expertise_amount, agent_num, search_iteration, overlap, loop, return_dict, sema))
+                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, s_overlap, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()
                 for proc in jobs:
@@ -92,13 +91,13 @@ if __name__ == '__main__':
             performance2_across_K.append(result_2)
             original1_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
             original2_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
-        with open("g_performance_across_K_{0}".format(overlap), 'wb') as out_file:
+        with open("s1_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance1_across_K, out_file)
-        with open("s_performance_across_K_{0}".format(overlap), 'wb') as out_file:
+        with open("s2_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance2_across_K, out_file)
-        with open("g_original_performance_across_K_{0}".format(overlap), "wb") as out_file:
+        with open("s1_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
             pickle.dump(original1_across_K, out_file)
-        with open("s_original_performance_across_K_{0}".format(overlap), "wb") as out_file:
+        with open("s2_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
             pickle.dump(original2_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
