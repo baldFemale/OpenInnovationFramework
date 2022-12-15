@@ -89,15 +89,15 @@ if __name__ == '__main__':
             performance2_across_K.append(result_2)
             original1_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
             original2_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
-        with open("g_performance_across_K_{0}".format(overlap), 'wb') as out_file:
+        with open("s1_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance1_across_K, out_file)
-        with open("s_performance_across_K_{0}".format(overlap), 'wb') as out_file:
+        with open("s2_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance2_across_K, out_file)
-        with open("g_original_performance_across_K_{0}".format(overlap), "wb") as out_file:
+        with open("s1_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
             pickle.dump(original1_across_K, out_file)
-        with open("s_original_performance_across_K_{0}".format(overlap), "wb") as out_file:
+        with open("s2_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
             pickle.dump(original2_across_K, out_file)
-    t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+        t1 = time.time()
+        print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
 
 
