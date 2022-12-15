@@ -4,59 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Reduce the workload of gg_coordination">
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/ggrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/slurm_gs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gg/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/gsrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/slurm_gs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/ss/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Team.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/slurm_ss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/slurm_ss_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/slurm_ss_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/slurm_ss_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ssrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ssrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ssrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ssrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/ssrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/ssrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/ss/ssrun_4.py" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Add the exp of gg, ss under Priority">
+      <change afterPath="$PROJECT_DIR$/Priority/gg/ggrun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Priority/gg/slurm_gg2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs_22" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs_22" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gg/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/ss/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/ssrun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +53,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Priority",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Priority/gg",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -110,11 +64,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -285,7 +239,7 @@
       <workItem from="1670951850682" duration="1706000" />
       <workItem from="1671007275898" duration="10855000" />
       <workItem from="1671041875162" duration="4154000" />
-      <workItem from="1671092249398" duration="2393000" />
+      <workItem from="1671092249398" duration="2786000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -567,7 +521,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671036594685</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Add the exp of gg, ss under Priority">
+      <created>1671094784854</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1671094784854</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -601,7 +562,8 @@
     <MESSAGE value="Update the previous code with the same agent setting" />
     <MESSAGE value="Reshape the project structure" />
     <MESSAGE value="Reduce the workload of gg_coordination" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reduce the workload of gg_coordination" />
+    <MESSAGE value="Add the exp of gg, ss under Priority" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add the exp of gg, ss under Priority" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1670319116284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Autonomy/gg" />

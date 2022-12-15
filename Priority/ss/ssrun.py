@@ -17,29 +17,30 @@ import pickle
 import math
 
 
-# G + G
+# S + S
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, g_overlap=None, loop=None, return_dict=None, sema=None):
+         search_iteration=None, s_overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
     crowd_1, crowd_2 = [], []
     for _ in range(agent_num):
-        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_1 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd_1.append(agent_1)
-        agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False).tolist()
+        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        overlap_domains = np.random.choice(agent_1.expertise_domain, s_overlap, replace=False).tolist()
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False).tolist()
+        other_domains = np.random.choice(free_domains, expertise_amount // 4 - s_overlap, replace=False).tolist()
         agent_2.expertise_domain = overlap_domains + other_domains
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
-        agent_2.cog_fitness = landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
+        agent_2.cog_fitness = landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state,
+                                                                  expertise_domain=agent_2.expertise_domain)
         crowd_2.append(agent_2)
     for index in range(agent_num):
         for _ in range(search_iteration):
             crowd_1[index].search()
-            # the second agent, still generalist, will always follow the solution of the first generalist
+            # the second agent, specialist, will always follow the solution of generalist
             crowd_2[index].priority_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for g_overlap in [6, 4]:
+    for s_overlap in [3, 2, 1, 0]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
@@ -72,7 +73,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, g_overlap, loop, return_dict, sema))
+                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, s_overlap, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()
                 for proc in jobs:
