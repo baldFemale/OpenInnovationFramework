@@ -9,74 +9,65 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"F:\data\gst-1112\Priority\gs"
-g_performance_0_file = data_folder + r"\g_performance_across_K_0"
-g_performance_1_file = data_folder + r"\g_performance_across_K_1"
-g_performance_2_file = data_folder + r"\g_performance_across_K_2"
-g_performance_3_file = data_folder + r"\g_performance_across_K_3"
-with open(g_performance_0_file, 'rb') as infile:
-    g_performance_0 = pickle.load(infile)
-with open(g_performance_1_file, 'rb') as infile:
-    g_performance_1 = pickle.load(infile)
-with open(g_performance_2_file, 'rb') as infile:
-    g_performance_2 = pickle.load(infile)
-with open(g_performance_3_file, 'rb') as infile:
-    g_performance_3 = pickle.load(infile)
+data_folder = r"F:\data\gst-1112\Priority\ss"
+s1_performance_0_file = data_folder + r"\s1_performance_across_K_0"
+s1_performance_1_file = data_folder + r"\s1_performance_across_K_1"
+s1_performance_2_file = data_folder + r"\s1_performance_across_K_2"
+s1_performance_3_file = data_folder + r"\s1_performance_across_K_3"
+with open(s1_performance_0_file, 'rb') as infile:
+    s1_performance_0 = pickle.load(infile)
+with open(s1_performance_1_file, 'rb') as infile:
+    s1_performance_1 = pickle.load(infile)
+with open(s1_performance_2_file, 'rb') as infile:
+    s1_performance_2 = pickle.load(infile)
+with open(s1_performance_3_file, 'rb') as infile:
+    s1_performance_3 = pickle.load(infile)
 
-s_performance_0_file = data_folder + r"\s_performance_across_K_0"
-s_performance_1_file = data_folder + r"\s_performance_across_K_1"
-s_performance_2_file = data_folder + r"\s_performance_across_K_2"
-s_performance_3_file = data_folder + r"\s_performance_across_K_3"
-with open(s_performance_0_file, 'rb') as infile:
-    s_performance_0 = pickle.load(infile)
-with open(s_performance_1_file, 'rb') as infile:
-    s_performance_1 = pickle.load(infile)
-with open(s_performance_2_file, 'rb') as infile:
-    s_performance_2 = pickle.load(infile)
-with open(s_performance_3_file, 'rb') as infile:
-    s_performance_3 = pickle.load(infile)
+s2_performance_0_file = data_folder + r"\s2_performance_across_K_0"
+s2_performance_1_file = data_folder + r"\s2_performance_across_K_1"
+s2_performance_2_file = data_folder + r"\s2_performance_across_K_2"
+s2_performance_3_file = data_folder + r"\s2_performance_across_K_3"
+with open(s2_performance_0_file, 'rb') as infile:
+    s2_performance_0 = pickle.load(infile)
+with open(s2_performance_1_file, 'rb') as infile:
+    s2_performance_1 = pickle.load(infile)
+with open(s2_performance_2_file, 'rb') as infile:
+    s2_performance_2 = pickle.load(infile)
+with open(s2_performance_3_file, 'rb') as infile:
+    s2_performance_3 = pickle.load(infile)
 
 # Performance
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-# G
-plt.plot(x, g_performance_1, "g-", label="Zero")
-plt.plot(x, g_performance_1, "k--", label="Low")
-plt.plot(x, g_performance_2, "k:", label="Middle")
-plt.plot(x, g_performance_3, "k-", label="High")
+# S1
+plt.plot(x, s1_performance_0, "g-", label="Zero")
+plt.plot(x, s1_performance_1, "k:", label="Low")
+plt.plot(x, s1_performance_2, "k--", label="Middle")
+plt.plot(x, s1_performance_3, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("GS Priority across Overlap")
+plt.title("Priority_SS_S1")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\G_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Priority_SS_S1.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 
 
-# G2
-plt.plot(x, s_performance_0, "g-", label="Zero")
-plt.plot(x, s_performance_1, "k--", label="Low")
-plt.plot(x, s_performance_2, "k:", label="Middle")
-plt.plot(x, s_performance_3, "k-", label="High")
+# S2
+plt.plot(x, s2_performance_0, "g-", label="Zero")
+plt.plot(x, s2_performance_1, "k:", label="Low")
+plt.plot(x, s2_performance_2, "k--", label="Middle")
+plt.plot(x, s2_performance_3, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("GS Priority across Overlap")
+plt.title("Priority_SS_S2")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\S_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Priority_SS_S2.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 print("END")
-
-
-# two sample t-test
-# from scipy import stats
-# t_result = stats.ttest_ind(s_performance, t_performance, equal_var=False)
-# print(t_result)
-# print("END")
-
-
 
 # Testing the iteration boundary
 # data_folder = r"E:\data\gst-1018\outbound_without_map_jump_3"

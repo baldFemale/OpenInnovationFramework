@@ -15,6 +15,7 @@ import time
 from multiprocessing import Pool
 from multiprocessing import Semaphore
 import pickle
+import gc
 import math
 
 
@@ -47,21 +48,24 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     performance_across_agent_1 = [team.agent_1.fitness for team in team_list]
     performance_across_agent_2 = [team.agent_2.fitness for team in team_list]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
+    del landscape
+    del team_list
+    # gc.collect()
     sema.release()
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    agent_num = 50
+    landscape_iteration = 5
+    agent_num = 10
     search_iteration = 100  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 4
     N = 12
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    concurrency = 50
-    for s_overlap in [2]:
+    K_list = [0]
+    concurrency = 5
+    for s_overlap in [3]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
@@ -91,6 +95,7 @@ if __name__ == '__main__':
             performance2_across_K.append(result_2)
             original1_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
             original2_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
+            del manager
         with open("s1_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance1_across_K, out_file)
         with open("s2_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:

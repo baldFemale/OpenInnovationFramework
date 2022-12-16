@@ -16,16 +16,21 @@ from multiprocessing import Pool
 from multiprocessing import Semaphore
 import pickle
 import gc
+import sys
+import psutil
 import math
 
 
 # S + S
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, s_overlap=None, loop=None, return_dict=None, sema=None):
+    t0 = time.time()
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
+    t1 = time.time()
+    print("landscape time: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
     team_list = []
     for _ in range(agent_num):
         agent_1 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
@@ -48,24 +53,27 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     performance_across_agent_1 = [team.agent_1.fitness for team in team_list]
     performance_across_agent_2 = [team.agent_2.fitness for team in team_list]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
-    del landscape
-    del team_list
-    gc.collect()
     sema.release()
+    t2 = time.time()
+    print("process time: ", time.strftime("%H:%M:%S", time.gmtime(t2-t0)))
+    mem = psutil.virtual_memory()
+    print("total memory 2: ", float(mem.total) / 1024 / 1024 / 1024)
+    print("used memory 2: ", float(mem.used) / 1024 / 1024 / 1024)
+    print("free memory 2: ", float(mem.free) / 1024 / 1024 / 1024)
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    agent_num = 50
-    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 4
+    landscape_iteration = 5
+    agent_num = 100
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    hyper_iteration = 2
     N = 12
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    concurrency = 50
-    for s_overlap in [3, 0]:
+    K_list = [0]
+    concurrency = 5
+    for s_overlap in [3]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
@@ -95,7 +103,11 @@ if __name__ == '__main__':
             performance2_across_K.append(result_2)
             original1_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
             original2_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
-            del manager
+            mem = psutil.virtual_memory()
+        mem = psutil.virtual_memory()
+        print("total memory 3: ", float(mem.total) / 1024 / 1024 / 1024)
+        print("used memory 3: ", float(mem.used) / 1024 / 1024 / 1024)
+        print("free memory 3: ", float(mem.free) / 1024 / 1024 / 1024)
         with open("s1_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
             pickle.dump(performance1_across_K, out_file)
         with open("s2_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
@@ -104,6 +116,10 @@ if __name__ == '__main__':
             pickle.dump(original1_across_K, out_file)
         with open("s2_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
             pickle.dump(original2_across_K, out_file)
+    mem = psutil.virtual_memory()
+    print("total memory 4: ", float(mem.total) / 1024 / 1024 / 1024)
+    print("used memory 4: ", float(mem.used) / 1024 / 1024 / 1024)
+    print("free memory 4: ", float(mem.free) / 1024 / 1024 / 1024)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
