@@ -150,7 +150,7 @@ class Landscape:
                 if index not in expertise_domain:
                     continue
                 else:
-                    # the unknown domain will still affect the condition of the conditional fitness
+                    # the unknown domain will still affect the condition
                     dependency = self.dependency_map[index]
                     bin_index = "".join([str(state[d]) for d in dependency])
                     bin_index = str(state[index]) + bin_index
@@ -230,6 +230,17 @@ class Landscape:
         result = np.random.choice(alternative_state_pool, 18, replace=False)  #this is a string state: "33300201", instead of list
         result = [list(each) for each in result]
         return result
+
+    def query_potential_fitness(self, expertise=None, cog_state=None):
+        template = []
+        for index, bit in enumerate(cog_state):
+            if index in expertise:
+                template.append(bit)
+            else:
+                template.append("*")
+        alternatives = self.cog_state_alternatives(cog_state=template)
+        fitness_pool = [self.query_fitness(each) for each in alternatives]
+        return max(fitness_pool)
 
 
 if __name__ == '__main__':

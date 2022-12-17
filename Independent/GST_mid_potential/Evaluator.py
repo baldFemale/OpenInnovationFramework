@@ -9,54 +9,53 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"F:\data\gst-1112\2\Coupling\gg"
+data_folder = r"E:\data\gst-1112\GST_max"
+g_performance_file = data_folder + r"\g_performance_across_K"
+s_performance_file = data_folder + r"\s_performance_across_K"
+t_performance_file = data_folder + r"\t_performance_across_K"
+with open(g_performance_file, 'rb') as infile:
+    g_performance = pickle.load(infile)
+with open(s_performance_file, 'rb') as infile:
+    s_performance = pickle.load(infile)
+with open(t_performance_file, 'rb') as infile:
+    t_performance = pickle.load(infile)
 
-g1_performance_4_file = data_folder + r"\g1_performance_across_K_4"
-g1_performance_6_file = data_folder + r"\g1_performance_across_K_6"
-with open(g1_performance_4_file, 'rb') as infile:
-    g1_performance_4 = pickle.load(infile)
-with open(g1_performance_6_file, 'rb') as infile:
-    g1_performance_6 = pickle.load(infile)
-# with open(g1_performance_5_file, 'rb') as infile:
-#     g1_performance_5 = pickle.load(infile)
-
-g2_performance_4_file = data_folder + r"\g2_performance_across_K_4"
-g2_performance_6_file = data_folder + r"\g2_performance_across_K_6"
-with open(g2_performance_4_file, 'rb') as infile:
-    g2_performance_4 = pickle.load(infile)
-with open(g2_performance_6_file, 'rb') as infile:
-    g2_performance_6 = pickle.load(infile)
-# with open(g2_performance_5_file, 'rb') as infile:
-#     g2_performance_5 = pickle.load(infile)
+g_diversity_file = data_folder + r"\g_performance_across_K"
+s_performance_file = data_folder + r"\s_performance_across_K"
+t_performance_file = data_folder + r"\t_performance_across_K"
+with open(g_performance_file, 'rb') as infile:
+    g_performance = pickle.load(infile)
+with open(s_performance_file, 'rb') as infile:
+    s_performance = pickle.load(infile)
+with open(t_performance_file, 'rb') as infile:
+    t_performance = pickle.load(infile)
 
 # Performance
-x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-# G1
-plt.plot(x, g1_performance_4, "b-", label="Middle")
-plt.plot(x, g1_performance_6, "g-", label="High")
+# Performance
+plt.plot(x, g_performance, "r-", label="G")
+plt.plot(x, s_performance, "b-", label="S")
+plt.plot(x, t_performance, "g-", label="T")
+# plt.title('Diversity Decrease')
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("G2 Coupling across Overlap")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\G1_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\GST_performance_K.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 
 
-# G2
-plt.plot(x, g2_performance_4, "b-", label="Middle")
-plt.plot(x, g2_performance_6, "g-", label="High")
-plt.xlabel('K', fontweight='bold', fontsize=10)
-plt.ylabel('Performance', fontweight='bold', fontsize=10)
-plt.xticks(x)
-plt.title("G2 Coupling across Overlap")
-plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\G2_Performance_K.png", transparent=False, dpi=200)
-plt.show()
-plt.clf()
-print("END")
+
+
+# two sample t-test
+# from scipy import stats
+# t_result = stats.ttest_ind(s_performance, t_performance, equal_var=False)
+# print(t_result)
+# print("END")
+
+
 
 # Testing the iteration boundary
 # data_folder = r"E:\data\gst-1018\outbound_without_map_jump_3"
