@@ -3,7 +3,7 @@
 #SBATCH --job-name=gg_coordination
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=150gb
+#SBATCH --mem=200gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1

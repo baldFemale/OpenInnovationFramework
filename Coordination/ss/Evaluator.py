@@ -9,11 +9,13 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"F:\data\gst-1112\2\Coupling\ss"
-
+data_folder = r"F:\data\gst-1112\Coordination\ss"
+s1_performance_0_file = data_folder + r"\s1_performance_across_K_0"
 s1_performance_1_file = data_folder + r"\s1_performance_across_K_1"
 s1_performance_2_file = data_folder + r"\s1_performance_across_K_2"
 s1_performance_3_file = data_folder + r"\s1_performance_across_K_3"
+with open(s1_performance_0_file, 'rb') as infile:
+    s1_performance_0 = pickle.load(infile)
 with open(s1_performance_1_file, 'rb') as infile:
     s1_performance_1 = pickle.load(infile)
 with open(s1_performance_2_file, 'rb') as infile:
@@ -21,9 +23,12 @@ with open(s1_performance_2_file, 'rb') as infile:
 with open(s1_performance_3_file, 'rb') as infile:
     s1_performance_3 = pickle.load(infile)
 
+s2_performance_0_file = data_folder + r"\s2_performance_across_K_0"
 s2_performance_1_file = data_folder + r"\s2_performance_across_K_1"
 s2_performance_2_file = data_folder + r"\s2_performance_across_K_2"
 s2_performance_3_file = data_folder + r"\s2_performance_across_K_3"
+with open(s2_performance_0_file, 'rb') as infile:
+    s2_performance_0 = pickle.load(infile)
 with open(s2_performance_1_file, 'rb') as infile:
     s2_performance_1 = pickle.load(infile)
 with open(s2_performance_2_file, 'rb') as infile:
@@ -34,43 +39,35 @@ with open(s2_performance_3_file, 'rb') as infile:
 # Performance
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-# G1
-plt.plot(x, s1_performance_1, "k--", label="Low")
-plt.plot(x, s1_performance_2, "k:", label="Middle")
+# S1
+plt.plot(x, s1_performance_0, "g-", label="Zero")
+plt.plot(x, s1_performance_1, "k:", label="Low")
+plt.plot(x, s1_performance_2, "k--", label="Middle")
 plt.plot(x, s1_performance_3, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("SS Coupling across Overlap")
+plt.title("Coordination_SS_S1")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\S1_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Coordination_SS_S1.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 
 
-# G2
-plt.plot(x, s2_performance_1, "k--", label="Low")
-plt.plot(x, s2_performance_2, "k:", label="Middle")
+# S2
+plt.plot(x, s2_performance_0, "g-", label="Zero")
+plt.plot(x, s2_performance_1, "k:", label="Low")
+plt.plot(x, s2_performance_2, "k--", label="Middle")
 plt.plot(x, s2_performance_3, "k-", label="High")
 plt.xlabel('K', fontweight='bold', fontsize=10)
 plt.ylabel('Performance', fontweight='bold', fontsize=10)
 plt.xticks(x)
-plt.title("SS Coupling across Overlap")
+plt.title("Coordination_SS_S2")
 plt.legend(frameon=False, ncol=3, fontsize=10)
-plt.savefig(data_folder + r"\S2_Performance_K.png", transparent=False, dpi=200)
+plt.savefig(data_folder + r"\Coordination_SS_S2.png", transparent=False, dpi=200)
 plt.show()
 plt.clf()
 print("END")
-
-
-
-# two sample t-test
-# from scipy import stats
-# t_result = stats.ttest_ind(s_performance, t_performance, equal_var=False)
-# print(t_result)
-# print("END")
-
-
 
 # Testing the iteration boundary
 # data_folder = r"E:\data\gst-1018\outbound_without_map_jump_3"

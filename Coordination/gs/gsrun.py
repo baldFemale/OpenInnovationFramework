@@ -47,8 +47,8 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
 
     for index in range(agent_num):
         for _ in range(search_iteration):
-            crowd_1[index].double_search(co_state=crowd_2[index].state, co_expertise_domain=crowd_2[index].expertise_domain)
-            crowd_2[index].double_search(co_state=crowd_1[index].state, co_expertise_domain=crowd_1[index].expertise_domain)
+            crowd_1[index].coordinated_search(co_state=crowd_2[index].state, co_expertise_domain=crowd_2[index].expertise_domain)
+            crowd_2[index].coordinated_search(co_state=crowd_1[index].state, co_expertise_domain=crowd_1[index].expertise_domain)
 
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
@@ -58,16 +58,16 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
+    landscape_iteration = 40
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 4
+    hyper_iteration = 5
     N = 12
     state_num = 4
     g_expertise_amount = 12
     s_expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    concurrency = 50
+    concurrency = 40
     for overlap in [3, 0]:
         performance1_across_K = []
         performance2_across_K = []

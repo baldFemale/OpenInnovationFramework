@@ -82,25 +82,21 @@ class Specialist:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-    def double_search(self, co_state=None, co_expertise_domain=None):
-        # learning from coupled agent
+    def coordinated_search(self, co_state=None, co_expertise_domain=None):
+        # the focal agent's evaluation: whether to align with the teammate
         next_cog_state = self.cog_state.copy()
         for index in range(self.N):
-            if index in self.expertise_domain:
-                if index in co_expertise_domain:
-                    changed_cog_state = next_cog_state.copy()
-                    changed_cog_state[index] = co_state[index]
-                    if self.landscape.query_cog_fitness_partial(cog_state=changed_cog_state, expertise_domain=self.expertise_domain) > self.cog_fitness:
-                        next_cog_state[index] = co_state[index]
-                else:  # retain the private configuration
-                    pass
-            else:
-                # for unknown domains, follow the co-state
-                if index in co_expertise_domain:
-                    next_cog_state[index] = co_state[index]
-                # for unknown domains to both agents, retain the private configuration
-                else:
-                    pass
+            if index in co_expertise_domain:
+                next_cog_state[index] = co_state[index]
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+                                                    expertise_domain=self.expertise_domain)
+        if next_cog_fitness > self.cog_fitness:
+            self.cog_state = next_cog_state.copy()
+            self.cog_fitness = next_cog_fitness
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+
+        # Proposal from the focal agent
+        next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]
