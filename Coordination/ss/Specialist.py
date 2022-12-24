@@ -74,7 +74,7 @@ class Specialist:
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]
-        space.remove(self.state[index])
+        space.remove(self.cog_state[index])
         next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
@@ -100,7 +100,7 @@ class Specialist:
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]
-        space.remove(self.state[index])
+        space.remove(self.cog_state[index])
         next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
@@ -119,7 +119,7 @@ class Specialist:
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]
-        space.remove(self.state[index])
+        space.remove(self.cog_state[index])
         next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
                                                                     expertise_domain=self.expertise_domain)

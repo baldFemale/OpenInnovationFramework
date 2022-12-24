@@ -47,8 +47,10 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
     for index in range(agent_num):
         for _ in range(search_iteration):
-            crowd_1[index].double_search(co_state=crowd_2[index].state, co_expertise_domain=crowd_2[index].expertise_domain)
-            crowd_2[index].double_search(co_state=crowd_1[index].state, co_expertise_domain=crowd_1[index].expertise_domain)
+            crowd_1[index].coordinated_search(co_state=crowd_2[index].state,
+                                              co_expertise_domain=crowd_2[index].expertise_domain)
+            crowd_2[index].coordinated_search(co_state=crowd_1[index].state,
+                                              co_expertise_domain=crowd_1[index].expertise_domain)
 
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]

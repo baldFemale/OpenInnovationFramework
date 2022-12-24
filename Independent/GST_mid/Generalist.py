@@ -78,6 +78,9 @@ class Generalist:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+            return 1
+        else:
+            return 0
 
     def double_search(self, co_state=None, co_expertise_domain=None):
         # learning from coupled agent

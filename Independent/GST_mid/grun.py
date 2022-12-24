@@ -28,25 +28,28 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd.append(generalist)
+    search_count_across_agent = []
     for agent in crowd:
+        count = 0
         for _ in range(search_iteration):
-            agent.search()
+            count += agent.search()
+        search_count_across_agent.append(count)
     performance_across_agent = [agent.fitness for agent in crowd]
     potential_across_agent = [agent.potential_fitness for agent in crowd]
-    return_dict[loop] = [performance_across_agent, potential_across_agent]
+    return_dict[loop] = [performance_across_agent, potential_across_agent, search_count_across_agent]
     sema.release()
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 50
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 5
-    N = 9
+    hyper_iteration = 4
+    N = 12
     state_num = 4
     expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     performance_across_K = []
     potential_across_K = []
     concurrency = 50

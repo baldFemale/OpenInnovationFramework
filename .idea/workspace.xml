@@ -4,32 +4,86 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Unify the figure format">
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure.">
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/GST_max/Evaluator_AOM.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/GST_mid/Evaluator_AOM.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/GST_min/Evaluator_AOM.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/ggrun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/slurm_gg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/gsrun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/slurm_gs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/sgrun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/slurm_sg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Tshape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/slurm_ss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/ssrun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coordination/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg_0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coordination/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/slurm_gs_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coordination/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/slurm_ss_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_max/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_max_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_max_N12/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max_N12/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_2/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_2/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid_potential/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid_potential/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_min/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_min/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_min_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_min_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_more/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_more/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_more_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_more_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_unknown_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_unknown_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/Topology/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/Topology/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/sg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Test/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,26 +122,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Coordination/ss&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Python&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Python",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -264,7 +318,14 @@
       <workItem from="1671251659718" duration="321000" />
       <workItem from="1671269086245" duration="6469000" />
       <workItem from="1671344688645" duration="4192000" />
-      <workItem from="1671440979825" duration="3570000" />
+      <workItem from="1671440979825" duration="5389000" />
+      <workItem from="1671507283514" duration="1020000" />
+      <workItem from="1671510649434" duration="1555000" />
+      <workItem from="1671544170141" duration="1240000" />
+      <workItem from="1671613010165" duration="2114000" />
+      <workItem from="1671697174076" duration="3831000" />
+      <workItem from="1671789022836" duration="5026000" />
+      <workItem from="1671864379170" duration="11556000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -581,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671273556104</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure.">
+      <created>1671456396745</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1671456396745</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +685,8 @@
     <MESSAGE value="Reduce the workload of gg_coordination" />
     <MESSAGE value="Add the exp of gg, ss under Priority" />
     <MESSAGE value="Unify the figure format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Unify the figure format" />
+    <MESSAGE value="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure." />
+    <option name="LAST_COMMIT_MESSAGE" value="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1671216945185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Priority/sg" />
