@@ -109,13 +109,22 @@ class Specialist:
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def priority_search(self, co_state=None, co_expertise_domain=None):
-        # learning from coupled agent
-        next_cog_state = self.cog_state.copy()
+        # learning from coupled agent (enforcement)
         for index in range(self.N):
             if index in co_expertise_domain:
-                next_cog_state[index] = co_state[index]
+                if co_state[index] not in ["A", "B"]:  # Learning from another Specialist
+                    self.cog_state[index] = co_state[index]
+                # Learning from another Generalist (only when the elements are inconsistent)
+                elif (co_state[index] == "A") & (self.cog_state[index] not in ["0", "1"]):
+                    self.cog_state[index] = np.random.choice(["0", "1"])
+                elif (co_state[index] == "B") & (self.cog_state[index] not in ["2", "3"]):
+                    self.cog_state[index] = np.random.choice(["2", "3"])
+                else:
+                    # For already refined elements, don't need to change
+                    pass
             else:
                 pass
+        next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
         space = ["0", "1", "2", "3"]

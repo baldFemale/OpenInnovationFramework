@@ -42,7 +42,13 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
             crowd_1[index].search()  # Generalist first
         # Taking the solution of  Specialist as the initial state of Generalist
         for d_i in crowd_1[index].expertise_domain:
-            crowd_2[index].cog_state[d_i] = crowd_1[index].cog_state[d_i]
+            if d_i in crowd_2[index].expertise_domain:
+                if crowd_1[index].cog_state[d_i] == "A":
+                    crowd_2[index].cog_state[d_i] = np.random.choice(["0", "1"])
+                elif crowd_1[index].cog_state[d_i] == "B":
+                    crowd_2[index].cog_state[d_i] = np.random.choice(["2", "3"])
+            else:
+                crowd_2[index].cog_state[d_i] = crowd_1[index].cog_state[d_i]
         # Update the cog_fitness of Specialist
         crowd_2[index].cog_fitness = landscape.query_cog_fitness_partial(cog_state=crowd_2[index].cog_state,
                                                                          expertise_domain=crowd_2[index].expertise_domain)
