@@ -28,7 +28,7 @@ class Team:
 
     def search(self):
         # Agent 1 search
-        self.agent_1.align_default_state(state=self.solution)
+        self.agent_1.cog_state = self.agent_1.state_2_cog_state(state=self.solution)
         next_cog_state = self.agent_1.cog_state.copy()
         index = np.random.choice(self.agent_1.expertise_domain)
         if next_cog_state[index] == "A":
@@ -43,7 +43,7 @@ class Team:
             self.solution[index] = self.agent_1.cog_state[index]
 
         # Agent 2 search
-        self.agent_2.align_default_state(state=self.solution)
+        self.agent_2.cog_state = self.agent_2.state_2_cog_state(state=self.solution)
         next_cog_state = self.agent_2.cog_state.copy()
         index = np.random.choice(self.agent_2.expertise_domain)
         if next_cog_state[index] == "A":
