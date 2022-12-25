@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The second version of Priority&#10;--Update the priority_search function for both generalist and specialist">
-      <change afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator_AOM.ipynb" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/slurm_sg" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss2" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss3" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss4" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Team.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs_22" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_2" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_3" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_4" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Autonomy/gg",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -74,11 +72,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\ss" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\gg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -263,7 +261,7 @@
       <workItem from="1671697174076" duration="3831000" />
       <workItem from="1671789022836" duration="5026000" />
       <workItem from="1671864379170" duration="16219000" />
-      <workItem from="1671970157572" duration="12213000" />
+      <workItem from="1671970157572" duration="12686000" />
     </task>
     <task id="LOCAL-00001" summary="变更">
       <created>1647368179660</created>
@@ -601,7 +599,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671909871255</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
+      <created>1671998148300</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1671998148300</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -640,7 +645,8 @@
     <MESSAGE value="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure." />
     <MESSAGE value="Update the previous code&#10;--fix the search() function in specialist that using state instead of cog_state to determine the free space." />
     <MESSAGE value="The second version of Priority&#10;--Update the priority_search function for both generalist and specialist" />
-    <option name="LAST_COMMIT_MESSAGE" value="The second version of Priority&#10;--Update the priority_search function for both generalist and specialist" />
+    <MESSAGE value="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset" />
+    <option name="LAST_COMMIT_MESSAGE" value="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1671216945185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Priority/sg" />

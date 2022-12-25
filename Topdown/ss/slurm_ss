@@ -3,7 +3,7 @@
 #SBATCH --job-name=ss1_topdown
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=200gb
+#SBATCH --mem=250gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
