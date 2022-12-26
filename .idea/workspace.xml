@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
-      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/gsrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/gsrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/slurm_gs_22" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/slurm_gs2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_2" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_3" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/slurm_ss_4" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/slurm_ss_4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Team.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/gs/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Generalist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +57,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gs",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/gg",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -72,11 +68,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -261,14 +257,8 @@
       <workItem from="1671697174076" duration="3831000" />
       <workItem from="1671789022836" duration="5026000" />
       <workItem from="1671864379170" duration="16219000" />
-      <workItem from="1671970157572" duration="12686000" />
-    </task>
-    <task id="LOCAL-00001" summary="变更">
-      <created>1647368179660</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1647368179660</updated>
+      <workItem from="1671970157572" duration="13630000" />
+      <workItem from="1672039842527" duration="2212000" />
     </task>
     <task id="LOCAL-00002" summary="adding comments">
       <created>1647453394959</created>
@@ -606,7 +596,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671998148300</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
+      <created>1671998569505</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1671998569505</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -33,8 +33,14 @@ class Team:
         index = np.random.choice(self.agent_1.expertise_domain)
         if next_cog_state[index] == "A":
             next_cog_state[index] = "B"
-        else:
+        elif next_cog_state[index] == "B":
             next_cog_state[index] = "A"
+        elif next_cog_state[index] in ["0", "1"]:
+            next_cog_state[index] = "B"
+        elif next_cog_state[index] in ["2", "3"]:
+            next_cog_state[index] = "A"
+        else:
+            raise ValueError("Cannot support element of {0}".format(next_cog_state[index]))
         next_cog_fitness = self.agent_1.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
                                                                             expertise_domain=self.agent_1.expertise_domain)
         if next_cog_fitness > self.agent_1.cog_fitness:

@@ -136,6 +136,8 @@ class Generalist:
                     cog_state[index] = "A"
                 elif bit_value in ["2", "3"]:
                     cog_state[index] = "B"
+                elif bit_value in ["A", "B"]:
+                    cog_state[index] = state[index]
                 else:
                     raise ValueError("Only support for state number = 4")
             else:
