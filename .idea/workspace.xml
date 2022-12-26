@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
-      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Topdown/gg/slurm_gg4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/ggrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Team.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,14 +255,7 @@
       <workItem from="1671789022836" duration="5026000" />
       <workItem from="1671864379170" duration="16219000" />
       <workItem from="1671970157572" duration="13630000" />
-      <workItem from="1672039842527" duration="2212000" />
-    </task>
-    <task id="LOCAL-00002" summary="adding comments">
-      <created>1647453394959</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1647453394959</updated>
+      <workItem from="1672039842527" duration="4685000" />
     </task>
     <task id="LOCAL-00003" summary="finish the run_resilience">
       <created>1647453863344</created>
@@ -603,7 +593,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671998569505</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset">
+      <created>1672045386983</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1672045386983</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
