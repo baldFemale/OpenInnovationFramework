@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Update the figure format for AOM2023">
-      <change afterPath="$PROJECT_DIR$/Autonomy/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy/gs/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Coordination/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Coordination/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NativeCollabroation/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gg/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NativeCollabroation/gs/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NativeCollabroation/sg/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NativeCollabroation/ss/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Topdown/Evaluator_S_contingency.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator_AOM.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Priority/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/NativeCollabroation",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Coordination/gs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,11 +62,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gs" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\NativeCollabroation" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\NativeCollabroation\ss" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\NativeCollabroation\sg" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\NativeCollabroation\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\NativeCollabroation\gg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -274,14 +255,7 @@
       <workItem from="1672039842527" duration="4935000" />
       <workItem from="1672055925776" duration="9002000" />
       <workItem from="1672142435675" duration="594000" />
-      <workItem from="1672231813485" duration="4522000" />
-    </task>
-    <task id="LOCAL-00004" summary="finish the run_resilience">
-      <created>1647454431130</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1647454431130</updated>
+      <workItem from="1672231813485" duration="5329000" />
     </task>
     <task id="LOCAL-00005" summary="finish the run_resilience">
       <created>1668879209028</created>
@@ -619,7 +593,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672048604321</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Update the figure format for AOM2023">
+      <created>1672236616379</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1672236616379</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
