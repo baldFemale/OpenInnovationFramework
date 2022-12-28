@@ -5,25 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)">
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/gsrun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/gsrun_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/ssrun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coordination/ss/ssrun_4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/ggrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/ggrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gg/slurm_gg_0" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gg/slurm_gg2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/gsrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/gsrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/gs/slurm_gs_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/gs/slurm_gs3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/slurm_ss_2" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/slurm_ss3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coordination/ss/ssrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/ss/ssrun_2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +72,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Topdown/ss",
+    "last_opened_file_path": "C:/Users/Junee/Documents/GitHub/OpenInnovationFramework/Coordination/ss",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,11 +83,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gs" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Topdown\gg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\sg" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Priority\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gs" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Coordination\gg" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\ss" />
+      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
@@ -270,14 +276,7 @@
       <workItem from="1672039842527" duration="4935000" />
       <workItem from="1672055925776" duration="9002000" />
       <workItem from="1672142435675" duration="594000" />
-      <workItem from="1672231813485" duration="6007000" />
-    </task>
-    <task id="LOCAL-00006" summary="finish the run_resilience">
-      <created>1668879317612</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1668879317612</updated>
+      <workItem from="1672231813485" duration="6873000" />
     </task>
     <task id="LOCAL-00007" summary="finish the run_resilience">
       <created>1668879486125</created>
@@ -615,7 +614,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672237590188</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)">
+      <created>1672238203833</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1672238203833</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

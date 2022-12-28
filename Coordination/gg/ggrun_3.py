@@ -17,41 +17,36 @@ import pickle
 import math
 
 
-# S + S
+# G + G
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, s_overlap=None, loop=None, return_dict=None, sema=None):
+         search_iteration=None, g_overlap=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, state_num=state_num)
     landscape.type(K=K)
     landscape.initialize(norm=True)
     crowd_1, crowd_2 = [], []
     for _ in range(agent_num):
-        agent_1 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        agent_1 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd_1.append(agent_1)
-        agent_2 = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-
+        agent_2 = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        overlap_domains = np.random.choice(agent_1.expertise_domain, g_overlap, replace=False).tolist()
         free_domains = [each for each in range(N) if each not in agent_1.expertise_domain]
-        if s_overlap < expertise_amount // 4:
-            other_domains = np.random.choice(free_domains, expertise_amount // 4 - s_overlap, replace=False).tolist()
-        else:
-            other_domains = []
-        if s_overlap != 0:
-            overlap_domains = np.random.choice(agent_1.expertise_domain, s_overlap, replace=False).tolist()
-            agent_2.expertise_domain = overlap_domains + other_domains
-        else:
-            agent_2.expertise_domain = other_domains
+        other_domains = np.random.choice(free_domains, expertise_amount // 2 - g_overlap, replace=False).tolist()
+        agent_2.expertise_domain = overlap_domains + other_domains
         agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
         agent_2.cog_fitness = agent_2.landscape.query_cog_fitness_partial(cog_state=agent_2.cog_state, expertise_domain=agent_2.expertise_domain)
         agent_2.fitness, agent_2.potential_fitness = agent_2.landscape.query_cog_fitness_full(cog_state=agent_2.cog_state)
         crowd_2.append(agent_2)
 
     for index in range(agent_num):
+        # print("expertise 1: ", crowd_1[index].expertise_domain)
+        # print("expertise 2: ", crowd_2[index].expertise_domain)
+        # print("overlap: ", len([i for i in crowd_2[index].expertise_domain if i in crowd_1[index].expertise_domain]))
         for _ in range(search_iteration):
-            crowd_1[index].coordinated_search(co_state=crowd_2[index].state,
-                                              co_expertise_domain=crowd_2[index].expertise_domain)
-            crowd_2[index].coordinated_search(co_state=crowd_1[index].state,
-                                         co_expertise_domain=crowd_1[index].expertise_domain)
-
+            crowd_1[index].coordinated_search(co_state=crowd_2[index].cog_state, co_expertise_domain=crowd_2[index].expertise_domain)
+            crowd_2[index].coordinated_search(co_state=crowd_1[index].cog_state, co_expertise_domain=crowd_1[index].expertise_domain)
+            # print("overlap: ", [i for i in crowd_1[index].expertise_domain if i in crowd_2[index].expertise_domain])
+            # print(crowd_1[index].cog_state, crowd_1[index].fitness, crowd_2[index].cog_state, crowd_2[index].fitness)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
@@ -63,13 +58,13 @@ if __name__ == '__main__':
     landscape_iteration = 50
     agent_num = 50
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
-    hyper_iteration = 5
+    hyper_iteration = 4
     N = 12
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for s_overlap in [2]:
+    for g_overlap in [2]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
@@ -83,7 +78,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, s_overlap, loop, return_dict, sema))
+                    p = mp.Process(target=func, args=(N, K, state_num, expertise_amount, agent_num, search_iteration, g_overlap, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()
                 for proc in jobs:
@@ -99,13 +94,13 @@ if __name__ == '__main__':
             performance2_across_K.append(result_2)
             original1_across_K.append(temp_1)  # every element: a list of values across landscape, in which one value refer to one landscape
             original2_across_K.append(temp_2)  # shape: K * {hyper_iteration * landscape_iteration}
-        with open("s1_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
+        with open("g1_performance_across_K_{0}".format(g_overlap), 'wb') as out_file:
             pickle.dump(performance1_across_K, out_file)
-        with open("s2_performance_across_K_{0}".format(s_overlap), 'wb') as out_file:
+        with open("g2_performance_across_K_{0}".format(g_overlap), 'wb') as out_file:
             pickle.dump(performance2_across_K, out_file)
-        with open("s1_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
+        with open("g1_original_performance_across_K_{0}".format(g_overlap), "wb") as out_file:
             pickle.dump(original1_across_K, out_file)
-        with open("s2_original_performance_across_K_{0}".format(s_overlap), "wb") as out_file:
+        with open("g2_original_performance_across_K_{0}".format(g_overlap), "wb") as out_file:
             pickle.dump(original2_across_K, out_file)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
