@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 from matplotlib import container
 
-data_folder = r"F:\data\gst-1112\Topdown_2\gs"
+data_folder = r"F:\data\gst-1112\Topdown_3\gs"
 
 g_performance_1_file = data_folder + r"\g_performance_across_K_1"
 g_performance_2_file = data_folder + r"\g_performance_across_K_2"
