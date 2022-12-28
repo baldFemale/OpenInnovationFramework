@@ -99,36 +99,38 @@ class Specialist:
         next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
-        space = ["0", "1", "2", "3"]
-        space.remove(self.cog_state[index])
+        if next_cog_state[index] == "A":
+            space = ["0", "1"]
+        elif next_cog_state[index] == "B":
+            space = ["2", "3"]
+        else:
+            space = ["0", "1", "2", "3"]
+            space.remove(self.cog_state[index])
         next_cog_state[index] = np.random.choice(space)
-        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+                                                                    expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def priority_search(self, co_state=None, co_expertise_domain=None):
-        # learning from coupled agent (enforcement)
+        # learning from coupled agent
         for index in range(self.N):
             if index in co_expertise_domain:
-                if co_state[index] not in ["A", "B"]:  # Learning from another Specialist
-                    self.cog_state[index] = co_state[index]
-                # Learning from another Generalist (only when the elements are inconsistent)
-                elif (co_state[index] == "A") & (self.cog_state[index] not in ["0", "1"]):
-                    self.cog_state[index] = np.random.choice(["0", "1"])
-                elif (co_state[index] == "B") & (self.cog_state[index] not in ["2", "3"]):
-                    self.cog_state[index] = np.random.choice(["2", "3"])
-                else:
-                    # For already refined elements, don't need to change
-                    pass
+                self.cog_state[index] = co_state[index]
             else:
                 pass
         next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
         # thus will not change the unknown domain
-        space = ["0", "1", "2", "3"]
-        space.remove(self.cog_state[index])
+        if next_cog_state[index] == "A":
+            space = ["0", "1"]
+        elif next_cog_state[index] == "B":
+            space = ["2", "3"]
+        else:
+            space = ["0", "1", "2", "3"]
+            space.remove(self.cog_state[index])
         next_cog_state[index] = np.random.choice(space)
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
                                                                     expertise_domain=self.expertise_domain)
