@@ -39,17 +39,10 @@ def func(N=None, K=None, state_num=None, g_expertise_amount=None,s_expertise_amo
         crowd_2.append(agent_2)
     for index in range(agent_num):
         for _ in range(search_iteration):
-            crowd_1[index].search()
             crowd_2[index].search()
-        for di in range(N):
-            if (di in crowd_2[index].expertise_domain) and (di not in crowd_1[index].expertise_domain):
-                crowd_1[index].cog_state[di] = str(crowd_2[index].cog_state[di])
-            if (di in crowd_1[index].expertise_domain) and (di not in crowd_2[index].expertise_domain):
-                crowd_2[index].cog_state[di] = str(crowd_1[index].cog_state[di])
-        crowd_1[index].fitness, crowd_1[index].potential_fitness = landscape.query_cog_fitness_full(
-            cog_state=crowd_1[index].cog_state)
-        crowd_2[index].fitness, crowd_2[index].potential_fitness = landscape.query_cog_fitness_full(
-            cog_state=crowd_2[index].cog_state)
+            # the first agent, generalist, will always follow the solution of specialist
+            crowd_1[index].priority_search(co_state=crowd_2[index].cog_state,
+                                           co_expertise_domain=crowd_2[index].expertise_domain)
     performance_across_agent_1 = [agent.fitness for agent in crowd_1]
     performance_across_agent_2 = [agent.fitness for agent in crowd_2]
     return_dict[loop] = [performance_across_agent_1, performance_across_agent_2]
@@ -60,7 +53,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 50
     agent_num = 50
-    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 4
     N = 12
     state_num = 4
@@ -68,7 +61,7 @@ if __name__ == '__main__':
     s_expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
-    for overlap in [3, 2, 1, 0]:
+    for overlap in [0]:
         performance1_across_K = []
         performance2_across_K = []
         original1_across_K = []
