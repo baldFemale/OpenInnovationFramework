@@ -4,80 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)">
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/ssrun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/gsrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/gsrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/gsrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/sgrun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/sgrun_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/sgrun_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator_AOM.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gg/slurm_gg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator_AOM.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/gs/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/gs/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/ss/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy_re/ss/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/ggrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/ggrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/ggrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/ggrun_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/ggrun_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gg/ggrun_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gg/ggrun_4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/gsrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/gs/slurm_gs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/sgrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/sgrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/sg/slurm_sg" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/sg/slurm_sg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss2" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss3" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/slurm_ss4" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/slurm_ss4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/ssrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/ssrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/ssrun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/ssrun_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/ssrun_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/ss/ssrun_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/ss/ssrun_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator_G_contingency.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator_S_contingency.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Evaluator_AOM.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/ggrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/ggrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gg/slurm_gg" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gg/slurm_gg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Evaluator_AOM.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/gsrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/gsrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/gsrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/gsrun_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/gsrun_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/gsrun_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/slurm_gs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs2" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/slurm_gs2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs3" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/slurm_gs3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/slurm_gs4" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/slurm_gs4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/gs/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/gs/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Evaluator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/slurm_ss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss2" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/slurm_ss2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss3" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/slurm_ss3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/slurm_ss4" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/slurm_ss4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/ssrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/ssrun_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/ssrun_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Autonomy_re/ss/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/ss/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,14 +297,7 @@
       <workItem from="1672142435675" duration="594000" />
       <workItem from="1672231813485" duration="10243000" />
       <workItem from="1672340175615" duration="861000" />
-      <workItem from="1672481282624" duration="249000" />
-    </task>
-    <task id="LOCAL-00008" summary="finish the run_resilience">
-      <created>1668879664625</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1668879664625</updated>
+      <workItem from="1672481282624" duration="1030000" />
     </task>
     <task id="LOCAL-00009" summary="Unix line seperator">
       <created>1668880544669</created>
@@ -671,7 +635,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672239019925</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)">
+      <created>1672481567716</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1672481567716</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,7 +660,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="变更" />
     <MESSAGE value="adding comments" />
     <MESSAGE value="finish the run_resilience" />
     <MESSAGE value="Unix line seperator" />
@@ -714,7 +684,8 @@
     <MESSAGE value="Update the figure format for AOM2023" />
     <MESSAGE value="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
-    <option name="LAST_COMMIT_MESSAGE" value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
+    <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
+    <option name="LAST_COMMIT_MESSAGE" value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />

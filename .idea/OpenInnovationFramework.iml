@@ -31,10 +31,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/GST_unknown_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy_re" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy_re/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy_re/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy_re/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Autonomy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Autonomy/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Autonomy/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Autonomy/ss" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
