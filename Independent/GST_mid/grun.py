@@ -50,9 +50,9 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    concurrency = 50
     performance_across_K = []
     potential_across_K = []
-    concurrency = 50
     original_performance_across_K = []
     original_potential_across_K = []
     for K in K_list:
