@@ -4,34 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Independent Search - N12">
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Evaluator_AOM.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/Tshape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/slurm_T" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/GST_mid_diff_unknown/trun.py" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Update the figure format for AOM2023">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Autonomy/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Autonomy/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coordination/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Coordination/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Priority/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Priority/Evaluator_S_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator_G_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator_G_contingency.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topdown/Evaluator_S_contingency.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Topdown/Evaluator_S_contingency.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_max/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max/Evaluator_AOM.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_mid/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_mid/Evaluator_AOM.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/GST_min/Evaluator_AOM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_min/Evaluator_AOM.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NativeCollabroation/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/NativeCollabroation/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,14 +261,7 @@
       <workItem from="1672918088899" duration="682000" />
       <workItem from="1672918786270" duration="2075000" />
       <workItem from="1673273991674" duration="448000" />
-      <workItem from="1673274662618" duration="8493000" />
-    </task>
-    <task id="LOCAL-00011" summary="Align the search result into one team solution">
-      <created>1669824511101</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1669824511101</updated>
+      <workItem from="1673274662618" duration="10008000" />
     </task>
     <task id="LOCAL-00012" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.">
       <created>1669829744009</created>
@@ -628,7 +599,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672918949044</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Update the figure format for AOM2023">
+      <created>1673365707344</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1673365707344</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -666,12 +644,12 @@
     <MESSAGE value="Update the previous code&#10;--fix the search() function in specialist that using state instead of cog_state to determine the free space." />
     <MESSAGE value="The second version of Priority&#10;--Update the priority_search function for both generalist and specialist" />
     <MESSAGE value="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset" />
-    <MESSAGE value="Update the figure format for AOM2023" />
     <MESSAGE value="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
     <MESSAGE value="Independent Search - N12" />
-    <option name="LAST_COMMIT_MESSAGE" value="Independent Search - N12" />
+    <MESSAGE value="Update the figure format for AOM2023" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the figure format for AOM2023" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__3_.coverage" NAME="Evaluator (3) Coverage Results" MODIFIED="1671992905886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/ss" />
