@@ -136,7 +136,9 @@ class Landscape:
 
     def query_cog_fitness_partial(self, cog_state=None, expertise_domain=None):
         """
-        Query the cognitive (average) fitness given a cognitive state
+        Query the cognitive (partial) fitness given a cognitive state
+        Only calculate the average c_i (conditional on other domains) across knowledge scope,
+        with unknown domain only affecting the condition
                 For S domain, there is only one alternative, so it follows the default search
                 For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
         :param cog_state: the cognitive state
@@ -156,8 +158,9 @@ class Landscape:
                     bin_index = str(state[index]) + bin_index
                     FC_index = int(bin_index, self.state_num)
                     partial_FC_across_bits.append(self.FC[index][FC_index])
-            # print("partial_FC_across_bits: ", partial_FC_across_bits)
-            # No need to normalize; it doesn't change the relative rank and thus doesn't change the search
+            # No need to normalized for two reasons:
+            # the maximum normalizer should be calculated by generating a new reduced cognitive landscape and then identify the max()
+            # The normalization does not affect the comparison (a > b)
             partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
             partial_fitness_alternatives.append(partial_fitness_state)
         return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
@@ -235,23 +238,23 @@ class Landscape:
 if __name__ == '__main__':
     # Test Example
     landscape = Landscape(N=8, state_num=4)
-    landscape.type(K=9)
+    landscape.type(K=0)
     landscape.initialize(norm=True)
-    landscape.describe()
-    list_cache = list(landscape.cache.values())
-    print("sd:", np.std(list_cache))
+    # landscape.describe()
+    # list_cache = list(landscape.cache.values())
+    # print("sd:", np.std(list_cache))
 
-    cog_state = ['A', 'A', '1', '1', '1', '3', '1', '2']
-    cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=range(len(cog_state)))
+    cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    cog_fitness_pertial = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=range(len(cog_state)))
     # cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=[1, 2, 3])
-    print("partial_cog_fitness: ", cog_fitness)
-    print("normalized partial fitness: ", cog_fitness / landscape.max_normalizer)
-    cog_fitness_2 = landscape.query_cog_fitness_full(cog_state=cog_state)
-    print("full_cog_fitness: {0}; potential_fitness: {1}".format(cog_fitness_2[0],  cog_fitness_2[1]))
-    print("max_cache: ", max(landscape.cache.values()))
-    import matplotlib.pyplot as plt
-    data = landscape.cache.values()
-    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.show()
+    print("partial_cog_fitness: {0}, normalized_partial_fitness: {1}".format(cog_fitness_pertial, cog_fitness_pertial / landscape.max_normalizer))
+    cog_fitness_full = landscape.query_cog_fitness_full(cog_state=cog_state)
+    print("full_cog_fitness: {0}; potential_fitness: {1}".format(cog_fitness_full[0],  cog_fitness_full[1]))
+    # print("max_cache: ", max(landscape.cache.values()))
+
+    # import matplotlib.pyplot as plt
+    # data = landscape.cache.values()
+    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.show()

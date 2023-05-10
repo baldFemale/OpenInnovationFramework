@@ -71,16 +71,17 @@ class Generalist:
         index = np.random.choice(self.expertise_domain)
         if next_cog_state[index] == "A":
             next_cog_state[index] = "B"
-        else:
+        elif next_cog_state[index] == "B":
             next_cog_state[index] = "A"
-        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        elif next_cog_state[index] in ["0", "1", "2", "3"]:
+            next_cog_state[index] = np.random.choice(["A", "B"])
+        else:
+            raise ValueError("Unsupported bit: ", next_cog_state[index])
+        next_cog_fitness = self.landscape.query_cog_fitness_full(cog_state=next_cog_state)[0]
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
-            return 1
-        else:
-            return 0
 
     def double_search(self, co_state=None, co_expertise_domain=None):
         # learning from coupled agent
@@ -174,34 +175,29 @@ class Generalist:
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=10, state_num=4)
+    landscape = Landscape(N=9, state_num=4)
     landscape.type(K=0)
     landscape.initialize()
-    generalist = Generalist(N=10, landscape=landscape, state_num=4, expertise_amount=20)
+    generalist = Generalist(N=9, landscape=landscape, state_num=4, expertise_amount=18)
     # jump_count = 0
-    search_iteration = 500
-    performance_across_time = []
+    search_iteration = 200
+    cog_performance_across_time, performance_across_time = [], []
     for _ in range(search_iteration):
         generalist.search()
-        # if generalist.distant_jump():
-        #     jump_count += 1
-        performance_across_time.append(generalist.cog_fitness)
-        # print(generalist.cog_fitness)
-    # print("jump_count: ", jump_count)
-    generalist.state = generalist.cog_state_2_state(cog_state=generalist.cog_state)
-    generalist.fitness = landscape.query_fitness(state=generalist.state)
-    performance_across_time.append(generalist.fitness)
-    # generalist.describe()
+        cog_performance_across_time.append(generalist.cog_fitness)
+        performance_across_time.append(generalist.fitness)
+    generalist.describe()
     import matplotlib.pyplot as plt
     import numpy as np
-    x = np.arange(search_iteration+1)
-    plt.plot(x, performance_across_time, "r-", label="G")
+    x = range(len(performance_across_time))
+    plt.plot(x, cog_performance_across_time, "b-", label="Cognitive")
+    plt.plot(x, performance_across_time, "r-", label="Real")
     # plt.title('Diversity Decrease')
-    plt.xlabel('Iteration', fontweight='bold', fontsize=10)
-    plt.ylabel('Performance', fontweight='bold', fontsize=10)
+    plt.xlabel('Iteration', fontweight='bold', fontsize=12)
+    plt.ylabel('Performance', fontweight='bold', fontsize=12)
     # plt.xticks(x)
-    plt.legend(frameon=False, ncol=3, fontsize=10)
-    plt.savefig("G_performance.png", transparent=True, dpi=200)
+    plt.legend(frameon=False, ncol=3, fontsize=12)
+    plt.savefig("G_performance.png", transparent=True, dpi=400)
     plt.show()
     plt.clf()
     print("END")

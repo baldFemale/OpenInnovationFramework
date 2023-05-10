@@ -46,9 +46,9 @@ if __name__ == '__main__':
     agent_num = 100
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     hyper_iteration = 4
-    N = 12
+    N = 9
     state_num = 4
-    expertise_amount = 12
+    expertise_amount = 18
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
     performance_across_K = []

@@ -152,9 +152,9 @@ if __name__ == '__main__':
     # Test Example
     search_iteration = 200
     landscape = Landscape(N=9, state_num=4)
-    landscape.type(K=4)
+    landscape.type(K=0)
     landscape.initialize()
-    specialist = Specialist(N=9, landscape=landscape, state_num=4, expertise_amount=12)
+    specialist = Specialist(N=9, landscape=landscape, state_num=4, expertise_amount=36)
     # state = ["0", "1", "2", "3", "0", "1", "2", "3"]
     # cog_state = specialist.state_2_cog_state(state=state)
     # specialist.describe()
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
     plt.legend(frameon=False, ncol=3, fontsize=10)
-    # plt.savefig("S_performance.png", transparent=True, dpi=200)
+    plt.savefig("S_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()
     print("END")
