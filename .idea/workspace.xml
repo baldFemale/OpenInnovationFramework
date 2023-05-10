@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/GST_max_2/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max_2/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Specialist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Volidation/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/slurm_T" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,14 +265,7 @@
       <workItem from="1683553599372" duration="179000" />
       <workItem from="1683632259681" duration="1484000" />
       <workItem from="1683718700543" duration="2978000" />
-      <workItem from="1683724041043" duration="4838000" />
-    </task>
-    <task id="LOCAL-00013" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Autonomous pattern">
-      <created>1669996088655</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1669996088655</updated>
+      <workItem from="1683724041043" duration="5577000" />
     </task>
     <task id="LOCAL-00014" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Autonomous pattern&#10;---Priority pattern">
       <created>1670002211614</created>
@@ -617,7 +603,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683722260323</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
+      <created>1683728937027</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1683728937027</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
