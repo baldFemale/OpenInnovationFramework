@@ -108,8 +108,8 @@ class Landscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                # self.cache[k] = self.cache[k] / self.max_normalizer
+                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                self.cache[k] = self.cache[k] / self.max_normalizer
         self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
@@ -124,7 +124,7 @@ class Landscape:
         """
         Query the cognitive (average) fitness given a cognitive state
                 For S domain, there is only one alternative, so it follows the default search
-                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states
+                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
         :param cog_state: the cognitive state
         :return: the average across the alternative pool; the potential (maximum) fitness
         """
