@@ -29,9 +29,8 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         crowd.append(generalist)
     for agent in crowd:
-        count = 0
         for _ in range(search_iteration):
-            count += agent.search()
+            agent.search()
     performance_across_agent = [agent.fitness for agent in crowd]
     potential_across_agent = [agent.potential_fitness for agent in crowd]
     return_dict[loop] = [performance_across_agent, potential_across_agent]  # need to further simplify this data format

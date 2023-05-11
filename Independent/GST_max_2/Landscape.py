@@ -126,14 +126,12 @@ class Landscape:
                 For S domain, there is only one alternative, so it follows the default search
                 For G domain, there is an alternative pool, so it takes the average of fitness across alternative states
         :param cog_state: the cognitive state
-        :return: the average across the alternative pool; the potential (maximum) fitness
+        :return: average, maximum, minimum of all alternative refined solutions
         """
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
-        potential_fitness = max(fitness_pool)
         cog_fitness = sum(fitness_pool) / len(alternatives)
-        # return cog_fitness, potential_fitness
-        return fitness_pool, alternatives
+        return cog_fitness, max(fitness_pool), min(fitness_pool)
 
     def query_cog_fitness_partial(self, cog_state=None, expertise_domain=None):
         """
@@ -161,8 +159,7 @@ class Landscape:
             # Normalize it using the maximum
             partial_fitness_state = sum(partial_FC_across_bits) / len(expertise_domain) / max(partial_FC_across_bits)
             partial_fitness_alternatives.append(partial_fitness_state)
-        # return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
-        return partial_fitness_alternatives, alternatives
+        return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
