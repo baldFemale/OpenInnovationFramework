@@ -166,11 +166,9 @@ if __name__ == '__main__':
     expertise_amount = 16
     landscape = Landscape(N=N, K=K, state_num=state_num)
     specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-    state = ["0", "1", "2", "3", "0", "1", "2", "3"]
-    cog_state = specialist.state_2_cog_state(state=state)
-    print("cog_state: ", cog_state)
     specialist.describe()
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain, expertise_representation=specialist.expertise_representation)
+    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
+                                 expertise_representation=specialist.expertise_representation)
     specialist.cog_landscape = cog_landscape
     specialist.update_cog_fitness()
 

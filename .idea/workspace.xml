@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
-      <change afterPath="$PROJECT_DIR$/Volidation/CogLandscape.py" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/GST_max_2/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/GST_max_2/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Volidation/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Volidation/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/slurm_S" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,14 +268,7 @@
       <workItem from="1683553599372" duration="179000" />
       <workItem from="1683632259681" duration="1484000" />
       <workItem from="1683718700543" duration="2978000" />
-      <workItem from="1683724041043" duration="24293000" />
-    </task>
-    <task id="LOCAL-00015" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Autonomous pattern&#10;---Priority pattern">
-      <created>1670002306739</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1670002306739</updated>
+      <workItem from="1683724041043" duration="25184000" />
     </task>
     <task id="LOCAL-00016" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
       <created>1670004378644</created>
@@ -616,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683729844507</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1683813747540</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1683813747540</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Unix line seperator" />
     <MESSAGE value="Align the search result into one team solution" />
     <MESSAGE value="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns." />
     <MESSAGE value="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Autonomous pattern" />
@@ -659,7 +655,8 @@
     <MESSAGE value="Independent Search - N12" />
     <MESSAGE value="Update the figure format for AOM2023" />
     <MESSAGE value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?" />
+    <MESSAGE value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
+    <option name="LAST_COMMIT_MESSAGE" value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$test.coverage" NAME="test Coverage Results" MODIFIED="1683809373811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Volidation" />

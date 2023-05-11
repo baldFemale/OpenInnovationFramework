@@ -170,12 +170,13 @@ class Generalist:
 
     def describe(self):
         print("N: ", self.N)
-        print("State number: ", self.state_num)
-        print("Current state list: ", self.state)
-        print("Current cognitive state list: ", self.cog_state)
-        print("Current cognitive fitness: ", self.cog_fitness)
-        print("Converged fitness: ", self.fitness)
         print("Expertise domain: ", self.expertise_domain)
+        print("Current state: ", self.state)
+        print("State number: ", self.state_num)
+        print("Current cognitive state: ", self.cog_state)
+        print("Average real fitness: ", self.ave_fitness)
+        print("Max real fitness: ", self.max_fitness)
+        print("Min real fitness: ", self.min_fitness)
 
 
 if __name__ == '__main__':
@@ -190,11 +191,9 @@ if __name__ == '__main__':
     expertise_amount = 16
     landscape = Landscape(N=N, K=K, state_num=state_num)
     generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-    state = ["0", "1", "2", "3", "0", "1", "2", "3"]
-    cog_state = generalist.state_2_cog_state(state=state)
-    print("cog_state: ", cog_state)
     generalist.describe()
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain, expertise_representation=specialist.expertise_representation)
+    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
+                                 expertise_representation=generalist.expertise_representation)
     generalist.cog_landscape = cog_landscape
     generalist.update_cog_fitness()
 
