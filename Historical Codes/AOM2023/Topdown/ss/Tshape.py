@@ -10,48 +10,34 @@ from Landscape import Landscape
 import pickle
 
 
-class Generalist:
-    def __init__(self, N=None, landscape=None, cog_landscape=None, state_num=4, expertise_amount=None):
+class Tshape:
+    def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
         self.landscape = landscape
-        self.cog_landscape = cog_landscape
         self.N = N
         self.state_num = state_num
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
-        self.expertise_representation = ["A", "B"]
-        self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
+        self.generalist_knowledge_representation = ["A", "B"]
+        free_space = list(range(N))
+        self.specialist_domain = np.random.choice(free_space, specialist_expertise // 4, replace=False).tolist()
+        for domain in self.specialist_domain:
+            free_space.remove(domain)
+        self.generalist_domain = np.random.choice(free_space, generalist_expertise // 2, replace=False).tolist()
+        self.expertise_domain = self.specialist_domain + self.generalist_domain
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = 0
-        self.ave_fitness, self.max_fitness, self.min_fitness = 0, 0, 0
-
-        # Mechanism: overlap with IM
-        self.row_overlap = 0
-        self.column_overlap = 0
+        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
         if not self.landscape:
             raise ValueError("Agent need to be assigned a landscape")
         if (self.N != landscape.N) or (self.state_num != landscape.state_num):
             raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
-        if expertise_amount % 2 != 0:
-            raise ValueError("Expertise amount needs to be a even number")
-        if expertise_amount > self.N * 2:
-            raise ValueError("Expertise amount should be less than {0}.".format(self.N * 2))
-
-    def update_cog_fitness(self):
-        self.cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
-
-    def get_overlap_with_IM(self):
-        influence_matrix = self.landscape.IM
-        row_overlap, column_overlap = 0, 0
-        for row in range(self.N):
-            if row in self.expertise_domain:
-                row_overlap += sum(influence_matrix[row])
-        for column in range(self.N):
-            if column in self.expertise_domain:
-                column_overlap += sum(influence_matrix[:, column])
-        self.column_overlap = column_overlap
-        self.row_overlap = row_overlap
+        if generalist_expertise % 2 != 0:
+            raise ValueError("Generalist expertise amount needs to be a even number")
+        if specialist_expertise % 4 != 0:
+            raise ValueError("Specialist expertise amount needs to be a product of 4")
+        if len(self.expertise_domain) > self.N:
+            raise ValueError("The expertise domain should not be greater than N")
 
     def align_default_state(self, state=None):
         for index in range(self.N):
@@ -64,30 +50,32 @@ class Generalist:
     def learn_from_pool(self, pool=None):
         exposure_state = pool[np.random.choice(len(pool))]
         cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
+        cog_fitness_of_exposure_state = self.landscape.\
+            query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
         if cog_fitness_of_exposure_state > self.cog_fitness:
             self.cog_state = cog_exposure_state
             self.cog_fitness = cog_fitness_of_exposure_state
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
             return True
         return False
 
     def search(self):
         next_cog_state = self.cog_state.copy()
         index = np.random.choice(self.expertise_domain)
-        if next_cog_state[index] == "A":
-            next_cog_state[index] = "B"
-        elif next_cog_state[index] == "B":
-            next_cog_state[index] = "A"
-        elif next_cog_state[index] in ["0", "1", "2", "3"]:
-            next_cog_state[index] = np.random.choice(["A", "B"])
+        if index in self.generalist_domain:
+            if next_cog_state[index] == "A":
+                next_cog_state[index] = "B"
+            else:
+                next_cog_state[index] = "A"
         else:
-            raise ValueError("Unsupported bit: ", next_cog_state[index])
-        next_cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=next_cog_state)
+            free_space = ["0", "1", "2", "3"]
+            free_space.remove(self.cog_state[index])
+            next_cog_state[index] = np.random.choice(free_space)
+        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(
-                cog_state=self.cog_state)
+            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def double_search(self, co_state=None, co_expertise_domain=None):
         # learning from coupled agent
@@ -109,10 +97,15 @@ class Generalist:
                 else:
                     pass
         index = np.random.choice(self.expertise_domain)
-        if next_cog_state[index] == "A":
-            next_cog_state[index] = "B"
+        if index in self.generalist_domain:
+            if next_cog_state[index] == "A":
+                next_cog_state[index] = "B"
+            else:
+                next_cog_state[index] = "A"
         else:
-            next_cog_state[index] = "A"
+            free_space = ["0", "1", "2", "3"]
+            free_space.remove(self.cog_state[index])
+            next_cog_state[index] = np.random.choice(free_space)
         next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
@@ -139,27 +132,30 @@ class Generalist:
             self.cog_fitness = next_cog_fitness
             self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
+
     def state_2_cog_state(self, state=None):
         cog_state = self.state.copy()
         for index, bit_value in enumerate(state):
-            if index in self.expertise_domain:
+            if index not in self.expertise_domain:
+                pass  # remove the ambiguity
+                # cog_state[index] = "*"
+            elif index in self.generalist_domain:
                 if bit_value in ["0", "1"]:
                     cog_state[index] = "A"
                 elif bit_value in ["2", "3"]:
                     cog_state[index] = "B"
                 else:
                     raise ValueError("Only support for state number = 4")
-            else:
-                # pass  # remove the ambiguity in the unknown domain-> mindset or untunable domain
-                cog_state[index] = "*"
+            else:pass  # specialist_domain
         return cog_state
 
     def cog_state_2_state(self, cog_state=None):
         state = cog_state.copy()
         for index, bit_value in enumerate(cog_state):
-            if (index not in self.expertise_domain) and (bit_value == "*"):
-                state[index] = str(random.choice(range(self.state_num)))
-            else:
+            if index not in self.expertise_domain:
+                # state[index] = str(random.choice(range(self.state_num)))
+                pass
+            elif index in self.generalist_domain:
                 if bit_value == "A":
                     state[index] = random.choice(["0", "1"])
                 elif bit_value == "B":
@@ -170,57 +166,50 @@ class Generalist:
 
     def describe(self):
         print("N: ", self.N)
-        print("Expertise domain: ", self.expertise_domain)
-        print("Current state: ", self.state)
         print("State number: ", self.state_num)
-        print("Current cognitive state: ", self.cog_state)
-        print("Average real fitness: ", self.ave_fitness)
-        print("Max real fitness: ", self.max_fitness)
-        print("Min real fitness: ", self.min_fitness)
+        print("Current state list: ", self.state)
+        print("Current cognitive state list: ", self.cog_state)
+        print("Current cognitive fitness: ", self.cog_fitness)
+        print("Converged fitness: ", self.fitness)
+        print("Expertise domain: ", self.expertise_domain)
 
 
 if __name__ == '__main__':
     # Test Example
-    from CogLandscape import CogLandscape
-    import time
-    t0 = time.time()
-    search_iteration = 500
-    N = 9
-    K = 0
-    state_num = 4
-    expertise_amount = 16
-    landscape = Landscape(N=N, K=K, state_num=state_num)
-    generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
-                                 expertise_representation=generalist.expertise_representation)
-    generalist.cog_landscape = cog_landscape
-    generalist.update_cog_fitness()
-    generalist.describe()
-    ave_performance_across_time = []
-    max_performance_across_time = []
-    min_performance_across_time = []
+    landscape = Landscape(N=9, state_num=4)
+    landscape.type(K=3)
+    landscape.initialize()
+    t_shape = Tshape(N=9, landscape=landscape, state_num=4, generalist_expertise=4, specialist_expertise=8)
+    # jump_count = 0
+    # for _ in range(1000):
+    #     t_shape.search()
+    #     if t_shape.distant_jump():
+    #         jump_count += 1
+    #     # print(generalist.cog_fitness)
+    # print("jump_count: ", jump_count)
+    # t_shape.state = t_shape.cog_state_2_state(cog_state=t_shape.cog_state)
+    # t_shape.fitness = landscape.query_fitness(state=t_shape.state)
+    # t_shape.describe()
+    # print("END")
+
+    # Test for the search rounds upper boundary
     cog_performance_across_time = []
-    for _ in range(search_iteration):
-        generalist.search()
-        print(generalist.cog_state, generalist.ave_fitness)
-        ave_performance_across_time.append(generalist.ave_fitness)
-        max_performance_across_time.append(generalist.max_fitness)
-        min_performance_across_time.append(generalist.min_fitness)
-        cog_performance_across_time.append(generalist.cog_fitness)
+    performance_across_time = []
+    potential_performance_across_time = []
+    for _ in range(50):
+        t_shape.search()
+        cog_performance_across_time.append(t_shape.cog_fitness)
+        performance_across_time.append(t_shape.fitness)
+        potential_performance_across_time.append(t_shape.potential_fitness)
     import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.arange(search_iteration)
-    plt.plot(x, ave_performance_across_time, "r-", label="Ave")
-    plt.plot(x, max_performance_across_time, "b-", label="Max")
-    plt.plot(x, min_performance_across_time, "g-", label="Min")
-    plt.plot(x, cog_performance_across_time, "k-", label="Cog")
-    plt.title('Performance at N={0}, K={1}, Kn={2}'.format(N, K, expertise_amount))
-    plt.xlabel('Iteration', fontweight='bold', fontsize=10)
+    x = range(50)
+    plt.plot(x, cog_performance_across_time, "k--", label="Partial Fitness")
+    plt.plot(x, performance_across_time, "k-", label="Full Fitness")
+    plt.plot(x, potential_performance_across_time, "k:", label="Potential Fitness")
+    # plt.title('Diversity Decrease')
+    plt.xlabel('Time', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
-    # plt.xticks(x)
-    plt.legend(frameon=False, fontsize=10)
-    plt.savefig("G_performance.png", transparent=True, dpi=200)
+    plt.legend()
+    # plt.savefig("GST_performance_K.png", transparent=True, dpi=1200)
     plt.show()
-    plt.clf()
-    t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+

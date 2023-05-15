@@ -1,0 +1,10 @@
+#!/bin/bash
+#SBATCH --time=3-00:00:00
+#SBATCH --job-name=T-test
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=junyili@u.nus.edu
+#SBATCH --mem=200gb
+#SBATCH --partition=long
+#SBATCH --cpus-per-task=50
+#SBATCH --ntasks=1
+python trun.py

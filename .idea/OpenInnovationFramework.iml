@@ -4,39 +4,39 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization in Traditional Landscape" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Priority" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Priority/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Priority/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Priority/sg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Priority/ss" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Topdown" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Topdown/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Topdown/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Topdown/ss" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Coordination" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Coordination/GST_max" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Coordination/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Coordination/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Coordination/ss" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/Transparency" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/Transparency_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_max_N12" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_mid" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_mid_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_min" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_min_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_more_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Independent/GST_unknown_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy/gg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy/gs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Autonomy/ss" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/NativeCollabroation" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Volidation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Autonomy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Autonomy/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Autonomy/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Autonomy/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination/GST_max" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_max" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_max_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_max_N12" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_mid" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_mid_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_min" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_min_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_more" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_more_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_unknown_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/NativeCollabroation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority/sg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority/ss" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Topdown" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Topdown/gg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Topdown/gs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Topdown/ss" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
@@ -59,6 +59,12 @@
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Transparency" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Composition" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Autonomy" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Coordination" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/NativeCollabroation" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Priority" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Topdown" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
