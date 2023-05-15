@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --time=00:10:00
-#SBATCH --job-name=S-test
+#SBATCH --time=3-00:00:00
+#SBATCH --job-name=S
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=10gb
-#SBATCH --partition=standard
-#SBATCH --cpus-per-task=1
+#SBATCH --mem=100gb
+#SBATCH --partition=long
+#SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-python Specialist.py
+python srun.py
