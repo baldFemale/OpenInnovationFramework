@@ -5,12 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <change afterPath="$PROJECT_DIR$/Independent_2/CogLandscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_2/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/slurm_S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Evaluator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_2/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_2/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_2/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Team.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_2/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/slurm_ss" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_2/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ssrun.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ssrun_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +68,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,11 +79,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Volidation" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy_re\ss" />
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\ss" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy\gs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
@@ -273,14 +289,7 @@
       <workItem from="1683724041043" duration="26029000" />
       <workItem from="1684131662254" duration="21000" />
       <workItem from="1684131691501" duration="632000" />
-      <workItem from="1684132803576" duration="10205000" />
-    </task>
-    <task id="LOCAL-00021" summary="fix the bugs in the function of &quot;align default state&quot;">
-      <created>1670060513987</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1670060513987</updated>
+      <workItem from="1684132803576" duration="11057000" />
     </task>
     <task id="LOCAL-00022" summary="fix the bugs in the function of &quot;align default state&quot;">
       <created>1670060691867</created>
@@ -618,7 +627,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684142787804</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684153256117</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1684153256117</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -7,9 +7,9 @@ import numpy as np
 
 class Landscape:
 
-    def __init__(self, N, state_num=4):
+    def __init__(self, N=None, K=None, state_num=4):
         self.N = N
-        self.K = None
+        self.K = K
         self.state_num = state_num
         self.IM, self.dependency_map = np.eye(self.N), [[]]*self.N  # [[]] & {int:[]}
         self.FC = None
@@ -19,15 +19,10 @@ class Landscape:
         self.norm = True
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
+        # Initialization
+        self.initialize()
 
-    def describe(self):
-        print("*********LandScape information********* ")
-        print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
-        print("Influential matrix: \n", self.IM)
-        print("Influential dependency map: ", self.dependency_map)
-        print("********************************")
-
-    def type(self, K=0):
+    def create_IM(self):
         """
         Characterize the influential matrix
         :param IM_type: "random", "dependent",
@@ -35,7 +30,7 @@ class Landscape:
         :param k: single-way dependency (directed links); k=2K for mutual dependency
         :return: the influential matrix (self.IM); and the dependency rule (self.IM_dict)
         """
-        self.K = K
+        self.K = self.K
         if self.K == 0:
             self.IM = np.eye(self.N)
         elif self.K >= (self.N - 1):
@@ -57,7 +52,7 @@ class Landscape:
 
     def create_fitness_config(self,):
         FC = defaultdict(dict)
-        for row in range(len(self.IM)):
+        for row in range(self.N):
             k = int(sum(self.IM[row]))
             for column in range(pow(self.state_num, k)):
                 FC[row][column] = np.random.uniform(0, 1)
@@ -73,13 +68,13 @@ class Landscape:
             result.append(self.FC[i][index])
         return sum(result) / len(result)
 
-    def store_cache(self,):
+    def store_cache(self):
         all_states = [state for state in product(range(self.state_num), repeat=self.N)]
         for state in all_states:
-            bits = ''.join([str(bit) for bit in state])
+            bits = "".join([str(i) for i in state])
             self.cache[bits] = self.calculate_fitness(state)
 
-    def creat_fitness_rank_dict(self,):
+    def creat_fitness_rank_dict(self):
         """
         Sort the cache fitness value and corresponding rank
         To get another performance indicator regarding the reaching rate of relatively high fitness (e.g., the top 10 %)
@@ -94,15 +89,14 @@ class Landscape:
         self.state_to_rank_dict = state_to_rank_dict
         self.fitness_to_rank_dict = fitness_to_rank_dict
 
-    def initialize(self, norm=True):
+    def initialize(self):
         """
         Cache the fitness value
-        :param norm: normalization
         :return: fitness cache
         """
+        self.create_IM()
         self.create_fitness_config()
         self.store_cache()
-        self.norm = norm
         self.max_normalizer = max(self.cache.values())
         self.min_normalizer = min(self.cache.values())
         # normalization
@@ -110,57 +104,21 @@ class Landscape:
             for k in self.cache.keys():
                 # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
                 self.cache[k] = self.cache[k] / self.max_normalizer
-        self.creat_fitness_rank_dict()
 
     def query_fitness(self, state):
-        """
-        Query the accurate fitness from the landscape cache for *intact* decision string
-        *intact* means there only [0,1,2,3] without any ["A", "B", "*"] masking.
-        """
-        bits = "".join([str(state[i]) for i in range(len(state))])
-        return self.cache[bits]
+        return self.cache["".join(state)]
 
-    def query_cog_fitness_full(self, cog_state=None):
+    def query_potential_fitness(self, cog_state=None):
         """
-        Query the cognitive (average) fitness given a cognitive state
-                For S domain, there is only one alternative, so it follows the default search
-                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
-        :param cog_state: the cognitive state
-        :return: the average across the alternative pool; the potential (maximum) fitness
+        Return the performance trajectory at the finest level;
+        Show comparison for the trajectory at the coarse level
+        :param cog_state:
+        :return: potential performance of a given cog_state
         """
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
-        potential_fitness = max(fitness_pool)
-        cog_fitness = sum(fitness_pool) / len(alternatives)
-        return cog_fitness, potential_fitness
-
-    def query_cog_fitness_partial(self, cog_state=None, expertise_domain=None):
-        """
-        Query the cognitive (average) fitness given a cognitive state
-                For S domain, there is only one alternative, so it follows the default search
-                For G domain, there is an alternative pool, so it takes the average of fitness across alternative states.
-        :param cog_state: the cognitive state
-        :return: the average across the alternative pool.
-        """
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)
-        partial_fitness_alternatives = []
-        for state in alternatives:
-            partial_FC_across_bits = []  # only the expertise domains have fitness contribution
-            for index in range(self.N):
-                if index not in expertise_domain:
-                    continue
-                else:
-                    # the unknown domain will still affect the condition
-                    dependency = self.dependency_map[index]
-                    bin_index = "".join([str(state[d]) for d in dependency])
-                    bin_index = str(state[index]) + bin_index
-                    FC_index = int(bin_index, self.state_num)
-                    partial_FC_across_bits.append(self.FC[index][FC_index])
-            # print("partial_FC_across_bits: ", partial_FC_across_bits)
-            # No need to normalize; it doesn't change the relative rank and thus doesn't change the search
-            partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
-            partial_fitness_alternatives.append(partial_fitness_state)
-        return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+        ave_fitness = sum(fitness_pool) / len(alternatives)
+        return ave_fitness, max(fitness_pool), min(fitness_pool)
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
@@ -231,24 +189,29 @@ class Landscape:
         result = [list(each) for each in result]
         return result
 
+    def describe(self):
+        print("*********LandScape information********* ")
+        print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
+        print("Influential matrix: \n", self.IM)
+        print("Influential dependency map: ", self.dependency_map)
+        print("Samples: \n")
+        for key, value in landscape.cache.items():
+            print(key, value)
+            break
+        print("********************************")
+
 
 if __name__ == '__main__':
     # Test Example
-    landscape = Landscape(N=8, state_num=4)
-    landscape.type(K=9)
-    landscape.initialize(norm=True)
+    N = 9
+    K = 8
+    state_num = 4
+    landscape = Landscape(N=N, K=K, state_num=state_num)
     landscape.describe()
-    list_cache = list(landscape.cache.values())
-    print("sd:", np.std(list_cache))
 
-    cog_state = ['A', 'A', '1', '1', '1', '3', '1', '2']
-    cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=range(len(cog_state)))
-    # cog_fitness = landscape.query_cog_fitness_partial(cog_state=cog_state, expertise_domain=[1, 2, 3])
-    print("partial_cog_fitness: ", cog_fitness)
-    print("normalized partial fitness: ", cog_fitness / landscape.max_normalizer)
-    cog_fitness_2 = landscape.query_cog_fitness_full(cog_state=cog_state)
-    print("full_cog_fitness: {0}; potential_fitness: {1}".format(cog_fitness_2[0],  cog_fitness_2[1]))
-    print("max_cache: ", max(landscape.cache.values()))
+    cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
+
     import matplotlib.pyplot as plt
     data = landscape.cache.values()
     plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)

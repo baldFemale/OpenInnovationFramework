@@ -120,20 +120,21 @@ if __name__ == '__main__':
             p.start()
         for proc in jobs:
             proc.join()
-        returns = return_dict.values()  # Don't need dict index, since it is repetition.
+        performance_across_landscape = return_dict.values()  # Don't need dict index, since it is repetition.
 
         temp_ave, temp_max, temp_min, temp_cog = [], [], [], []
         temp_var, temp_cog_var = [], []
         temp_first, temp_last = [], []
-        for result in returns:
-            temp_ave.append(result[0])   # ave among the alternatives (full, Landscape)
-            temp_max.append(result[1])  # max in the alternatives (full, Landscape)
-            temp_min.append(result[2])  # min in the alternatives (full, Landscape)
-            temp_cog.append(result[3])  # cog_performance (partial, CogLandscape)
-            temp_var.append(result[4])  # variance among the alternatives (full, Landscape)
-            temp_cog_var.append(result[5])  # cog_variance (partial, CogLandscape)
-            temp_first.append(result[6])  # first quantile in the alternatives (full, Landscape)
-            temp_last.append(result[7])  # third quantile in the alternatives (full, Landscape)
+        for result in performance_across_landscape:
+            # using += means we don't differentiate different landscapes
+            temp_ave += result[0]  # ave among the alternatives (full, Landscape)
+            temp_max += result[1]  # max in the alternatives (full, Landscape)
+            temp_min += result[2]  # min in the alternatives (full, Landscape)
+            temp_cog += result[3]  # cog_performance (partial, CogLandscape)
+            temp_var += result[4]  # variance among the alternatives (full, Landscape)
+            temp_cog_var += result[5]  # cog_variance (partial, CogLandscape)
+            temp_first += result[6]  # first quantile in the alternatives (full, Landscape)
+            temp_last += result[7]  # third quantile in the alternatives (full, Landscape)
 
         result_ave, result_max, result_min, result_cog = [], [], [], []
         result_var, result_cog_var = [], []
