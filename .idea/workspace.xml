@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/CogLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Volidation/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Specialist">
+  <component name="RunManager" selected="Python.test">
     <configuration name="CogLandscape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -185,10 +183,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.Specialist" />
         <item itemvalue="Python.CogLandscape" />
         <item itemvalue="Python.Landscape (2)" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.Landscape (1)" />
       </list>
     </recent_temporary>
@@ -270,14 +268,7 @@
       <workItem from="1683724041043" duration="26029000" />
       <workItem from="1684131662254" duration="21000" />
       <workItem from="1684131691501" duration="632000" />
-      <workItem from="1684132803576" duration="2928000" />
-    </task>
-    <task id="LOCAL-00018" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
-      <created>1670008565178</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1670008565178</updated>
+      <workItem from="1684132803576" duration="4076000" />
     </task>
     <task id="LOCAL-00019" summary="fix the bugs in the function of &quot;align default state&quot;">
       <created>1670060252842</created>
@@ -615,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683877962125</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684139673509</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1684139673509</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -661,7 +659,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test.coverage" NAME="test Coverage Results" MODIFIED="1683809373811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Volidation" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test.coverage" NAME="test Coverage Results" MODIFIED="1684140164687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Volidation" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator.coverage" NAME="Evaluator Coverage Results" MODIFIED="1672234656400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1683727429670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/GST_max_2" />

@@ -40,7 +40,35 @@ from itertools import product
 # test = ["1", "2", "A", "*"]
 # print("".join(test))
 
-all_representation = ["A", "B", "0", "1", "2", "3", "*"]
-# Cartesian products outside knowledge scope (not combinations or permutations)
-unknown_products = list(product(all_representation, repeat=4))
-print(unknown_products)
+# all_representation = ["A", "B", "0", "1", "2", "3", "*"]
+# # Cartesian products outside knowledge scope (not combinations or permutations)
+# unknown_products = list(product(all_representation, repeat=4))
+# print(unknown_products)
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Sample data
+X = np.arange(0.1, 1.1, 0.1)  # list X
+Y = np.arange(0.1, 1.1, 0.1)  # list Y
+Z = np.random.rand(len(X) * len(Y))  # list Z (random values for demonstration)
+
+# Reshape data
+X, Y = np.meshgrid(X, Y)  # Create a grid of X and Y values
+Z = Z.reshape(X.shape)  # Reshape Z to match the grid shape
+
+# Plot 3D surface
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z)
+
+# Set labels and title
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title('3D Surface Plot')
+
+# Show the plot
+plt.show()
