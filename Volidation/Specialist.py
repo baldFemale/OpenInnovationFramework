@@ -159,11 +159,11 @@ if __name__ == '__main__':
     from CogLandscape import CogLandscape
     import time
     t0 = time.time()
-    search_iteration = 200
+    search_iteration = 500
     N = 9
-    K = 7
+    K = 8
     state_num = 4
-    expertise_amount = 16
+    expertise_amount = 36
     landscape = Landscape(N=N, K=K, state_num=state_num)
     specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
     specialist.describe()
@@ -179,8 +179,8 @@ if __name__ == '__main__':
     for _ in range(search_iteration):
         specialist.search()
         ave_performance_across_time.append(specialist.ave_fitness)
-        max_performance_across_time.append(specialist.ave_fitness)
-        min_performance_across_time.append(specialist.ave_fitness)
+        max_performance_across_time.append(specialist.max_fitness)
+        min_performance_across_time.append(specialist.min_fitness)
         cog_performance_across_time.append(specialist.cog_fitness)
     # specialist.describe()
     import matplotlib.pyplot as plt
@@ -190,11 +190,11 @@ if __name__ == '__main__':
     plt.plot(x, max_performance_across_time, "b-", label="Max")
     plt.plot(x, min_performance_across_time, "g-", label="Min")
     plt.plot(x, cog_performance_across_time, "k-", label="Cog")
-    # plt.title('Diversity Decrease')
+    plt.title('Performance at N={0}, K={1}'.format(N, K))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
-    plt.legend(frameon=False, ncol=3, fontsize=10)
+    plt.legend(frameon=False, fontsize=10)
     plt.savefig("S_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()

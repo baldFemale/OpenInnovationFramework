@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/CogLandscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Volidation/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Volidation/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,21 +44,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Volidation",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Volidation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Volidation" />
@@ -264,14 +267,10 @@
       <workItem from="1683553599372" duration="179000" />
       <workItem from="1683632259681" duration="1484000" />
       <workItem from="1683718700543" duration="2978000" />
-      <workItem from="1683724041043" duration="26011000" />
-    </task>
-    <task id="LOCAL-00017" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
-      <created>1670006650689</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1670006650689</updated>
+      <workItem from="1683724041043" duration="26029000" />
+      <workItem from="1684131662254" duration="21000" />
+      <workItem from="1684131691501" duration="632000" />
+      <workItem from="1684132803576" duration="2928000" />
     </task>
     <task id="LOCAL-00018" summary="# Need to follow the four/three regimes from Gavetti 2005's paper to design the coordination patterns.&#10;---Alignment pattern: the same as coordination regime in his paper; agents will communicate with teammate each round; agent will adopt new configurations from teammate if such a configuration also perceived better for the focal agent. There is no priority, agent self-select / learn the configuration from teammates;&#10;---Autonomous pattern: the same as autonomy regime in his paper; agents will not communicate during search; after convergence, agent will exchange the configuration only for their unknown domain (if no final exchange, it will be the same as independent search)&#10;---Priority pattern: an extension to the &quot;circulation of cognition&quot; in his paper; herein we have two types of agents, and he only model specialist; Thus, we conceptualize it as priority of cognition; Either generalist or specialist could circulate their belief into its teammates, no matter how the teammate will perceive;&#10;---Topdown patter: the same as the cognitive control regime; there is a team solution reflecting the topdown cognition and fully alignment the agents in the same premises;">
       <created>1670008565178</created>
@@ -609,7 +608,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683814658724</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1683877962125</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1683877962125</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -104,6 +104,7 @@ class CogLandscape:
                 raise ValueError("Unsupported bit value: ", bit)
         return [i for i in product(*alternative_pool)]
 
+
 if __name__ == '__main__':
     # Test Example
     import time
