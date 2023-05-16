@@ -3,8 +3,8 @@
 #SBATCH --job-name=Landscape
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=50gb
+#SBATCH --mem=200gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
 python landscape_run.py

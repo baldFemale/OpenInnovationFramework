@@ -105,8 +105,8 @@ class BinaryLandscape():
             self.min_normalizor = min(self.cache.values())
 
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k] - self.min_normalizor) / (self.max_normalizer - self.min_normalizor)
-                # self.cache[k] = self.cache[k] / self.max_normalizer
+                # self.cache[k] = (self.cache[k] - self.min_normalizor) / (self.max_normalizer - self.min_normalizor)
+                self.cache[k] = self.cache[k] / self.max_normalizer
         self.cog_cache = {}
 
     def query_fitness(self, state):

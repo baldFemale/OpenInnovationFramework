@@ -16,10 +16,10 @@ import multiprocessing as mp
 
 def func(N=None, K=None, state_num=None, expertise_amount=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num)
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=list(range(N)),
-                                 expertise_representation=["A", "B"], norm=False)
-    bin_landscape = BinaryLandscape(N=N, K=K, K_within=None, K_between=None)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm=True)
+    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=np.random.choice(range(N), expertise_amount//2),
+                                 expertise_representation=["A", "B"], norm=True)
+    bin_landscape = BinaryLandscape(N=N, K=K, K_within=None, K_between=None, norm=True)
     data = list(landscape.cache.values())
     cog_data = list(cog_landscape.cache.values())
     bin_data = list(bin_landscape.cache.values())
@@ -43,7 +43,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(repeat):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_domain, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:

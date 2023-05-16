@@ -10,7 +10,7 @@ import numpy as np
 
 
 class CogLandscape:
-    def __init__(self, landscape=None, expertise_domain=None, expertise_representation=None):
+    def __init__(self, landscape=None, expertise_domain=None, expertise_representation=None, norm=True):
         self.landscape = landscape
         self.expertise_domain = expertise_domain
         self.expertise_representation = expertise_representation
@@ -22,7 +22,7 @@ class CogLandscape:
         self.cache = {}  # state string to partial fitness: state_num ^ N: [1]
         self.max_normalizer = 1
         self.min_normalizer = 0
-        self.norm = True
+        self.norm = norm
         self.initialize()
 
     def describe(self):
@@ -83,8 +83,8 @@ class CogLandscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                self.cache[k] = self.cache[k] / self.max_normalizer
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                # self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_cog_fitness(self, cog_state=None):
         return self.cache["".join(cog_state)]
