@@ -188,7 +188,7 @@ if __name__ == '__main__':
     N = 9
     K = 0
     state_num = 4
-    expertise_amount = 16
+    expertise_amount = 18
     landscape = Landscape(N=N, K=K, state_num=state_num)
     generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
     cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,

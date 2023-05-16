@@ -95,8 +95,8 @@ class Landscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                # self.cache[k] = self.cache[k] / self.max_normalizer
+                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_fitness(self, state):
         return self.cache["".join(state)]

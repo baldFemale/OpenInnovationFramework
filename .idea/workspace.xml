@@ -5,26 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/CogLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/BinaryLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/BinaryLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/CogLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/landscape_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/landscape_run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/slurm_L" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/slurm_L" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/CogLandscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Tshape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_2/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/CogLandscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/srun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent_partial",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_partial" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Volidation" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Autonomy_re\ss" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
@@ -291,14 +288,7 @@
       <workItem from="1684132803576" duration="18545000" />
       <workItem from="1684161904823" duration="425000" />
       <workItem from="1684220847785" duration="15424000" />
-      <workItem from="1684241296562" duration="3307000" />
-    </task>
-    <task id="LOCAL-00026" summary="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
-      <created>1670061988879</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1670061988879</updated>
+      <workItem from="1684241296562" duration="3747000" />
     </task>
     <task id="LOCAL-00027" summary="fix the inconsistency bug in T-shape's function of &quot;cog_state_2_state&quot;: we remove the ambiguity of the unknown domains; thus don't need to re-assign the elements for unknown domains.">
       <created>1670062526245</created>
@@ -636,7 +626,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684241249951</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684245102064</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1684245102065</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

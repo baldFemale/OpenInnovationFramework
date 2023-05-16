@@ -22,7 +22,7 @@ import math
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm=True)
     ave_performance_across_agent_time = []
     max_performance_across_agent_time = []
     min_performance_across_agent_time = []
@@ -30,7 +30,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
         cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
-                                     expertise_representation=generalist.expertise_representation)
+                                     expertise_representation=generalist.expertise_representation, norm=True)
         generalist.cog_landscape = cog_landscape
         generalist.update_cog_fitness()
 
