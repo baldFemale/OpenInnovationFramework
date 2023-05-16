@@ -7,7 +7,7 @@ import numpy as np
 
 class Landscape:
 
-    def __init__(self, N=None, K=None, state_num=4):
+    def __init__(self, N=None, K=None, state_num=4, norm=True):
         self.N = N
         self.K = K
         self.state_num = state_num
@@ -16,20 +16,13 @@ class Landscape:
         self.cache = {}  # state string to overall fitness: state_num ^ N: [1]
         self.max_normalizer = 1
         self.min_normalizer = 0
-        self.norm = True
+        self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
         # Initialization
         self.initialize()
 
     def create_IM(self):
-        """
-        Characterize the influential matrix
-        :param IM_type: "random", "dependent",
-        :param K: mutual excitation dependency (undirected links)
-        :param k: single-way dependency (directed links); k=2K for mutual dependency
-        :return: the influential matrix (self.IM); and the dependency rule (self.IM_dict)
-        """
         self.K = self.K
         if self.K == 0:
             self.IM = np.eye(self.N)
@@ -102,8 +95,8 @@ class Landscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                self.cache[k] = self.cache[k] / self.max_normalizer
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                # self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_fitness(self, state):
         return self.cache["".join(state)]

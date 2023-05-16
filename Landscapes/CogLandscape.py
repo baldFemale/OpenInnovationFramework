@@ -83,8 +83,8 @@ class CogLandscape:
         # normalization
         if self.norm:
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
-                self.cache[k] = self.cache[k] / self.max_normalizer
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                # self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_cog_fitness(self, cog_state=None):
         return self.cache["".join(cog_state)]

@@ -6,12 +6,11 @@
 # Observing PEP 8 coding style
 import numpy as np
 from collections import defaultdict
-import matplotlib.pyplot as plt
 import time
 
 
 class BinaryLandscape():
-    def __init__(self, N=None, K=None, K_within=None, K_between=None):
+    def __init__(self, N=None, K=None, K_within=None, K_between=None, norm=True):
         self.N = N
         self.K = K
         self.K_within = K_within
@@ -20,6 +19,9 @@ class BinaryLandscape():
         self.FC = None
         self.cache = {}  # the hashed dict has a higher indexing speed, which helps improve the running speed
         self.cog_cache = {}
+        self.norm = norm
+        self.max_normalizer, self.min_normalizor = 0, 0
+        self.initialize()
 
     def create_influence_matrix(self):
         IM = np.eye(self.N)
@@ -93,19 +95,18 @@ class BinaryLandscape():
             state = [int(cur) for cur in bit]
             self.cache[bit] = self.calculate_fitness(state)
 
-    def initialize(self, first_time=True, norm=True):
-        if first_time:
-            self.create_influence_matrix()
+    def initialize(self):
+        self.create_influence_matrix()
         self.create_fitness_config()
         self.store_cache()
-
         # normalization
-        if norm:
-            normalizor = max(self.cache.values())
-            min_normalizor = min(self.cache.values())
+        if self.norm:
+            self.max_normalizer = max(self.cache.values())
+            self.min_normalizor = min(self.cache.values())
 
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k] - min_normalizor) / (normalizor - min_normalizor)
+                self.cache[k] = (self.cache[k] - self.min_normalizor) / (self.max_normalizer - self.min_normalizor)
+                # self.cache[k] = self.cache[k] / self.max_normalizer
         self.cog_cache = {}
 
     def query_fitness(self, state):
@@ -158,42 +159,47 @@ if __name__ == '__main__':
     gap_list = []
     ress = []
 
-    N = 8
+    N = 10
     agent_num = 100
     search_iteration = 100
     landscape_repeat = 5
-    K_list = [0, 2, 4, 6]
-    performance_across_para = []
-    for K in K_list:  # key parameter for complexity
-        performance_one_para = []
-        agents_performance = []
-        for i in range(landscape_repeat):  # landscape repetitions
-            landscape = BinaryLandScape(N, K, None, None)
-            landscape.initialize(norm=True)
-            crowd = []
-            for _ in range(agent_num):
-                agent = Agent(N, landscape)
-                crowd.append(agent)
-            for agent in crowd:  # agent repetitions
-                agent_performance = []
-                for _ in range(search_iteration):
-                    agent.search()
-                    agent_performance.append(agent.fitness)
-                agents_performance.append(agent_performance)
-
-        for period in range(search_iteration):
-            temp = [agent_performance[period] for agent_performance in agents_performance]
-            performance_one_para.append(sum(temp) / len(temp))
-        performance_across_para.append(performance_one_para)
-
-    x = range(search_iteration)
-    for index, K in enumerate(K_list):
-        plt.plot(x, performance_across_para[index], label="K={0}".format(K))
-    plt.xlabel('Time', fontweight='bold', fontsize=10)
-    plt.ylabel('Performance', fontweight='bold', fontsize=10)
-    # plt.xticks(x)
-    plt.legend()
+    K = 0
+    landscape = BinaryLandscape(N, K, None, None)
+    bin_data = list(landscape.cache.values())
+    plt.hist(bin_data, bins=40, alpha=0.5, label='Binary Landscape', color="blue", density=True)
     plt.show()
+    # K_list = [0, 2, 4, 6]
+    # performance_across_para = []
+    # for K in K_list:  # key parameter for complexity
+    #     performance_one_para = []
+    #     agents_performance = []
+    #     for i in range(landscape_repeat):  # landscape repetitions
+    #         landscape = BinaryLandscape(N, K, None, None)
+    #         landscape.initialize(norm=True)
+    #         crowd = []
+    #         for _ in range(agent_num):
+    #             agent = Agent(N, landscape)
+    #             crowd.append(agent)
+    #         for agent in crowd:  # agent repetitions
+    #             agent_performance = []
+    #             for _ in range(search_iteration):
+    #                 agent.search()
+    #                 agent_performance.append(agent.fitness)
+    #             agents_performance.append(agent_performance)
+    #
+    #     for period in range(search_iteration):
+    #         temp = [agent_performance[period] for agent_performance in agents_performance]
+    #         performance_one_para.append(sum(temp) / len(temp))
+    #     performance_across_para.append(performance_one_para)
+    #
+    # x = range(search_iteration)
+    # for index, K in enumerate(K_list):
+    #     plt.plot(x, performance_across_para[index], label="K={0}".format(K))
+    # plt.xlabel('Time', fontweight='bold', fontsize=10)
+    # plt.ylabel('Performance', fontweight='bold', fontsize=10)
+    # # plt.xticks(x)
+    # plt.legend()
+    # plt.show()
     # plt.savefig("\Performance_across_K.png", transparent=False, dpi=200)
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
