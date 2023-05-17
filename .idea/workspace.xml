@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/CogLandscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Landscapes/landscape_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/landscape_run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/landscape_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes_max/landscape_run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Landscapes",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,11 +61,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_partial" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
@@ -275,14 +275,7 @@
       <workItem from="1684161904823" duration="425000" />
       <workItem from="1684220847785" duration="15424000" />
       <workItem from="1684241296562" duration="6020000" />
-      <workItem from="1684247845691" duration="9917000" />
-    </task>
-    <task id="LOCAL-00032" summary="Update the previous code with the same agent setting">
-      <created>1670184675023</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1670184675023</updated>
+      <workItem from="1684247845691" duration="9993000" />
     </task>
     <task id="LOCAL-00033" summary="Update the previous code with the same agent setting">
       <created>1670319200620</created>
@@ -620,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684329236651</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684330511034</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1684330511035</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

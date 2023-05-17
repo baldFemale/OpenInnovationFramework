@@ -16,10 +16,10 @@ import multiprocessing as mp
 
 def func(N=None, K=None, state_num=None, expertise_amount=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm=True)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="Max")
     cog_landscape = CogLandscape(landscape=landscape, expertise_domain=np.random.choice(range(N), expertise_amount//2),
-                                 expertise_representation=["A", "B"], norm="MaxMin", collaborator="None")
-    bin_landscape = BinaryLandscape(N=N, K=K, K_within=None, K_between=None, norm="MaxMin")
+                                 expertise_representation=["A", "B"], norm="Max", collaborator="None")
+    bin_landscape = BinaryLandscape(N=N, K=K, K_within=None, K_between=None, norm="Max")
     data = list(landscape.cache.values())
     cog_data = list(cog_landscape.cache.values())
     bin_data = list(bin_landscape.cache.values())
