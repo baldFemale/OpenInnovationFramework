@@ -22,16 +22,23 @@ import math
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm=True)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     ave_performance_across_agent_time = []
     max_performance_across_agent_time = []
     min_performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    cog_landscape_dict = {}
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
-                                     expertise_representation=generalist.expertise_representation, norm=True)
-        generalist.cog_landscape = cog_landscape
+        domains = sorted(generalist.expertise_domain)
+        domains = [str(i) for i in domains]
+        cog_key = "G" + "".join(domains)
+        if cog_key not in cog_landscape_dict.keys():
+            cog_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
+                                         expertise_representation=generalist.expertise_representation, norm="MaxMin",
+                                     collaborator="None")
+            cog_landscape_dict[cog_key] = cog_landscape
+        generalist.cog_landscape = cog_landscape_dict[cog_key]
         generalist.update_cog_fitness()
 
         ave_performance_one_run = []

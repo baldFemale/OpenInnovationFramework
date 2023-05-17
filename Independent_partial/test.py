@@ -47,28 +47,37 @@ from itertools import product
 
 
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+# import matplotlib.pyplot as plt
+# from mpl_toolkits.mplot3d import Axes3D
+#
+# # Sample data
+# X = np.arange(0.1, 1.1, 0.1)  # list X
+# Y = np.arange(0.1, 1.1, 0.1)  # list Y
+# Z = np.random.rand(len(X) * len(Y))  # list Z (random values for demonstration)
+#
+# # Reshape data
+# X, Y = np.meshgrid(X, Y)  # Create a grid of X and Y values
+# Z = Z.reshape(X.shape)  # Reshape Z to match the grid shape
+#
+# # Plot 3D surface
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
+# ax.plot_surface(X, Y, Z)
+#
+# # Set labels and title
+# ax.set_xlabel('X')
+# ax.set_ylabel('Y')
+# ax.set_zlabel('Z')
+# ax.set_title('3D Surface Plot')
+#
+# # Show the plot
+# plt.show()
 
-# Sample data
-X = np.arange(0.1, 1.1, 0.1)  # list X
-Y = np.arange(0.1, 1.1, 0.1)  # list Y
-Z = np.random.rand(len(X) * len(Y))  # list Z (random values for demonstration)
 
-# Reshape data
-X, Y = np.meshgrid(X, Y)  # Create a grid of X and Y values
-Z = Z.reshape(X.shape)  # Reshape Z to match the grid shape
-
-# Plot 3D surface
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(X, Y, Z)
-
-# Set labels and title
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.set_title('3D Surface Plot')
-
-# Show the plot
-plt.show()
+test = np.random.choice(range(9), 12 // 2, replace=False).tolist()
+test = [str(i) for i in test]
+print(test)
+print(sorted(test))
+print(test)
+test_ = "".join(test)
+print(test_)

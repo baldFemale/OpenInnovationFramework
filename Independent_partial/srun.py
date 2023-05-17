@@ -27,11 +27,18 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     max_performance_across_agent_time = []
     min_performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    cog_landscape_dict = {}
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-        cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
-                                     expertise_representation=specialist.expertise_representation, norm=True)
-        specialist.cog_landscape = cog_landscape
+        domains = sorted(specialist.expertise_domain)
+        domains = [str(i) for i in domains]
+        cog_key = "S" + "".join(domains)
+        if cog_key not in cog_landscape_dict.keys():
+            cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
+                                         expertise_representation=specialist.expertise_representation, norm="MaxMin",
+                                     collaborator="None")
+            cog_landscape_dict[cog_key] = cog_landscape
+        specialist.cog_landscape = cog_landscape_dict[cog_key]
         specialist.update_cog_fitness()
 
         ave_performance_one_run = []
