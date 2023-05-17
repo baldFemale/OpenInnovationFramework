@@ -7,7 +7,7 @@ import numpy as np
 
 class Landscape:
 
-    def __init__(self, N=None, K=None, state_num=4, norm=True):
+    def __init__(self, N=None, K=None, state_num=4, norm="MaxMin"):
         self.N = N
         self.K = K
         self.state_num = state_num
@@ -93,9 +93,11 @@ class Landscape:
         self.max_normalizer = max(self.cache.values())
         self.min_normalizer = min(self.cache.values())
         # normalization
-        if self.norm:
+        if self.norm == "MaxMin":
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+        elif self.norm == "Max":
+            for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_fitness(self, state):

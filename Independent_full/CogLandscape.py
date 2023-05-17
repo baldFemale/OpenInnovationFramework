@@ -10,7 +10,8 @@ import numpy as np
 
 
 class CogLandscape:
-    def __init__(self, landscape=None, expertise_domain=None, expertise_representation=None, norm=True):
+    def __init__(self, landscape=None, expertise_domain=None, expertise_representation=None,
+                 norm="MaxMin", collaborator="None"):
         self.landscape = landscape
         self.expertise_domain = expertise_domain
         self.expertise_representation = expertise_representation
@@ -23,6 +24,7 @@ class CogLandscape:
         self.max_normalizer = 1
         self.min_normalizer = 0
         self.norm = norm
+        self.collaborator = collaborator
         self.initialize()
 
     def describe(self):
@@ -53,7 +55,12 @@ class CogLandscape:
     def store_cache(self):
         # Cartesian products within knowledge scope (not combinations or permutations)
         known_products = list(product(self.expertise_representation, repeat=len(self.expertise_domain)))
-        all_representation = ["A", "B", "0", "1", "2", "3", "*"]
+        if self.collaborator == "Generalist":
+            all_representation = ["A", "B", "*"]
+        elif self.collaborator == "Specialist":
+            all_representation = ["0", "1", "2", "3", "*"]
+        else:
+            all_representation = ["*"]
         # Cartesian products outside knowledge scope (not combinations or permutations)
         unknown_products = list(product(all_representation, repeat=self.N - len(self.expertise_domain)))
         all_cog_states = []
@@ -81,9 +88,11 @@ class CogLandscape:
         self.max_normalizer = max(self.cache.values())
         self.min_normalizer = min(self.cache.values())
         # normalization
-        if self.norm:
+        if self.norm == "MaxMin":
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+        elif self.norm == "Max":
+            for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer
 
     def query_cog_fitness(self, cog_state=None):

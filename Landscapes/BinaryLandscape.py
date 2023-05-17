@@ -10,7 +10,7 @@ import time
 
 
 class BinaryLandscape():
-    def __init__(self, N=None, K=None, K_within=None, K_between=None, norm=True):
+    def __init__(self, N=None, K=None, K_within=None, K_between=None, norm="MaxMin"):
         self.N = N
         self.K = K
         self.K_within = K_within
@@ -20,7 +20,7 @@ class BinaryLandscape():
         self.cache = {}  # the hashed dict has a higher indexing speed, which helps improve the running speed
         self.cog_cache = {}
         self.norm = norm
-        self.max_normalizer, self.min_normalizor = 0, 0
+        self.max_normalizer, self.min_normalizer = 0, 0
         self.initialize()
 
     def create_influence_matrix(self):
@@ -99,13 +99,14 @@ class BinaryLandscape():
         self.create_influence_matrix()
         self.create_fitness_config()
         self.store_cache()
+        self.max_normalizer = max(self.cache.values())
+        self.min_normalizer = min(self.cache.values())
         # normalization
-        if self.norm:
-            self.max_normalizer = max(self.cache.values())
-            self.min_normalizor = min(self.cache.values())
-
+        if self.norm == "MaxMin":
             for k in self.cache.keys():
-                # self.cache[k] = (self.cache[k] - self.min_normalizor) / (self.max_normalizer - self.min_normalizor)
+                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+        elif self.norm == "Max":
+            for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer
         self.cog_cache = {}
 
