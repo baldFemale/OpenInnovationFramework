@@ -46,7 +46,7 @@ class Landscape:
     def create_fitness_config(self,):
         FC = defaultdict(dict)
         for row in range(self.N):
-            k = int(sum(self.IM[row]))  # typically k = K+1
+            k = int(sum(self.IM[row]))
             for column in range(pow(self.state_num, k)):
                 FC[row][column] = np.random.uniform(0, 1)
         self.FC = FC
@@ -198,22 +198,18 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    N = 6
-    K = 1
+    N = 9
+    K = 8
     state_num = 4
-    np.random.seed(1024)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     landscape.describe()
 
-    print(landscape.FC[0])
-    # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
+    cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
 
-    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-    # ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
-    #
-    # import matplotlib.pyplot as plt
-    # data = landscape.cache.values()
-    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    # plt.xlabel("Range")
-    # plt.ylabel("Count")
-    # plt.show()
+    import matplotlib.pyplot as plt
+    data = landscape.cache.values()
+    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    plt.xlabel("Range")
+    plt.ylabel("Count")
+    plt.show()
