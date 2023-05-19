@@ -40,6 +40,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent_partial" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Landscapes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Landscapes_max" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

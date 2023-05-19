@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/CogLandscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_partial/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/CogLandscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/CogLandscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Landscapes/slurm_L" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/slurm_L" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/CogLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes_max/CogLandscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Landscapes_max/slurm_L" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes_max/slurm_L" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +56,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Landscapes_max",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,11 +67,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes_max" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_partial" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
@@ -279,14 +281,8 @@
       <workItem from="1684161904823" duration="425000" />
       <workItem from="1684220847785" duration="15424000" />
       <workItem from="1684241296562" duration="6020000" />
-      <workItem from="1684247845691" duration="10231000" />
-    </task>
-    <task id="LOCAL-00034" summary="Update the previous code with the same agent setting">
-      <created>1670485373646</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1670485373646</updated>
+      <workItem from="1684247845691" duration="10635000" />
+      <workItem from="1684412592502" duration="1460000" />
     </task>
     <task id="LOCAL-00035" summary="Update the previous code with the same agent setting">
       <created>1670507679176</created>
@@ -624,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684330568890</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684330811909</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1684330811909</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

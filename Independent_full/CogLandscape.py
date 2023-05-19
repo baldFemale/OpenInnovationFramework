@@ -61,16 +61,19 @@ class CogLandscape:
             all_representation = ["0", "1", "2", "3", "*"]
         else:
             all_representation = ["*"]
-        # Cartesian products outside knowledge scope (not combinations or permutations)
-        unknown_products = list(product(all_representation, repeat=self.N - len(self.expertise_domain)))
-        all_cog_states = []
-        unknown_domain = [i for i in range(self.N) if i not in self.expertise_domain]
-        for each_known in known_products:
-            for each_unknown in unknown_products:
-                combined_list = np.zeros(self.N, dtype=object)
-                combined_list[self.expertise_domain] = each_known
-                combined_list[unknown_domain] = each_unknown
-                all_cog_states.append(combined_list)
+        if len(self.expertise_domain) < self.N:
+            # Cartesian products outside knowledge scope (not combinations or permutations)
+            unknown_products = list(product(all_representation, repeat=self.N - len(self.expertise_domain)))
+            all_cog_states = []
+            unknown_domain = [i for i in range(self.N) if i not in self.expertise_domain]
+            for each_known in known_products:
+                for each_unknown in unknown_products:
+                    combined_list = np.zeros(self.N, dtype=object)
+                    combined_list[self.expertise_domain] = each_known
+                    combined_list[unknown_domain] = each_unknown
+                    all_cog_states.append(combined_list)
+        else:
+            all_cog_states = known_products
         if len(all_cog_states) != len(self.expertise_representation) ** len(self.expertise_domain) * \
                 len(all_representation) ** (self.N - len(self.expertise_domain)):
             raise ValueError("All State is Problematic")
