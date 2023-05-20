@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <change afterPath="$PROJECT_DIR$/Landscapes/BinaryLandscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Landscapes/CogLandscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Landscapes/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Distributions.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,14 +278,7 @@
       <workItem from="1684241296562" duration="6020000" />
       <workItem from="1684247845691" duration="10635000" />
       <workItem from="1684412592502" duration="16106000" />
-      <workItem from="1684574304337" duration="67000" />
-    </task>
-    <task id="LOCAL-00038" summary="Reshape the project structure">
-      <created>1670694928443</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1670694928443</updated>
+      <workItem from="1684574304337" duration="7200000" />
     </task>
     <task id="LOCAL-00039" summary="Reduce the workload of gg_coordination">
       <created>1670952670584</created>
@@ -624,7 +616,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684574284513</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684574375529</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1684574375529</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
