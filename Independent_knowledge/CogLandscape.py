@@ -50,7 +50,8 @@ class CogLandscape:
                 partial_FC_across_bits.append(self.FC[index][FC_index])
             partial_fitness_state = sum(partial_FC_across_bits) / len(self.expertise_domain)
             partial_fitness_alternatives.append(partial_fitness_state)
-        return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+        ave_cog_fitness = sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+        return ave_cog_fitness, partial_fitness_alternatives
 
     def store_cache(self):
         # Cartesian products within knowledge scope (not combinations or permutations)
@@ -79,7 +80,7 @@ class CogLandscape:
             raise ValueError("All State is Problematic")
         for cog_state in all_cog_states:
             bits = ''.join(cog_state)
-            self.cache[bits] = self.calculate_cog_fitness(cog_state)
+            self.cache[bits] = self.calculate_cog_fitness(cog_state)[0]
 
     def initialize(self):
         """
@@ -88,12 +89,19 @@ class CogLandscape:
         :return: fitness cache
         """
         self.store_cache()
-        self.max_normalizer = max(self.cache.values())
+        self.max_normalizer = max(self.cache.values())  # problematic!!!!!
         self.min_normalizer = min(self.cache.values())
         # normalization
         if self.norm == "MaxMin":
             for k in self.cache.keys():
-                self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                try:
+                    self.cache[k] = (self.cache[k] - self.min_normalizer) / (self.max_normalizer - self.min_normalizer)
+                except:
+                    print("key:", k)
+                    print("Value: ",  self.cache[k])
+                    print(self.max_normalizer)
+                    print(self.min_normalizer)
+                    raise ValueError
         elif self.norm == "Max":
             for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer

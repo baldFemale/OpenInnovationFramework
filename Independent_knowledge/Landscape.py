@@ -113,7 +113,7 @@ class Landscape:
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         ave_fitness = sum(fitness_pool) / len(alternatives)
-        return ave_fitness, max(fitness_pool), min(fitness_pool)
+        return ave_fitness, fitness_pool
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []

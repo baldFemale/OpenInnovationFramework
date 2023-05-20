@@ -22,7 +22,9 @@ class Generalist:
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = 0
-        self.ave_fitness, self.max_fitness, self.min_fitness = 0, 0, 0
+        self.ave_fitness = 0
+        self.fitness_pool = []
+        self.cog_fitness_pool = []
 
         # Mechanism: overlap with IM
         self.row_overlap = 0
@@ -39,7 +41,7 @@ class Generalist:
 
     def update_cog_fitness(self):
         self.cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
+        self.ave_fitness, self.fitness_pool = self.landscape.query_potential_fitness(cog_state=self.cog_state)
 
     def get_overlap_with_IM(self):
         influence_matrix = self.landscape.IM
@@ -53,23 +55,23 @@ class Generalist:
         self.column_overlap = column_overlap
         self.row_overlap = row_overlap
 
-    def align_default_state(self, state=None):
-        for index in range(self.N):
-            if index not in self.expertise_domain:
-                self.state[index] = state[index]
-        self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
-        self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+    # def align_default_state(self, state=None):
+    #     for index in range(self.N):
+    #         if index not in self.expertise_domain:
+    #             self.state[index] = state[index]
+    #     self.cog_state = self.state_2_cog_state(state=self.state)
+    #     self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
+    #     self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-    def learn_from_pool(self, pool=None):
-        exposure_state = pool[np.random.choice(len(pool))]
-        cog_exposure_state = self.state_2_cog_state(state=exposure_state)
-        cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
-        if cog_fitness_of_exposure_state > self.cog_fitness:
-            self.cog_state = cog_exposure_state
-            self.cog_fitness = cog_fitness_of_exposure_state
-            return True
-        return False
+    # def learn_from_pool(self, pool=None):
+    #     exposure_state = pool[np.random.choice(len(pool))]
+    #     cog_exposure_state = self.state_2_cog_state(state=exposure_state)
+    #     cog_fitness_of_exposure_state = self.landscape.query_cog_fitness_partial(cog_state=cog_exposure_state, expertise_domain=self.expertise_domain)
+    #     if cog_fitness_of_exposure_state > self.cog_fitness:
+    #         self.cog_state = cog_exposure_state
+    #         self.cog_fitness = cog_fitness_of_exposure_state
+    #         return True
+    #     return False
 
     def search(self):
         next_cog_state = self.cog_state.copy()
@@ -82,11 +84,12 @@ class Generalist:
             next_cog_state[index] = np.random.choice(["A", "B"])
         else:
             raise ValueError("Unsupported bit: ", next_cog_state[index])
-        next_cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_fitness, next_cog_fitness_pool = self.cog_landscape.query_cog_fitness(cog_state=next_cog_state)
         if next_cog_fitness > self.cog_fitness:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(
+            self.cog_fitness_pool = next_cog_fitness_pool
+            self.ave_fitness, self.fitness_pool = self.landscape.query_potential_fitness(
                 cog_state=self.cog_state)
 
     def double_search(self, co_state=None, co_expertise_domain=None):
@@ -175,8 +178,6 @@ class Generalist:
         print("State number: ", self.state_num)
         print("Current cognitive state: ", self.cog_state)
         print("Average real fitness: ", self.ave_fitness)
-        print("Max real fitness: ", self.max_fitness)
-        print("Min real fitness: ", self.min_fitness)
 
 
 if __name__ == '__main__':
@@ -184,7 +185,7 @@ if __name__ == '__main__':
     from CogLandscape import CogLandscape
     import time
     t0 = time.time()
-    search_iteration = 500
+    search_iteration = 10
     N = 9
     K = 0
     state_num = 4
@@ -200,27 +201,29 @@ if __name__ == '__main__':
     max_performance_across_time = []
     min_performance_across_time = []
     cog_performance_across_time = []
-    for _ in range(search_iteration):
+    for period in range(search_iteration):
         generalist.search()
-        print(generalist.cog_state, generalist.ave_fitness)
-        ave_performance_across_time.append(generalist.ave_fitness)
-        max_performance_across_time.append(generalist.max_fitness)
-        min_performance_across_time.append(generalist.min_fitness)
-        cog_performance_across_time.append(generalist.cog_fitness)
-    import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.arange(search_iteration)
-    plt.plot(x, ave_performance_across_time, "r-", label="Ave")
-    plt.plot(x, max_performance_across_time, "b-", label="Max")
-    plt.plot(x, min_performance_across_time, "g-", label="Min")
-    plt.plot(x, cog_performance_across_time, "k-", label="Cog")
-    plt.title('Performance at N={0}, K={1}, Kn={2}'.format(N, K, expertise_amount))
-    plt.xlabel('Iteration', fontweight='bold', fontsize=10)
-    plt.ylabel('Performance', fontweight='bold', fontsize=10)
-    # plt.xticks(x)
-    plt.legend(frameon=False, fontsize=10)
-    plt.savefig("G_performance.png", transparent=True, dpi=200)
-    plt.show()
-    plt.clf()
+        print(period, generalist.cog_state)
+        print("Real Pool:", generalist.fitness_pool)
+        print("Cog Pool:", generalist.cog_fitness_pool)
+        # ave_performance_across_time.append(generalist.ave_fitness)
+        # max_performance_across_time.append(generalist.max_fitness)
+        # min_performance_across_time.append(generalist.min_fitness)
+        # cog_performance_across_time.append(generalist.cog_fitness)
+    # import matplotlib.pyplot as plt
+    # import numpy as np
+    # x = np.arange(search_iteration)
+    # plt.plot(x, ave_performance_across_time, "r-", label="Ave")
+    # plt.plot(x, max_performance_across_time, "b-", label="Max")
+    # plt.plot(x, min_performance_across_time, "g-", label="Min")
+    # plt.plot(x, cog_performance_across_time, "k-", label="Cog")
+    # plt.title('Performance at N={0}, K={1}, Kn={2}'.format(N, K, expertise_amount))
+    # plt.xlabel('Iteration', fontweight='bold', fontsize=10)
+    # plt.ylabel('Performance', fontweight='bold', fontsize=10)
+    # # plt.xticks(x)
+    # plt.legend(frameon=False, fontsize=10)
+    # plt.savefig("G_performance.png", transparent=True, dpi=200)
+    # plt.show()
+    # plt.clf()
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
