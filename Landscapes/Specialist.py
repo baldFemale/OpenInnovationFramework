@@ -36,7 +36,7 @@ class Specialist:
         if expertise_amount > self.N * 4:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
 
-    def update_cog_fitness(self):
+    def update_fitness(self):
         self.coarse_fitness = self.coarse_landscape.query_coarse_fitness(coarse_state=self.coarse_state)
         self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(coarse_state=self.coarse_state)
 
@@ -142,15 +142,13 @@ class Specialist:
         # return coarse_state
 
     def describe(self):
-        print("N: ", self.N)
-        print("Expertise domain: ", self.expertise_domain)
-        print("Current state: ", self.state)
-        print("State number: ", self.state_num)
-        print("Current cognitive state: ", self.coarse_state)
+        print("Specialist of Expertise domain: ", self.expertise_domain)
+        print("State: ", self.state)
+        print("Coarse State: ", self.coarse_state)
+        print("Coarse fitness: ", self.coarse_fitness)
         print("Average real fitness: ", self.ave_fitness)
         print("Max real fitness: ", self.max_fitness)
         print("Min real fitness: ", self.min_fitness)
-
 
 
 if __name__ == '__main__':
@@ -168,7 +166,7 @@ if __name__ == '__main__':
     coarse_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
                                  expertise_representation=specialist.expertise_representation)
     specialist.coarse_landscape = coarse_landscape
-    specialist.update_cog_fitness()
+    specialist.update_fitness()
     specialist.describe()
     ave_performance_across_time = []
     max_performance_across_time = []

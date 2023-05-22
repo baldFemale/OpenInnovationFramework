@@ -17,7 +17,7 @@ class Generalist:
         self.N = N
         self.state_num = state_num
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
-        self.state = [str(i) for i in self.state]  # state format: string
+        self.state = [str(i) for i in self.state]  # state format: a list of string
         self.expertise_representation = ["A", "B"]
         self.expertise_domain = np.random.choice(range(self.N), expertise_amount // 2, replace=False).tolist()
         self.coarse_state = self.state_2_coarse_state(state=self.state)
@@ -37,7 +37,7 @@ class Generalist:
         if expertise_amount > self.N * 2:
             raise ValueError("Expertise amount should be less than {0}.".format(self.N * 2))
 
-    def update_cog_fitness(self):
+    def update_fitness(self):
         self.coarse_fitness = self.coarse_landscape.query_coarse_fitness(coarse_state=self.coarse_state)
         self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(coarse_state=self.coarse_state)
 
@@ -194,7 +194,7 @@ if __name__ == '__main__':
     coarse_landscape = CogLandscape(landscape=landscape, expertise_domain=generalist.expertise_domain,
                                  expertise_representation=generalist.expertise_representation)
     generalist.coarse_landscape = coarse_landscape
-    generalist.update_cog_fitness()
+    generalist.update_fitness()
     generalist.describe()
     ave_performance_across_time = []
     max_performance_across_time = []

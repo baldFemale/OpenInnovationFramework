@@ -103,21 +103,21 @@ class Landscape:
     def query_fitness(self, state):
         return self.cache["".join(state)]
 
-    def query_potential_fitness(self, cog_state=None):
+    def query_potential_fitness(self, coarse_state=None):
         """
         Return the performance trajectory at the finest level;
         Show comparison for the trajectory at the coarse level
-        :param cog_state:
-        :return: potential performance of a given cog_state
+        :param coarse_state:
+        :return: potential performance of a given coarse_state
         """
-        alternatives = self.coarse_state_alternatives(cog_state=cog_state)
+        alternatives = self.coarse_state_alternatives(coarse_state=coarse_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         ave_fitness = sum(fitness_pool) / len(alternatives)
         return ave_fitness, max(fitness_pool), min(fitness_pool)
 
-    def coarse_state_alternatives(self, cog_state=None):
+    def coarse_state_alternatives(self, coarse_state=None):
         alternative_pool = []
-        for bit in cog_state:
+        for bit in coarse_state:
             if bit in ["0", "1", "2", "3"]:
                 alternative_pool.append(bit)
             elif bit == "A":
@@ -208,8 +208,8 @@ if __name__ == '__main__':
     print(landscape.FC[0])
     # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
 
-    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-    # ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
+    # coarse_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    # ave_, max_, min_ = landscape.query_potential_fitness(coarse_state=coarse_state)
     #
     # import matplotlib.pyplot as plt
     # data = landscape.cache.values()

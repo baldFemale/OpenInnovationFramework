@@ -174,7 +174,7 @@ if __name__ == '__main__':
     coarse_landscape = CoarseLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
                                        expertise_representation=specialist.expertise_representation)
     specialist.coarse_landscape = coarse_landscape
-    specialist.update_cog_fitness()
+    specialist.update_fitness()
     specialist.describe()
     coarse_landscape.describe()
     t1 = time.time()
