@@ -46,7 +46,7 @@ class Landscape:
     def create_fitness_config(self,):
         FC = defaultdict(dict)
         for row in range(self.N):
-            k = int(sum(self.IM[row]))
+            k = int(sum(self.IM[row]))  # typically k = K+1
             for column in range(pow(self.state_num, k)):
                 FC[row][column] = np.random.uniform(0, 1)
         self.FC = FC
@@ -103,21 +103,21 @@ class Landscape:
     def query_fitness(self, state):
         return self.cache["".join(state)]
 
-    def query_potential_fitness(self, cog_state=None):
+    def query_potential_fitness(self, coarse_state=None):
         """
         Return the performance trajectory at the finest level;
         Show comparison for the trajectory at the coarse level
-        :param cog_state:
-        :return: potential performance of a given cog_state
+        :param coarse_state:
+        :return: potential performance of a given coarse_state
         """
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        alternatives = self.coarse_state_alternatives(coarse_state=coarse_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         ave_fitness = sum(fitness_pool) / len(alternatives)
-        return ave_fitness, fitness_pool
+        return ave_fitness, max(fitness_pool), min(fitness_pool)
 
-    def cog_state_alternatives(self, cog_state=None):
+    def coarse_state_alternatives(self, coarse_state=None):
         alternative_pool = []
-        for bit in cog_state:
+        for bit in coarse_state:
             if bit in ["0", "1", "2", "3"]:
                 alternative_pool.append(bit)
             elif bit == "A":
@@ -132,57 +132,57 @@ class Landscape:
             raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
 
-    def generate_divergence_pool(self, divergence=None):
-        """
-        Randomly select one seed state, and form the pool around a given divergence being away from the seed
-        For example
-        1) random seed: 1 1 1 1 1 1 (N=6)
-        2) 1 bit divergence: C_6^1 * 3 = 18 alternatives
-        3) 2 bits divergence: C_6^2 * 3^2 = 15 * 9 = 135 alternatives
-        4) In order to make the pool length the same across divergence, limit it into 18
-        :param divergence: change how many bits to shape the pool
-        :return:a list of pool
-        """
-        state_pool = []
-        seed_state = np.random.choice(range(self.state_num), self.N).tolist()
-        seed_state = [str(i) for i in seed_state]  # state format: string
-        # print("seed_state: ", seed_state)
-        if divergence == 1:
-            for index in range(self.N):
-                alternative_state = seed_state.copy()
-                freedom_space = ["0", "1", "2", "3"]
-                freedom_space.remove(seed_state[index])
-                for bit in freedom_space:
-                    alternative_state[index] = bit
-                    state_pool.append(alternative_state.copy())
-            return state_pool
-        while True:
-            index_for_change = np.random.choice(range(self.N), divergence, replace=False)
-            alternative_state = seed_state.copy()
-            for index in index_for_change:
-                freedom_space = ["0", "1", "2", "3"]
-                freedom_space.remove(seed_state[index])
-                alternative_state[index] = freedom_space[np.random.choice(range(3))]
-            if alternative_state not in state_pool:
-                state_pool.append(alternative_state.copy())
-            if len(state_pool) >= 18:
-                break
-        return state_pool
+    # def generate_divergence_pool(self, divergence=None):
+    #     """
+    #     Randomly select one seed state, and form the pool around a given divergence being away from the seed
+    #     For example
+    #     1) random seed: 1 1 1 1 1 1 (N=6)
+    #     2) 1 bit divergence: C_6^1 * 3 = 18 alternatives
+    #     3) 2 bits divergence: C_6^2 * 3^2 = 15 * 9 = 135 alternatives
+    #     4) In order to make the pool length the same across divergence, limit it into 18
+    #     :param divergence: change how many bits to shape the pool
+    #     :return:a list of pool
+    #     """
+    #     state_pool = []
+    #     seed_state = np.random.choice(range(self.state_num), self.N).tolist()
+    #     seed_state = [str(i) for i in seed_state]  # state format: string
+    #     # print("seed_state: ", seed_state)
+    #     if divergence == 1:
+    #         for index in range(self.N):
+    #             alternative_state = seed_state.copy()
+    #             freedom_space = ["0", "1", "2", "3"]
+    #             freedom_space.remove(seed_state[index])
+    #             for bit in freedom_space:
+    #                 alternative_state[index] = bit
+    #                 state_pool.append(alternative_state.copy())
+    #         return state_pool
+    #     while True:
+    #         index_for_change = np.random.choice(range(self.N), divergence, replace=False)
+    #         alternative_state = seed_state.copy()
+    #         for index in index_for_change:
+    #             freedom_space = ["0", "1", "2", "3"]
+    #             freedom_space.remove(seed_state[index])
+    #             alternative_state[index] = freedom_space[np.random.choice(range(3))]
+    #         if alternative_state not in state_pool:
+    #             state_pool.append(alternative_state.copy())
+    #         if len(state_pool) >= 18:
+    #             break
+    #     return state_pool
 
-    def generate_quality_pool(self, quality_percentage=None):
-        """
-        Form the pool around a given quality percentage (e.g., 50% - 60%)
-        :param quality:
-        :return:
-        """
-        alternative_state_pool = []
-        reference = quality_percentage * (self.N ** self.state_num)
-        for state, rank in self.state_to_rank_dict.items():
-            if abs(rank - reference) / (self.N ** self.state_num) <= 0.05:
-                alternative_state_pool.append(state)
-        result = np.random.choice(alternative_state_pool, 18, replace=False)  #this is a string state: "33300201", instead of list
-        result = [list(each) for each in result]
-        return result
+    # def generate_quality_pool(self, quality_percentage=None):
+    #     """
+    #     Form the pool around a given quality percentage (e.g., 50% - 60%)
+    #     :param quality:
+    #     :return:
+    #     """
+    #     alternative_state_pool = []
+    #     reference = quality_percentage * (self.N ** self.state_num)
+    #     for state, rank in self.state_to_rank_dict.items():
+    #         if abs(rank - reference) / (self.N ** self.state_num) <= 0.05:
+    #             alternative_state_pool.append(state)
+    #     result = np.random.choice(alternative_state_pool, 18, replace=False)  #this is a string state: "33300201", instead of list
+    #     result = [list(each) for each in result]
+    #     return result
 
     def describe(self):
         print("*********LandScape information********* ")
@@ -198,18 +198,22 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    N = 9
-    K = 8
+    N = 6
+    K = 1
     state_num = 4
+    np.random.seed(1024)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     landscape.describe()
 
-    cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-    ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
+    print(landscape.FC[0])
+    # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
 
-    import matplotlib.pyplot as plt
-    data = landscape.cache.values()
-    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.show()
+    # coarse_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    # ave_, max_, min_ = landscape.query_potential_fitness(coarse_state=coarse_state)
+    #
+    # import matplotlib.pyplot as plt
+    # data = landscape.cache.values()
+    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.show()

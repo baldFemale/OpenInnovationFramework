@@ -5,12 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <change afterPath="$PROJECT_DIR$/Independent_full/CoarseLandscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_knowledge/CoarseLandscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_partial/CoarseLandscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/CoarseLandscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/CoarseLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/CoarseLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_knowledge/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_knowledge/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_knowledge/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_partial/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_partial/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_partial/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_partial/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/BinaryLandscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/CogLandscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/GoodColors.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/landscape_run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes_max/slurm_L" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +71,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Landscapes",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent_full",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,11 +82,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_knowledge" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Main" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_partial" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes_max" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Main" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
@@ -280,14 +298,7 @@
       <workItem from="1684241296562" duration="6020000" />
       <workItem from="1684247845691" duration="10635000" />
       <workItem from="1684412592502" duration="16106000" />
-      <workItem from="1684574304337" duration="24683000" />
-    </task>
-    <task id="LOCAL-00043" summary="Add the exp of gg, ss under Priority">
-      <created>1671095420191</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1671095420191</updated>
+      <workItem from="1684574304337" duration="24922000" />
     </task>
     <task id="LOCAL-00044" summary="Unify the figure format">
       <created>1671217076018</created>
@@ -625,7 +636,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684760684581</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684766477753</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1684766477753</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
