@@ -103,17 +103,28 @@ class Landscape:
     def query_fitness(self, state):
         return self.cache["".join(state)]
 
-    def query_potential_fitness(self, cog_state=None):
-        """
-        Return the performance trajectory at the finest level;
-        Show comparison for the trajectory at the cognitive level
-        :param cog_state:
-        :return: potential performance of a given cog_state
-        """
+    def query_cog_fitness(self, cog_state=None):
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         ave_fitness = sum(fitness_pool) / len(alternatives)
-        return ave_fitness, max(fitness_pool), min(fitness_pool)
+        return ave_fitness
+
+    def query_partial_fitness(self, cog_state=None, generalist_domain=[], specialist_domain=[]):
+        partial_fitness_list = []
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        for state in alternatives:
+            partial_FC_across_bits = []
+            for index in range(len(state)):
+                if (index not in generalist_domain) and (index not in specialist_domain):
+                    continue
+                dependency = self.dependency_map[index]
+                bit_index = "".join([str(state[j]) for j in dependency])
+                bit_index = str(state[index]) + bit_index
+                FC_index = int(bit_index, self.state_num)
+                partial_FC_across_bits.append(self.FC[index][FC_index])
+            partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
+            partial_fitness_list.append(partial_fitness_state)
+        return sum(partial_fitness_list) / len(partial_fitness_list)
 
     def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
@@ -206,6 +217,10 @@ if __name__ == '__main__':
     landscape.describe()
 
     print(landscape.FC[0])
+    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A']
+    cog_state = ["0", "0", "0", "0", "0", "0"]
+    print(landscape.cog_state_alternatives(cog_state=cog_state))
+
     # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
 
     # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']

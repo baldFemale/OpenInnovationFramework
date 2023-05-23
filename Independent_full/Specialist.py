@@ -20,25 +20,13 @@ class Specialist:
         self.expertise_representation = ["0", "1", "2", "3"]
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: string
-        self.cog_state = self.state_2_cog_state(state=self.state)  # will be the same as state, thus search accurately
-        self.cog_fitness = 0
-        self.ave_fitness, self.max_fitness, self.min_fitness = 0, 0, 0
+        self.cog_state = self.state_2_cog_state(state=self.state)
+        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        self.cog_partial_fitness = self.landscape.query_partial_fitness(cog_state=self.cog_state, specialist_domain=self.expertise_domain)
+        self.fitness = self.landscape.query_fitness(state=self.state)
         # Mechanism: overlap with IM
         self.row_overlap = 0
         self.column_overlap = 0
-
-        if not self.landscape:
-            raise ValueError("Agent need to be assigned a landscape")
-        if (self.N != landscape.N) or (self.state_num != landscape.state_num):
-            raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
-        if expertise_amount % 2 != 0:
-            raise ValueError("Expertise amount needs to be a even number")
-        if expertise_amount > self.N * 4:
-            raise ValueError("Expertise amount should be less than {0}.".format(self.N * 4))
-
-    def update_fitness(self):
-        self.cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(cog_state=self.cog_state)
 
     # def get_overlap_with_IM(self):
     #     influence_matrix = self.landscape.IM
@@ -72,64 +60,66 @@ class Specialist:
     #     return False
 
     def search(self):
-        next_cog_state = self.cog_state.copy()
-        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
-        # thus will not change the unknown domain
-        space = ["0", "1", "2", "3"]
-        space.remove(self.cog_state[index])
-        next_cog_state[index] = np.random.choice(space)
-        next_cog_fitness = self.cog_landscape.query_cog_fitness(cog_state=next_cog_state)
-        if next_cog_fitness > self.cog_fitness:
+        next_state = self.state.copy()
+        index = np.random.choice(self.N)
+        free_space = ["0", "1", "2", "3"]
+        free_space.remove(next_state[index])
+        next_state[index] = np.random.choice(free_space)
+        next_cog_state = self.state_2_cog_state(state=next_state)
+        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+        next_cog_partial_fitness = self.landscape.query_partial_fitness(cog_state=self.cog_state, specialist_domain=self.expertise_domain)
+        if next_cog_fitness >= self.cog_fitness:
+            self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.ave_fitness, self.max_fitness, self.min_fitness = self.landscape.query_potential_fitness(
-                cog_state=self.cog_state)
+            self.cog_partial_fitness = next_cog_partial_fitness
+            self.fitness = self.landscape.query_fitness(state=self.state)
 
-    def coordinated_search(self, co_state=None, co_expertise_domain=None):
-        # the focal agent's evaluation: whether to align with the teammate
-        next_cog_state = self.cog_state.copy()
-        for index in range(self.N):
-            if index in co_expertise_domain:
-                next_cog_state[index] = co_state[index]
-        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
-                                                    expertise_domain=self.expertise_domain)
-        if next_cog_fitness > self.cog_fitness:
-            self.cog_state = next_cog_state.copy()
-            self.cog_fitness = next_cog_fitness
-            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+    # def coordinated_search(self, co_state=None, co_expertise_domain=None):
+    #     # the focal agent's evaluation: whether to align with the teammate
+    #     next_cog_state = self.cog_state.copy()
+    #     for index in range(self.N):
+    #         if index in co_expertise_domain:
+    #             next_cog_state[index] = co_state[index]
+    #     next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+    #                                                 expertise_domain=self.expertise_domain)
+    #     if next_cog_fitness > self.cog_fitness:
+    #         self.cog_state = next_cog_state.copy()
+    #         self.cog_fitness = next_cog_fitness
+    #         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
         # Proposal from the focal agent
-        next_cog_state = self.cog_state.copy()
-        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
-        # thus will not change the unknown domain
-        space = ["0", "1", "2", "3"]
-        space.remove(self.cog_state[index])
-        next_cog_state[index] = np.random.choice(space)
-        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
-        if next_cog_fitness > self.cog_fitness:
-            self.cog_state = next_cog_state
-            self.cog_fitness = next_cog_fitness
-            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+        # next_cog_state = self.cog_state.copy()
+        # index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+        # # thus will not change the unknown domain
+        # space = ["0", "1", "2", "3"]
+        # space.remove(self.cog_state[index])
+        # next_cog_state[index] = np.random.choice(space)
+        # next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
+        # if next_cog_fitness > self.cog_fitness:
+        #     self.cog_state = next_cog_state
+        #     self.cog_fitness = next_cog_fitness
+        #     self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-    def priority_search(self, co_state=None, co_expertise_domain=None):
-        # learning from coupled agent
-        next_cog_state = self.cog_state.copy()
-        for index in range(self.N):
-            if index in co_expertise_domain:
-                next_cog_state[index] = co_state[index]
-            else:
-                pass
-        index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
-        # thus will not change the unknown domain
-        space = ["0", "1", "2", "3"]
-        space.remove(self.cog_state[index])
-        next_cog_state[index] = np.random.choice(space)
-        next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
-                                                                    expertise_domain=self.expertise_domain)
-        if next_cog_fitness > self.cog_fitness:
-            self.cog_state = next_cog_state
-            self.cog_fitness = next_cog_fitness
-            self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+    # def priority_search(self, co_state=None, co_expertise_domain=None):
+    #     # learning from coupled agent
+    #     next_cog_state = self.cog_state.copy()
+    #     for index in range(self.N):
+    #         if index in co_expertise_domain:
+    #             next_cog_state[index] = co_state[index]
+    #         else:
+    #             pass
+    #     index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
+    #     # thus will not change the unknown domain
+    #     space = ["0", "1", "2", "3"]
+    #     space.remove(self.cog_state[index])
+    #     next_cog_state[index] = np.random.choice(space)
+    #     next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
+    #                                                                 expertise_domain=self.expertise_domain)
+    #     if next_cog_fitness > self.cog_fitness:
+    #         self.cog_state = next_cog_state
+    #         self.cog_fitness = next_cog_fitness
+    #         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
     def state_2_cog_state(self, state=None):
         state = state.copy()
@@ -142,13 +132,9 @@ class Specialist:
         # return cog_state
 
     def describe(self):
-        print("Specialist of Expertise domain: ", self.expertise_domain)
-        print("State: ", self.state)
-        print("Coarse State: ", self.cog_state)
-        print("Coarse fitness: ", self.cog_fitness)
-        print("Average real fitness: ", self.ave_fitness)
-        print("Max real fitness: ", self.max_fitness)
-        print("Min real fitness: ", self.min_fitness)
+        print("Generalist of Expertise Domain: ", self.expertise_domain)
+        print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
+        print("Cognitive State: {0}, Cognitive Fitness: {1}".format(self.cog_state, self.cog_fitness))
 
 
 if __name__ == '__main__':
@@ -158,35 +144,27 @@ if __name__ == '__main__':
     t0 = time.time()
     search_iteration = 500
     N = 9
-    K = 0
+    K = 1
     state_num = 4
     expertise_amount = 32
     landscape = Landscape(N=N, K=K, state_num=state_num)
     specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
-                                 expertise_representation=specialist.expertise_representation)
-    specialist.cog_landscape = cog_landscape
-    specialist.update_fitness()
     specialist.describe()
-    ave_performance_across_time = []
-    max_performance_across_time = []
-    min_performance_across_time = []
+    performance_across_time = []
     cog_performance_across_time = []
+    cog_partial_performance_across_time = []
     for _ in range(search_iteration):
         specialist.search()
-        print(specialist.cog_state, specialist.ave_fitness)
-        ave_performance_across_time.append(specialist.ave_fitness)
-        max_performance_across_time.append(specialist.max_fitness)
-        min_performance_across_time.append(specialist.min_fitness)
+        performance_across_time.append(specialist.fitness)
         cog_performance_across_time.append(specialist.cog_fitness)
+        cog_partial_performance_across_time.append(specialist.cog_partial_fitness)
     # specialist.describe()
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration)
-    plt.plot(x, ave_performance_across_time, "r-", label="Ave")
-    plt.plot(x, max_performance_across_time, "b-", label="Max")
-    plt.plot(x, min_performance_across_time, "g-", label="Min")
-    plt.plot(x, cog_performance_across_time, "k-", label="Cog")
+    plt.plot(x, performance_across_time, "k-", label="Fitness")
+    plt.plot(x, cog_performance_across_time, "k--", label="Cognitive Fitness")
+    plt.plot(x, cog_partial_performance_across_time, "k:", label="Partial Fitness")
     plt.title('Performance at N={0}, K={1}, Kn={2}'.format(N, K, expertise_amount))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)

@@ -28,17 +28,6 @@ class Tshape:
         self.cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=self.cog_state, expertise_domain=self.expertise_domain)
         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
 
-        if not self.landscape:
-            raise ValueError("Agent need to be assigned a landscape")
-        if (self.N != landscape.N) or (self.state_num != landscape.state_num):
-            raise ValueError("Agent-Landscape Mismatch: please check your N and state number.")
-        if generalist_expertise % 2 != 0:
-            raise ValueError("Generalist expertise amount needs to be a even number")
-        if specialist_expertise % 4 != 0:
-            raise ValueError("Specialist expertise amount needs to be a product of 4")
-        if len(self.expertise_domain) > self.N:
-            raise ValueError("The expertise domain should not be greater than N")
-
     def align_default_state(self, state=None):
         for index in range(self.N):
             if index not in self.expertise_domain:
