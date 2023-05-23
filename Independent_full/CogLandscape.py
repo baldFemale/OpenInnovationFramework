@@ -11,7 +11,7 @@ import numpy as np
 
 class CogLandscape:
     def __init__(self, landscape=None, expertise_domain=None, expertise_representation=None,
-                 norm="MaxMin", collaborator="None"):
+                 norm="None", collaborator="None"):
         self.landscape = landscape
         self.expertise_domain = expertise_domain
         self.expertise_representation = expertise_representation
@@ -28,58 +28,66 @@ class CogLandscape:
         self.initialize()
 
     def describe(self):
-        print("*********CogLandScape information********* ")
+        print("*********Coarse LandScape Information********* ")
         print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
         print("Influential matrix: \n", self.IM)
         print("Influential dependency map: ", self.dependency_map)
+        print("Max Fitness: ", self.max_normalizer)
+        print("Min Fitness: ", self.min_normalizer)
+        print("Ave Fitness: ", sum(self.cache.values()) / len(self.cache.values()))
         print("********************************")
 
+    # def calculate_cog_fitness(self, cog_state=None):
+    #     partial_fitness_alternatives = []
+    #     alternatives = self.cog_state_alternatives(cog_state=cog_state)  # get back to the finest level
+    #     # so that we can calculate it using FC, which is all at the finest level (i.e., 0, 1, 2, 3)
+    #     for state in alternatives:
+    #         partial_FC_across_bits = []
+    #         for index in range(len(state)):
+    #             if index not in self.expertise_domain:
+    #                 continue
+    #             dependency = self.dependency_map[index]
+    #             bit_index = "".join([str(state[j]) for j in dependency])
+    #             bit_index = str(state[index]) + bit_index
+    #             FC_index = int(bit_index, self.state_num)
+    #             partial_FC_across_bits.append(self.FC[index][FC_index])
+    #         partial_fitness_state = sum(partial_FC_across_bits) / len(self.expertise_domain)
+    #         partial_fitness_alternatives.append(partial_fitness_state)
+    #     return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+
     def calculate_cog_fitness(self, cog_state=None):
-        partial_fitness_alternatives = []
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)  # get back to the finest level
-        # so that we can calculate it using FC, which is all at the finest level (i.e., 0, 1, 2, 3)
-        for state in alternatives:
-            partial_FC_across_bits = []
-            for index in range(len(state)):
-                if index not in self.expertise_domain:
-                    continue
-                dependency = self.dependency_map[index]
-                bit_index = "".join([str(state[j]) for j in dependency])
-                bit_index = str(state[index]) + bit_index
-                FC_index = int(bit_index, self.state_num)
-                partial_FC_across_bits.append(self.FC[index][FC_index])
-            partial_fitness_state = sum(partial_FC_across_bits) / len(self.expertise_domain)
-            partial_fitness_alternatives.append(partial_fitness_state)
-        return sum(partial_fitness_alternatives) / len(partial_fitness_alternatives)
+        alternative_states = self.cog_state_alternatives(cog_state=cog_state)  # get back to the finest level
+        alternative_fitness = [self.landscape.query_fitness(state=state) for state in alternative_states]
+        return sum(alternative_fitness) / len(alternative_fitness)
 
     def store_cache(self):
         # Cartesian products within knowledge scope (not combinations or permutations)
         known_products = list(product(self.expertise_representation, repeat=len(self.expertise_domain)))
         if self.collaborator == "Generalist":
-            all_representation = ["A", "B", "*"]
+            unknown_representation = ["A", "B", "*"]
         elif self.collaborator == "Specialist":
-            all_representation = ["0", "1", "2", "3", "*"]
+            unknown_representation = ["0", "1", "2", "3", "*"]
         else:
-            all_representation = ["*"]
+            unknown_representation = ["*"]
         if len(self.expertise_domain) < self.N:
             # Cartesian products outside knowledge scope (not combinations or permutations)
-            unknown_products = list(product(all_representation, repeat=self.N - len(self.expertise_domain)))
-            all_cog_states = []
+            unknown_products = list(product(unknown_representation, repeat=self.N - len(self.expertise_domain)))
+            all_states = []
             unknown_domain = [i for i in range(self.N) if i not in self.expertise_domain]
             for each_known in known_products:
                 for each_unknown in unknown_products:
                     combined_list = np.zeros(self.N, dtype=object)
                     combined_list[self.expertise_domain] = each_known
                     combined_list[unknown_domain] = each_unknown
-                    all_cog_states.append(combined_list)
+                    all_states.append(combined_list)
         else:
-            all_cog_states = known_products
-        if len(all_cog_states) != len(self.expertise_representation) ** len(self.expertise_domain) * \
-                len(all_representation) ** (self.N - len(self.expertise_domain)):
+            all_states = known_products
+        if len(all_states) != len(self.expertise_representation) ** len(self.expertise_domain) * \
+                len(unknown_representation) ** (self.N - len(self.expertise_domain)):
             raise ValueError("All State is Problematic")
-        for cog_state in all_cog_states:
+        for cog_state in all_states:
             bits = ''.join(cog_state)
-            self.cache[bits] = self.calculate_cog_fitness(cog_state)
+            self.cache[bits] = self.calculate_cog_fitness(cog_state=cog_state)
 
     def initialize(self):
         """
@@ -97,11 +105,14 @@ class CogLandscape:
         elif self.norm == "Max":
             for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer
+        else:
+            pass  # no normalization
 
     def query_cog_fitness(self, cog_state=None):
         return self.cache["".join(cog_state)]
 
-    def cog_state_alternatives(self, cog_state=None):
+    @staticmethod
+    def cog_state_alternatives(cog_state=None):
         alternative_pool = []
         for bit in cog_state:
             if bit in ["0", "1", "2", "3"]:
@@ -116,6 +127,35 @@ class CogLandscape:
                 raise ValueError("Unsupported bit value: ", bit)
         return [i for i in product(*alternative_pool)]
 
+    def count_local_optima(self):
+        counter = 0
+        for key, value in self.cache.items():
+            neighbor_list = self.get_neighbor_list(key=key)
+            is_local_optima = True
+            for neighbor in neighbor_list:
+                if self.query_cog_fitness(cog_state=neighbor) > value:
+                    is_local_optima = False
+                    break
+            if is_local_optima:
+                counter += 1
+        return counter
+
+    def get_neighbor_list(self, key=None):
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "AABB"
+        :return:list of the neighbor state, e.g., [["A", "A", "B", "A"], ["A", "A", "A", "B"]]
+        """
+        neighbor_list = []
+        for index in range(self.N):
+            neighbor = list(key)
+            if neighbor[index] == "A":
+                neighbor[index] = "B"
+            elif neighbor[index] == "B":
+                neighbor[index] = "A"
+            neighbor_list.append(neighbor)
+        return neighbor_list
+
 
 if __name__ == '__main__':
     # Test Example
@@ -128,17 +168,14 @@ if __name__ == '__main__':
     K = 7
     state_num = 4
     expertise_amount = 16
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     specialist = Specialist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
     specialist.describe()
-    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain, expertise_representation=specialist.expertise_representation)
+    cog_landscape = CogLandscape(landscape=landscape, expertise_domain=specialist.expertise_domain,
+                                       expertise_representation=specialist.expertise_representation)
     specialist.cog_landscape = cog_landscape
-    specialist.update_cog_fitness()
+    specialist.update_fitness()
     specialist.describe()
     cog_landscape.describe()
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
-
-
