@@ -106,11 +106,11 @@ if __name__ == '__main__':
     import time
     t0 = time.time()
     np.random.seed(1000)
-    search_iteration = 500
+    search_iteration = 100
     N = 9
-    K = 0
+    K = 5
     state_num = 4
-    generalist_expertise = 10
+    generalist_expertise = 18
     specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num)
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
