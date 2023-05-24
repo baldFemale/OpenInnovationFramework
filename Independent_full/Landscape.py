@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
 from collections import defaultdict
 from itertools import product
 import numpy as np
@@ -19,7 +18,7 @@ class Landscape:
         self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
-        self.initialize() # Initialization and Normalization
+        self.initialize()  # Initialization and Normalization
 
     def create_IM(self):
         self.K = self.K
@@ -42,7 +41,7 @@ class Landscape:
                     temp.append(j)
             self.dependency_map[i] = temp
 
-    def create_fitness_config(self,):
+    def create_fitness_configuration(self,):
         FC = defaultdict(dict)
         for row in range(self.N):
             k = int(sum(self.IM[row]))  # typically k = K+1
@@ -82,12 +81,8 @@ class Landscape:
         self.fitness_to_rank_dict = fitness_to_rank_dict
 
     def initialize(self):
-        """
-        Cache the fitness value
-        :return: fitness cache
-        """
         self.create_IM()
-        self.create_fitness_config()
+        self.create_fitness_configuration()
         self.store_cache()
         self.max_normalizer = max(self.cache.values())
         self.min_normalizer = min(self.cache.values())
@@ -125,7 +120,8 @@ class Landscape:
             partial_fitness_list.append(partial_fitness_state)
         return sum(partial_fitness_list) / len(partial_fitness_list)
 
-    def cog_state_alternatives(self, cog_state=None):
+    @staticmethod
+    def cog_state_alternatives(cog_state=None):
         alternative_pool = []
         for bit in cog_state:
             if bit in ["0", "1", "2", "3"]:
@@ -138,101 +134,54 @@ class Landscape:
                 alternative_pool.append(["0", "1", "2", "3"])
             else:
                 raise ValueError("Unsupported bit value: ", bit)
-        if self.state_num != 4:
-            raise ValueError("Only support state_num = 4")
         return [i for i in product(*alternative_pool)]
 
-    # def generate_divergence_pool(self, divergence=None):
-    #     """
-    #     Randomly select one seed state, and form the pool around a given divergence being away from the seed
-    #     For example
-    #     1) random seed: 1 1 1 1 1 1 (N=6)
-    #     2) 1 bit divergence: C_6^1 * 3 = 18 alternatives
-    #     3) 2 bits divergence: C_6^2 * 3^2 = 15 * 9 = 135 alternatives
-    #     4) In order to make the pool length the same across divergence, limit it into 18
-    #     :param divergence: change how many bits to shape the pool
-    #     :return:a list of pool
-    #     """
-    #     state_pool = []
-    #     seed_state = np.random.choice(range(self.state_num), self.N).tolist()
-    #     seed_state = [str(i) for i in seed_state]  # state format: string
-    #     # print("seed_state: ", seed_state)
-    #     if divergence == 1:
-    #         for index in range(self.N):
-    #             alternative_state = seed_state.copy()
-    #             freedom_space = ["0", "1", "2", "3"]
-    #             freedom_space.remove(seed_state[index])
-    #             for bit in freedom_space:
-    #                 alternative_state[index] = bit
-    #                 state_pool.append(alternative_state.copy())
-    #         return state_pool
-    #     while True:
-    #         index_for_change = np.random.choice(range(self.N), divergence, replace=False)
-    #         alternative_state = seed_state.copy()
-    #         for index in index_for_change:
-    #             freedom_space = ["0", "1", "2", "3"]
-    #             freedom_space.remove(seed_state[index])
-    #             alternative_state[index] = freedom_space[np.random.choice(range(3))]
-    #         if alternative_state not in state_pool:
-    #             state_pool.append(alternative_state.copy())
-    #         if len(state_pool) >= 18:
-    #             break
-    #     return state_pool
-
-    # def generate_quality_pool(self, quality_percentage=None):
-    #     """
-    #     Form the pool around a given quality percentage (e.g., 50% - 60%)
-    #     :param quality:
-    #     :return:
-    #     """
-    #     alternative_state_pool = []
-    #     reference = quality_percentage * (self.N ** self.state_num)
-    #     for state, rank in self.state_to_rank_dict.items():
-    #         if abs(rank - reference) / (self.N ** self.state_num) <= 0.05:
-    #             alternative_state_pool.append(state)
-    #     result = np.random.choice(alternative_state_pool, 18, replace=False)  #this is a string state: "33300201", instead of list
-    #     result = [list(each) for each in result]
-    #     return result
-
     def describe(self):
-        print("*********LandScape information********* ")
-        print("LandScape shape of (N={0}, K={1}, state number={2})".format(self.N, self.K, self.state_num))
-        print("Influential matrix: \n", self.IM)
-        print("Influential dependency map: ", self.dependency_map)
-        print("Samples: \n")
+        print("LandScape shape of N={0}, K={1}".format(self.N, self.K))
+        print("Influential Matrix: \n", self.IM)
+        print("Influential Dependency Map: ", self.dependency_map)
+        print("Cache Samples:")
         for key, value in landscape.cache.items():
             print(key, value)
             break
-        print("********************************")
 
 
 if __name__ == '__main__':
     # Test Example
     N = 9
-    K = 1
+    K = 2
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num)
-    # landscape.describe()
-
     # print(landscape.FC[0])
     # cog_state = ['A', 'A', 'A', 'A', 'A', 'A']
     # cog_state = ["0", "0", "0", "0", "0", "0"]
     # print(landscape.cog_state_alternatives(cog_state=cog_state))
-    state_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
-    state_2 = ['A', 'A', 'A', '1', '1', '2', 'A', 'A', '*']
-    partial_fitness_1 = landscape.query_partial_fitness(cog_state=state_1, expertise_domain=range(0, 9))
-    print(partial_fitness_1)
+    state_1_0 = ['2', '2', '2', '1', '1', '2', '1', '3', '0']
+    state_1_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '1']
+    state_1_2 = ['2', '2', '2', '1', '1', '2', '1', '3', '2']
+    state_1_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '3']
+    state_2 = ['B', 'B', 'B', 'A', 'A', 'B', 'A', 'B', 'A']
+    state_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
+    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=state_1_0, expertise_domain=range(0, 9))
+    partial_fitness_1_1 = landscape.query_partial_fitness(cog_state=state_1_1, expertise_domain=range(0, 9))
+    partial_fitness_1_2 = landscape.query_partial_fitness(cog_state=state_1_2, expertise_domain=range(0, 9))
+    partial_fitness_1_3 = landscape.query_partial_fitness(cog_state=state_1_3, expertise_domain=range(0, 9))
     partial_fitness_2 = landscape.query_partial_fitness(cog_state=state_2, expertise_domain=range(0, 9))
-    print(partial_fitness_2)
-    # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
+    partial_fitness_3 = landscape.query_partial_fitness(cog_state=state_3, expertise_domain=range(0, 9))
+    print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_0, partial_fitness_2))
+    print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_1, partial_fitness_2))
+    print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_2, partial_fitness_2))
+    print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_3, partial_fitness_2))
+    fine_state_fitness = [partial_fitness_1_0, partial_fitness_1_1, partial_fitness_1_2, partial_fitness_1_3]
+    print("Fine One {0} should be equal to Average of Coarse Ones {1}".format(partial_fitness_3, sum(fine_state_fitness) / len(fine_state_fitness)))
+    landscape.describe()
 
-    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-    # ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
-    #
-    # import matplotlib.pyplot as plt
-    # data = landscape.cache.values()
-    # plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    # plt.xlabel("Range")
-    # plt.ylabel("Count")
-    # plt.show()
+    import matplotlib.pyplot as plt
+    data = landscape.cache.values()
+    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    plt.title("Landscape Distribution")
+    plt.xlabel("Range")
+    plt.ylabel("Count")
+    plt.show()
+

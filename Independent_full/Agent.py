@@ -7,11 +7,9 @@
 import random
 import numpy as np
 from Landscape import Landscape
-from CogLandscape import CogLandscape
-import pickle
 
 
-class Tshape:
+class Agent:
     def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
         self.landscape = landscape
         self.N = N
@@ -33,7 +31,7 @@ class Tshape:
         if (generalist_expertise % 2 != 0) or (specialist_expertise % 4 != 0):
             raise ValueError("Problematic Expertise Amount")
 
-    def search(self):
+    def search(self, manner="Partial"):
         next_state = self.state.copy()
         index = np.random.choice(range(self.N))
         free_space = ["0", "1", "2", "3"]
@@ -43,69 +41,20 @@ class Tshape:
         next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
         next_cog_partial_fitness = self.landscape.query_partial_fitness(
             cog_state=next_cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
-        # print(next_cog_fitness, next_cog_partial_fitness)
-        # if next_cog_fitness >= self.cog_fitness:
-        if next_cog_partial_fitness >= self.cog_partial_fitness:
-            self.state = next_state
-            self.cog_state = next_cog_state
-            self.cog_fitness = next_cog_fitness
-            self.cog_partial_fitness = next_cog_partial_fitness
-            self.fitness = self.landscape.query_fitness(state=self.state)
-
-    # def double_search(self, co_state=None, co_expertise_domain=None):
-    #     # learning from coupled agent
-    #     next_cog_state = self.cog_state.copy()
-    #     for index in range(self.N):
-    #         if index in self.expertise_domain:
-    #             if index in co_expertise_domain:
-    #                 changed_cog_state = next_cog_state.copy()
-    #                 changed_cog_state[index] = co_state[index]
-    #                 if self.landscape.query_cog_fitness_partial(cog_state=changed_cog_state, expertise_domain=self.expertise_domain) > self.cog_fitness:
-    #                     next_cog_state[index] = co_state[index]
-    #             else:  # retain the private configuration
-    #                 pass
-    #         else:
-    #             # for unknown domains, follow the co-state
-    #             if index in co_expertise_domain:
-    #                 next_cog_state[index] = co_state[index]
-    #             # for unknown domains to both agents, retain the private configuration
-    #             else:
-    #                 pass
-    #     index = np.random.choice(self.expertise_domain)
-    #     if index in self.generalist_domain:
-    #         if next_cog_state[index] == "A":
-    #             next_cog_state[index] = "B"
-    #         else:
-    #             next_cog_state[index] = "A"
-    #     else:
-    #         free_space = ["0", "1", "2", "3"]
-    #         free_space.remove(self.cog_state[index])
-    #         next_cog_state[index] = np.random.choice(free_space)
-    #     next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state, expertise_domain=self.expertise_domain)
-    #     if next_cog_fitness > self.cog_fitness:
-    #         self.cog_state = next_cog_state
-    #         self.cog_fitness = next_cog_fitness
-    #         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
-
-    # def priority_search(self, co_state=None, co_expertise_domain=None):
-    #     # learning from coupled agent
-    #     next_cog_state = self.cog_state.copy()
-    #     for index in range(self.N):
-    #         if index in co_expertise_domain:
-    #             next_cog_state[index] = co_state[index]
-    #         else:
-    #             pass
-    #     index = np.random.choice(self.expertise_domain)  # only select from the expertise domain,
-    #     # thus will not change the unknown domain
-    #     space = ["0", "1", "2", "3"]
-    #     space.remove(self.state[index])
-    #     next_cog_state[index] = np.random.choice(space)
-    #     next_cog_fitness = self.landscape.query_cog_fitness_partial(cog_state=next_cog_state,
-    #                                                                 expertise_domain=self.expertise_domain)
-    #     if next_cog_fitness > self.cog_fitness:
-    #         self.cog_state = next_cog_state
-    #         self.cog_fitness = next_cog_fitness
-    #         self.fitness, self.potential_fitness = self.landscape.query_cog_fitness_full(cog_state=self.cog_state)
+        if manner == "Full":
+            if next_cog_fitness > self.cog_fitness:
+                self.state = next_state
+                self.cog_state = next_cog_state
+                self.cog_fitness = next_cog_fitness
+                self.cog_partial_fitness = next_cog_partial_fitness
+                self.fitness = self.landscape.query_fitness(state=self.state)
+        elif manner == "Partial":
+            if next_cog_partial_fitness > self.cog_partial_fitness:
+                self.state = next_state
+                self.cog_state = next_cog_state
+                self.cog_fitness = next_cog_fitness
+                self.cog_partial_fitness = next_cog_partial_fitness
+                self.fitness = self.landscape.query_fitness(state=self.state)
 
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
@@ -140,7 +89,7 @@ class Tshape:
         return state
 
     def describe(self):
-        print("Tshape of Expertise Domain: ", self.generalist_domain, self.specialist_domain)
+        print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
         print("Cognitive State: {0}, Cognitive Fitness: {1}, Partial Fitness: {2}".format(self.cog_state, self.cog_fitness, self.cog_partial_fitness))
 
@@ -157,18 +106,17 @@ if __name__ == '__main__':
     generalist_expertise = 10
     specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num)
-    tshape = Tshape(N=N, landscape=landscape, state_num=state_num,
+    agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-    tshape.describe()
+    agent.describe()
     performance_across_time = []
     cog_performance_across_time = []
     cog_partial_performance_across_time = []
     for _ in range(search_iteration):
-        tshape.search()
-        # tshape.describe()
-        performance_across_time.append(tshape.fitness)
-        cog_performance_across_time.append(tshape.cog_fitness)
-        cog_partial_performance_across_time.append(tshape.cog_partial_fitness)
+        agent.search()
+        performance_across_time.append(agent.fitness)
+        cog_performance_across_time.append(agent.cog_fitness)
+        cog_partial_performance_across_time.append(agent.cog_partial_fitness)
     # tshape.describe()
     import matplotlib.pyplot as plt
     import numpy as np
