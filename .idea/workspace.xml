@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/CogLandscape.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_full/Tshape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Tshape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_knowledge/Tshape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,21 +45,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent_full",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Independent_full&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_full" />
@@ -77,7 +74,7 @@
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Tshape">
+  <component name="RunManager" selected="Python.Specialist">
     <configuration name="CogLandscape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -190,10 +187,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Tshape" />
-        <item itemvalue="Python.Landscape" />
         <item itemvalue="Python.Specialist" />
+        <item itemvalue="Python.Landscape" />
         <item itemvalue="Python.Generalist (1)" />
+        <item itemvalue="Python.Tshape" />
         <item itemvalue="Python.CogLandscape" />
       </list>
     </recent_temporary>
@@ -281,14 +278,8 @@
       <workItem from="1684241296562" duration="6020000" />
       <workItem from="1684247845691" duration="10635000" />
       <workItem from="1684412592502" duration="16106000" />
-      <workItem from="1684574304337" duration="35773000" />
-    </task>
-    <task id="LOCAL-00046" summary="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure.">
-      <created>1671456396745</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1671456396745</updated>
+      <workItem from="1684574304337" duration="35808000" />
+      <workItem from="1684920565576" duration="1838000" />
     </task>
     <task id="LOCAL-00047" summary="Update the previous code&#10;--fix the search() function in specialist that using state instead of cog_state to determine the free space.">
       <created>1671905519751</created>
@@ -626,7 +617,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684831469701</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
+      <created>1684841072340</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1684841072340</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +675,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$CoarseLandscape.coverage" NAME="CoarseLandscape Coverage Results" MODIFIED="1684761036345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator.coverage" NAME="Evaluator Coverage Results" MODIFIED="1672234656400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist__1_.coverage" NAME="Generalist (1) Coverage Results" MODIFIED="1684839022445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist__1_.coverage" NAME="Generalist (1) Coverage Results" MODIFIED="1684926551638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1683727429670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/GST_max_2" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$CogLandscape.coverage" NAME="CogLandscape Coverage Results" MODIFIED="1684831451931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$landscape_run.coverage" NAME="landscape_run Coverage Results" MODIFIED="1684157326020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
@@ -685,8 +683,8 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist.coverage" NAME="Generalist Coverage Results" MODIFIED="1684592672215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_knowledge" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__2_.coverage" NAME="Landscape (2) Coverage Results" MODIFIED="1683811320037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Volidation" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape.coverage" NAME="Landscape Coverage Results" MODIFIED="1684840326643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Specialist.coverage" NAME="Specialist Coverage Results" MODIFIED="1684840031737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape.coverage" NAME="Landscape Coverage Results" MODIFIED="1684927231099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Specialist.coverage" NAME="Specialist Coverage Results" MODIFIED="1684927258098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__3_.coverage" NAME="Evaluator (3) Coverage Results" MODIFIED="1671992905886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/ss" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__5_.coverage" NAME="Evaluator (5) Coverage Results" MODIFIED="1671345824040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1684502963058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />

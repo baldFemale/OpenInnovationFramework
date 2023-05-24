@@ -109,13 +109,13 @@ class Landscape:
         ave_fitness = sum(fitness_pool) / len(alternatives)
         return ave_fitness
 
-    def query_partial_fitness(self, cog_state=None, generalist_domain=[], specialist_domain=[]):
+    def query_partial_fitness(self, cog_state=None, expertise_domain=None):
         partial_fitness_list = []
         alternatives = self.cog_state_alternatives(cog_state=cog_state)
         for state in alternatives:
             partial_FC_across_bits = []
             for index in range(len(state)):
-                if (index not in generalist_domain) and (index not in specialist_domain):
+                if index not in expertise_domain:
                     continue
                 dependency = self.dependency_map[index]
                 bit_index = "".join([str(state[j]) for j in dependency])
@@ -209,18 +209,23 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    N = 6
+    N = 9
     K = 1
     state_num = 4
     np.random.seed(1024)
     landscape = Landscape(N=N, K=K, state_num=state_num)
-    landscape.describe()
+    # landscape.describe()
 
-    print(landscape.FC[0])
+    # print(landscape.FC[0])
     # cog_state = ['A', 'A', 'A', 'A', 'A', 'A']
-    cog_state = ["0", "0", "0", "0", "0", "0"]
-    print(landscape.cog_state_alternatives(cog_state=cog_state))
-
+    # cog_state = ["0", "0", "0", "0", "0", "0"]
+    # print(landscape.cog_state_alternatives(cog_state=cog_state))
+    state_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
+    state_2 = ['A', 'A', 'A', '1', '1', '2', 'A', 'A', '*']
+    partial_fitness_1 = landscape.query_partial_fitness(cog_state=state_1, expertise_domain=range(0, 9))
+    print(partial_fitness_1)
+    partial_fitness_2 = landscape.query_partial_fitness(cog_state=state_2, expertise_domain=range(0, 9))
+    print(partial_fitness_2)
     # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
 
     # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']

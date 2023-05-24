@@ -67,7 +67,8 @@ class Generalist:
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
         next_cog_partial_fitness = self.landscape.query_partial_fitness(cog_state=next_cog_state, generalist_domain=self.expertise_domain)
-        if next_cog_fitness >= self.cog_fitness:
+        # if next_cog_fitness >= self.cog_fitness:
+        if next_cog_partial_fitness >= self.cog_partial_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -156,7 +157,7 @@ class Generalist:
     def describe(self):
         print("Generalist of Expertise Domain: ", self.expertise_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
-        print("Cognitive State: {0}, Cognitive Fitness: {1}".format(self.cog_state, self.cog_fitness))
+        print("Cognitive State: {0}, Cognitive Fitness: {1}, Partial Fitness: {2}".format(self.cog_state, self.cog_fitness, self.cog_partial_fitness))
 
 
 if __name__ == '__main__':
