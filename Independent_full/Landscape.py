@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
+# @Time     : 12/14/2021 19:59
+# @Author   : Junyi
+# @FileName: Agent.py
+# @Software  : PyCharm
+# Observing PEP 8 coding style
 from collections import defaultdict
 from itertools import product
 import numpy as np
 
 
 class Landscape:
-
     def __init__(self, N=None, K=None, state_num=4, norm="MaxMin"):
+        """
+        :param N: problem dimension
+        :param K: complexity degree
+        :param state_num: state number for each dimension
+        :param norm: normalization manner
+        """
         self.N = N
         self.K = K
         self.state_num = state_num
@@ -17,7 +27,6 @@ class Landscape:
         self.min_normalizer = 0
         self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
-        self.state_to_rank_dict = {}
         self.initialize()  # Initialization and Normalization
 
     def create_IM(self):
@@ -64,21 +73,6 @@ class Landscape:
         for state in all_states:
             bits = "".join([str(i) for i in state])
             self.cache[bits] = self.calculate_fitness(state)
-
-    def creat_fitness_rank_dict(self):
-        """
-        Sort the cache fitness value and corresponding rank
-        To get another performance indicator regarding the reaching rate of relatively high fitness (e.g., the top 10 %)
-        """
-        value_list = sorted(list(self.cache.values()), key=lambda x: -x)
-        fitness_to_rank_dict = {}
-        state_to_rank_dict = {}
-        for index, value in enumerate(value_list):
-            fitness_to_rank_dict[value] = index + 1
-        for state, fitness in self.cache.items():
-            state_to_rank_dict[state] = fitness_to_rank_dict[fitness]
-        self.state_to_rank_dict = state_to_rank_dict
-        self.fitness_to_rank_dict = fitness_to_rank_dict
 
     def initialize(self):
         self.create_IM()

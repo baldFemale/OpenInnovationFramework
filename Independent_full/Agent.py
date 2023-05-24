@@ -11,6 +11,13 @@ from Landscape import Landscape
 
 class Agent:
     def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
+        """
+        :param N: problem dimension
+        :param landscape: assihned landscape
+        :param state_num: state number for each dimension
+        :param generalist_expertise: the amount of G knowledge
+        :param specialist_expertise: the amount of S knowledge
+        """
         self.landscape = landscape
         self.N = N
         self.state_num = state_num

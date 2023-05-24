@@ -5,17 +5,12 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Generalist import Generalist
-from Specialist import Specialist
-from Tshape import Tshape
+from Agent import Agent
 from Landscape import Landscape
-from CogLandscape import CogLandscape
 import multiprocessing as mp
 import time
-from multiprocessing import Pool
 from multiprocessing import Semaphore
 import pickle
-import math
 
 
 # mp version
@@ -29,7 +24,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     cog_performance_across_agent_time = []
     cog_landscape_dict = {}
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, expertise_amount=expertise_amount)
+        generalist = Agent(N=N, landscape=landscape, state_num=state_num, generalist_expertise=expertise_amount)
         domains = sorted(generalist.expertise_domain)
         domains = [str(i) for i in domains]
         cog_key = "G" + "".join(domains)
