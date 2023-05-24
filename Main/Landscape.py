@@ -19,8 +19,7 @@ class Landscape:
         self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
-        # Initialization
-        self.initialize()
+        self.initialize() # Initialization and Normalization
 
     def create_IM(self):
         self.K = self.K
@@ -103,21 +102,32 @@ class Landscape:
     def query_fitness(self, state):
         return self.cache["".join(state)]
 
-    def query_potential_fitness(self, coarse_state=None):
-        """
-        Return the performance trajectory at the finest level;
-        Show comparison for the trajectory at the coarse level
-        :param coarse_state:
-        :return: potential performance of a given coarse_state
-        """
-        alternatives = self.coarse_state_alternatives(coarse_state=coarse_state)
+    def query_cog_fitness(self, cog_state=None):
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
         fitness_pool = [self.query_fitness(each) for each in alternatives]
         ave_fitness = sum(fitness_pool) / len(alternatives)
-        return ave_fitness, max(fitness_pool), min(fitness_pool)
+        return ave_fitness
 
-    def coarse_state_alternatives(self, coarse_state=None):
+    def query_partial_fitness(self, cog_state=None, expertise_domain=None):
+        partial_fitness_list = []
+        alternatives = self.cog_state_alternatives(cog_state=cog_state)
+        for state in alternatives:
+            partial_FC_across_bits = []
+            for index in range(len(state)):
+                if index not in expertise_domain:
+                    continue
+                dependency = self.dependency_map[index]
+                bit_index = "".join([str(state[j]) for j in dependency])
+                bit_index = str(state[index]) + bit_index
+                FC_index = int(bit_index, self.state_num)
+                partial_FC_across_bits.append(self.FC[index][FC_index])
+            partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
+            partial_fitness_list.append(partial_fitness_state)
+        return sum(partial_fitness_list) / len(partial_fitness_list)
+
+    def cog_state_alternatives(self, cog_state=None):
         alternative_pool = []
-        for bit in coarse_state:
+        for bit in cog_state:
             if bit in ["0", "1", "2", "3"]:
                 alternative_pool.append(bit)
             elif bit == "A":
@@ -198,18 +208,27 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
-    N = 6
+    N = 9
     K = 1
     state_num = 4
-    np.random.seed(1024)
+    np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num)
-    landscape.describe()
+    # landscape.describe()
 
-    print(landscape.FC[0])
+    # print(landscape.FC[0])
+    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A']
+    # cog_state = ["0", "0", "0", "0", "0", "0"]
+    # print(landscape.cog_state_alternatives(cog_state=cog_state))
+    state_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
+    state_2 = ['A', 'A', 'A', '1', '1', '2', 'A', 'A', '*']
+    partial_fitness_1 = landscape.query_partial_fitness(cog_state=state_1, expertise_domain=range(0, 9))
+    print(partial_fitness_1)
+    partial_fitness_2 = landscape.query_partial_fitness(cog_state=state_2, expertise_domain=range(0, 9))
+    print(partial_fitness_2)
     # {0: 0.7836752884048944, 1: 0.7365669153375385, 2: 0.7704443532705194, 3: 0.1866757089262373
 
-    # coarse_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-    # ave_, max_, min_ = landscape.query_potential_fitness(coarse_state=coarse_state)
+    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
+    # ave_, max_, min_ = landscape.query_potential_fitness(cog_state=cog_state)
     #
     # import matplotlib.pyplot as plt
     # data = landscape.cache.values()

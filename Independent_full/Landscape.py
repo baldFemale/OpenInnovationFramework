@@ -19,8 +19,7 @@ class Landscape:
         self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.state_to_rank_dict = {}
-        # Initialization
-        self.initialize()
+        self.initialize() # Initialization and Normalization
 
     def create_IM(self):
         self.K = self.K
@@ -212,7 +211,7 @@ if __name__ == '__main__':
     N = 9
     K = 1
     state_num = 4
-    np.random.seed(1024)
+    np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     # landscape.describe()
 
