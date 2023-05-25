@@ -6,6 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_20/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_20/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_full/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_full/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_full/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_T" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,14 +293,7 @@
       <workItem from="1684920565576" duration="8252000" />
       <workItem from="1685000919508" duration="4066000" />
       <workItem from="1685014846025" duration="3480000" />
-      <workItem from="1685018370842" duration="316000" />
-    </task>
-    <task id="LOCAL-00061" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
-      <created>1683722260323</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1683722260323</updated>
+      <workItem from="1685018370842" duration="642000" />
     </task>
     <task id="LOCAL-00062" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
       <created>1683728937027</created>
@@ -626,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685018664465</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685018698904</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1685018698904</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
