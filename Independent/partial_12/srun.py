@@ -87,11 +87,15 @@ if __name__ == '__main__':
         performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
         variance_across_K.append(sum(temp_var) / len(temp_var))
 
+        performance_across_time = []
+        cog_performance_across_time = []
         for period in range(search_iteration):
             temp_1 = [performance_list[period] for performance_list in temp_fitness_time]
-            performance_across_K_time.append(sum(temp_1) / len(temp_1))
+            performance_across_time.append(sum(temp_1) / len(temp_1))
             temp_2 = [performance_list[period] for performance_list in temp_cog_time]
-            performance_across_K_time.append(sum(temp_2) / len(temp_2))
+            cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+        performance_across_K_time.append(performance_across_time)
+        cog_performance_across_K_time.append(cog_performance_across_time)
     # remove time dimension
     with open("s_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
