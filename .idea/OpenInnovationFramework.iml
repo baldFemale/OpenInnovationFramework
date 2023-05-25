@@ -22,7 +22,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_12" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_12" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_18" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/partial_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Independent/partial_full" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
