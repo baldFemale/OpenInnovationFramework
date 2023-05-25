@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/Agent.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,14 +279,7 @@
       <workItem from="1684412592502" duration="16106000" />
       <workItem from="1684574304337" duration="35808000" />
       <workItem from="1684920565576" duration="8252000" />
-      <workItem from="1685000919508" duration="2363000" />
-    </task>
-    <task id="LOCAL-00055" summary="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)">
-      <created>1672238203833</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1672238203833</updated>
+      <workItem from="1685000919508" duration="3983000" />
     </task>
     <task id="LOCAL-00056" summary="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)">
       <created>1672239019925</created>
@@ -627,7 +617,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685001934129</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685003312304</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1685003312304</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
