@@ -45,13 +45,13 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
+    landscape_iteration = 100
     agent_num = 100
-    search_iteration = 100  # In pre-test, 200 is quite enough for convergence
-    N = 9
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    N = 10
     state_num = 4
-    expertise_amount = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    expertise_amount = 40
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
     performance_across_K = []
