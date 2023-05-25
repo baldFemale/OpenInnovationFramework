@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
-      <change afterPath="$PROJECT_DIR$/Independent/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Independent/partial_full/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,14 +281,7 @@
       <workItem from="1684920565576" duration="8252000" />
       <workItem from="1685000919508" duration="4066000" />
       <workItem from="1685014846025" duration="3480000" />
-      <workItem from="1685018370842" duration="287000" />
-    </task>
-    <task id="LOCAL-00060" summary="Update the figure format for AOM2023">
-      <created>1673365707344</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1673365707344</updated>
+      <workItem from="1685018370842" duration="316000" />
     </task>
     <task id="LOCAL-00061" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
       <created>1683722260323</created>
@@ -649,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685018550978</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685018664465</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1685018664465</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
