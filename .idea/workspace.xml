@@ -5,60 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
-      <change afterPath="$PROJECT_DIR$/full_18/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/full_18/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/full_18/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/full_18/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/full_18/trun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/partial_18/trun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_12/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_12/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_12/trun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/slurm_T" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent/partial_18/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_12/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/CoarseLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/CogLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/full_18/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/Tshape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/full_18/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/full_18/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/full_18/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/full_18/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_knowledge/trun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/CoarseLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/CogLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/Tshape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/partial_18/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_partial/trun.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_18/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partial_18/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +107,7 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_partial" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Main" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes" />
@@ -330,14 +319,7 @@
       <workItem from="1684412592502" duration="16106000" />
       <workItem from="1684574304337" duration="35808000" />
       <workItem from="1684920565576" duration="8252000" />
-      <workItem from="1685000919508" duration="224000" />
-    </task>
-    <task id="LOCAL-00052" summary="Update the figure format for AOM2023">
-      <created>1672048604321</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1672048604321</updated>
+      <workItem from="1685000919508" duration="296000" />
     </task>
     <task id="LOCAL-00053" summary="Update the figure format for AOM2023">
       <created>1672236616379</created>
@@ -675,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684933614692</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685001151142</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1685001151142</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
