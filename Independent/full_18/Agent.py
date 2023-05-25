@@ -21,9 +21,11 @@ class Agent:
         self.landscape = landscape
         self.N = N
         self.state_num = state_num
-        self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
-        self.generalist_domain = np.random.choice([i for i in range(self.N) if i not in self.specialist_domain],
-                                                  generalist_expertise // 2, replace=False).tolist()
+        if specialist_expertise:
+            self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
+        if generalist_expertise:
+            self.generalist_domain = np.random.choice([i for i in range(self.N) if i not in self.specialist_domain],
+                                                      generalist_expertise // 2, replace=False).tolist()
         self.specialist_representation = ["0", "1", "2", "3"]
         self.generalist_representation = ["A", "B"]
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
@@ -33,10 +35,14 @@ class Agent:
         self.cog_partial_fitness = self.landscape.query_partial_fitness(
             cog_state=self.cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
         self.fitness = self.landscape.query_fitness(state=self.state)
-        if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
-            raise ValueError("Expertise Domain Exceed N")
-        if (generalist_expertise % 2 != 0) or (specialist_expertise % 4 != 0):
-            raise ValueError("Problematic Expertise Amount")
+        if specialist_expertise and generalist_expertise:
+            if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
+                raise ValueError("Entire Expertise Exceed N")
+        if generalist_expertise and (generalist_expertise % 2 != 0):
+            raise ValueError("Problematic G Expertise")
+        if specialist_expertise and (specialist_expertise % 4 != 0):
+            raise ValueError("Problematic S Expertise")
+
 
     def search(self, manner="Partial"):
         next_state = self.state.copy()
