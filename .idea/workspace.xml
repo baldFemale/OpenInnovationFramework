@@ -6,22 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent/full_12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_12/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_18/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_18/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_18/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_18/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_18/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_12/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent/partial_12/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_12/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_12/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_18/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_18/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_18/Agent.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent/partial_18",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent/full_12",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -75,10 +65,10 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_18" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_12" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_18" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_12" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_18" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_12" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_18" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -89,7 +79,7 @@
       <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Agent (1)">
+  <component name="RunManager" selected="Python.Agent (2)">
     <configuration name="Agent (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -112,6 +102,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Agent (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Independent/partial_18" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Independent/partial_18/Agent.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Agent" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,28 +138,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="E:\Python_Workplace\OpenInnovationFramework\Independent_full\Agent.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Generalist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Independent_full" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\Python_Workplace\OpenInnovationFramework\Main\Generalist.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -202,6 +192,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Agent (2)" />
         <item itemvalue="Python.Agent (1)" />
         <item itemvalue="Python.Landscape" />
         <item itemvalue="Python.Agent" />
@@ -295,14 +286,7 @@
       <workItem from="1684574304337" duration="35808000" />
       <workItem from="1684920565576" duration="8252000" />
       <workItem from="1685000919508" duration="4066000" />
-      <workItem from="1685014846025" duration="2301000" />
-    </task>
-    <task id="LOCAL-00057" summary="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)">
-      <created>1672481567716</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1672481567716</updated>
+      <workItem from="1685014846025" duration="3280000" />
     </task>
     <task id="LOCAL-00058" summary="Independent Search - N12">
       <created>1672910459937</created>
@@ -640,7 +624,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685005232435</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685017177611</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1685017177611</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -708,5 +699,6 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Tshape.coverage" NAME="Tshape Coverage Results" MODIFIED="1684928888375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__4_.coverage" NAME="Evaluator (4) Coverage Results" MODIFIED="1672234688582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/ss" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1684227013424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__2_.coverage" NAME="Agent (2) Coverage Results" MODIFIED="1685018124448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/partial_18" />
   </component>
 </project>

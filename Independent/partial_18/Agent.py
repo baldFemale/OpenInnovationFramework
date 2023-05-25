@@ -35,8 +35,9 @@ class Agent:
         self.generalist_representation = ["A", "B"]
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
-        self.cog_state, self.cog_fitness, self.cog_partial_fitness, self.fitness = [], [], [], []
+        self.cog_state, self.cog_fitness, self.fitness = [], [], []
         self.update_fitness()
+        self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
             if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
                 raise ValueError("Entire Expertise Exceed N")
@@ -45,11 +46,13 @@ class Agent:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def update_fitness(self):
+    def update_fitness(self, manner="Partial"):
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
-        self.cog_partial_fitness = self.landscape.query_partial_fitness(
-            cog_state=self.cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
+        if manner == "Full":
+            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+        else:
+            self.cog_fitness = self.landscape.query_partial_fitness(
+                cog_state=self.cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
         self.fitness = self.landscape.query_fitness(state=self.state)
 
     def search(self, manner="Partial"):
@@ -59,23 +62,25 @@ class Agent:
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
-        next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
-        next_cog_partial_fitness = self.landscape.query_partial_fitness(
-            cog_state=next_cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
+        perception = "".join(next_cog_state)
         if manner == "Full":
-            if next_cog_fitness > self.cog_fitness:
-                self.state = next_state
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.cog_partial_fitness = next_cog_partial_fitness
-                self.fitness = self.landscape.query_fitness(state=self.state)
-        elif manner == "Partial":
-            if next_cog_partial_fitness > self.cog_partial_fitness:
-                self.state = next_state
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.cog_partial_fitness = next_cog_partial_fitness
-                self.fitness = self.landscape.query_fitness(state=self.state)
+            if perception not in self.cog_cache.keys():
+                next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+                self.cog_cache[perception] = next_cog_fitness
+            else:
+                next_cog_fitness = self.cog_cache[perception]
+        else:
+            if perception not in self.cog_cache.keys():
+                next_cog_fitness = self.landscape.query_partial_fitness(
+                    cog_state=next_cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
+                self.cog_cache[perception] = next_cog_fitness
+            else:
+                next_cog_fitness = self.cog_cache[perception]
+        if next_cog_fitness > self.cog_fitness:
+            self.state = next_state
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_fitness(state=self.state)
 
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
@@ -112,7 +117,7 @@ class Agent:
     def describe(self):
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
-        print("Cognitive State: {0}, Cognitive Fitness: {1}, Partial Fitness: {2}".format(self.cog_state, self.cog_fitness, self.cog_partial_fitness))
+        print("Cognitive State: {0}, Cognitive Fitness: {1}".format(self.cog_state, self.cog_fitness))
 
 
 if __name__ == '__main__':
@@ -132,19 +137,16 @@ if __name__ == '__main__':
     agent.describe()
     performance_across_time = []
     cog_performance_across_time = []
-    cog_partial_performance_across_time = []
     for _ in range(search_iteration):
         agent.search()
         performance_across_time.append(agent.fitness)
         cog_performance_across_time.append(agent.cog_fitness)
-        cog_partial_performance_across_time.append(agent.cog_partial_fitness)
     # tshape.describe()
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration)
     plt.plot(x, performance_across_time, "k-", label="Fitness")
     plt.plot(x, cog_performance_across_time, "k--", label="Cognitive Fitness")
-    plt.plot(x, cog_partial_performance_across_time, "k:", label="Partial Fitness")
     plt.title('Performance at N={0}, K={1}, G={2}, S={3}'.format(N, K, generalist_expertise, specialist_expertise))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
