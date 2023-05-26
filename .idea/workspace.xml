@@ -5,13 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.">
-      <change afterPath="$PROJECT_DIR$/FoolingT/slurm_T36" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoolingT/slurm_T38" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoolingT/slurm_T40" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/slurm_T" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/full_20/trun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/slurm_T" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/srun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Independent_default/partial_20/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT/slurm_T32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT/slurm_T34" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT/slurm_T30" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +68,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingT",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,11 +79,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_20" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
@@ -288,14 +302,7 @@
       <workItem from="1685000919508" duration="4066000" />
       <workItem from="1685014846025" duration="3480000" />
       <workItem from="1685018370842" duration="1439000" />
-      <workItem from="1685087253944" duration="7832000" />
-    </task>
-    <task id="LOCAL-00067" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684139673509</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1684139673509</updated>
+      <workItem from="1685087253944" duration="9281000" />
     </task>
     <task id="LOCAL-00068" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684140887505</created>
@@ -633,7 +640,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685107111386</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.">
+      <created>1685107350779</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1685107350779</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
