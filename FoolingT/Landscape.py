@@ -143,7 +143,7 @@ class Landscape:
 if __name__ == '__main__':
     # Test Example
     N = 9
-    K = 1
+    K = 2
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num)
