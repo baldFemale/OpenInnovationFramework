@@ -85,9 +85,7 @@ class Agent:
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
-            if (index not in self.generalist_domain) and (index not in self.specialist_domain):
-                cog_state[index] = "*"
-            elif index in self.generalist_domain:
+            if index in self.generalist_domain:
                 if bit_value in ["0", "1"]:
                     cog_state[index] = "A"
                 elif bit_value in ["2", "3"]:
@@ -95,24 +93,24 @@ class Agent:
                 else:
                     raise ValueError("Only support for state number = 4")
             else:
-                pass  # specialist_domain
+                pass  # specialist_domain or unknown domain
         return cog_state
 
-    def cog_state_2_state(self, cog_state=None):
-        state = cog_state.copy()
-        for index, bit_value in enumerate(cog_state):
-            if (index not in self.generalist_domain) and (index not in self.specialist_domain):
-                state[index] = str(random.choice(range(self.state_num)))
-            elif index in self.generalist_domain:
-                if bit_value == "A":
-                    state[index] = random.choice(["0", "1"])
-                elif bit_value == "B":
-                    state[index] = random.choice(["2", "3"])
-                else:
-                    raise ValueError("Unsupported state element: ", bit_value)
-            else:
-                pass
-        return state
+    # def cog_state_2_state(self, cog_state=None):
+    #     state = cog_state.copy()
+    #     for index, bit_value in enumerate(cog_state):
+    #         # if (index not in self.generalist_domain) and (index not in self.specialist_domain):
+    #         #     state[index] = str(random.choice(range(self.state_num)))
+    #         if index in self.generalist_domain:
+    #             if bit_value == "A":
+    #                 state[index] = random.choice(["0", "1"])
+    #             elif bit_value == "B":
+    #                 state[index] = random.choice(["2", "3"])
+    #             else:
+    #                 raise ValueError("Unsupported state element: ", bit_value)
+    #         else:
+    #             pass
+    #     return state
 
     def describe(self):
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)

@@ -76,7 +76,7 @@ class Agent:
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness >= self.cog_fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -85,9 +85,7 @@ class Agent:
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
-            if (index not in self.generalist_domain) and (index not in self.specialist_domain):
-                cog_state[index] = "*"
-            elif index in self.generalist_domain:
+            if index in self.generalist_domain:
                 if bit_value in ["0", "1"]:
                     cog_state[index] = "A"
                 elif bit_value in ["2", "3"]:
@@ -95,24 +93,24 @@ class Agent:
                 else:
                     raise ValueError("Only support for state number = 4")
             else:
-                pass  # specialist_domain
+                pass  # specialist_domain or unknown domain
         return cog_state
 
-    def cog_state_2_state(self, cog_state=None):
-        state = cog_state.copy()
-        for index, bit_value in enumerate(cog_state):
-            if (index not in self.generalist_domain) and (index not in self.specialist_domain):
-                state[index] = str(random.choice(range(self.state_num)))
-            elif index in self.generalist_domain:
-                if bit_value == "A":
-                    state[index] = random.choice(["0", "1"])
-                elif bit_value == "B":
-                    state[index] = random.choice(["2", "3"])
-                else:
-                    raise ValueError("Unsupported state element: ", bit_value)
-            else:
-                pass
-        return state
+    # def cog_state_2_state(self, cog_state=None):
+    #     state = cog_state.copy()
+    #     for index, bit_value in enumerate(cog_state):
+    #         # if (index not in self.generalist_domain) and (index not in self.specialist_domain):
+    #         #     state[index] = str(random.choice(range(self.state_num)))
+    #         if index in self.generalist_domain:
+    #             if bit_value == "A":
+    #                 state[index] = random.choice(["0", "1"])
+    #             elif bit_value == "B":
+    #                 state[index] = random.choice(["2", "3"])
+    #             else:
+    #                 raise ValueError("Unsupported state element: ", bit_value)
+    #         else:
+    #             pass
+    #     return state
 
     def describe(self):
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
@@ -126,20 +124,19 @@ if __name__ == '__main__':
     t0 = time.time()
     np.random.seed(1000)
     search_iteration = 100
-    N = 10
-    K = 1
+    N = 9
+    K = 5
     state_num = 4
-    generalist_expertise = 0
-    specialist_expertise = 20
+    generalist_expertise = 18
+    specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num)
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-    # agent.describe()
+    agent.describe()
     performance_across_time = []
     cog_performance_across_time = []
     for _ in range(search_iteration):
-        agent.search(manner="Partial")
-        print(agent.state, agent.cog_state)
+        agent.search()
         performance_across_time.append(agent.fitness)
         cog_performance_across_time.append(agent.cog_fitness)
     # tshape.describe()
@@ -153,7 +150,7 @@ if __name__ == '__main__':
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
     plt.legend(frameon=False, fontsize=10)
-    plt.savefig("S_performance.png", transparent=True, dpi=200)
+    plt.savefig("T_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()
     t1 = time.time()
