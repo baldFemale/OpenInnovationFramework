@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent/partial_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent/partial_full/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent/partial_full",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,11 +63,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_12" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\full_18" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_12" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent\partial_18" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
@@ -281,14 +285,8 @@
       <workItem from="1684920565576" duration="8252000" />
       <workItem from="1685000919508" duration="4066000" />
       <workItem from="1685014846025" duration="3480000" />
-      <workItem from="1685018370842" duration="812000" />
-    </task>
-    <task id="LOCAL-00063" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?">
-      <created>1683729844507</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1683729844507</updated>
+      <workItem from="1685018370842" duration="1439000" />
+      <workItem from="1685087253944" duration="1419000" />
     </task>
     <task id="LOCAL-00064" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1683813747540</created>
@@ -626,7 +624,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685019026325</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
+      <created>1685019196100</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1685019196100</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
