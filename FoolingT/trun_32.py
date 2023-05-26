@@ -64,8 +64,8 @@ if __name__ == '__main__':
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    generalist_expertise = 2
-    specialist_expertise = 36
+    generalist_expertise = 8  # 4 G
+    specialist_expertise = 24  # 6 S
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -113,16 +113,16 @@ if __name__ == '__main__':
         performance_across_K_time.append(performance_across_time)
         cog_performance_across_K_time.append(cog_performance_across_time)
     # remove time dimension
-    with open("t_performance_across_K", 'wb') as out_file:
+    with open("t_performance_across_K_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("t_variance_across_K", 'wb') as out_file:
+    with open("t_variance_across_K_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("t_performance_across_K_time", 'wb') as out_file:
+    with open("t_performance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("t_cog_performance_across_K_time", 'wb') as out_file:
+    with open("t_cog_performance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("t_variance_across_K_time", 'wb') as out_file:
+    with open("t_variance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
