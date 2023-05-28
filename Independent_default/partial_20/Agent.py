@@ -76,7 +76,10 @@ class Agent:
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness > self.cog_fitness:
+        # print(self.state, next_state)
+        # print(self.cog_state, next_cog_state)
+        # print(self.cog_fitness, next_cog_fitness)
+        if next_cog_fitness >= self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -125,7 +128,7 @@ if __name__ == '__main__':
     np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 5
+    K = 8
     state_num = 4
     generalist_expertise = 18
     specialist_expertise = 0
