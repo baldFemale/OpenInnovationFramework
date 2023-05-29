@@ -122,21 +122,23 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    np.random.seed(1000)
+    # np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 5
+    K = 4
     state_num = 4
-    generalist_expertise = 18
-    specialist_expertise = 0
+    generalist_expertise = 0
+    specialist_expertise = 36
     landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-    agent.describe()
+    # agent.describe()
     performance_across_time = []
     cog_performance_across_time = []
     for _ in range(search_iteration):
         agent.search()
+        # print(agent.state)
         performance_across_time.append(agent.fitness)
         cog_performance_across_time.append(agent.cog_fitness)
     # tshape.describe()
