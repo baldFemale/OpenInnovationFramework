@@ -169,3 +169,22 @@ import numpy as np
 
 
 
+# string_ = "222222222"
+# string_2 = "333333333"
+# int_ = int(string_2, 4)
+# value = 262144 // 2
+
+# def decimal_to_quaternary(decimal):
+#     if decimal == 0:
+#         return '0'
+#     quaternary = ''
+#     while decimal > 0:
+#         remainder = decimal % 4
+#         quaternary = str(remainder) + quaternary
+#         decimal = decimal // 4
+#     return quaternary
+#
+#
+# decimal_value = 262144 // 2
+# quaternary_value = decimal_to_quaternary(decimal_value)
+# print(quaternary_value)
