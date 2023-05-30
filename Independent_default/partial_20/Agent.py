@@ -122,10 +122,10 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    # np.random.seed(1000)
+    np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 4
+    K = 8
     state_num = 4
     generalist_expertise = 0
     specialist_expertise = 36
@@ -138,10 +138,20 @@ if __name__ == '__main__':
     cog_performance_across_time = []
     for _ in range(search_iteration):
         agent.search()
-        # print(agent.state)
         performance_across_time.append(agent.fitness)
         cog_performance_across_time.append(agent.cog_fitness)
-    # tshape.describe()
+    print("Search Result: ")
+    print("".join(agent.state), "".join(agent.cog_state), agent.fitness)
+    landscape.count_local_optima()
+    focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
+    print("Focal Neighbor")
+    neighbor_list = landscape.get_neighbor_list(key=focal_state)
+    for neighbor in neighbor_list:
+        fitness_ = landscape.query_fitness(state=neighbor)
+        print(neighbor, fitness_)
+    print("Local Optima")
+    for key, value in landscape.local_optima.items():
+        print(key, value)
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration)

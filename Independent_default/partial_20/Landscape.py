@@ -62,41 +62,46 @@ class Landscape:
         self.FC = FC
 
     # def create_skewed_fitness_configuration(self):
-    #     # skewed_seed_num = 1
-    #     # seed_list = []
-    #     # for _ in range(skewed_seed_num):
-    #     #     seed_state = np.random.choice(range(self.state_num), self.N).tolist()
-    #     #     seed_state = [str(i) for i in seed_state]
-    #     #     seed_list.append(seed_state)
-    #     seed_list = [['3', '3', '3', '3', '3', '3', '3', '3', '3']]
-    #     self.seed_state_list = seed_list
+        # skewed_seed_num = 1
+        # seed_list = []
+        # for _ in range(skewed_seed_num):
+        #     seed_state = np.random.choice(range(self.state_num), self.N).tolist()
+        #     seed_state = [str(i) for i in seed_state]
+        #     seed_list.append(seed_state)
+        # seed_list = [['3', '3', '3', '3', '3', '3', '3', '3', '3']]  # Pre-define a global peak, similar to March's (1991) model
+        # according to the distance between seed the any focal position, rescale the fitness value to shape gradient
+        # self.seed_state_list = seed_list
+        # FC = defaultdict(dict)
+        # for row in range(self.N):
+        #     k = int(sum(self.IM[row]))  # typically k = K+1
+        #     for column in range(pow(self.state_num, k)):
+        #         FC[row][column] = np.random.uniform(-1, 0)
+        # for seed_state in seed_list:
+        #     for row in range(self.N):
+        #         dependency = self.dependency_map[row]
+        #         bin_index = "".join([seed_state[j] for j in dependency])
+        #         bin_index = seed_state[row] + bin_index
+        #         index = int(bin_index, self.state_num)
+        #         value = np.random.uniform(0, 1)
+        #         FC[row][index] = value
+        # self.FC = FC
+
+    # def create_skewed_fitness_configuration(self):
     #     FC = defaultdict(dict)
     #     for row in range(self.N):
     #         k = int(sum(self.IM[row]))  # typically k = K+1
     #         for column in range(pow(self.state_num, k)):
-    #             FC[row][column] = np.random.uniform(-1, 0)
-    #     for seed_state in seed_list:
-    #         for row in range(self.N):
-    #             dependency = self.dependency_map[row]
-    #             bin_index = "".join([seed_state[j] for j in dependency])
-    #             bin_index = seed_state[row] + bin_index
-    #             index = int(bin_index, self.state_num)
-    #             value = np.random.uniform(0, 1)
-    #             FC[row][index] = value
-    #     self.FC = FC
-
-    def create_skewed_fitness_configuration(self):
-        FC = defaultdict(dict)
-        for row in range(self.N):
-            k = int(sum(self.IM[row]))  # typically k = K+1
-            for column in range(pow(self.state_num, k)):
-                if column < 4 ** self.K:  # for state 0 & 1
-                    FC[row][column] = np.random.uniform(0, 0.25)
-                elif column < 2 * 4 ** self.K:
-                    FC[row][column] = np.random.uniform(0.25, 0.5)
-                else:  # for state 2 & 3
-                    FC[row][column] = np.random.uniform(0.5, 1)
-        self.FC = FC
+    #             FC[row][column] = np.random.uniform(0, 1)
+            # for column in range(pow(self.state_num, k)):
+            #     if column < 4 ** self.K:  # for state 0 & 1
+            #         FC[row][column] = np.random.uniform(-1, 0)
+            #     elif column < 2 * 4 ** self.K:
+            #         FC[row][column] = np.random.uniform(0, 1)
+            #     elif column < 3 * 4 ** self.K:
+            #         FC[row][column] = np.random.uniform(1, 2)
+            #     else:
+            #         FC[row][column] = np.random.uniform(2, 3)
+        # self.FC = FC
 
     def calculate_fitness(self, state):
         result = []
@@ -128,6 +133,25 @@ class Landscape:
         elif self.norm == "Max":
             for k in self.cache.keys():
                 self.cache[k] = self.cache[k] / self.max_normalizer
+        elif self.norm == "RangeScaling":
+            # scaled_fitness_low = (fitness - min_fitness_low) * (
+            #         desired_upper_bound - desired_lower_bound) / range_low + desired_lower_bound
+            seed_num = 4
+            seed_list = []
+            for _ in range(seed_num):
+                seed_state = np.random.choice(range(self.state_num), self.N).tolist()
+                seed_state = [str(i) for i in seed_state]
+                seed_list.append(seed_state)
+           area_1, area_2, area_3, area_4 = [], [], [], []
+            for key in self.cache.keys():
+                distance_to_good = self.get_hamming_distance(state_1=good_seed, state_2=key)
+                distance_to_bad = self.get_hamming_distance(state_1=bad_seed, state_2=key)
+                if distance_to_good < distance_to_bad:
+                    area_1.append(key)
+                elif distance_to_good > distance_to_bad:
+                    area_2.append(key)
+                else:
+                    pass  # middle area -> only 2**10 state
 
     def query_fitness(self, state):
         return self.cache["".join(state)]
@@ -155,7 +179,6 @@ class Landscape:
             partial_fitness_list.append(partial_fitness_state)
         return sum(partial_fitness_list) / len(partial_fitness_list)
 
-    @staticmethod
     def cog_state_alternatives(cog_state=None):
         alternative_pool = []
         for bit in cog_state:
@@ -192,12 +215,26 @@ class Landscape:
                 self.local_optima[key] = value
         return counter
 
+    def calculate_avg_fitness_distance(self):
+        total_distance = 0
+        total_neighbors = 0
+        for key in self.cache.keys():
+            neighbors = self.get_neighbor_list(key)
+            total_distance += sum(abs(self.cache[key] - self.cache[neighbor]) for neighbor in neighbors)
+            total_neighbors += len(neighbors)
+        avg_fitness_distance = total_distance / total_neighbors
+        return avg_fitness_distance
+
     def get_neighbor_list(self, key=None):
         """
         This is also for the Coarse Landscape
         :param key: string from the coarse landscape cache dict, e.g., "0011"
         :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
         """
+        if isinstance(key, str):
+            pass
+        else:
+            key = "".join(key)
         neighbor_states = []
         for i, char in enumerate(key):
             neighbors = []
@@ -208,6 +245,17 @@ class Landscape:
             neighbor_states.extend(neighbors)
         return neighbor_states
 
+    def get_hamming_distance(state_1=None, state_2=None):
+        if not isinstance(state_1, list):
+            state_1 = list(state_1)
+        if not isinstance(state_2, list):
+            state_2 = list(state_2)
+        distance = 0
+        for a, b in zip(state_1, state_2):
+            if a != b:
+                distance += 1
+        return distance
+
     def describe(self):
         print("LandScape shape of N={0}, K={1}".format(self.N, self.K))
         print("Influential Matrix: \n", self.IM)
@@ -217,25 +265,25 @@ class Landscape:
             print(key, value)
             break
         print("Skewed Seed: ", self.seed_state_list)
-        for seed_state in self.seed_state_list:
-            print(seed_state, self.query_fitness(state=seed_state))
-            for i in range(self.N):
-                dependency = self.dependency_map[i]
-                bin_index = "".join([str(seed_state[j]) for j in dependency])
-                bin_index = str(seed_state[i]) + bin_index
-                index = int(bin_index, self.state_num)
-                print("Component: ", self.FC[i][index])
-            break
-        neighbors = [['0', '3', '3', '3', '3', '3', '3', '3', '3'], ['1', '3', '3', '3', '3', '3', '3', '3', '3'],
-                     ['2', '3', '3', '3', '3', '3', '3', '3', '3'], ['3', '0', '0', '3', '3', '3', '3', '3', '3']]
-        for neighbor_state in neighbors:
-            print(neighbor_state, self.query_fitness(state=neighbor_state))
+        # for seed_state in self.seed_state_list:
+        #     print(seed_state, self.query_fitness(state=seed_state))
+        #     for i in range(self.N):
+        #         dependency = self.dependency_map[i]
+        #         bin_index = "".join([str(seed_state[j]) for j in dependency])
+        #         bin_index = str(seed_state[i]) + bin_index
+        #         index = int(bin_index, self.state_num)
+        #         print("Component: ", self.FC[i][index])
+        #     break
+        # neighbors = [['0', '3', '3', '3', '3', '3', '3', '3', '3'], ['1', '3', '3', '3', '3', '3', '3', '3', '3'],
+        #              ['2', '3', '3', '3', '3', '3', '3', '3', '3'], ['3', '0', '0', '3', '3', '3', '3', '3', '3']]
+        # for neighbor_state in neighbors:
+        #     print(neighbor_state, self.query_fitness(state=neighbor_state))
 
 
 if __name__ == '__main__':
     # Test Example
     N = 9
-    K = 1
+    K = 0
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num)
@@ -264,13 +312,24 @@ if __name__ == '__main__':
     # landscape.describe()
     # landscape.create_fitness_rank()
     landscape.count_local_optima()
-    print(landscape.local_optima)
+    ave_distance = landscape.calculate_avg_fitness_distance()
+    ave_distance = round(ave_distance, 4)
+    # print(landscape.local_optima)
+    print("Number of Local Optima: ", len(landscape.local_optima.keys()))
+    print("Average Distance: ", ave_distance)
 
     import matplotlib.pyplot as plt
-    data = landscape.cache.values()
-    plt.hist(data, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.title("Landscape Distribution, N={0}, K={1}".format(N, K))
+    # plt.plot(range(len(landscape.local_optima.values())), landscape.local_optima.values())
+    # plt.xlabel("Local Optima")
+    # plt.ylabel("Value")
+    # plt.show()
+    # data = landscape.cache.values()
+    plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    plt.title("N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+        N, K, len(landscape.local_optima.keys()), ave_distance))
     plt.xlabel("Range")
     plt.ylabel("Count")
+    plt.savefig("N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+        N, K, len(landscape.local_optima.keys()), ave_distance))
     plt.show()
 

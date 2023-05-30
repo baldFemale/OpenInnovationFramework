@@ -125,10 +125,10 @@ if __name__ == '__main__':
     # np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 4
+    K = 8
     state_num = 4
     generalist_expertise = 0
-    specialist_expertise = 36
+    specialist_expertise = 16
     landscape = Landscape(N=N, K=K, state_num=state_num)
     landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
