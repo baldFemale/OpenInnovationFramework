@@ -5,50 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/Agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/slurm_T" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_20/trun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/Agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/slurm_T" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/full_full/trun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/Agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/slurm_T" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_20/trun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/Agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/slurm_T" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent/partial_full/trun.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/G_performance.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent_default/full_full",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Independent_default/partial_20",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,10 +70,10 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default\full_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default\full_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default\partial_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default\full_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -326,14 +294,7 @@
       <workItem from="1685014846025" duration="3480000" />
       <workItem from="1685018370842" duration="1439000" />
       <workItem from="1685087253944" duration="11003000" />
-      <workItem from="1685110932380" duration="42939000" />
-    </task>
-    <task id="LOCAL-00075" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684245102064</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1684245102065</updated>
+      <workItem from="1685110932380" duration="47288000" />
     </task>
     <task id="LOCAL-00076" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684245542588</created>
@@ -671,7 +632,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685447466043</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <created>1685607064917</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1685607064917</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

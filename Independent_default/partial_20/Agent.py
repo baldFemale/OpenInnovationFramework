@@ -49,10 +49,10 @@ class Agent:
     def update_fitness(self, manner="Partial"):
         self.cog_state = self.state_2_cog_state(state=self.state)
         if manner == "Full":
-            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state)
+            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state, state=self.state)
         else:
             self.cog_fitness = self.landscape.query_partial_fitness(
-                cog_state=self.cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
+                cog_state=self.cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
         self.fitness = self.landscape.query_fitness(state=self.state)
 
     def search(self, manner="Partial"):
@@ -65,14 +65,14 @@ class Agent:
         perception = "".join(next_cog_state)
         if manner == "Full":
             if perception not in self.cog_cache.keys():
-                next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state)
+                next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state, state=self.state)
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
         else:
             if perception not in self.cog_cache.keys():
                 next_cog_fitness = self.landscape.query_partial_fitness(
-                    cog_state=next_cog_state, expertise_domain=self.generalist_domain + self.specialist_domain)
+                    cog_state=next_cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     landscape.count_local_optima()
     focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
     print("Focal Neighbor")
-    neighbor_list = landscape.get_neighbor_list(key=focal_state)
+    neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
     for neighbor in neighbor_list:
         fitness_ = landscape.query_fitness(state=neighbor)
         print(neighbor, fitness_)

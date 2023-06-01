@@ -11,7 +11,7 @@ import numpy as np
 
 
 class Landscape:
-    def __init__(self, N=None, K=None, state_num=4, norm="MaxMin"):
+    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin"):
         """
         :param N: problem dimension
         :param K: complexity degree
@@ -103,7 +103,7 @@ class Landscape:
             #         FC[row][column] = np.random.uniform(2, 3)
         # self.FC = FC
 
-    def calculate_fitness(self, state):
+    def calculate_fitness(self, state: list) -> float:
         result = []
         for i in range(self.N):
             dependency = self.dependency_map[i]
@@ -186,31 +186,80 @@ class Landscape:
             #         area_middle.append(key)
             # print("Bad: ", len(area_bad), "Good: ", len(area_good), "Middle: ", len(area_middle))
 
-    def query_fitness(self, state):
+    def query_fitness(self, state: list) -> float:
         return self.cache["".join(state)]
 
-    def query_cog_fitness(self, cog_state=None):
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)
-        fitness_pool = [self.query_fitness(each) for each in alternatives]
-        ave_fitness = sum(fitness_pool) / len(alternatives)
-        return ave_fitness
+    def query_cog_fitness(self, cog_state: list, state: list) -> float:
+        cog_fitness = 0
+        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+            dependency = self.dependency_map[row]
+            bin_index = "".join([str(state[j]) for j in dependency])
+            if cog_bit == "A":
+                bin_index_1 = "0" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "1" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                c_i = (self.FC[row][index_1] + self.FC[row][index_2]) / 2
+            elif cog_bit == "B":
+                bin_index_1 = "2" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "3" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                c_i = (self.FC[row][index_1] + self.FC[row][index_2]) / 2
+            elif cog_bit == "*":
+                bin_index_0 = "0" + bin_index
+                index_0 = int(bin_index_0, self.state_num)
+                bin_index_1 = "1" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "2" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                bin_index_3 = "3" + bin_index
+                index_3 = int(bin_index_3, self.state_num)
+                c_i = (self.FC[row][index_0] + self.FC[row][index_1] +
+                       self.FC[row][index_2] + self.FC[row][index_3]) / 4
+            else:
+                bin_index = cog_bit + bin_index
+                index = int(bin_index, self.state_num)
+                c_i = self.FC[row][index]
+            cog_fitness += c_i
+        return cog_fitness / self.N
 
-    def query_partial_fitness(self, cog_state=None, expertise_domain=None):
-        partial_fitness_list = []
-        alternatives = self.cog_state_alternatives(cog_state=cog_state)
-        for state in alternatives:
-            partial_FC_across_bits = []
-            for index in range(len(state)):
-                if index not in expertise_domain:
-                    continue
-                dependency = self.dependency_map[index]
-                bit_index = "".join([str(state[j]) for j in dependency])
-                bit_index = str(state[index]) + bit_index
-                FC_index = int(bit_index, self.state_num)
-                partial_FC_across_bits.append(self.FC[index][FC_index])
-            partial_fitness_state = sum(partial_FC_across_bits) / len(partial_FC_across_bits)
-            partial_fitness_list.append(partial_fitness_state)
-        return sum(partial_fitness_list) / len(partial_fitness_list)
+    def query_partial_fitness(self, cog_state: list, state: list, expertise_domain: list) -> float:
+        cog_fitness = 0
+        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+            if row not in expertise_domain:
+                continue
+            dependency = self.dependency_map[row]
+            bin_index = "".join([str(state[j]) for j in dependency])
+            if cog_bit == "A":
+                bin_index_1 = "0" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "1" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                c_i = (self.FC[row][index_1] + self.FC[row][index_2]) / 2
+            elif cog_bit == "B":
+                bin_index_1 = "2" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "3" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                c_i = (self.FC[row][index_1] + self.FC[row][index_2]) / 2
+            elif cog_bit == "*":
+                bin_index_0 = "0" + bin_index
+                index_0 = int(bin_index_0, self.state_num)
+                bin_index_1 = "1" + bin_index
+                index_1 = int(bin_index_1, self.state_num)
+                bin_index_2 = "2" + bin_index
+                index_2 = int(bin_index_2, self.state_num)
+                bin_index_3 = "3" + bin_index
+                index_3 = int(bin_index_3, self.state_num)
+                c_i = (self.FC[row][index_0] + self.FC[row][index_1] +
+                       self.FC[row][index_2] + self.FC[row][index_3]) / 4
+            else:
+                bin_index = cog_bit + bin_index
+                index = int(bin_index, self.state_num)
+                c_i = self.FC[row][index]
+            cog_fitness += c_i
+        return cog_fitness / len(expertise_domain)
 
     @staticmethod
     def cog_state_alternatives(cog_state: list) -> list:
@@ -316,35 +365,25 @@ if __name__ == '__main__':
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, norm="RangeScaling")
     # print(landscape.FC[0])
-    # cog_state = ['A', 'A', 'A', 'A', 'A', 'A']
+    cog_state = ['B', 'B', 'B', 'A', 'A', 'B', "A", "B", "A"]
     # cog_state = ["0", "0", "0", "0", "0", "0"]
     # print(landscape.cog_state_alternatives(cog_state=cog_state))
-    # state_1_0 = ['2', '2', '2', '1', '1', '2', '1', '3', '0']
-    # state_1_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '1']
-    # state_1_2 = ['2', '2', '2', '1', '1', '2', '1', '3', '2']
-    # state_1_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '3']
-    # state_2 = ['B', 'B', 'B', 'A', 'A', 'B', 'A', 'B', 'A']
-    # state_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
-    # partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=state_1_0, expertise_domain=range(0, 9))
-    # partial_fitness_1_1 = landscape.query_partial_fitness(cog_state=state_1_1, expertise_domain=range(0, 9))
-    # partial_fitness_1_2 = landscape.query_partial_fitness(cog_state=state_1_2, expertise_domain=range(0, 9))
-    # partial_fitness_1_3 = landscape.query_partial_fitness(cog_state=state_1_3, expertise_domain=range(0, 9))
-    # partial_fitness_2 = landscape.query_partial_fitness(cog_state=state_2, expertise_domain=range(0, 9))
-    # partial_fitness_3 = landscape.query_partial_fitness(cog_state=state_3, expertise_domain=range(0, 9))
-    # print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_0, partial_fitness_2))
-    # print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_1, partial_fitness_2))
-    # print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_2, partial_fitness_2))
-    # print("Fine One {0} should NOT be equal to Coarse One {1}".format(partial_fitness_1_3, partial_fitness_2))
-    # fine_state_fitness = [partial_fitness_1_0, partial_fitness_1_1, partial_fitness_1_2, partial_fitness_1_3]
-    # print("Fine One {0} should be equal to Average of Coarse Ones {1}".format(partial_fitness_3, sum(fine_state_fitness) / len(fine_state_fitness)))
+    state_1_0 = ['2', '2', '2', '1', '1', '2', '1', '3', '0']
+    state_1_1 = ['2', '2', '2', '1', '1', '2', '1', '3', '1']
+    state_1_2 = ['2', '2', '2', '1', '1', '2', '1', '3', '2']
+    state_1_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '3']
+    state_2 = ['B', 'B', 'B', 'A', 'A', 'B', 'A', 'B', 'A']
+    state_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
+    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=cog_state, state=state_1_0, expertise_domain=list(range(0, 9)))
+    print(partial_fitness_1_0)
     landscape.describe()
-    landscape.create_fitness_rank()
-    landscape.count_local_optima()
-    ave_distance = landscape.calculate_avg_fitness_distance()
-    ave_distance = round(ave_distance, 4)
+    # landscape.create_fitness_rank()
+    # landscape.count_local_optima()
+    # ave_distance = landscape.calculate_avg_fitness_distance()
+    # ave_distance = round(ave_distance, 4)
     # print(landscape.local_optima)
-    print("Number of Local Optima: ", len(landscape.local_optima.keys()))
-    print("Average Distance: ", ave_distance)
+    # print("Number of Local Optima: ", len(landscape.local_optima.keys()))
+    # print("Average Distance: ", ave_distance)
 
     import matplotlib.pyplot as plt
     # plt.plot(range(len(landscape.local_optima.values())), landscape.local_optima.values())
@@ -352,23 +391,23 @@ if __name__ == '__main__':
     # plt.ylabel("Value")
     # plt.show()
 
-    plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.savefig(" N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
-    plt.clf()
-    plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.title("N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
+    # plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.savefig(" N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
+    # plt.clf()
+    # plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.title("N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
 
