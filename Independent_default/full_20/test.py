@@ -168,4 +168,6 @@ import numpy as np
 # plt.show()
 
 
-
+bit_counts = {'0': 10, '1': 110, '2': 0, '3': 0}
+dominant_bit = max(bit_counts, key=bit_counts.get)
+print(dominant_bit, type(dominant_bit))

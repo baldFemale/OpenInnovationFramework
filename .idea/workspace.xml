@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/G_performance.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,28 +78,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.Landscape (2)">
-    <configuration name="Agent (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Independent_default/partial_20" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Independent_default/partial_20/Agent.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Agent" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,6 +144,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Independent_default/full_20" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Independent_default/full_20/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -198,10 +191,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Landscape (2)" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.Agent" />
         <item itemvalue="Python.Landscape (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.Agent (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -294,14 +287,7 @@
       <workItem from="1685014846025" duration="3480000" />
       <workItem from="1685018370842" duration="1439000" />
       <workItem from="1685087253944" duration="11003000" />
-      <workItem from="1685110932380" duration="47288000" />
-    </task>
-    <task id="LOCAL-00076" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684245542588</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1684245542588</updated>
+      <workItem from="1685110932380" duration="54090000" />
     </task>
     <task id="LOCAL-00077" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684245632105</created>
@@ -639,7 +625,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685607064917</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <created>1685619656279</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1685619656279</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +685,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$CogLandscape.coverage" NAME="CogLandscape Coverage Results" MODIFIED="1684831451931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__2_.coverage" NAME="Evaluator (2) Coverage Results" MODIFIED="1671345626145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist.coverage" NAME="Generalist Coverage Results" MODIFIED="1684592672215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_knowledge" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__2_.coverage" NAME="Landscape (2) Coverage Results" MODIFIED="1685544501093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_20" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__2_.coverage" NAME="Landscape (2) Coverage Results" MODIFIED="1685626970835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Specialist.coverage" NAME="Specialist Coverage Results" MODIFIED="1684928048391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__3_.coverage" NAME="Evaluator (3) Coverage Results" MODIFIED="1671992905886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/ss" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__3_.coverage" NAME="Agent (3) Coverage Results" MODIFIED="1685089008361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/full_full" />
@@ -706,7 +699,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape.coverage" NAME="Landscape Coverage Results" MODIFIED="1685089667972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent.coverage" NAME="Agent Coverage Results" MODIFIED="1685535812429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1684502963058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1685624485582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__4_.coverage" NAME="Evaluator (4) Coverage Results" MODIFIED="1672234688582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/ss" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1684227013424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__2_.coverage" NAME="Agent (2) Coverage Results" MODIFIED="1685351939297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_20" />
