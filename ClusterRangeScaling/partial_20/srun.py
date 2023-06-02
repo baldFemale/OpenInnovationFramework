@@ -51,7 +51,7 @@ if __name__ == '__main__':
     N = 10
     state_num = 4
     expertise_amount = 20
-    norm = "RangeScaling"
+    norm = "ClusterRangeScaling"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
