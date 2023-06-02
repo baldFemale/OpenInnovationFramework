@@ -162,7 +162,7 @@ class Landscape:
 
         elif self.norm == "ClusterRangeScaling":
             cluster_list = [[]] * 4
-            seed_list = [["0"] * self.N, ["1"] * self.N, ["2"] * self.N, [3] * self.N]
+            seed_list = [["0"] * self.N, ["1"] * self.N, ["2"] * self.N, ["3"] * self.N]
             for key in self.cache.keys():
                 distance_list = [self.get_hamming_distance(state_1=seed, state_2=list(key)) for seed in seed_list]
                 cluster_index = distance_list.index(min(distance_list))
