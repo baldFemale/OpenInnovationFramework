@@ -57,7 +57,7 @@ class Agent:
 
     def search(self, manner="Partial"):
         next_state = self.state.copy()
-        index = np.random.choice(range(self.N))
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)

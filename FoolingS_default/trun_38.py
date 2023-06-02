@@ -15,7 +15,7 @@ import pickle
 
 # mp version
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None,
-         agent_num=None, norm=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+         agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     """
     :param N: problem dimension
     :param K: complexity degree
@@ -30,7 +30,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     :return:
     """
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm=norm)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
@@ -64,9 +64,8 @@ if __name__ == '__main__':
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    generalist_expertise = 4  # 2 G domains
-    specialist_expertise = 16  # 4 S domains
-    norm = "MaxMin"
+    generalist_expertise = 2  # 1 G
+    specialist_expertise = 36  # 9 S
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -84,7 +83,7 @@ if __name__ == '__main__':
         for loop in range(landscape_iteration):
             sema.acquire()
             p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
-                                              agent_num, norm, search_iteration, loop, return_dict, sema))
+                                              agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -114,16 +113,16 @@ if __name__ == '__main__':
         performance_across_K_time.append(performance_across_time)
         cog_performance_across_K_time.append(cog_performance_across_time)
     # remove time dimension
-    with open("t_performance_across_K", 'wb') as out_file:
+    with open("t_performance_across_K_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("t_variance_across_K", 'wb') as out_file:
+    with open("t_variance_across_K_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("t_performance_across_K_time", 'wb') as out_file:
+    with open("t_performance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("t_cog_performance_across_K_time", 'wb') as out_file:
+    with open("t_cog_performance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("t_variance_across_K_time", 'wb') as out_file:
+    with open("t_variance_across_K_time_E_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()

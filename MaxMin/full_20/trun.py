@@ -66,7 +66,7 @@ if __name__ == '__main__':
     state_num = 4
     generalist_expertise = 4  # 2 G domains
     specialist_expertise = 16  # 4 S domains
-    norm = "RangeScaling"
+    norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
