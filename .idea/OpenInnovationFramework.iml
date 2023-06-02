@@ -26,6 +26,16 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/full_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/full_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/partial_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FoolingS_default" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FoolingT_default" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/RangeScaling" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/RangeScaling/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/RangeScaling/full_full" isTestSource="false" />

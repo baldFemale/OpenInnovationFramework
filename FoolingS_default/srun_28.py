@@ -64,8 +64,8 @@ if __name__ == '__main__':
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    generalist_expertise = 8  # 4 G
-    specialist_expertise = 24  # 6 S
+    generalist_expertise = 0  # 0 G
+    specialist_expertise = 28  # 7 S
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
