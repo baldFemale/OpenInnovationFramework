@@ -175,17 +175,17 @@ class Landscape:
                 max_across_cluster.append(max(fitness_list))
             for key in self.cache.keys():
                 if key in cluster_list[0]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[0]) * 0.5 / \
+                    self.cache[key] = (self.cache[key] - min_across_cluster[0]) * 0.25 / \
                                       (max_across_cluster[0] - min_across_cluster[0]) + 0
                 elif key in cluster_list[1]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[1]) * 0.5 / \
-                                      (max_across_cluster[1] - min_across_cluster[1]) + 0
+                    self.cache[key] = (self.cache[key] - min_across_cluster[1]) * 0.25 / \
+                                      (max_across_cluster[1] - min_across_cluster[1]) + 0.25
                 elif key in cluster_list[2]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[2]) * 0.5 / \
+                    self.cache[key] = (self.cache[key] - min_across_cluster[2]) * 0.25 / \
                                       (max_across_cluster[2] - min_across_cluster[2]) + 0.50
                 else:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[3]) * 0.5 / \
-                                      (max_across_cluster[3] - min_across_cluster[3]) + 0.50
+                    self.cache[key] = (self.cache[key] - min_across_cluster[3]) * 0.25 / \
+                                      (max_across_cluster[3] - min_across_cluster[3]) + 0.75
 
     def query_fitness(self, state: list) -> float:
         return self.cache["".join(state)]

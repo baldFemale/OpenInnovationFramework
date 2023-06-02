@@ -6,10 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_20/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/full_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/full_full/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Independent_default/partial_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Independent_default/partial_20/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,14 +298,7 @@
       <workItem from="1685014846025" duration="3480000" />
       <workItem from="1685018370842" duration="1439000" />
       <workItem from="1685087253944" duration="11003000" />
-      <workItem from="1685110932380" duration="54090000" />
-    </task>
-    <task id="LOCAL-00077" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684245632105</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1684245632105</updated>
+      <workItem from="1685110932380" duration="55655000" />
     </task>
     <task id="LOCAL-00078" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684245928806</created>
@@ -632,7 +636,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685619656279</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <created>1685627425443</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1685627425443</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

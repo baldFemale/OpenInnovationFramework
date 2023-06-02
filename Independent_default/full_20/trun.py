@@ -15,7 +15,7 @@ import pickle
 
 # mp version
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None,
-         agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+         agent_num=None, norm=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     """
     :param N: problem dimension
     :param K: complexity degree
@@ -30,7 +30,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     :return:
     """
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm=norm)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
@@ -66,6 +66,7 @@ if __name__ == '__main__':
     state_num = 4
     generalist_expertise = 4  # 2 G domains
     specialist_expertise = 16  # 4 S domains
+    norm = "RangeScaling"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -83,7 +84,7 @@ if __name__ == '__main__':
         for loop in range(landscape_iteration):
             sema.acquire()
             p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
-                                              agent_num, search_iteration, loop, return_dict, sema))
+                                              agent_num, norm, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
