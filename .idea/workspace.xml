@@ -5,19 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <change afterPath="$PROJECT_DIR$/MaxMin/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T30" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S28" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T34" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S36" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T36" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T38" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_T40" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_30.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_34.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_28.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_38.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_36.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/Landscape.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingS_default",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/RangeScaling/partial_20",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,18 +68,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\partial_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\full_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\full_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\partial_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Main" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes" />
-      <recent name="C:\Users\Junee\Documents\GitHub\OpenInnovationFramework\Historical Codes" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Landscape (2)">
@@ -296,14 +293,7 @@
       <workItem from="1685018370842" duration="1439000" />
       <workItem from="1685087253944" duration="11003000" />
       <workItem from="1685110932380" duration="55715000" />
-      <workItem from="1685689782069" duration="4376000" />
-    </task>
-    <task id="LOCAL-00084" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684482138566</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1684482138566</updated>
+      <workItem from="1685689782069" duration="5342000" />
     </task>
     <task id="LOCAL-00085" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684505509565</created>
@@ -641,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685706660560</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <created>1685707869790</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1685707869790</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
