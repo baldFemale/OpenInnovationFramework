@@ -67,9 +67,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\partial_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
@@ -291,14 +291,7 @@
       <workItem from="1685087253944" duration="11003000" />
       <workItem from="1685110932380" duration="55715000" />
       <workItem from="1685689782069" duration="7067000" />
-      <workItem from="1685773008810" duration="8818000" />
-    </task>
-    <task id="LOCAL-00090" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684739300600</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1684739300600</updated>
+      <workItem from="1685773008810" duration="11392000" />
     </task>
     <task id="LOCAL-00091" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684760684581</created>
@@ -636,7 +629,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685784740178</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1685792531812</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1685792531812</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

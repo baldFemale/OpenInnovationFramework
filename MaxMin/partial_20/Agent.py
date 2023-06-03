@@ -14,7 +14,7 @@ class Agent:
                  generalist_expertise=None, specialist_expertise=None, manner="Partial"):
         """
         :param N: problem dimension
-        :param landscape: assihned landscape
+        :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
@@ -59,7 +59,7 @@ class Agent:
 
     def search(self):
         next_state = self.state.copy()
-        index = np.random.choice(self.N)
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -78,7 +78,7 @@ class Agent:
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness >= self.fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
