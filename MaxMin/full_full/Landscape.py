@@ -192,7 +192,7 @@ class Landscape:
 
     def query_cog_fitness(self, cog_state: list, state: list) -> float:
         cog_fitness = 0
-        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+        for row, cog_bit in enumerate(cog_state):
             dependency = self.dependency_map[row]
             bin_index = "".join([str(state[j]) for j in dependency])
             if cog_bit == "A":
@@ -227,7 +227,7 @@ class Landscape:
 
     def query_partial_fitness(self, cog_state: list, state: list, expertise_domain: list) -> float:
         cog_fitness = 0
-        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+        for row, cog_bit in enumerate(cog_state):
             if row not in expertise_domain:
                 continue
             dependency = self.dependency_map[row]
@@ -283,7 +283,6 @@ class Landscape:
         ranks = rankdata(fitness_cache)
         ranks = [int(each) for each in ranks]
         rank_dict = {key: rank for key, rank in zip(self.cache.keys(), ranks)}
-        # print(rank_dict)
         return rank_dict
 
     def count_local_optima(self):
