@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --time=3-00:00:00
-#SBATCH --job-name=MaxMinT30
+#SBATCH --time=03:00:00
+#SBATCH --job-name=Test
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=200gb
-#SBATCH --partition=long
+#SBATCH --mem=20gb
+#SBATCH --partition=medium
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-python trun.py
+python Agent.py

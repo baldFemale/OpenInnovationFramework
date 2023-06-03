@@ -35,10 +35,11 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
         tshape = Agent(N=N, landscape=landscape, state_num=state_num,
-                       generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+                       generalist_expertise=generalist_expertise,
+                       specialist_expertise=specialist_expertise, manner="Partial")
         performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
-            tshape.search(manner="Partial")
+            tshape.search()
             performance_one_agent.append(tshape.fitness)
             cog_performance_one_agent.append(tshape.cog_fitness)
         performance_across_agent_time.append(performance_one_agent)

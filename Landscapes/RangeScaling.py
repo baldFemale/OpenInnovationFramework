@@ -10,8 +10,7 @@ from Landscape import Landscape
 
 
 class Agent:
-    def __init__(self, N=None, landscape=None, state_num=4,
-                 generalist_expertise=None, specialist_expertise=None, manner="Partial"):
+    def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
         """
         :param N: problem dimension
         :param landscape: assihned landscape
@@ -37,7 +36,6 @@ class Agent:
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
         self.cog_state, self.cog_fitness, self.fitness = [], [], []
-        self.manner = manner
         self.update_fitness()
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
@@ -48,16 +46,16 @@ class Agent:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def update_fitness(self):
+    def update_fitness(self, manner="Partial"):
         self.cog_state = self.state_2_cog_state(state=self.state)
-        if self.manner == "Full":
+        if manner == "Full":
             self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state, state=self.state)
         else:
             self.cog_fitness = self.landscape.query_partial_fitness(
                 cog_state=self.cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
         self.fitness = self.landscape.query_fitness(state=self.state)
 
-    def search(self):
+    def search(self, manner="Partial"):
         next_state = self.state.copy()
         index = np.random.choice(self.generalist_domain + self.specialist_domain)
         free_space = ["0", "1", "2", "3"]
@@ -65,7 +63,7 @@ class Agent:
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
         perception = "".join(next_cog_state)
-        if self.manner == "Full":
+        if manner == "Full":
             if perception not in self.cog_cache.keys():
                 next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state, state=self.state)
                 self.cog_cache[perception] = next_cog_fitness
@@ -125,13 +123,13 @@ if __name__ == '__main__':
     import time
     t0 = time.time()
     np.random.seed(1000)
-    search_iteration = 100
-    N = 9
-    K = 8
+    search_iteration = 200
+    N = 10
+    K = 9
     state_num = 4
-    generalist_expertise = 0
-    specialist_expertise = 36
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    generalist_expertise = 20
+    specialist_expertise = 0
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="RangeScaling")
     landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
@@ -142,18 +140,18 @@ if __name__ == '__main__':
         agent.search()
         performance_across_time.append(agent.fitness)
         cog_performance_across_time.append(agent.cog_fitness)
-    print("Search Result: ")
-    print("".join(agent.state), "".join(agent.cog_state), agent.fitness)
-    landscape.count_local_optima()
-    focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
-    print("Focal Neighbor")
-    neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
-    for neighbor in neighbor_list:
-        fitness_ = landscape.query_fitness(state=neighbor)
-        print(neighbor, fitness_)
-    print("Local Optima")
-    for key, value in landscape.local_optima.items():
-        print(key, value)
+    # print("Search Result: ")
+    # print("".join(agent.state), "".join(agent.cog_state), agent.fitness)
+    # landscape.count_local_optima()
+    # focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
+    # print("Focal Neighbor")
+    # neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
+    # for neighbor in neighbor_list:
+    #     fitness_ = landscape.query_fitness(state=neighbor)
+    #     print(neighbor, fitness_)
+    # print("Local Optima")
+    # for key, value in landscape.local_optima.items():
+    #     print(key, value)
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration)

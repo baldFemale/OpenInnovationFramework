@@ -10,7 +10,8 @@ from Landscape import Landscape
 
 
 class Agent:
-    def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4,
+                 generalist_expertise=None, specialist_expertise=None, manner="Partial"):
         """
         :param N: problem dimension
         :param landscape: assihned landscape
@@ -36,6 +37,7 @@ class Agent:
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
         self.cog_state, self.cog_fitness, self.fitness = [], [], []
+        self.manner = manner
         self.update_fitness()
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
@@ -46,16 +48,16 @@ class Agent:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def update_fitness(self, manner="Partial"):
+    def update_fitness(self):
         self.cog_state = self.state_2_cog_state(state=self.state)
-        if manner == "Full":
+        if self.manner == "Full":
             self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state, state=self.state)
         else:
             self.cog_fitness = self.landscape.query_partial_fitness(
                 cog_state=self.cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
         self.fitness = self.landscape.query_fitness(state=self.state)
 
-    def search(self, manner="Partial"):
+    def search(self):
         next_state = self.state.copy()
         index = np.random.choice(self.generalist_domain + self.specialist_domain)
         free_space = ["0", "1", "2", "3"]
@@ -63,7 +65,7 @@ class Agent:
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
         perception = "".join(next_cog_state)
-        if manner == "Full":
+        if self.manner == "Full":
             if perception not in self.cog_cache.keys():
                 next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state, state=self.state)
                 self.cog_cache[perception] = next_cog_fitness

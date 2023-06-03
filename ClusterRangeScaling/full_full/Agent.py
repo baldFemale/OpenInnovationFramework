@@ -125,11 +125,11 @@ if __name__ == '__main__':
     np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 8
+    K = 0
     state_num = 4
     generalist_expertise = 0
     specialist_expertise = 36
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="ClusterRangeScaling")
     landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
@@ -142,16 +142,16 @@ if __name__ == '__main__':
         cog_performance_across_time.append(agent.cog_fitness)
     print("Search Result: ")
     print("".join(agent.state), "".join(agent.cog_state), agent.fitness)
-    landscape.count_local_optima()
-    focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
-    print("Focal Neighbor")
-    neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
-    for neighbor in neighbor_list:
-        fitness_ = landscape.query_fitness(state=neighbor)
-        print(neighbor, fitness_)
-    print("Local Optima")
-    for key, value in landscape.local_optima.items():
-        print(key, value)
+    # landscape.count_local_optima()
+    # focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
+    # print("Focal Neighbor")
+    # neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
+    # for neighbor in neighbor_list:
+    #     fitness_ = landscape.query_fitness(state=neighbor)
+    #     print(neighbor, fitness_)
+    # print("Local Optima")
+    # for key, value in landscape.local_optima.items():
+    #     print(key, value)
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(search_iteration)

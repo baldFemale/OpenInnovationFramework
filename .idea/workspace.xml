@@ -5,11 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <change afterPath="$PROJECT_DIR$/Landscapes/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Landscapes/RangeScaling.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Landscapes/slurm_rangescaling" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Landscapes/slurm_test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Landscapes/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Landscapes/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +77,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/MaxMin/partial_20",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingT_default",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,11 +88,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\partial_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\partial_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
@@ -77,7 +102,29 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\AOM2023" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Landscape (2)">
+  <component name="RunManager" selected="Python.Agent (1)">
+    <configuration name="Agent (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ClusterRangeScaling/full_full" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ClusterRangeScaling/full_full/Agent.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Agent" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,35 +213,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Independent_default/partial_20" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Independent_default/partial_20/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Agent (1)" />
         <item itemvalue="Python.Landscape (2)" />
         <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.Agent" />
         <item itemvalue="Python.Landscape (1)" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -288,14 +313,8 @@
       <workItem from="1685018370842" duration="1439000" />
       <workItem from="1685087253944" duration="11003000" />
       <workItem from="1685110932380" duration="55715000" />
-      <workItem from="1685689782069" duration="6021000" />
-    </task>
-    <task id="LOCAL-00086" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
-      <created>1684574284513</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1684574284513</updated>
+      <workItem from="1685689782069" duration="7067000" />
+      <workItem from="1685773008810" duration="4190000" />
     </task>
     <task id="LOCAL-00087" summary="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values">
       <created>1684574375529</created>
@@ -633,7 +652,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685711921836</updated>
     </task>
-    <option name="localTasksCounter" value="135" />
+    <task id="LOCAL-00135" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
+      <created>1685712622084</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1685712622084</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +718,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__3_.coverage" NAME="Agent (3) Coverage Results" MODIFIED="1685089008361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/full_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__5_.coverage" NAME="Evaluator (5) Coverage Results" MODIFIED="1671345824040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Tshape.coverage" NAME="Tshape Coverage Results" MODIFIED="1684928888375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__1_.coverage" NAME="Agent (1) Coverage Results" MODIFIED="1685369955251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/partial_20" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__1_.coverage" NAME="Agent (1) Coverage Results" MODIFIED="1685773098479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ClusterRangeScaling/full_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator.coverage" NAME="Evaluator Coverage Results" MODIFIED="1672234656400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1685445169452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/partial_20" />
