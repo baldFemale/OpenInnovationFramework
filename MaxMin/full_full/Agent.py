@@ -59,7 +59,7 @@ class Agent:
 
     def search(self):
         next_state = self.state.copy()
-        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        index = np.random.choice(self.N)
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -78,7 +78,7 @@ class Agent:
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness > self.cog_fitness:
+        if next_cog_fitness >= self.fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
