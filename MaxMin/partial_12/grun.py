@@ -51,7 +51,7 @@ if __name__ == '__main__':
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    expertise_amount = 20
+    expertise_amount = 12
     norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50

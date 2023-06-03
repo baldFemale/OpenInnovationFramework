@@ -21,13 +21,13 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        generalist = Agent(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount, manner="Full")
+        specialist = Agent(N=N, landscape=landscape, state_num=state_num,
+                           specialist_expertise=expertise_amount, manner="Full")
         performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
-            generalist.search()
-            performance_one_agent.append(generalist.fitness)
-            cog_performance_one_agent.append(generalist.cog_fitness)
+            specialist.search()
+            performance_one_agent.append(specialist.fitness)
+            cog_performance_one_agent.append(specialist.cog_fitness)
         performance_across_agent_time.append(performance_one_agent)
         cog_performance_across_agent_time.append(cog_performance_one_agent)
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    expertise_amount = 20
+    expertise_amount = 12
     norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
@@ -100,16 +100,16 @@ if __name__ == '__main__':
         performance_across_K_time.append(performance_across_time)
         cog_performance_across_K_time.append(cog_performance_across_time)
     # remove time dimension
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("s_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_variance_across_K", 'wb') as out_file:
+    with open("s_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("g_performance_across_K_time", 'wb') as out_file:
+    with open("s_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("g_cog_performance_across_K_time", 'wb') as out_file:
+    with open("s_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("g_variance_across_K_time", 'wb') as out_file:
+    with open("s_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
