@@ -21,10 +21,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, specialist_expertise=expertise_amount)
+        specialist = Agent(N=N, landscape=landscape, state_num=state_num, manner="Partial",
+                           specialist_expertise=expertise_amount)
         performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
-            specialist.search(manner="Partial")
+            specialist.search()
             performance_one_agent.append(specialist.fitness)
             cog_performance_one_agent.append(specialist.cog_fitness)
         performance_across_agent_time.append(performance_one_agent)
