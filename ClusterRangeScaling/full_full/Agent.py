@@ -94,10 +94,8 @@ class Agent:
                     cog_state[index] = "B"
                 else:
                     raise ValueError("Only support for state number = 4")
-            elif index in self.specialist_domain:
-                pass
             else:
-                cog_state[index] = "*"
+                pass  # specialist_domain or unknown domain
         return cog_state
 
     # def cog_state_2_state(self, cog_state=None):
