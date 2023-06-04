@@ -14,7 +14,7 @@ class Agent:
                  generalist_expertise=None, specialist_expertise=None, manner="Partial"):
         """
         :param N: problem dimension
-        :param landscape: assihned landscape
+        :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
