@@ -6,20 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_28.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_28.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_36.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_30.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_30.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_34.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_34.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_36.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_38.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_38.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_40.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,21 +50,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingT_default",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/FoolingT_default&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
@@ -302,14 +296,8 @@
       <workItem from="1685773008810" duration="12531000" />
       <workItem from="1685797788582" duration="7181000" />
       <workItem from="1685870762014" duration="787000" />
-      <workItem from="1685881216039" duration="1430000" />
-    </task>
-    <task id="LOCAL-00098" summary="Simplify the model">
-      <created>1684931240413</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1684931240413</updated>
+      <workItem from="1685881216039" duration="1772000" />
+      <workItem from="1685945040163" duration="4295000" />
     </task>
     <task id="LOCAL-00099" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <created>1684931621588</created>
@@ -647,7 +635,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685882216571</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1685882664361</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1685882664361</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
