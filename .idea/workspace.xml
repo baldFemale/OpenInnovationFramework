@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -297,14 +289,7 @@
       <workItem from="1685797788582" duration="7181000" />
       <workItem from="1685870762014" duration="787000" />
       <workItem from="1685881216039" duration="1772000" />
-      <workItem from="1685945040163" duration="4295000" />
-    </task>
-    <task id="LOCAL-00099" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
-      <created>1684931621588</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1684931621588</updated>
+      <workItem from="1685945040163" duration="5688000" />
     </task>
     <task id="LOCAL-00100" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <created>1684933614692</created>
@@ -642,7 +627,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685882664361</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1685952226831</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1685952226832</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
