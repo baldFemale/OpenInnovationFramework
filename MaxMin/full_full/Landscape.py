@@ -178,7 +178,6 @@ class Landscape:
                     cluster_2[key] = True
                 else:
                     cluster_3[key] = True
-            print("Cluster Length: ", len(cluster_0), len(cluster_1), len(cluster_2), len(cluster_3))
             fitness_list_0 = [self.cache[key] for key in cluster_0.keys()]
             fitness_list_1 = [self.cache[key] for key in cluster_1.keys()]
             fitness_list_2 = [self.cache[key] for key in cluster_2.keys()]

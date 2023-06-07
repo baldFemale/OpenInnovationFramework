@@ -94,8 +94,11 @@ class Agent:
                     cog_state[index] = "B"
                 else:
                     raise ValueError("Only support for state number = 4")
+            # elif index in self.specialist_domain:
+            #     pass
             else:
-                pass  # specialist_domain or unknown domain
+                pass
+                # cog_state[index] = "*"
         return cog_state
 
     # def cog_state_2_state(self, cog_state=None):
@@ -124,7 +127,7 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    np.random.seed(1000)
+    np.random.seed(1024)
     search_iteration = 100
     N = 9
     K = 8
