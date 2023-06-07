@@ -78,7 +78,7 @@ class Agent:
                 self.cog_cache[perception] = next_cog_fitness
             else:
                 next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness >= self.cog_fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
