@@ -48,7 +48,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 100
     agent_num = 100
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 300  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
     expertise_amount = 20
