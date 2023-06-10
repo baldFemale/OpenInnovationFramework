@@ -6,33 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T28" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/slurm_T28" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/slurm_T32" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T36" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/slurm_T36" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/slurm_T40" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +56,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/RangeScaling/partial_20",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingS_default",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,11 +67,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\partial_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\partial_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\full_full" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
@@ -319,14 +300,7 @@
       <workItem from="1685945040163" duration="5810000" />
       <workItem from="1686138236381" duration="10700000" />
       <workItem from="1686286806219" duration="3434000" />
-      <workItem from="1686385507120" duration="8229000" />
-    </task>
-    <task id="LOCAL-00110" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
-      <created>1685018698904</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1685018698904</updated>
+      <workItem from="1686385507120" duration="8577000" />
     </task>
     <task id="LOCAL-00111" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
       <created>1685019026325</created>
@@ -664,7 +638,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686403560045</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1686404262533</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1686404262533</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
