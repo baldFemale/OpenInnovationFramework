@@ -272,6 +272,7 @@ class Landscape:
                 bin_index = cog_bit + bin_index
                 index = int(bin_index, self.state_num)
                 c_i = self.FC[row][index]
+                print(bin_index, index, c_i)
             cog_fitness += c_i
         return cog_fitness / len(expertise_domain)
 
@@ -376,7 +377,7 @@ if __name__ == '__main__':
     K = 8
     state_num = 4
     np.random.seed(1000)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="ClusterRangeScaling")
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     # print(landscape.FC[0])
     cog_state = ['B', 'B', 'B', 'A', 'A', 'B', "A", "B", "A"]
     # cog_state = ["0", "0", "0", "0", "0", "0"]
@@ -387,34 +388,37 @@ if __name__ == '__main__':
     state_1_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '3']
     state_2 = ['B', 'B', 'B', 'A', 'A', 'B', 'A', 'B', 'A']
     state_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
-    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=cog_state, state=state_1_0, expertise_domain=list(range(N)))
-    print(partial_fitness_1_0)
-    landscape.describe()
+    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=state_1_0, state=state_1_0, expertise_domain=list(range(N)))
+    calculated_fitness = landscape.calculate_fitness(state=state_1_0)
+    real_fitness = landscape.query_fitness(state=state_1_0)
+    print(state_1_0, partial_fitness_1_0, real_fitness, calculated_fitness)
+    # landscape.describe()
+
     # landscape.create_fitness_rank()
-    landscape.count_local_optima()
-    ave_distance = landscape.calculate_avg_fitness_distance()
-    ave_distance = round(ave_distance, 4)
-    print(landscape.local_optima)
-    print("Number of Local Optima: ", len(landscape.local_optima.keys()))
-    print("Average Distance: ", ave_distance)
+    # landscape.count_local_optima()
+    # ave_distance = landscape.calculate_avg_fitness_distance()
+    # ave_distance = round(ave_distance, 4)
+    # print(landscape.local_optima)
+    # print("Number of Local Optima: ", len(landscape.local_optima.keys()))
+    # print("Average Distance: ", ave_distance)
 
-    import matplotlib.pyplot as plt
-    plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
-    plt.clf()
+    # import matplotlib.pyplot as plt
+    # plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
+    # plt.clf()
 
-    plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.title("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
+    # plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.title("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
 
