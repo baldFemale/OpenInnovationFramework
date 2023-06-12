@@ -141,25 +141,26 @@ if __name__ == '__main__':
         first_quantile_across_K_time.append(first_quantile_across_time)
         last_quantile_across_K_time.append(last_quantile_across_time)
     # remove time dimension
-    with open("t_performance_across_K_{}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_performance_across_K_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("t_variance_across_K".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_variance_across_K_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("t_first_quantile_across_K".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_first_quantile_across_K_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(first_quantile_across_K, out_file)
-    with open("t_last_quantile_across_K".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_last_quantile_across_K_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(lats_quantile_across_K, out_file)
     # retain time dimension
-    with open("t_performance_across_K_time".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_performance_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("t_cog_performance_across_K_time".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_cog_performance_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("t_variance_across_K_time".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_variance_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
-    with open("t_first_quantile_across_K_time".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_first_quantile_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(first_quantile_across_K_time, out_file)
-    with open("t_last_quantile_across_K_time".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
+    with open("t_last_quantile_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(last_quantile_across_K_time, out_file)
+
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

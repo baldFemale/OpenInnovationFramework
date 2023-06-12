@@ -272,7 +272,6 @@ class Landscape:
                 bin_index = cog_bit + bin_index
                 index = int(bin_index, self.state_num)
                 c_i = self.FC[row][index]
-                print(bin_index, index, c_i)
             cog_fitness += c_i
         return cog_fitness / len(expertise_domain)
 

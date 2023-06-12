@@ -6,15 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_16.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_16.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_24.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_28.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_28.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_32.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_36.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/trun_40.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/RangeScaling/full_full",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingT_default",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,11 +70,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\partial_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\partial_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\ClusterRangeScaling\full_full" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
@@ -301,14 +303,8 @@
       <workItem from="1685945040163" duration="5810000" />
       <workItem from="1686138236381" duration="10700000" />
       <workItem from="1686286806219" duration="3434000" />
-      <workItem from="1686385507120" duration="12933000" />
-    </task>
-    <task id="LOCAL-00113" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape">
-      <created>1685088706394</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1685088706394</updated>
+      <workItem from="1686385507120" duration="13045000" />
+      <workItem from="1686551314303" duration="1387000" />
     </task>
     <task id="LOCAL-00114" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.">
       <created>1685106109557</created>
@@ -646,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686483936973</updated>
     </task>
-    <option name="localTasksCounter" value="162" />
+    <task id="LOCAL-00162" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1686551247822</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1686551247822</updated>
+    </task>
+    <option name="localTasksCounter" value="163" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
