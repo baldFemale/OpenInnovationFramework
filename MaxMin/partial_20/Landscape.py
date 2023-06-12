@@ -182,23 +182,21 @@ class Landscape:
             fitness_list_1 = [self.cache[key] for key in cluster_1.keys()]
             fitness_list_2 = [self.cache[key] for key in cluster_2.keys()]
             fitness_list_3 = [self.cache[key] for key in cluster_3.keys()]
-            max_0, min_0 = max(fitness_list_0), min(fitness_list_0)
-            max_1, min_1 = max(fitness_list_1), min(fitness_list_1)
-            max_2, min_2 = max(fitness_list_2), min(fitness_list_2)
-            max_3, min_3 = max(fitness_list_3), min(fitness_list_3)
+            # max_0, min_0 = max(fitness_list_0), min(fitness_list_0)
+            # max_1, min_1 = max(fitness_list_1), min(fitness_list_1)
+            # max_2, min_2 = max(fitness_list_2), min(fitness_list_2)
+            # max_3, min_3 = max(fitness_list_3), min(fitness_list_3)
+
+            # Only two clusters: low and high type
+            max_low, min_low = max(fitness_list_0 + fitness_list_1), min(fitness_list_0 + fitness_list_1)
+            max_high, min_high = max(fitness_list_2 + fitness_list_3), min(fitness_list_2 + fitness_list_3)
             for key in self.cache.keys():
-                if key in cluster_0:
-                    self.cache[key] = (self.cache[key] - min_0) * 0.25 / \
-                                      (max_0 - min_0)
-                elif key in cluster_1:
-                    self.cache[key] = (self.cache[key] - min_1) * 0.25 / \
-                                      (max_1 - min_1) + 0.25
-                elif key in cluster_2:
-                    self.cache[key] = (self.cache[key] - min_2) * 0.25 / \
-                                      (max_2 - min_2) + 0.50
+                if (key in cluster_0) or (key in cluster_1):
+                    self.cache[key] = (self.cache[key] - min_low) * 0.5 / \
+                                      (max_low - min_low)
                 else:
-                    self.cache[key] = (self.cache[key] - min_3) * 0.25 / \
-                                      (max_3 - min_3) + 0.75
+                    self.cache[key] = (self.cache[key] - min_high) * 0.5 / \
+                                      (max_high - min_high) + 0.50
 
     def query_fitness(self, state: list) -> float:
         return self.cache["".join(state)]
@@ -272,7 +270,6 @@ class Landscape:
                 bin_index = cog_bit + bin_index
                 index = int(bin_index, self.state_num)
                 c_i = self.FC[row][index]
-                print(bin_index, index, c_i)
             cog_fitness += c_i
         return cog_fitness / len(expertise_domain)
 
