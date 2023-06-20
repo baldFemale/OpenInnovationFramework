@@ -15,15 +15,15 @@ import statistics
 
 
 # mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, norm=None,
+def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm=norm)
+    landscape = Landscape(N=N, K=K, state_num=state_num)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num,
-                           specialist_expertise=expertise_amount, manner="Full")
+                           specialist_expertise=expertise_amount)
         performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
             specialist.search()
@@ -66,7 +66,6 @@ if __name__ == '__main__':
     N = 10
     state_num = 4
     expertise_amount = 20
-    norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -88,7 +87,7 @@ if __name__ == '__main__':
         for loop in range(landscape_iteration):
             sema.acquire()
             p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
-                                              agent_num, norm, search_iteration, loop, return_dict, sema))
+                                              agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:

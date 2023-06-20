@@ -5,24 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <change afterPath="$PROJECT_DIR$/MaxMin/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/grun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/srun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/grun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/trun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/grun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/partial_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/partial_20/trun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,28 +57,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/MaxMin/partial_20&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/MaxMin/partial_20",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\partial_20" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
@@ -311,13 +309,7 @@
       <workItem from="1686286806219" duration="3434000" />
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
-    </task>
-    <task id="LOCAL-00117" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--test again the default versus the shelter (i.e., *) treatment in the cognitive fitness calculation.">
-      <created>1685109247214</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1685109247214</updated>
+      <workItem from="1687003837194" duration="12580000" />
     </task>
     <task id="LOCAL-00118" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--test again the default versus the shelter (i.e., *) treatment in the cognitive fitness calculation.">
       <created>1685110886845</created>
@@ -655,7 +647,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686554470962</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception.">
+      <created>1687003857857</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1687003857857</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -717,7 +716,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__1_.coverage" NAME="Agent (1) Coverage Results" MODIFIED="1685773098479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ClusterRangeScaling/full_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator.coverage" NAME="Evaluator Coverage Results" MODIFIED="1672234656400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1686389380348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1687265129915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$landscape_run.coverage" NAME="landscape_run Coverage Results" MODIFIED="1684157326020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape.coverage" NAME="Landscape Coverage Results" MODIFIED="1685801599343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_full" />
@@ -725,6 +724,6 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1685624485582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_default/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__4_.coverage" NAME="Evaluator (4) Coverage Results" MODIFIED="1672234688582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/ss" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1684227013424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__2_.coverage" NAME="Agent (2) Coverage Results" MODIFIED="1686559312586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__2_.coverage" NAME="Agent (2) Coverage Results" MODIFIED="1687267168990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
   </component>
 </project>

@@ -16,7 +16,7 @@ import statistics
 
 # mp version
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None,
-         agent_num=None, norm=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+         agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, norm=norm)
     performance_across_agent_time = []
@@ -24,7 +24,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     for _ in range(agent_num):
         tshape = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=generalist_expertise,
-                       specialist_expertise=specialist_expertise, manner="Full")
+                       specialist_expertise=specialist_expertise)
         performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
             tshape.search()
@@ -68,7 +68,6 @@ if __name__ == '__main__':
     state_num = 4
     generalist_expertise = 12  # 6 G domains
     specialist_expertise = 8  # 2 S domains
-    norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -90,7 +89,7 @@ if __name__ == '__main__':
         for loop in range(landscape_iteration):
             sema.acquire()
             p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
-                                              agent_num, norm, search_iteration, loop, return_dict, sema))
+                                              agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
