@@ -83,7 +83,7 @@ class Agent:
                 next_cog_fitness = self.landscape.query_second_fitness(state=next_state)
             else:
                 next_cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=next_cog_state, state=next_state)
-        if next_cog_fitness >= self.cog_fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
