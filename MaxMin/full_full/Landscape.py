@@ -30,10 +30,8 @@ class Landscape:
         self.local_optima = {}
         self.first_cache = {}  # state string to overall fitness: state_num ^ N: [1]
         self.second_cache = {}
-        self.max_normalizer_1 = 1
-        self.min_normalizer_1 = 0
-        self.max_normalizer_2 = 1
-        self.min_normalizer_2 = 0
+        self.max_normalizer_1, self.min_normalizer_1 = 1, 0
+        self.max_normalizer_2, self.min_normalizer_2 = 1, 0
         self.norm = norm
         self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.initialize()  # Initialization and Normalization
@@ -72,8 +70,8 @@ class Landscape:
         translation_table = str.maketrans('01', 'AB')
         for row in range(self.N):
             k = int(sum(self.IM[row]))  # typically k = K+1; for 0123 combinations
-            for index, value in enumerate(self.FC_1[row]):
-                binary_value = bin(index)[2:].zfill(k)  # 0 -> "AAA"; 1-> "AAB"
+            for key, value in self.FC_1[row].items():
+                binary_value = bin(key)[2:].zfill(k)  # 0 -> "AAA"; 1-> "AAB"
                 binary_value = binary_value.translate(translation_table)
                 quaternary_value_list = self.cog_state_alternatives(cog_state=list(binary_value))
                 for quaternary_value in quaternary_value_list:
@@ -205,8 +203,41 @@ class Landscape:
     def query_first_fitness(self, state: list) -> float:
         return self.first_cache["".join(state)]
 
+    def query_scoped_first_fitness(self, cog_state: list, state: list) -> float:
+        aligned_cog_state = cog_state.copy()  # to know the contingence condition
+        for row in range(self.N):
+            if aligned_cog_state[row] == "*":
+                if state[row] in ["0", "1"]:
+                    aligned_cog_state[row] = "A"
+                else:
+                    aligned_cog_state[row] = "B"
+        translation_table = str.maketrans('AB', '01')
+        scoped_fitness = []
+        for row, bit in enumerate(cog_state):
+            if bit == "*":
+                continue
+            dependency = self.dependency_map[row]
+            bin_index = "".join([aligned_cog_state[j] for j in dependency])  # the unknown domain will shape the contingency condition
+            bin_index = aligned_cog_state[row] + bin_index
+            bin_index = bin_index.translate(translation_table)  # "AB" to "01"
+            index = int(bin_index, 2)
+            scoped_fitness.append(self.FC_1[row][index])  # not need to normalize; does not affect the local search
+        return sum(scoped_fitness) / len(scoped_fitness)
+
     def query_second_fitness(self, state: list) -> float:
         return self.second_cache["".join(state)]
+
+    def query_scoped_second_fitness(self, cog_state: list, state: list) -> float:
+        scoped_fitness = []
+        for row, bit in enumerate(cog_state):
+            if bit == "*":
+                continue
+            dependency = self.dependency_map[row]
+            qua_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
+            qua_index = state[row] + qua_index
+            index = int(qua_index, 4)
+            scoped_fitness.append(self.FC_2[row][index])  # not need to normalize; does not affect the local search
+        return sum(scoped_fitness) / len(scoped_fitness)
 
     # def query_cog_fitness(self, cog_state: list, state: list) -> float:
     #     cog_fitness = 0
@@ -381,7 +412,7 @@ class Landscape:
 if __name__ == '__main__':
     # Test Example
     N = 10
-    K = 0
+    K = 8
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")

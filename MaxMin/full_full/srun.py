@@ -24,13 +24,10 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num,
                            specialist_expertise=expertise_amount)
-        performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
             specialist.search()
-            performance_one_agent.append(specialist.fitness)
-            cog_performance_one_agent.append(specialist.cog_fitness)
-        performance_across_agent_time.append(performance_one_agent)
-        cog_performance_across_agent_time.append(cog_performance_one_agent)
+        performance_across_agent_time.append(specialist.fitness_across_time)
+        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -46,9 +43,9 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         quantiles = statistics.quantiles(temp_1, n=4)
         first_quantile = quantiles[0]
         last_quantile = quantiles[-1]
-        above_first_quantile = [num for num in temp_1 if num > first_quantile]
+        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
         first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
-        below_last_quantile = [num for num in temp_1 if num < last_quantile]
+        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
         last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
 
         cog_performance_across_time.append(sum(temp_2) / len(temp_2))
