@@ -36,8 +36,9 @@ class Agent:
         self.generalist_representation = ["A", "B"]
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
-        self.cog_state = []  # Only for G
+        self.cog_state = []  # for G: shallow; for S: scoped -> built upon common sense
         self.cog_fitness, self.fitness = 0, 0
+        self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.update_fitness()
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
@@ -49,10 +50,20 @@ class Agent:
             raise ValueError("Problematic S Expertise")
 
     def update_fitness(self):
+        self.cog_state = self.state_2_cog_state(state=self.state)
         if len(self.generalist_domain) != 0:  # iff G
-            self.cog_state = self.state_2_cog_state(state=self.state)
-            self.cog_fitness = self.landscape.query_first_fitness(state=self.cog_state)
+            if len(self.generalist_domain) == self.N:  # iff full G
+                self.cog_fitness = self.landscape.query_first_fitness(state=self.cog_state)
+            else:
+                self.cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=self.cog_state, state=self.state)
+        else:  # iff S
+            if len(self.specialist_domain) == self.N:  # iff full S
+                self.cog_fitness = self.landscape.query_second_fitness(state=self.state)
+            else:
+                self.cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
+        self.fitness_across_time.append(self.fitness)
+        self.cog_fitness_across_time.append(self.cog_fitness)
 
     def search(self):
         next_state = self.state.copy()
@@ -61,19 +72,24 @@ class Agent:
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
-        if len(self.generalist_domain) != 0:  # G
-            next_cog_state = self.state_2_cog_state(state=next_state)
-            next_cog_fitness = self.landscape.query_first_fitness(state=next_cog_state)
-            if next_cog_fitness > self.cog_fitness:
-                self.state = next_state
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.fitness = self.landscape.query_second_fitness(state=self.state)
-        else:  # S
-            next_fitness = self.landscape.query_second_fitness(state=next_state)
-            if next_fitness > self.fitness:
-                self.state = next_state
-                self.fitness = next_fitness
+        next_cog_state = self.state_2_cog_state(state=next_state)
+        if len(self.generalist_domain) != 0:  # iff G
+            if len(self.generalist_domain) == self.N:  # iff full G
+                next_cog_fitness = self.landscape.query_first_fitness(state=next_cog_state)
+            else:
+                next_cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=next_cog_state, state=next_state)
+        else:  # iff S
+            if len(self.specialist_domain) == self.N:  # iff full S
+                next_cog_fitness = self.landscape.query_second_fitness(state=next_state)
+            else:
+                next_cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=next_cog_state, state=next_state)
+        if next_cog_fitness >= self.cog_fitness:
+            self.state = next_state
+            self.cog_state = next_cog_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_second_fitness(state=self.state)
+        self.fitness_across_time.append(self.fitness)
+        self.cog_fitness_across_time.append(self.cog_fitness)
 
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
@@ -117,32 +133,25 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    np.random.seed(1000)
-    search_iteration = 100
+    # np.random.seed(1000)
+    search_iteration = 500
     N = 9
     K = 8
     state_num = 4
-    generalist_expertise = 18
-    specialist_expertise = 0
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    generalist_expertise = 0
+    specialist_expertise = 20
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
+
     # landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
     # agent.describe()
-    performance_across_time = []
-    cog_performance_across_time = []
     for _ in range(search_iteration):
         agent.search()
-        print(agent.state, agent.cog_state)
-        print(agent.fitness, agent.cog_fitness)
-        performance_across_time.append(agent.fitness)
-        cog_performance_across_time.append(agent.cog_fitness)
-
     import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.arange(search_iteration)
-    plt.plot(x, performance_across_time, "k-", label="Fitness")
-    plt.plot(x, cog_performance_across_time, "k--", label="Cognitive Fitness")
+    x = range(len(agent.fitness_across_time))
+    plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")
+    plt.plot(x, agent.cog_fitness_across_time, "k--", label="Cognitive Fitness")
     plt.title('Performance at N={0}, K={1}, G={2}, S={3}'.format(N, K, generalist_expertise, specialist_expertise))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)

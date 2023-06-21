@@ -46,9 +46,9 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         quantiles = statistics.quantiles(temp_1, n=4)
         first_quantile = quantiles[0]
         last_quantile = quantiles[-1]
-        above_first_quantile = [num for num in temp_1 if num > first_quantile]
+        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
         first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
-        below_last_quantile = [num for num in temp_1 if num < last_quantile]
+        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
         last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
 
         cog_performance_across_time.append(sum(temp_2) / len(temp_2))
