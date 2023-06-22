@@ -40,6 +40,7 @@
       <sourceFolder url="file://$MODULE_DIR$/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/partial_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin/alpha_0.1" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
