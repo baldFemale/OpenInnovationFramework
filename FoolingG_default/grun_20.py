@@ -22,16 +22,13 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        tshape = Agent(N=N, landscape=landscape, state_num=state_num,
+        generalists = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=generalist_expertise,
-                       specialist_expertise=specialist_expertise, manner="Full")
-        performance_one_agent, cog_performance_one_agent = [], []
+                       specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
-            tshape.search()
-            performance_one_agent.append(tshape.fitness)
-            cog_performance_one_agent.append(tshape.cog_fitness)
-        performance_across_agent_time.append(performance_one_agent)
-        cog_performance_across_agent_time.append(cog_performance_one_agent)
+            generalists.search()
+        performance_across_agent_time.append(generalists.fitness_across_time)
+        cog_performance_across_agent_time.append(generalists.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -61,13 +58,13 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 500
     agent_num = 100
-    search_iteration = 300  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 300
     N = 10
     state_num = 4
-    generalist_expertise = 8  # 4 G domains
-    specialist_expertise = 24  # 6 S domains
+    generalist_expertise = 20  # 6 G domains
+    specialist_expertise = 0
     norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
@@ -160,7 +157,6 @@ if __name__ == '__main__':
         pickle.dump(first_quantile_across_K_time, out_file)
     with open("t_last_quantile_across_K_time_{0}".format(generalist_expertise + specialist_expertise), 'wb') as out_file:
         pickle.dump(last_quantile_across_K_time, out_file)
-
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

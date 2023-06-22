@@ -5,106 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/FoolingG_default/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/full_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClusterRangeScaling/partial_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T28" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_T28" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_T32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T36" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_T36" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/slurm_T40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_T40" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_28.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/trun_28.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/trun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/trun_36.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingT_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/trun_40.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/BinaryLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/BinaryLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/CoarseLandscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/CoarseLandscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/RangeScaling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/drawer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/drawer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/landscape_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/landscape_run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/slurm_L" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/slurm_L" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/slurm_drawer" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/slurm_drawer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/slurm_rangescaling" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/slurm_rangescaling" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Landscapes/slurm_test" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/slurm_test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/BinaryLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/CoarseLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/CogLandscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Tshape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/full_full/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full/trun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RangeScaling/partial_20/trun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20/trun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T28" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T36" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_28.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_20.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_16.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_14.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_18.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_16.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_16.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_24.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingT_default",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingG_default",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -158,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
@@ -394,14 +311,7 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="17973000" />
-    </task>
-    <task id="LOCAL-00124" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685607064917</created>
-      <option name="number" value="00124" />
-      <option name="presentableId" value="LOCAL-00124" />
-      <option name="project" value="LOCAL" />
-      <updated>1685607064917</updated>
+      <workItem from="1687338443067" duration="19084000" />
     </task>
     <task id="LOCAL-00125" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685619656279</created>
@@ -739,7 +649,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687434792403</updated>
     </task>
-    <option name="localTasksCounter" value="173" />
+    <task id="LOCAL-00173" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687435272674</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1687435272674</updated>
+    </task>
+    <option name="localTasksCounter" value="174" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

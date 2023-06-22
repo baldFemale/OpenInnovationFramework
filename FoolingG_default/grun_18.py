@@ -25,7 +25,6 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
         generalists = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=generalist_expertise,
                        specialist_expertise=specialist_expertise)
-        performance_one_agent, cog_performance_one_agent = [], []
         for _ in range(search_iteration):
             generalists.search()
         performance_across_agent_time.append(generalists.fitness_across_time)
@@ -64,7 +63,7 @@ if __name__ == '__main__':
     search_iteration = 300
     N = 10
     state_num = 4
-    generalist_expertise = 20  # 6 G domains
+    generalist_expertise = 18
     specialist_expertise = 0
     norm = "MaxMin"
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]

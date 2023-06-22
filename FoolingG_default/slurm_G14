@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --time=3-00:00:00
-#SBATCH --job-name=T40
+#SBATCH --time=03:00:00
+#SBATCH --job-name=G14
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=100gb
-#SBATCH --partition=long
+#SBATCH --mem=200gb
+#SBATCH --partition=medium
 #SBATCH --cpus-per-task=52
 #SBATCH --ntasks=1
-python trun_40.py
+python srun_14.py

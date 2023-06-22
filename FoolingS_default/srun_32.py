@@ -23,14 +23,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num,
-                           specialist_expertise=expertise_amount, manner="Full")
-        performance_one_agent, cog_performance_one_agent = [], []
+                           specialist_expertise=expertise_amount)
         for _ in range(search_iteration):
             specialist.search()
-            performance_one_agent.append(specialist.fitness)
-            cog_performance_one_agent.append(specialist.cog_fitness)
-        performance_across_agent_time.append(performance_one_agent)
-        cog_performance_across_agent_time.append(cog_performance_one_agent)
+        performance_across_agent_time.append(specialist.fitness_across_time)
+        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -60,7 +57,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 500
     agent_num = 100
     search_iteration = 300  # In pre-test, 200 is quite enough for convergence
     N = 10
