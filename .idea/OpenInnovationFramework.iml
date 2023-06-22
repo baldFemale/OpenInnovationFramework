@@ -38,6 +38,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/alpha_0.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Socialization" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Socialization/Evaluating" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Socialization/Sharing" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

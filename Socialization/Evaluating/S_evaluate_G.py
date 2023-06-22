@@ -7,6 +7,7 @@
 import numpy as np
 from Agent import Agent
 from Landscape import Landscape
+from Crowd import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
@@ -15,19 +16,22 @@ import statistics
 
 
 # mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    # Evaluator Crowd
+    crowd = Crowd(N=N, agent_num=20, landscape=landscape, state_num=state_num,
+                           generalist_expertise=0, specialist_expertise=20)
     for _ in range(agent_num):
-        generalist = Agent(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
-            generalist.search()
-        performance_across_agent_time.append(generalist.fitness_across_time)
-        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+            specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+        performance_across_agent_time.append(specialist.fitness_across_time)
+        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -62,7 +66,8 @@ if __name__ == '__main__':
     search_iteration = 300  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
-    expertise_amount = 20
+    generalist_expertise = 20
+    specialist_expertise = 0
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -83,7 +88,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
+            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
                                               agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
@@ -135,24 +140,24 @@ if __name__ == '__main__':
         first_quantile_across_K_time.append(first_quantile_across_time)
         last_quantile_across_K_time.append(last_quantile_across_time)
     # remove time dimension
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("sg_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_variance_across_K", 'wb') as out_file:
+    with open("sg_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("g_first_quantile_across_K", 'wb') as out_file:
+    with open("sg_first_quantile_across_K", 'wb') as out_file:
         pickle.dump(first_quantile_across_K, out_file)
-    with open("g_last_quantile_across_K", 'wb') as out_file:
+    with open("sg_last_quantile_across_K", 'wb') as out_file:
         pickle.dump(lats_quantile_across_K, out_file)
     # retain time dimension
-    with open("g_performance_across_K_time", 'wb') as out_file:
+    with open("sg_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("g_cog_performance_across_K_time", 'wb') as out_file:
+    with open("sg_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("g_variance_across_K_time", 'wb') as out_file:
+    with open("sg_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
-    with open("g_first_quantile_across_K_time", 'wb') as out_file:
+    with open("sg_first_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(first_quantile_across_K_time, out_file)
-    with open("g_last_quantile_across_K_time", 'wb') as out_file:
+    with open("sg_last_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()

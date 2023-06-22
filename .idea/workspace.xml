@@ -5,10 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G14" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G18" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G20" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +95,8 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingT_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Landscapes" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
@@ -76,7 +106,29 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Independent" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Agent (2)">
+  <component name="RunManager" selected="Python.Agent (1)">
+    <configuration name="Agent (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Socialization/Evaluating" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Agent (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -165,35 +217,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MaxMin/full_full" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MaxMin/full_full/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Agent (1)" />
         <item itemvalue="Python.Agent (2)" />
         <item itemvalue="Python.Landscape (1)" />
         <item itemvalue="Python.Agent" />
         <item itemvalue="Python.Landscape" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -298,14 +328,7 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="19927000" />
-    </task>
-    <task id="LOCAL-00127" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685689704046</created>
-      <option name="number" value="00127" />
-      <option name="presentableId" value="LOCAL-00127" />
-      <option name="project" value="LOCAL" />
-      <updated>1685689704046</updated>
+      <workItem from="1687338443067" duration="27512000" />
     </task>
     <task id="LOCAL-00128" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685689719908</created>
@@ -643,7 +666,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687437309874</updated>
     </task>
-    <option name="localTasksCounter" value="176" />
+    <task id="LOCAL-00176" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687437578507</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1687437578507</updated>
+    </task>
+    <option name="localTasksCounter" value="177" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,7 +732,7 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__3_.coverage" NAME="Agent (3) Coverage Results" MODIFIED="1685089008361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/full_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__5_.coverage" NAME="Evaluator (5) Coverage Results" MODIFIED="1671345824040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Tshape.coverage" NAME="Tshape Coverage Results" MODIFIED="1684928888375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__1_.coverage" NAME="Agent (1) Coverage Results" MODIFIED="1685773098479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ClusterRangeScaling/full_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__1_.coverage" NAME="Agent (1) Coverage Results" MODIFIED="1687439340584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialization/Evaluating" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator.coverage" NAME="Evaluator Coverage Results" MODIFIED="1672234656400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gg" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1687338040131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
