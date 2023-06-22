@@ -6,22 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T28" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T36" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_T40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_28.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_20.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_14.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/trun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_18.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_16.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_24.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G14" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G18" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G20" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,14 +299,7 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="19084000" />
-    </task>
-    <task id="LOCAL-00125" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685619656279</created>
-      <option name="number" value="00125" />
-      <option name="presentableId" value="LOCAL-00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1685619656279</updated>
+      <workItem from="1687338443067" duration="19665000" />
     </task>
     <task id="LOCAL-00126" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685627425443</created>
@@ -656,7 +637,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687435272674</updated>
     </task>
-    <option name="localTasksCounter" value="174" />
+    <task id="LOCAL-00174" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687436721090</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1687436721090</updated>
+    </task>
+    <option name="localTasksCounter" value="175" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

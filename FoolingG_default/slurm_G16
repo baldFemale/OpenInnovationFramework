@@ -7,4 +7,4 @@
 #SBATCH --partition=medium
 #SBATCH --cpus-per-task=52
 #SBATCH --ntasks=1
-python srun_16.py
+python grun_16.py
