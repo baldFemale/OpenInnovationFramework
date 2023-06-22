@@ -62,8 +62,6 @@ class Agent:
             else:
                 self.cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.fitness_across_time.append(self.fitness)
-        self.cog_fitness_across_time.append(self.cog_fitness)
 
     def search(self):
         next_state = self.state.copy()

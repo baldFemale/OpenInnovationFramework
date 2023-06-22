@@ -62,13 +62,11 @@ class Agent:
             else:
                 self.cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.fitness_across_time.append(self.fitness)
-        self.cog_fitness_across_time.append(self.cog_fitness)
 
     def search(self):
         next_state = self.state.copy()
-        index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -83,7 +81,7 @@ class Agent:
                 next_cog_fitness = self.landscape.query_second_fitness(state=next_state)
             else:
                 next_cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=next_cog_state, state=next_state)
-        if next_cog_fitness > self.cog_fitness:
+        if next_cog_fitness >= self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
