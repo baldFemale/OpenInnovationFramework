@@ -138,22 +138,22 @@ class Landscape:
             seed = np.random.choice(range(self.state_num), self.N).tolist()
             seed = [str(i) for i in seed]
             self.seed = seed
-            high_area, low_area = [], []
+            high_area, low_area = {}, {}
             for key in self.cache.keys():
                 if key > "200000000":
-                    high_area.append(key)
+                    high_area[key] = 1
                 else:
-                    low_area.append(key)
-            high_area_fitness_list = [self.cache[key] for key in high_area]
+                    low_area[key] = 1
+            high_area_fitness_list = [self.cache[key] for key in high_area.keys()]
             min_fitness_high = min(high_area_fitness_list)
             max_fitness_high = max(high_area_fitness_list)
             high_top, high_bottom = 1.0, 0.5
-            low_area_fitness_list = [self.cache[key] for key in low_area]
+            low_area_fitness_list = [self.cache[key] for key in low_area.keys()]
             min_fitness_low = min(low_area_fitness_list)
             max_fitness_low = max(low_area_fitness_list)
             low_top, low_bottom = 0.5, 0
             for key in self.cache.keys():
-                if key in high_area:
+                if key in high_area.keys():
                     self.cache[key] = (self.cache[key] - min_fitness_high) * (high_top - high_bottom) / \
                                       (max_fitness_high - min_fitness_high) + high_bottom
                 else:
@@ -161,38 +161,51 @@ class Landscape:
                                       (max_fitness_low - min_fitness_low) + low_bottom
 
         elif self.norm == "ClusterRangeScaling":
-            cluster_list = [[]] * 4
-            seed_list = [["0"] * self.N, ["1"] * self.N, ["2"] * self.N, ["3"] * self.N]
+            cluster_0, cluster_1, cluster_2, cluster_3 = {}, {}, {}, {}
             for key in self.cache.keys():
-                distance_list = [self.get_hamming_distance(state_1=seed, state_2=list(key)) for seed in seed_list]
-                cluster_index = distance_list.index(min(distance_list))
-                cluster_list[cluster_index].append(key)
-            # print("Cluster Length: ", len(cluster_list[0]), len(cluster_list[1]), len(cluster_list[2]), len(cluster_list[3]))
-            min_across_cluster, max_across_cluster = [], []
-            for cluster in cluster_list:
-                fitness_list = [self.cache[key] for key in cluster]
-                min_across_cluster.append(min(fitness_list))
-                max_across_cluster.append(max(fitness_list))
-            for key in self.cache.keys():
-                if key in cluster_list[0]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[0]) * 0.25 / \
-                                      (max_across_cluster[0] - min_across_cluster[0]) + 0
-                elif key in cluster_list[1]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[1]) * 0.25 / \
-                                      (max_across_cluster[1] - min_across_cluster[1]) + 0.25
-                elif key in cluster_list[2]:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[2]) * 0.25 / \
-                                      (max_across_cluster[2] - min_across_cluster[2]) + 0.50
+                number_counts = {"0": 0, "1": 0, "2": 0, "3": 0}
+                for char in key:
+                    if char in number_counts:
+                        number_counts[char] += 1
+                max_count = max(number_counts.values())
+                most_frequent_numbers = [number for number, count in number_counts.items() if count == max_count]
+                most_frequent_numbers = most_frequent_numbers[0]
+                if most_frequent_numbers == "0":
+                    cluster_0[key] = True
+                elif most_frequent_numbers == "1":
+                    cluster_1[key] = True
+                elif most_frequent_numbers == "2":
+                    cluster_2[key] = True
                 else:
-                    self.cache[key] = (self.cache[key] - min_across_cluster[3]) * 0.25 / \
-                                      (max_across_cluster[3] - min_across_cluster[3]) + 0.75
+                    cluster_3[key] = True
+            fitness_list_0 = [self.cache[key] for key in cluster_0.keys()]
+            fitness_list_1 = [self.cache[key] for key in cluster_1.keys()]
+            fitness_list_2 = [self.cache[key] for key in cluster_2.keys()]
+            fitness_list_3 = [self.cache[key] for key in cluster_3.keys()]
+            max_0, min_0 = max(fitness_list_0), min(fitness_list_0)
+            max_1, min_1 = max(fitness_list_1), min(fitness_list_1)
+            max_2, min_2 = max(fitness_list_2), min(fitness_list_2)
+            max_3, min_3 = max(fitness_list_3), min(fitness_list_3)
+            for key in self.cache.keys():
+                if key in cluster_0:
+                    self.cache[key] = (self.cache[key] - min_0) * 0.25 / \
+                                      (max_0 - min_0)
+                elif key in cluster_1:
+                    self.cache[key] = (self.cache[key] - min_1) * 0.25 / \
+                                      (max_1 - min_1) + 0.25
+                elif key in cluster_2:
+                    self.cache[key] = (self.cache[key] - min_2) * 0.25 / \
+                                      (max_2 - min_2) + 0.50
+                else:
+                    self.cache[key] = (self.cache[key] - min_3) * 0.25 / \
+                                      (max_3 - min_3) + 0.75
 
     def query_fitness(self, state: list) -> float:
         return self.cache["".join(state)]
 
     def query_cog_fitness(self, cog_state: list, state: list) -> float:
         cog_fitness = 0
-        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+        for row, cog_bit in enumerate(cog_state):
             dependency = self.dependency_map[row]
             bin_index = "".join([str(state[j]) for j in dependency])
             if cog_bit == "A":
@@ -227,7 +240,7 @@ class Landscape:
 
     def query_partial_fitness(self, cog_state: list, state: list, expertise_domain: list) -> float:
         cog_fitness = 0
-        for cog_bit, bit, row in zip(cog_state, state, range(self.N)):
+        for row, cog_bit in enumerate(cog_state):
             if row not in expertise_domain:
                 continue
             dependency = self.dependency_map[row]
@@ -283,7 +296,6 @@ class Landscape:
         ranks = rankdata(fitness_cache)
         ranks = [int(each) for each in ranks]
         rank_dict = {key: rank for key, rank in zip(self.cache.keys(), ranks)}
-        # print(rank_dict)
         return rank_dict
 
     def count_local_optima(self):
@@ -361,10 +373,10 @@ class Landscape:
 if __name__ == '__main__':
     # Test Example
     N = 9
-    K = 5
+    K = 8
     state_num = 4
     np.random.seed(1000)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="ClusterRangeScaling")
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     # print(landscape.FC[0])
     cog_state = ['B', 'B', 'B', 'A', 'A', 'B', "A", "B", "A"]
     # cog_state = ["0", "0", "0", "0", "0", "0"]
@@ -375,34 +387,37 @@ if __name__ == '__main__':
     state_1_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '3']
     state_2 = ['B', 'B', 'B', 'A', 'A', 'B', 'A', 'B', 'A']
     state_3 = ['2', '2', '2', '1', '1', '2', '1', '3', '*']
-    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=cog_state, state=state_1_0, expertise_domain=list(range(0, 9)))
-    print(partial_fitness_1_0)
-    landscape.describe()
+    partial_fitness_1_0 = landscape.query_partial_fitness(cog_state=state_1_0, state=state_1_0, expertise_domain=list(range(N)))
+    calculated_fitness = landscape.calculate_fitness(state=state_1_0)
+    real_fitness = landscape.query_fitness(state=state_1_0)
+    print(state_1_0, partial_fitness_1_0, real_fitness, calculated_fitness)
+    # landscape.describe()
+
     # landscape.create_fitness_rank()
-    landscape.count_local_optima()
-    ave_distance = landscape.calculate_avg_fitness_distance()
-    ave_distance = round(ave_distance, 4)
-    print(landscape.local_optima)
-    print("Number of Local Optima: ", len(landscape.local_optima.keys()))
-    print("Average Distance: ", ave_distance)
+    # landscape.count_local_optima()
+    # ave_distance = landscape.calculate_avg_fitness_distance()
+    # ave_distance = round(ave_distance, 4)
+    # print(landscape.local_optima)
+    # print("Number of Local Optima: ", len(landscape.local_optima.keys()))
+    # print("Average Distance: ", ave_distance)
 
-    import matplotlib.pyplot as plt
-    plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
-    plt.clf()
+    # import matplotlib.pyplot as plt
+    # plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
+    # plt.clf()
 
-    plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-    plt.title("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.xlabel("Range")
-    plt.ylabel("Count")
-    plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
-        N, K, len(landscape.local_optima.keys()), ave_distance))
-    plt.show()
+    # plt.hist(landscape.cache.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+    # plt.title("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.xlabel("Range")
+    # plt.ylabel("Count")
+    # plt.savefig("Landscape N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
+    #     N, K, len(landscape.local_optima.keys()), ave_distance))
+    # plt.show()
 

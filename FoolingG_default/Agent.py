@@ -10,10 +10,11 @@ from Landscape import Landscape
 
 
 class Agent:
-    def __init__(self, N=None, landscape=None, state_num=4, generalist_expertise=None, specialist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4,
+                 generalist_expertise=None, specialist_expertise=None):
         """
         :param N: problem dimension
-        :param landscape: assihned landscape
+        :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
@@ -35,7 +36,9 @@ class Agent:
         self.generalist_representation = ["A", "B"]
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
-        self.cog_state, self.cog_fitness, self.fitness = [], [], []
+        self.cog_state = []  # for G: shallow; for S: scoped -> built upon common sense
+        self.cog_fitness, self.fitness = 0, 0
+        self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.update_fitness()
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
@@ -46,41 +49,45 @@ class Agent:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def update_fitness(self, manner="Partial"):
+    def update_fitness(self):
         self.cog_state = self.state_2_cog_state(state=self.state)
-        if manner == "Full":
-            self.cog_fitness = self.landscape.query_cog_fitness(cog_state=self.cog_state, state=self.state)
-        else:
-            self.cog_fitness = self.landscape.query_partial_fitness(
-                cog_state=self.cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
-        self.fitness = self.landscape.query_fitness(state=self.state)
+        if len(self.generalist_domain) != 0:  # iff G
+            if len(self.generalist_domain) == self.N:  # iff full G
+                self.cog_fitness = self.landscape.query_first_fitness(state=self.cog_state)
+            else:
+                self.cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=self.cog_state, state=self.state)
+        else:  # iff S
+            if len(self.specialist_domain) == self.N:  # iff full S
+                self.cog_fitness = self.landscape.query_second_fitness(state=self.state)
+            else:
+                self.cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=self.cog_state, state=self.state)
+        self.fitness = self.landscape.query_second_fitness(state=self.state)
 
-    def search(self, manner="Partial"):
+    def search(self):
         next_state = self.state.copy()
-        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
-        perception = "".join(next_cog_state)
-        if manner == "Full":
-            if perception not in self.cog_cache.keys():
-                next_cog_fitness = self.landscape.query_cog_fitness(cog_state=next_cog_state, state=self.state)
-                self.cog_cache[perception] = next_cog_fitness
+        if len(self.generalist_domain) != 0:  # iff G
+            if len(self.generalist_domain) == self.N:  # iff full G
+                next_cog_fitness = self.landscape.query_first_fitness(state=next_cog_state)
             else:
-                next_cog_fitness = self.cog_cache[perception]
-        else:
-            if perception not in self.cog_cache.keys():
-                next_cog_fitness = self.landscape.query_partial_fitness(
-                    cog_state=next_cog_state, state=self.state, expertise_domain=self.generalist_domain + self.specialist_domain)
-                self.cog_cache[perception] = next_cog_fitness
+                next_cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=next_cog_state, state=next_state)
+        else:  # iff S
+            if len(self.specialist_domain) == self.N:  # iff full S
+                next_cog_fitness = self.landscape.query_second_fitness(state=next_state)
             else:
-                next_cog_fitness = self.cog_cache[perception]
-        if next_cog_fitness > self.cog_fitness:
+                next_cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=next_cog_state, state=next_state)
+        if next_cog_fitness >= self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.fitness = self.landscape.query_fitness(state=self.state)
+            self.fitness = self.landscape.query_second_fitness(state=self.state)
+        self.fitness_across_time.append(self.fitness)
+        self.cog_fitness_across_time.append(self.cog_fitness)
 
     def state_2_cog_state(self, state=None):
         cog_state = state.copy()
@@ -92,8 +99,10 @@ class Agent:
                     cog_state[index] = "B"
                 else:
                     raise ValueError("Only support for state number = 4")
+            elif index in self.specialist_domain:
+                pass
             else:
-                pass  # specialist_domain or unknown domain
+                cog_state[index] = "*"
         return cog_state
 
     # def cog_state_2_state(self, cog_state=None):
@@ -122,41 +131,25 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    np.random.seed(1000)
-    search_iteration = 200
-    N = 10
-    K = 9
+    # np.random.seed(1000)
+    search_iteration = 500
+    N = 9
+    K = 8
     state_num = 4
-    generalist_expertise = 20
-    specialist_expertise = 0
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="ClusterRangeScaling")
-    landscape.describe()
+    generalist_expertise = 0
+    specialist_expertise = 20
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
+
+    # landscape.describe()
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
     # agent.describe()
-    performance_across_time = []
-    cog_performance_across_time = []
     for _ in range(search_iteration):
         agent.search()
-        performance_across_time.append(agent.fitness)
-        cog_performance_across_time.append(agent.cog_fitness)
-    # print("Search Result: ")
-    # print("".join(agent.state), "".join(agent.cog_state), agent.fitness)
-    # landscape.count_local_optima()
-    # focal_state = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
-    # print("Focal Neighbor")
-    # neighbor_list = landscape.get_neighbor_list(key="".join(focal_state))
-    # for neighbor in neighbor_list:
-    #     fitness_ = landscape.query_fitness(state=neighbor)
-    #     print(neighbor, fitness_)
-    # print("Local Optima")
-    # for key, value in landscape.local_optima.items():
-    #     print(key, value)
     import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.arange(search_iteration)
-    plt.plot(x, performance_across_time, "k-", label="Fitness")
-    plt.plot(x, cog_performance_across_time, "k--", label="Cognitive Fitness")
+    x = range(len(agent.fitness_across_time))
+    plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")
+    plt.plot(x, agent.cog_fitness_across_time, "k--", label="Cognitive Fitness")
     plt.title('Performance at N={0}, K={1}, G={2}, S={3}'.format(N, K, generalist_expertise, specialist_expertise))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)

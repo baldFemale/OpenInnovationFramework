@@ -11,7 +11,7 @@ import numpy as np
 
 
 class Landscape:
-    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.5):
+    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.1):
         """
         :param N:
         :param K:

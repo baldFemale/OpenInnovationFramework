@@ -16,7 +16,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent_knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent_partial" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Landscapes" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Landscapes_max" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_12" isTestSource="false" />
@@ -26,20 +25,18 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/full_20" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/full_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ClusterRangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FoolingS_default" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/FoolingT_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RangeScaling" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RangeScaling/full_20" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RangeScaling/full_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/partial_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FoolingG_default" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/alpha_0.1" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
@@ -79,6 +76,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_more" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_more_2" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_unknown_2" />
+      <excludeFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
