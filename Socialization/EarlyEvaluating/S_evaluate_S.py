@@ -28,8 +28,11 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        for _ in range(search_iteration):
-            specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+        for i in range(search_iteration):
+            if i <= 0.1 * search_iteration:  # early-stage
+                specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+            else:
+                specialist.search()
         performance_across_agent_time.append(specialist.fitness_across_time)
         cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 

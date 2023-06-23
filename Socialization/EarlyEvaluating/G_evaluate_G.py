@@ -23,15 +23,18 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=20, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=20)
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+                           generalist_expertise=20, specialist_expertise=0)
     for _ in range(agent_num):
-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+        generalist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        for _ in range(search_iteration):
-            specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
-        performance_across_agent_time.append(specialist.fitness_across_time)
-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+        for i in range(search_iteration):
+            if i <= 0.1 * search_iteration:  # early-stage
+                generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+            else:
+                generalist.search()
+        performance_across_agent_time.append(generalist.fitness_across_time)
+        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -61,7 +64,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 50
     search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
@@ -140,24 +143,24 @@ if __name__ == '__main__':
         first_quantile_across_K_time.append(first_quantile_across_time)
         last_quantile_across_K_time.append(last_quantile_across_time)
     # remove time dimension
-    with open("sg_performance_across_K", 'wb') as out_file:
+    with open("gg_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("sg_variance_across_K", 'wb') as out_file:
+    with open("gg_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("sg_first_quantile_across_K", 'wb') as out_file:
+    with open("gg_first_quantile_across_K", 'wb') as out_file:
         pickle.dump(first_quantile_across_K, out_file)
-    with open("sg_last_quantile_across_K", 'wb') as out_file:
+    with open("gg_last_quantile_across_K", 'wb') as out_file:
         pickle.dump(lats_quantile_across_K, out_file)
     # retain time dimension
-    with open("sg_performance_across_K_time", 'wb') as out_file:
+    with open("gg_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("sg_cog_performance_across_K_time", 'wb') as out_file:
+    with open("gg_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("sg_variance_across_K_time", 'wb') as out_file:
+    with open("gg_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
-    with open("sg_first_quantile_across_K_time", 'wb') as out_file:
+    with open("gg_first_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(first_quantile_across_K_time, out_file)
-    with open("sg_last_quantile_across_K_time", 'wb') as out_file:
+    with open("gg_last_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()
