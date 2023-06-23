@@ -5,40 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS_medium" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G14" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G18" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G20" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_T" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,14 +303,7 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="27512000" />
-    </task>
-    <task id="LOCAL-00128" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685689719908</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1685689719908</updated>
+      <workItem from="1687338443067" duration="29528000" />
     </task>
     <task id="LOCAL-00129" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape&#10;--1) No sub-space -&gt; Random neighbors&#10;--2) Two sub-spaces -&gt; simply clustering neighbors&#10;--3) Four sub-spaces -&gt; regularly clustering neighbors">
       <created>1685689937785</created>
@@ -673,7 +641,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687437578507</updated>
     </task>
-    <option name="localTasksCounter" value="177" />
+    <task id="LOCAL-00177" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687445453701</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1687445453701</updated>
+    </task>
+    <option name="localTasksCounter" value="178" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

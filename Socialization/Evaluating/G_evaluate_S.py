@@ -61,9 +61,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 500
-    agent_num = 100
-    search_iteration = 300  # In pre-test, 200 is quite enough for convergence
+    landscape_iteration = 200
+    agent_num = 50
+    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
     N = 10
     state_num = 4
     generalist_expertise = 0
