@@ -5,27 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS_medium" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,21 +52,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Socialization&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
@@ -315,14 +305,8 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="37281000" />
-    </task>
-    <task id="LOCAL-00136" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685778062791</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1685778062791</updated>
+      <workItem from="1687338443067" duration="37447000" />
+      <workItem from="1687528398203" duration="1150000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -660,7 +644,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687528029227</updated>
     </task>
-    <option name="localTasksCounter" value="185" />
+    <task id="LOCAL-00185" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687528133782</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1687528133782</updated>
+    </task>
+    <option name="localTasksCounter" value="186" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
