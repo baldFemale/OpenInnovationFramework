@@ -11,7 +11,7 @@ import numpy as np
 
 
 class Landscape:
-    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.1):
+    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.5):
         """
         :param N:
         :param K:
@@ -83,7 +83,7 @@ class Landscape:
         result = []
         state = "".join(state)
         translation_table = str.maketrans('AB', '01')
-        converted_string = state.translate(translation_table)
+        converted_string = state.translate(translation_table)  # decoded into "01"
         for i in range(self.N):
             dependency = self.dependency_map[i]
             bin_index = "".join([converted_string[j] for j in dependency])
@@ -411,13 +411,16 @@ class Landscape:
 
 if __name__ == '__main__':
     # Test Example
+    import time
+    t0 = time.time()
     N = 10
-    K = 8
+    K = 9
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     landscape.describe()
-
+    t1 = time.time()
+    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
     # landscape.create_fitness_rank()
     # landscape.count_local_optima()
     # ave_distance = landscape.calculate_avg_fitness_distance()

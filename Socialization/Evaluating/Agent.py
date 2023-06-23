@@ -63,7 +63,7 @@ class Agent:
                 cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=cog_state, state=state)
         return cog_fitness
 
-    def search(self):
+    def search(self) -> None:
         next_state = self.state.copy()
         # index = np.random.choice(self.generalist_domain + self.specialist_domain)
         index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
@@ -120,7 +120,7 @@ class Agent:
         self.fitness_across_time.append(self.fitness)
         self.cog_fitness_across_time.append(self.cog_fitness)
 
-    def state_2_cog_state(self, state=None):
+    def state_2_cog_state(self, state: list) -> list:
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
             if index in self.generalist_domain:
@@ -165,7 +165,7 @@ class Agent:
     #             pass
     #     return state
 
-    def describe(self):
+    def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
         print("Cognitive State: {0}, Cognitive Fitness: {1}".format(self.cog_state, self.cog_fitness))
