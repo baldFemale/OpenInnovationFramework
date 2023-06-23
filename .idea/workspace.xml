@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Evaluating/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Agent.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Evaluating",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/FoolingG_default",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,11 +68,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\alpha_0.1" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
@@ -303,21 +304,7 @@
       <workItem from="1686385507120" duration="13045000" />
       <workItem from="1686551314303" duration="13133000" />
       <workItem from="1687003837194" duration="22461000" />
-      <workItem from="1687338443067" duration="29528000" />
-    </task>
-    <task id="LOCAL-00129" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape&#10;--1) No sub-space -&gt; Random neighbors&#10;--2) Two sub-spaces -&gt; simply clustering neighbors&#10;--3) Four sub-spaces -&gt; regularly clustering neighbors">
-      <created>1685689937785</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1685689937785</updated>
-    </task>
-    <task id="LOCAL-00130" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
-      <created>1685690025065</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1685690025065</updated>
+      <workItem from="1687338443067" duration="32271000" />
     </task>
     <task id="LOCAL-00131" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685706165223</created>
@@ -648,7 +635,21 @@
       <option name="project" value="LOCAL" />
       <updated>1687445453701</updated>
     </task>
-    <option name="localTasksCounter" value="178" />
+    <task id="LOCAL-00178" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687503653346</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1687503653346</updated>
+    </task>
+    <task id="LOCAL-00179" summary="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <created>1687503701064</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1687503701064</updated>
+    </task>
+    <option name="localTasksCounter" value="180" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

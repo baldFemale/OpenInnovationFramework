@@ -97,7 +97,7 @@ class Agent:
                 self.cog_fitness = next_cog_fitness
                 self.fitness = self.landscape.query_second_fitness(state=self.state)
             else:  # feedback is negative
-                if np.random.uniform(0, 1) < roll_back_ratio:
+                if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
                     pass
                     # roll back; follow the peer feedback and refuse; bounded rationality:
                     # 1) biased perception and thus biased feedback from peers;
@@ -108,13 +108,15 @@ class Agent:
                     self.cog_fitness = next_cog_fitness
                     self.fitness = self.landscape.query_second_fitness(state=self.state)
         else:
-            if np.random.uniform(0, 1) < roll_forward_ratio:  # roll forward; follow the peer feedback and accept;
-                self.state = next_state
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.fitness = self.landscape.query_second_fitness(state=self.state)
-            else:
-                pass
+            if feedback:  # 2nd conflict: self "-" and peer "+"
+                if np.random.uniform(0, 1) < roll_forward_ratio:
+                # roll forward; follow the positive feedback and accept;
+                    self.state = next_state
+                    self.cog_state = next_cog_state
+                    self.cog_fitness = next_cog_fitness
+                    self.fitness = self.landscape.query_second_fitness(state=self.state)
+                else:
+                    pass
         self.fitness_across_time.append(self.fitness)
         self.cog_fitness_across_time.append(self.cog_fitness)
 
