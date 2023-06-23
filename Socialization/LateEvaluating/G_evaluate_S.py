@@ -29,7 +29,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for i in range(search_iteration):
-            if (i >= 0.45 * search_iteration) and (i <= 0.55 * search_iteration):  # middle-stage
+            if i <= 0.1 * search_iteration:  # early-stage
                 specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
             else:
                 specialist.search()
