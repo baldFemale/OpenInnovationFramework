@@ -29,7 +29,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
         generalist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for i in range(search_iteration):
-            if (i >= 0.45 * search_iteration) and (i <= 0.55 * search_iteration):  # middle-stage
+            if i >= 0.5 * search_iteration:  # middle-stage
                 generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
             else:
                 generalist.search()
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     agent_num = 50
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 400
     N = 10
     state_num = 4
     generalist_expertise = 20

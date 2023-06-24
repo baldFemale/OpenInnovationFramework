@@ -30,9 +30,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for i in range(search_iteration):
             if i <= 0.1 * search_iteration:  # early-stage
-                specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
-            else:
                 specialist.search()
+            else:
+                specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(specialist.fitness_across_time)
         cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     agent_num = 50
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 400
     N = 10
     state_num = 4
     generalist_expertise = 0

@@ -23,7 +23,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=20, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=20)
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
@@ -61,9 +61,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 50
-    search_iteration = 200  # In pre-test, 200 is quite enough for convergence
+    search_iteration = 400
     N = 10
     state_num = 4
     generalist_expertise = 20
