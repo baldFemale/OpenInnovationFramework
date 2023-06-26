@@ -65,8 +65,8 @@ class Agent:
 
     def search(self) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -110,61 +110,13 @@ class Agent:
         else:
             if feedback:  # 2nd conflict: self "-" and peer "+"
                 if np.random.uniform(0, 1) < roll_forward_ratio:
-                    # roll forward; follow the positive feedback and accept;
+                # roll forward; follow the positive feedback and accept;
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
                     self.fitness = self.landscape.query_second_fitness(state=self.state)
                 else:
                     pass
-        self.fitness_across_time.append(self.fitness)
-        self.cog_fitness_across_time.append(self.cog_fitness)
-
-    def staged_feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float,
-                                active: bool) -> None:
-        next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
-        free_space = ["0", "1", "2", "3"]
-        free_space.remove(next_state[index])
-        next_state[index] = np.random.choice(free_space)
-        next_cog_state = self.state_2_cog_state(state=next_state)
-        next_cog_fitness = self.get_cog_fitness(state=next_state)
-        feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
-        if not active:  # independent search
-            if next_cog_fitness >= self.cog_fitness:
-                self.state = next_state
-                self.cog_state = next_cog_state
-                self.cog_fitness = next_cog_fitness
-                self.fitness = self.landscape.query_second_fitness(state=self.state)
-        else:  # feedback active
-            if next_cog_fitness >= self.cog_fitness:  # focal perception is positive
-                if feedback:  # peer feedback is also positive
-                    self.state = next_state
-                    self.cog_state = next_cog_state
-                    self.cog_fitness = next_cog_fitness
-                    self.fitness = self.landscape.query_second_fitness(state=self.state)
-                else:  # feedback is negative
-                    if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
-                        pass
-                        # roll back; follow the peer feedback and refuse; bounded rationality:
-                        # 1) biased perception and thus biased feedback from peers;
-                        # 2) generate imperfect solutions and thus received imperfect solutions from peers.
-                    else:
-                        self.state = next_state
-                        self.cog_state = next_cog_state
-                        self.cog_fitness = next_cog_fitness
-                        self.fitness = self.landscape.query_second_fitness(state=self.state)
-            else:
-                if feedback:  # 2nd conflict: self "-" and peer "+"
-                    if np.random.uniform(0, 1) < roll_forward_ratio:
-                    # roll forward; follow the positive feedback and accept;
-                        self.state = next_state
-                        self.cog_state = next_cog_state
-                        self.cog_fitness = next_cog_fitness
-                        self.fitness = self.landscape.query_second_fitness(state=self.state)
-                    else:
-                        pass
         self.fitness_across_time.append(self.fitness)
         self.cog_fitness_across_time.append(self.cog_fitness)
 

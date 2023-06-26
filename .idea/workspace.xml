@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Trajectory.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline_no_wander/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/LateEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Agent.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Baseline",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Baseline" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\EarlyEvaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\MiddleEvaluating" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\LateEvaluating" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
@@ -309,7 +313,7 @@
       <workItem from="1687003837194" duration="22461000" />
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
-      <workItem from="1687594986326" duration="9616000" />
+      <workItem from="1687594986326" duration="11815000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -654,7 +658,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="190" />
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
