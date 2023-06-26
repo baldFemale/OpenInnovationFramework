@@ -58,9 +58,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 500
-    agent_num = 100
-    search_iteration = 300
+    landscape_iteration = 400
+    agent_num = 50
+    search_iteration = 400
     N = 10
     state_num = 4
     generalist_expertise = 20  # 6 G domains
