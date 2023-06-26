@@ -6,31 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingG_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FoolingG_default/grun_14.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_14.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FoolingG_default/grun_16.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_16.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FoolingG_default/grun_18.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_18.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FoolingG_default/grun_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/grun_20.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G14" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G14" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G18" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/slurm_G20" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/slurm_G20" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S16" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S24" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S32" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S32" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/slurm_S40" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/slurm_S40" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_16.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_24.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_32.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_32.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingS_default/srun_40.py" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/srun_40.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/alpha_0.1/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/alpha_0.1/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_20/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_20/Trajectory.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/MaxMin/full_full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingS_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,7 +304,7 @@
       <workItem from="1687003837194" duration="22461000" />
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
-      <workItem from="1687594986326" duration="13830000" />
+      <workItem from="1687594986326" duration="16991000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -667,7 +649,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="192" />
+    <option name="localTasksCounter" value="193" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
