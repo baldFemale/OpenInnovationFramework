@@ -29,7 +29,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
-            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
+            specialist.feedback_search(roll_back_ratio=0, roll_forward_ratio=roll_back)
         performance_across_agent_time.append(specialist.fitness_across_time)
         cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
