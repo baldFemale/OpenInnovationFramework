@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K6.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K9.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/slurm_trajectory" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Landscape.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Baseline",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Sharing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,18 +65,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\MiddleEvaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
     </key>
   </component>
   <component name="RunManager" selected="Python.test">
@@ -302,7 +303,7 @@
       <workItem from="1687003837194" duration="22461000" />
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
-      <workItem from="1687594986326" duration="45614000" />
+      <workItem from="1687594986326" duration="49241000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -647,7 +648,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="196" />
+    <option name="localTasksCounter" value="197" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
