@@ -5,40 +5,182 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/G_send_to_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/G_send_to_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/S_send_to_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/S_send_to_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_GG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_GS_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_SG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_SS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K6.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K9.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SG_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SS_medium" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_trajectory_0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_trajectory_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_trajectory_6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_trajectory_9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K6.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K9.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K9.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K6.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K9.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K9.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory_G" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/slurm_trajectory_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory_S" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/slurm_trajectory_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline_no_wander/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlyEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Trajectory_K0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Trajectory_K3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K6.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Trajectory_K6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Trajectory_K9.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/Trajectory_K9.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_trajectory_0" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_trajectory_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_trajectory_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_trajectory_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_trajectory_6" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_trajectory_6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_trajectory_9" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Evaluating/slurm_trajectory_9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/LateEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/MiddleSharing/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory_K0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K3.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory_K3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K6.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory_K6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/Trajectory_K9.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory_K9.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/slurm_GG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/slurm_GS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/slurm_SG_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_trajectory_0" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_trajectory_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_trajectory_6" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Sharing/slurm_trajectory_9" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_9" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +223,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingHow",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,18 +234,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\MiddleEvaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes\ScatteredLandscapes" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Historical Codes" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_20" />
     </key>
   </component>
   <component name="RunManager" selected="Python.test">
@@ -331,7 +473,7 @@
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
       <workItem from="1687594986326" duration="54141000" />
-      <workItem from="1688214190572" duration="3196000" />
+      <workItem from="1688214190572" duration="4066000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -676,7 +818,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="201" />
+    <option name="localTasksCounter" value="202" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -22,20 +22,14 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     landscape = Landscape(N=N, K=K, state_num=state_num)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
-    # Sharing Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=20, specialist_expertise=0)
-    for agent in crowd.agents:
-        for _ in range(0.1 * search_iteration):
-            agent.search()
-    for agent_index in range(agent_num):
+    # Evaluator Crowd
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+                           generalist_expertise=0, specialist_expertise=20)
+    for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        specialist.state = crowd.agents[agent_index].state.copy()
-        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state)
-        specialist.fitness = specialist.landscape.query_second_fitness(state=specialist.state)
         for _ in range(search_iteration):
-            specialist.search()
+            specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(specialist.fitness_across_time)
         cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
@@ -146,24 +140,24 @@ if __name__ == '__main__':
         first_quantile_across_K_time.append(first_quantile_across_time)
         last_quantile_across_K_time.append(last_quantile_across_time)
     # remove time dimension
-    with open("gs_performance_across_K", 'wb') as out_file:
+    with open("ss_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("gs_variance_across_K", 'wb') as out_file:
+    with open("ss_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("gs_first_quantile_across_K", 'wb') as out_file:
+    with open("ss_first_quantile_across_K", 'wb') as out_file:
         pickle.dump(first_quantile_across_K, out_file)
-    with open("gs_last_quantile_across_K", 'wb') as out_file:
+    with open("ss_last_quantile_across_K", 'wb') as out_file:
         pickle.dump(lats_quantile_across_K, out_file)
     # retain time dimension
-    with open("gs_performance_across_K_time", 'wb') as out_file:
+    with open("ss_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("gs_cog_performance_across_K_time", 'wb') as out_file:
+    with open("ss_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("gs_variance_across_K_time", 'wb') as out_file:
+    with open("ss_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
-    with open("gs_first_quantile_across_K_time", 'wb') as out_file:
+    with open("ss_first_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(first_quantile_across_K_time, out_file)
-    with open("gs_last_quantile_across_K_time", 'wb') as out_file:
+    with open("ss_last_quantile_across_K_time", 'wb') as out_file:
         pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()
