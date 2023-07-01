@@ -26,6 +26,10 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
                        generalist_expertise=0, specialist_expertise=20)
     specialist_2 = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=0, specialist_expertise=20)
+    print("G1: ", generalist_1.state, generalist_1.generalist_domain)
+    print("G2: ", generalist_2.state, generalist_2.generalist_domain)
+    print("S1: ", specialist_1.state, specialist_1.specialist_domain)
+    print("S2: ", specialist_2.state, specialist_2.specialist_domain)
     for _ in range(search_iteration):
         generalist_1.search()
         gg_positions.append(generalist_1.state)
