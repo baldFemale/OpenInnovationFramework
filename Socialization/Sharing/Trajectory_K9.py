@@ -75,15 +75,15 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
         ss_fitness_values.append(specialist_2.fitness)
         ss_cog_fitness_values.append(specialist_2.cog_fitness)
 
-    # Specialist -> Specialist
+    # Generalist -> Specialist
     specialist_2.state = generalist_1.state.copy()
     specialist_2.fitness = landscape.query_second_fitness(state=specialist_2.state)
     specialist_2.cog_fitness = specialist_2.get_cog_fitness(state=specialist_2.state)
     for _ in range(search_iteration):
         specialist_2.search()
-        ss_positions.append(specialist_2.state)
-        ss_fitness_values.append(specialist_2.fitness)
-        ss_cog_fitness_values.append(specialist_2.cog_fitness)
+        gs_positions.append(specialist_2.state)
+        gs_fitness_values.append(specialist_2.fitness)
+        gs_cog_fitness_values.append(specialist_2.cog_fitness)
 
     return [gg_positions, gg_fitness_values, gg_cog_fitness_values,
                          gs_positions, sg_positions, sg_fitness_values, sg_cog_fitness_values,
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     search_iteration = 100
     N = 10
     state_num = 4
-    K = 6
+    K = 9
     results = func(N=N, K=K, state_num=4, search_iteration=search_iteration)
 
     with open("gg_position_K_{0}".format(K), 'wb') as out_file:
