@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/G_send_to_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/S_send_to_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_GG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_GS_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_SG_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/EarlySharing/slurm_SS_medium" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Sharing/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/slurm_trajectory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socialization/Baseline/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoolingG_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/FoolingG_default/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Baseline/Trajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +53,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Baseline",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,11 +64,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\MaxMin\full_full" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Sharing" />
@@ -87,7 +78,7 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\RangeScaling\full_20" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Landscape (2)">
+  <component name="RunManager" selected="Python.test">
     <configuration name="Agent (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,28 +115,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MaxMin/full_20/Agent.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Agent" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OpenInnovationFramework" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MaxMin/full_12" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MaxMin/full_12/Agent.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,13 +167,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenInnovationFramework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Socialization/Baseline" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Socialization/Baseline/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.Landscape (2)" />
         <item itemvalue="Python.Agent (1)" />
         <item itemvalue="Python.Agent (2)" />
         <item itemvalue="Python.Landscape (1)" />
-        <item itemvalue="Python.Agent" />
       </list>
     </recent_temporary>
   </component>
@@ -311,7 +302,7 @@
       <workItem from="1687003837194" duration="22461000" />
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
-      <workItem from="1687594986326" duration="19883000" />
+      <workItem from="1687594986326" duration="45614000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -656,7 +647,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="195" />
+    <option name="localTasksCounter" value="196" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -704,7 +695,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Test.coverage" NAME="Test Coverage Results" MODIFIED="1684574333627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$CoarseLandscape.coverage" NAME="CoarseLandscape Coverage Results" MODIFIED="1684761036345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Landscapes" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test.coverage" NAME="test Coverage Results" MODIFIED="1685801141371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_full" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$test.coverage" NAME="test Coverage Results" MODIFIED="1688131082603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialization/Baseline" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist__1_.coverage" NAME="Generalist (1) Coverage Results" MODIFIED="1684928789497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$CogLandscape.coverage" NAME="CogLandscape Coverage Results" MODIFIED="1684831451931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__2_.coverage" NAME="Evaluator (2) Coverage Results" MODIFIED="1671345626145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coordination/gg" />
