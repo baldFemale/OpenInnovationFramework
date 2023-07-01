@@ -38,6 +38,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/alpha_0.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline_no_wander" isTestSource="false" />
