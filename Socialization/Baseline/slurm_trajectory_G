@@ -1,0 +1,10 @@
+#!/bin/bash
+#SBATCH --time=3-00:00:00
+#SBATCH --job-name=superG
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=junyili@u.nus.edu
+#SBATCH --mem=20gb
+#SBATCH --partition=long
+#SBATCH --cpus-per-task=10
+#SBATCH --ntasks=1
+python Trajectory_G.py

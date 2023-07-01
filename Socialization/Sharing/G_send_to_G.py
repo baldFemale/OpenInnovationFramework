@@ -31,7 +31,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     for agent_index in range(agent_num):
         generalist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-        generalist.state = crowd.agents[agent_index].state
+        generalist.state = crowd.agents[agent_index].state.copy()
         generalist.cog_fitness = generalist.get_cog_fitness(state=generalist.state)
         generalist.fitness = generalist.landscape.query_second_fitness(state=generalist.state)
         for _ in range(search_iteration):

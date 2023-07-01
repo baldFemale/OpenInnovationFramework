@@ -13,26 +13,33 @@ import pickle
 
 
 def func(N=None, K=None, state_num=None, search_iteration=None):
-    np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     gg_positions, gg_fitness_values, gg_cog_fitness_values = [], [], []
     gs_positions, gs_fitness_values, gs_cog_fitness_values = [], [], []
     sg_positions, sg_fitness_values, sg_cog_fitness_values = [], [], []
     ss_positions, ss_fitness_values, ss_cog_fitness_values = [], [], []
+    np.random.seed(None)
     G_crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=20, specialist_expertise=0)
+    np.random.seed(None)
     S_crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=20)
-
+    np.random.seed(None)
     generalist_G = Agent(N=N, landscape=landscape, state_num=state_num, crowd=G_crowd,
                        generalist_expertise=20, specialist_expertise=0)
+    np.random.seed(None)
     generalist_S = Agent(N=N, landscape=landscape, state_num=state_num, crowd=S_crowd,
                        generalist_expertise=20, specialist_expertise=0)
-
+    np.random.seed(None)
     specialist_G = Agent(N=N, landscape=landscape, state_num=state_num, crowd=G_crowd,
                        generalist_expertise=0, specialist_expertise=20)
+    np.random.seed(None)
     specialist_S = Agent(N=N, landscape=landscape, state_num=state_num, crowd=S_crowd,
                        generalist_expertise=0, specialist_expertise=20)
+    print("Generalist_G: ", generalist_G.state, generalist_G.generalist_domain)
+    print("Generalist_S: ", generalist_S.state, generalist_S.generalist_domain)
+    print("Specialist_G: ", specialist_G.state, specialist_G.specialist_domain)
+    print("Specialist_S: ", specialist_S.state, specialist_S.specialist_domain)
     for _ in range(search_iteration):
         # G -> G
         generalist_G.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)

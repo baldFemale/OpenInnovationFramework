@@ -12,18 +12,21 @@ import pickle
 
 
 def func(N=None, K=None, state_num=None, search_iteration=None):
-    np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     gg_positions, gg_fitness_values, gg_cog_fitness_values = [], [], []
     gs_positions, gs_fitness_values, gs_cog_fitness_values = [], [], []
     sg_positions, sg_fitness_values, sg_cog_fitness_values = [], [], []
     ss_positions, ss_fitness_values, ss_cog_fitness_values = [], [], []
+    np.random.seed(None)
     generalist_1 = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=20, specialist_expertise=0)
+    np.random.seed(None)
     generalist_2 = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=20, specialist_expertise=0)
+    np.random.seed(None)
     specialist_1 = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=0, specialist_expertise=20)
+    np.random.seed(None)
     specialist_2 = Agent(N=N, landscape=landscape, state_num=state_num,
                        generalist_expertise=0, specialist_expertise=20)
     print("G1: ", generalist_1.state, generalist_1.generalist_domain)
