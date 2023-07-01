@@ -86,9 +86,9 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
         gs_cog_fitness_values.append(specialist_2.cog_fitness)
 
     return [gg_positions, gg_fitness_values, gg_cog_fitness_values,
-                         gs_positions, sg_positions, sg_fitness_values, sg_cog_fitness_values,
-                         ss_positions, ss_fitness_values, ss_cog_fitness_values,
-                         sg_positions, sg_fitness_values, sg_cog_fitness_values]
+             gs_positions, gs_fitness_values, gs_cog_fitness_values,
+             ss_positions, ss_fitness_values, ss_cog_fitness_values,
+             sg_positions, sg_fitness_values, sg_cog_fitness_values]
 
 
 if __name__ == '__main__':
