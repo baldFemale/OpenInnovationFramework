@@ -23,10 +23,10 @@ def get_neighbor_list(state: list) -> list:
     return neighbor_states
 
 search_iteration = 50
-N = 10
+N = 9
 state_num = 4
 generalist_expertise = 0
-specialist_expertise = 20
+specialist_expertise = 12
 for K in range(10):
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)

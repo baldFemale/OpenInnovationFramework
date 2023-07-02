@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --time=03:00:00
-#SBATCH --job-name=Trajectory0
+#SBATCH --job-name=Rollback_0
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=20gb

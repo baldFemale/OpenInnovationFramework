@@ -23,9 +23,9 @@ def get_neighbor_list(state: list) -> list:
     return neighbor_states
 
 search_iteration = 50
-N = 10
+N = 9
 state_num = 4
-generalist_expertise = 20
+generalist_expertise = 12
 specialist_expertise = 0
 for K in range(10):
     np.random.seed(1000)

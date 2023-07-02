@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=03:00:00
-#SBATCH --job-name=Trajectory6
+#SBATCH --job-name=Rollback_8
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=20gb
 #SBATCH --partition=medium
 #SBATCH --cpus-per-task=10
 #SBATCH --ntasks=1
-python Trajectory_K6.py
+python Trajectory_K8.py
