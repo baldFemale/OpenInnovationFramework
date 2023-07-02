@@ -3,7 +3,7 @@
 #SBATCH --job-name=G20
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=100gb
+#SBATCH --mem=50gb
 #SBATCH --partition=medium
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
