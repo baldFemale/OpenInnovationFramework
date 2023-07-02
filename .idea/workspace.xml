@@ -6,18 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/LateSharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +315,7 @@
       <workItem from="1687338443067" duration="37447000" />
       <workItem from="1687528398203" duration="1371000" />
       <workItem from="1687594986326" duration="54141000" />
-      <workItem from="1688214190572" duration="6271000" />
+      <workItem from="1688214190572" duration="9039000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -655,7 +660,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="205" />
+    <option name="localTasksCounter" value="206" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

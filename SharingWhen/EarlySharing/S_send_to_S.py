@@ -26,7 +26,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=20)
     for agent in crowd.agents:
-        for _ in range(0.1 * search_iteration):
+        for _ in range(int(0.1 * search_iteration)):
             agent.search()
     for agent_index in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
