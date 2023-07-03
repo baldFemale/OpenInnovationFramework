@@ -24,7 +24,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     cog_performance_across_agent_time = []
     # Sharing Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=20)
+                           generalist_expertise=0, specialist_expertise=12)
     for agent in crowd.agents:
         for _ in range(int(0.9 * search_iteration)):
             agent.search()

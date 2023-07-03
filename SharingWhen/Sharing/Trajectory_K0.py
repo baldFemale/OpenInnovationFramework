@@ -19,16 +19,16 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
     ss_positions, ss_fitness_values, ss_cog_fitness_values = [], [], []
     np.random.seed(None)
     generalist_1 = Agent(N=N, landscape=landscape, state_num=state_num,
-                       generalist_expertise=20, specialist_expertise=0)
+                       generalist_expertise=12, specialist_expertise=0)
     np.random.seed(None)
     generalist_2 = Agent(N=N, landscape=landscape, state_num=state_num,
-                       generalist_expertise=20, specialist_expertise=0)
+                       generalist_expertise=12, specialist_expertise=0)
     np.random.seed(None)
     specialist_1 = Agent(N=N, landscape=landscape, state_num=state_num,
-                       generalist_expertise=0, specialist_expertise=20)
+                       generalist_expertise=0, specialist_expertise=12)
     np.random.seed(None)
     specialist_2 = Agent(N=N, landscape=landscape, state_num=state_num,
-                       generalist_expertise=0, specialist_expertise=20)
+                       generalist_expertise=0, specialist_expertise=12)
     print("G1: ", generalist_1.state, generalist_1.generalist_domain)
     print("G2: ", generalist_2.state, generalist_2.generalist_domain)
     print("S1: ", specialist_1.state, specialist_1.specialist_domain)
@@ -101,7 +101,7 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
 if __name__ == '__main__':
     t0 = time.time()
     search_iteration = 100
-    N = 10
+    N = 9
     state_num = 4
     K = 0
     results = func(N=N, K=K, state_num=4, search_iteration=search_iteration)

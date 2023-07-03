@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --time=03:00:00
-#SBATCH --job-name=G20
+#SBATCH --job-name=Baseline_G12
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=50gb
