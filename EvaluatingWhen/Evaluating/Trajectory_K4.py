@@ -20,22 +20,22 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
     ss_positions, ss_fitness_values, ss_cog_fitness_values = [], [], []
     np.random.seed(None)
     G_crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=20, specialist_expertise=0)
+                           generalist_expertise=12, specialist_expertise=0)
     np.random.seed(None)
     S_crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=20)
+                           generalist_expertise=0, specialist_expertise=12)
     np.random.seed(None)
     generalist_G = Agent(N=N, landscape=landscape, state_num=state_num, crowd=G_crowd,
-                       generalist_expertise=20, specialist_expertise=0)
+                       generalist_expertise=12, specialist_expertise=0)
     np.random.seed(None)
     generalist_S = Agent(N=N, landscape=landscape, state_num=state_num, crowd=S_crowd,
-                       generalist_expertise=20, specialist_expertise=0)
+                       generalist_expertise=12, specialist_expertise=0)
     np.random.seed(None)
     specialist_G = Agent(N=N, landscape=landscape, state_num=state_num, crowd=G_crowd,
-                       generalist_expertise=0, specialist_expertise=20)
+                       generalist_expertise=0, specialist_expertise=12)
     np.random.seed(None)
     specialist_S = Agent(N=N, landscape=landscape, state_num=state_num, crowd=S_crowd,
-                       generalist_expertise=0, specialist_expertise=20)
+                       generalist_expertise=0, specialist_expertise=12)
     print("Generalist_G: ", generalist_G.state, generalist_G.generalist_domain)
     print("Generalist_S: ", generalist_S.state, generalist_S.generalist_domain)
     print("Specialist_G: ", specialist_G.state, specialist_G.specialist_domain)
@@ -71,9 +71,9 @@ def func(N=None, K=None, state_num=None, search_iteration=None):
 if __name__ == '__main__':
     t0 = time.time()
     search_iteration = 100
-    N = 10
+    N = 9
     state_num = 4
-    K = 3
+    K = 4
     results = func(N=N, K=K, state_num=4, search_iteration=search_iteration)
 
     with open("gg_position_K_{0}".format(K), 'wb') as out_file:

@@ -24,7 +24,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=20, specialist_expertise=0)
+                           generalist_expertise=12, specialist_expertise=0)
     for _ in range(agent_num):
         specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)

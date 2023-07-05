@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --time=03:00:00
-#SBATCH --job-name=eSS
+#SBATCH --job-name=EarlyEvaluating_SS
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=100gb
