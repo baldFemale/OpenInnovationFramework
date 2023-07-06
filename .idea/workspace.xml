@@ -6,78 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/Trajectory.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/grun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/slurm_G" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/slurm_S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline_no_wander/srun.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_GS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EarlyEvaluating/slurm_SS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K6.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K8.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Trajectory_K9.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_0" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_6" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_9" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_trajectory_8" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_GS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/LateEvaluating/slurm_SS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_GS_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SG_medium" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS_medium" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/MiddleEvaluating/slurm_SS_medium" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/Trajectory_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Baseline/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Baseline/srun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingWhen/Evaluating",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -372,7 +306,8 @@
       <workItem from="1687594986326" duration="54141000" />
       <workItem from="1688214190572" duration="20793000" />
       <workItem from="1688386915894" duration="1861000" />
-      <workItem from="1688563325260" duration="1024000" />
+      <workItem from="1688563325260" duration="1641000" />
+      <workItem from="1688631719622" duration="1366000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -717,7 +652,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="210" />
+    <option name="localTasksCounter" value="211" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

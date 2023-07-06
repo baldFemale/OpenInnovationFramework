@@ -8,6 +8,7 @@ import numpy as np
 from Landscape import Landscape
 from Agent import Agent
 import pickle
+import time
 
 
 def get_neighbor_list(state: list) -> list:
@@ -22,12 +23,13 @@ def get_neighbor_list(state: list) -> list:
         neighbor_states.extend(neighbors)
     return neighbor_states
 
+t0 = time.time()
 search_iteration = 50
 N = 9
 state_num = 4
 generalist_expertise = 12
 specialist_expertise = 0
-for K in range(10):
+for K in range(N):
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
@@ -77,3 +79,6 @@ for K in range(10):
         pickle.dump(layer_info, out_file)
     with open("G_layer_info_int_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(layer_info_int, out_file)
+
+t1 = time.time()
+print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

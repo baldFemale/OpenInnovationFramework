@@ -8,6 +8,7 @@ import numpy as np
 from Landscape import Landscape
 from Agent import Agent
 import pickle
+import time
 
 
 def get_neighbor_list(state: list) -> list:
@@ -22,6 +23,7 @@ def get_neighbor_list(state: list) -> list:
         neighbor_states.extend(neighbors)
     return neighbor_states
 
+t0 = time.time()
 search_iteration = 50
 N = 9
 state_num = 4
@@ -69,11 +71,13 @@ for K in range(10):
         nodes_relation_int[int(key, 4)] = [int(node, 4) for node in nodes_relation[key]]
     # print(result_dict_int)
 
-    with open("G_nodes_relation_K_{0}".format(K), 'wb') as out_file:
+    with open("S_nodes_relation_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(nodes_relation, out_file)
-    with open("G_nodes_relation_int_K_{0}".format(K), 'wb') as out_file:
+    with open("S_nodes_relation_int_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(nodes_relation_int, out_file)
-    with open("G_layer_info_K_{0}".format(K), 'wb') as out_file:
+    with open("S_layer_info_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(layer_info, out_file)
-    with open("G_layer_info_int_K_{0}".format(K), 'wb') as out_file:
+    with open("S_layer_info_int_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(layer_info_int, out_file)
+t1 = time.time()
+print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
