@@ -9,33 +9,14 @@ from Landscape import Landscape
 from Agent import Agent
 import pickle
 import time
+import multiprocessing as mp
 
 
-def get_neighbor_list(state: list) -> list:
-    neighbor_states = []
-    for i, char in enumerate(state):
-        neighbors = []
-        for alt_bit in range(4):
-            if alt_bit != int(char):
-                new_state = state.copy()
-                new_state[i] = str(alt_bit)
-                neighbors.append(new_state)
-        neighbor_states.extend(neighbors)
-    return neighbor_states
-
-t0 = time.time()
-search_iteration = 50
-N = 9
-state_num = 4
-generalist_expertise = 12
-specialist_expertise = 0
-for K in range(N):
+def func(N=None, K=None, state_num=None):
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
     agent = Agent(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-    # agent.describe()
-    trajectory = []
+                  generalist_expertise=12, specialist_expertise=0)
     nodes = [agent.state]
     nodes_relation = {}  # focal node: following nodes
     layer_info = {"".join(agent.state): 0}
@@ -80,5 +61,31 @@ for K in range(N):
     with open("G_layer_info_int_K_{0}".format(K), 'wb') as out_file:
         pickle.dump(layer_info_int, out_file)
 
-t1 = time.time()
-print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+
+def get_neighbor_list(state: list) -> list:
+    neighbor_states = []
+    for i, char in enumerate(state):
+        neighbors = []
+        for alt_bit in range(4):
+            if alt_bit != int(char):
+                new_state = state.copy()
+                new_state[i] = str(alt_bit)
+                neighbors.append(new_state)
+        neighbor_states.extend(neighbors)
+    return neighbor_states
+
+if __name__ == '__main__':
+    t0 = time.time()
+    N = 9
+    state_num = 4
+    for K in range(N):
+        manager = mp.Manager()
+        return_dict = manager.dict()
+        jobs = []
+        p = mp.Process(target=func, args=(N, K, state_num))
+        jobs.append(p)
+        p.start()
+
+    t1 = time.time()
+    print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+
