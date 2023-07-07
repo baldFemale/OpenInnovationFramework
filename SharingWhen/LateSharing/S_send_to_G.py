@@ -67,14 +67,14 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
-    agent_num = 50
+    landscape_iteration = 500
+    agent_num = 100
     search_iteration = 400
     N = 9
     state_num = 4
     generalist_expertise = 12
     specialist_expertise = 0
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 50
     # DVs
     performance_across_K = []
@@ -167,6 +167,6 @@ if __name__ == '__main__':
         pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
 

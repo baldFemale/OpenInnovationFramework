@@ -105,4 +105,4 @@ if __name__ == '__main__':
         pickle.dump(results[11], out_file)
 
     t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Trajectory K=0: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
