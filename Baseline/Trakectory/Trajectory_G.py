@@ -39,6 +39,8 @@ def func(N=None, K=None, state_num=None):
                 fresh_states.append(neighbor_states[index])
         nodes_relation["".join(state)] = next_nodes
         for each in next_nodes:
+            if each in layer_info.keys():
+                continue
             layer_info[each] = layer_info["".join(state)] + 1
     # print(result_dict)
     # print(layer_info)

@@ -359,21 +359,21 @@ class Landscape:
     #     avg_fitness_distance = total_distance / total_neighbors
     #     return avg_fitness_distance
 
-    # def get_neighbor_list(self, key: str) -> list:
-    #     """
-    #     This is also for the Coarse Landscape
-    #     :param key: string from the coarse landscape cache dict, e.g., "0011"
-    #     :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
-    #     """
-    #     neighbor_states = []
-    #     for i, char in enumerate(key):
-    #         neighbors = []
-    #         for neighbor in range(4):
-    #             if neighbor != int(char):
-    #                 new_state = key[:i] + str(neighbor) + key[i + 1:]
-    #                 neighbors.append(new_state)
-    #         neighbor_states.extend(neighbors)
-    #     return neighbor_states
+    def get_neighbor_list(self, key: str) -> list:
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "0011"
+        :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
+        """
+        neighbor_states = []
+        for i, char in enumerate(key):
+            neighbors = []
+            for neighbor in range(4):
+                if neighbor != int(char):
+                    new_state = key[:i] + str(neighbor) + key[i + 1:]
+                    neighbors.append(new_state)
+            neighbor_states.extend(neighbors)
+        return neighbor_states
 
     @staticmethod
     def get_hamming_distance(state_1: list, state_2: list) -> int:

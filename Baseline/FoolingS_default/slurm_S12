@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=03:00:00
-#SBATCH --job-name=S16
+#SBATCH --job-name=FoolingS_12
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=100gb
 #SBATCH --partition=medium
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-python srun_16.py
+python srun_12.py
