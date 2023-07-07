@@ -25,12 +25,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/FoolingS_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/partial_20" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/FoolingG_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/partial_20" isTestSource="false" />
@@ -42,7 +40,6 @@
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline_no_wander" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EarlyEvaluating" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Evaluating" isTestSource="false" />
@@ -53,6 +50,12 @@
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/LateSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/MiddleSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/Sharing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollbackTrajectory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollforwardTrajectory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Baseline" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG_default" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS_default" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

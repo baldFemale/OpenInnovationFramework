@@ -71,18 +71,19 @@ if __name__ == '__main__':
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     roll_back_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     concurrency = 50
-    # DVs
-    performance_across_K = []
-    variance_across_K = []
-    first_quantile_across_K = []
-    lats_quantile_across_K = []
 
-    performance_across_K_time = []
-    cog_performance_across_K_time = []
-    variance_across_K_time = []
-    first_quantile_across_K_time = []
-    last_quantile_across_K_time = []
     for roll_back in roll_back_list:
+        # DVs
+        performance_across_K = []
+        variance_across_K = []
+        first_quantile_across_K = []
+        lats_quantile_across_K = []
+
+        performance_across_K_time = []
+        cog_performance_across_K_time = []
+        variance_across_K_time = []
+        first_quantile_across_K_time = []
+        last_quantile_across_K_time = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
