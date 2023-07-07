@@ -56,6 +56,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS_default" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Trakectory" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
