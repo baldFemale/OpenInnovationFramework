@@ -53,6 +53,7 @@
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollbackTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollforwardTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS_default" isTestSource="false" />

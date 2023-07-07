@@ -7,7 +7,6 @@
 import numpy as np
 from Agent import Agent
 from Landscape import Landscape
-from Crowd import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
@@ -16,22 +15,19 @@ import statistics
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
-         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+         search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
-    # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12)
     for _ in range(agent_num):
-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        generalist = Agent(N=N, landscape=landscape, state_num=state_num,
+                           generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
-            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
-        performance_across_agent_time.append(specialist.fitness_across_time)
-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+            generalist.search()
+        performance_across_agent_time.append(generalist.fitness_across_time)
+        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -66,13 +62,11 @@ if __name__ == '__main__':
     search_iteration = 400
     N = 9
     state_num = 4
-    generalist_expertise = 0
-    specialist_expertise = 12
+    expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    roll_back_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    alpha_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     concurrency = 50
-
-    for roll_back in roll_back_list:
+    for alpha in alpha_list:
         # DVs
         performance_across_K = []
         variance_across_K = []
@@ -91,8 +85,8 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
-                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
+                                                  agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -143,27 +137,27 @@ if __name__ == '__main__':
             first_quantile_across_K_time.append(first_quantile_across_time)
             last_quantile_across_K_time.append(last_quantile_across_time)
         # remove time dimension
-        with open("ss_performance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(performance_across_K, out_file)
-        with open("ss_variance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_variance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_K, out_file)
-        with open("ss_first_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_first_quantile_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(first_quantile_across_K, out_file)
-        with open("ss_last_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_last_quantile_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(lats_quantile_across_K, out_file)
         # retain time dimension
-        with open("ss_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(performance_across_K_time, out_file)
-        with open("ss_cog_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_cog_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(cog_performance_across_K_time, out_file)
-        with open("ss_variance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_variance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_K_time, out_file)
-        with open("ss_first_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_first_quantile_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(first_quantile_across_K_time, out_file)
-        with open("ss_last_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+        with open("g_last_quantile_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()
-    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
 
