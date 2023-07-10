@@ -58,6 +58,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Trakectory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward_2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />

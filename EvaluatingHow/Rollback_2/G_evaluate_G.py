@@ -69,7 +69,7 @@ if __name__ == '__main__':
     generalist_expertise = 12
     specialist_expertise = 0
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    roll_back_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    roll_back_list = [0.5, 0.6, 0.7, 0.8, 0.9]
     concurrency = 50
     for roll_back in roll_back_list:
         # DVs
