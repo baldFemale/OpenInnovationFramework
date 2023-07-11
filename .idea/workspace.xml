@@ -5,40 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/Agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/srun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_2/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/SuperTrajectory.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_2/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_2/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_2/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_2/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Trajectory.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollforward_2/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Trajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingHow/Rollforward_2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,11 +72,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\Rollforward_2" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\Rollforward" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\Rollback" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\RollforwardTrajectory" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\RollbackTrajectory" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG_default" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -338,7 +318,8 @@
       <workItem from="1688633608694" duration="2815000" />
       <workItem from="1688643255630" duration="1236000" />
       <workItem from="1688712015393" duration="7798000" />
-      <workItem from="1688971591545" duration="3804000" />
+      <workItem from="1688971591545" duration="5346000" />
+      <workItem from="1688986178380" duration="5944000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -683,7 +664,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="220" />
+    <option name="localTasksCounter" value="221" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

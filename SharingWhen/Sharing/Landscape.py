@@ -71,7 +71,7 @@ class Landscape:
         for row in range(self.N):
             k = int(sum(self.IM[row]))  # typically k = K+1; for 0123 combinations
             for key, value in self.FC_1[row].items():
-                binary_value = bin(key)[2:].zfill(k)  # 0 -> "AAA"; 1-> "AAB"
+                binary_value = bin(key)[2:].zfill(k)  # 0 -> "AAA"; from 112-> "AAB"
                 binary_value = binary_value.translate(translation_table)
                 quaternary_value_list = self.cog_state_alternatives(cog_state=list(binary_value))
                 for quaternary_value in quaternary_value_list:

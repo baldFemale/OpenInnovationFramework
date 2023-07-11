@@ -64,7 +64,7 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    alpha_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    alpha_list = [0.1, 0.2, 0.3, 0.4]
     concurrency = 50
     for alpha in alpha_list:
         # DVs
