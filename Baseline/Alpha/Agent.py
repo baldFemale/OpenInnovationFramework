@@ -176,12 +176,12 @@ if __name__ == '__main__':
     import time
     t0 = time.time()
     np.random.seed(1000)
-    search_iteration = 100
+    search_iteration = 200
     N = 9
-    K = 8
+    K = 2
     state_num = 4
-    generalist_expertise = 0
-    specialist_expertise = 36
+    generalist_expertise = 12
+    specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
 
     # landscape.describe()
