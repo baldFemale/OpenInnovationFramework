@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_2/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_2/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_2/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_2/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,7 +309,7 @@
       <workItem from="1688971591545" duration="5346000" />
       <workItem from="1688986178380" duration="18226000" />
       <workItem from="1689939257746" duration="914000" />
-      <workItem from="1689940266329" duration="2071000" />
+      <workItem from="1689940266329" duration="6222000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -660,7 +654,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="226" />
+    <option name="localTasksCounter" value="227" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
