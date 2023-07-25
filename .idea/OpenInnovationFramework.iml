@@ -61,6 +61,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Socialization" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
