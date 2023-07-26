@@ -22,6 +22,7 @@ class Agent:
         self.crowd = crowd
         self.N = N
         self.state_num = state_num
+        self.connections = []  # to store the connected peers with whom the focal agent can socialize
         if generalist_expertise and specialist_expertise:
             self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
             self.generalist_domain = np.random.choice([i for i in range(self.N) if i not in self.specialist_domain],
