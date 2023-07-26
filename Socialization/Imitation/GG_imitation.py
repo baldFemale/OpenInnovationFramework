@@ -25,6 +25,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     # Within the same crowd, individuals boost themselves
     G_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0)
+    G_crowd.form_connections(group_size=7)
     for _ in range(search_iteration):
         for agent in G_crowd.agents:
             agent.search()

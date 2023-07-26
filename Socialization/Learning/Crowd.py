@@ -23,6 +23,12 @@ class Crowd:
             self.agents.append(agent)
         self.solutions = []
 
+    def evaluate(self, cur_state: list, next_state: list) -> bool:
+        opinions = [agent.evaluate(cur_state=cur_state,
+                                   next_state=next_state) for agent in self.agents]
+        true_count = sum(1 for item in opinions if item)
+        return true_count > self.agent_num / 2
+
     def form_connections(self, group_size: int = 7):
         for agent in self.agents:
             agent.connections = np.random.choice(range(self.agent_num), group_size, replace=False)

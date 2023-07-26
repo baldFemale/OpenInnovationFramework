@@ -23,7 +23,6 @@ class Agent:
         self.N = N
         self.state_num = state_num
         self.connections = []  # to store the connected peers with whom the focal agent can socialize
-        self.peers = []
         if generalist_expertise and specialist_expertise:
             self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
             self.generalist_domain = np.random.choice([i for i in range(self.N) if i not in self.specialist_domain],
@@ -91,14 +90,7 @@ class Agent:
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(state=next_state)
-
-        opinions = [one.evaluate(cur_state=self.state,
-                                   next_state=next_state) for one in self.peers]
-        true_count = sum(1 for item in opinions if item)
-        if true_count > 0.5 * len(self.connections):
-            feedback = True
-        else:
-            feedback = False
+        feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
         if next_cog_fitness >= self.cog_fitness:  # focal perception is positive
             if feedback:  # peer feedback is also positive
                 self.state = next_state

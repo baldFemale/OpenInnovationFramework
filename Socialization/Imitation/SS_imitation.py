@@ -23,16 +23,14 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Within the same crowd, individuals boost themselves
-    G_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0)
     S_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12)
-
+    S_crowd.form_connections(group_size=7)
     for _ in range(search_iteration):
-        for agent in G_crowd.agents:
+        for agent in S_crowd.agents:
             agent.search()
-            crowd.imitate_from_connections(lr=0.3)
-    for agent in crowd.agents:
+            S_crowd.imitate_from_internal_connections(lr=0.3)
+    for agent in S_crowd.agents:
         performance_across_agent_time.append(agent.fitness_across_time)
         cog_performance_across_agent_time.append(agent.cog_fitness_across_time)
 
