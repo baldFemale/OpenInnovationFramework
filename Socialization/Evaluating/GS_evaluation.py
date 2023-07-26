@@ -33,13 +33,21 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
                            generalist_expertise=0, specialist_expertise=12)
     G_crowd.form_connections(group_size=7)
     S_crowd.form_connections(group_size=7)
-    for _ in range(search_iteration):
-        for agent in G_crowd.agents:
-            agent.search()
-            G_crowd.imitate_from_external_connections(lr=0.3, crowd=S_crowd)
-        for agent in S_crowd.agents:
-            agent.search()
-            S_crowd.imitate_from_external_connections(lr=0.3, crowd=G_crowd)
+    # G receives evaluation from S
+    for agent in G_crowd.agents:
+        for index in agent.connections:
+            agent.peers.append(S_crowd.agents[index])
+    # S receives evaluation from G
+    for agent in S_crowd.agents:
+        for index in agent.connections:
+            agent.peers.append(G_crowd.agents[index])
+    # Search with feedback
+    for agent in G_crowd.agents:
+        for _ in range(search_iteration):
+            agent.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+    for agent in S_crowd.agents:
+        for _ in range(search_iteration):
+            agent.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
 
     for agent in G_crowd.agents:
         g_performance_across_agent_time.append(agent.fitness_across_time)

@@ -23,18 +23,14 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Within the same crowd, individuals boost themselves
-    S_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12)
-    # form connections and identify evaluators
-    S_crowd.form_connections(group_size=7)
-    for agent in S_crowd.agents:
-        for index in agent.connections:
-            agent.peers.append(S_crowd.agents[index])
-    # Search with feedback
-    for agent in S_crowd.agents:
-        for _ in range(search_iteration):
-            agent.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
-    for agent in S_crowd.agents:
+    G_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+                           generalist_expertise=12, specialist_expertise=0)
+    G_crowd.form_connections(group_size=7)
+    for _ in range(search_iteration):
+        for agent in G_crowd.agents:
+            agent.search()
+            G_crowd.imitate_from_internal_connections(lr=0.3)
+    for agent in G_crowd.agents:
         performance_across_agent_time.append(agent.fitness_across_time)
         cog_performance_across_agent_time.append(agent.cog_fitness_across_time)
 
@@ -119,17 +115,19 @@ if __name__ == '__main__':
         cog_performance_across_K_time.append(cog_performance_across_time)
         variance_across_K_time.append(variance_across_time)
     # remove time dimension
-    with open("ss_performance_across_K", 'wb') as out_file:
+    with open("gg_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("ss_variance_across_K", 'wb') as out_file:
+    with open("gg_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("ss_performance_across_K_time", 'wb') as out_file:
+    with open("gg_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("ss_cog_performance_across_K_time", 'wb') as out_file:
+    with open("gg_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("ss_variance_across_K_time", 'wb') as out_file:
+    with open("gg_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
-    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+
+

@@ -26,12 +26,11 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     G_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0)
     G_crowd.form_connections(group_size=7)
-
     for agent in G_crowd.agents:
         for index in agent.connections:
             agent.peers.append(G_crowd.agents[index])
-    for _ in range(search_iteration):
-        for agent in G_crowd.agents:
+    for agent in G_crowd.agents:
+        for _ in range(search_iteration):
             agent.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
     for agent in G_crowd.agents:
         performance_across_agent_time.append(agent.fitness_across_time)
