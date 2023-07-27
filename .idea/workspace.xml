@@ -5,23 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/GG_imitation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/GS_imitation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/SS_imitation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socialization/Learning/slurm_SS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/GG_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/GG_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/GS_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/GS_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/SS_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/SS_evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Evaluating/slurm_SS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Socialization/Imitation/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/GS_imitation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/GS_imitation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/SS_imitation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/SS_imitation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socialization/Learning/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Learning/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/slurm_SG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Imitation/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Socialization/Imitation/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/Agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/Crowd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/GG_imitation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/GS_imitation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/SS_imitation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/slurm_GG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/slurm_GS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/slurm_SG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socialization/Learning/slurm_SS" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,25 +63,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Socialization/Learning&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Socialization/Imitation",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Learning" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Imitation" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Learning" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization\Evaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Socialization" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS_default" />
@@ -327,7 +332,7 @@
       <workItem from="1689940266329" duration="15533000" />
       <workItem from="1690352979717" duration="6381000" />
       <workItem from="1690369084080" duration="2840000" />
-      <workItem from="1690371966524" duration="1216000" />
+      <workItem from="1690371966524" duration="4604000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -672,7 +677,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="235" />
+    <option name="localTasksCounter" value="236" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

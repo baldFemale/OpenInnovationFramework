@@ -74,7 +74,7 @@ class Agent:
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(state=next_state)
-        if next_cog_fitness >= self.cog_fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -99,7 +99,7 @@ class Agent:
             feedback = True
         else:
             feedback = False
-        if next_cog_fitness >= self.cog_fitness:  # focal perception is positive
+        if next_cog_fitness > self.cog_fitness:  # focal perception is positive
             if feedback:  # peer feedback is also positive
                 self.state = next_state
                 self.cog_state = next_cog_state
