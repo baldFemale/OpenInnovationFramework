@@ -22,20 +22,9 @@ class Agent:
         self.crowd = crowd
         self.N = N
         self.state_num = state_num
-        if generalist_expertise and specialist_expertise:
-            self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
-            self.generalist_domain = np.random.choice([i for i in range(self.N) if i not in self.specialist_domain],
-                                                  generalist_expertise // 2, replace=False).tolist()
-        elif generalist_expertise:
-            self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
-            self.specialist_domain = []
-        elif specialist_expertise:
-            self.generalist_domain = []
-            self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
-        self.specialist_representation = ["0", "1", "2", "3"]
-        self.generalist_representation = ["A", "B"]
-        self.state = np.random.choice(range(self.state_num), self.N).tolist()
-        self.state = [str(i) for i in self.state]  # state format: a list of string
+        self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
+        self.specialist_domain = []
+        self.state = np.random.choice(["A", "B"], self.N).tolist()
         self.cog_state = self.state_2_cog_state(state=self.state)  # for G: shallow; for S: scoped -> built upon common sense
         self.cog_fitness = self.get_cog_fitness(state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
@@ -67,12 +56,15 @@ class Agent:
         next_state = self.state.copy()
         index = np.random.choice(self.generalist_domain + self.specialist_domain)
         # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
-        free_space = ["0", "1", "2", "3"]
-        free_space.remove(next_state[index])
-        next_state[index] = np.random.choice(free_space)
+        if next_state[index] == "A":
+            next_state[index] = "B"
+        elif next_state[index] == "B":
+            next_state[index] = "A"
+        elif next_state[index] in ["0", "1", "2", "3"]:
+            next_state[index] = np.random.choice(["A", "B"])
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(state=next_state)
-        if next_cog_fitness >= self.cog_fitness:
+        if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
@@ -124,14 +116,24 @@ class Agent:
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
             if index in self.generalist_domain:
-                if bit_value in ["0", "1"]:
-                    cog_state[index] = "A"
-                elif bit_value in ["2", "3"]:
-                    cog_state[index] = "B"
+                continue
+            else:
+                cog_state[index] = "*"
+        return cog_state
+
+    def shared_state_2_cog_state(self, state: list) -> list:
+        cog_state = state.copy()
+        for index, bit_value in enumerate(state):
+            if index in self.generalist_domain:
+                if bit_value in ["A", "B"]:
+                    continue
                 else:
-                    raise ValueError("Only support for state number = 4")
-            elif index in self.specialist_domain:
-                pass
+                    if bit_value in ["0", "1"]:
+                        cog_state[index] = "A"
+                    elif bit_value in ["2", "3"]:
+                        cog_state[index] = "B"
+                    else:
+                        raise ValueError("Unsupported Value")
             else:
                 cog_state[index] = "*"
         return cog_state

@@ -82,7 +82,7 @@ class Landscape:
     def calculate_first_fitness(self, state: list) -> float:
         result = []
         state = "".join(state)
-        translation_table = str.maketrans('AB', '01')
+        translation_table = str.maketrans('AB', '01')  # "A" -> "0"; "B" -> "1"
         converted_string = state.translate(translation_table)  # decoded into "01"
         for i in range(self.N):
             dependency = self.dependency_map[i]
