@@ -25,7 +25,7 @@ class Agent:
         self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
         self.specialist_domain = []
         self.state = np.random.choice(["A", "B"], self.N).tolist()
-        self.cog_state = self.state_2_cog_state(state=self.state)  # for G: shallow; for S: scoped -> built upon common sense
+        self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
         self.cog_fitness_across_time, self.fitness_across_time = [], []
@@ -39,17 +39,15 @@ class Agent:
             raise ValueError("Problematic S Expertise")
 
     def get_cog_fitness(self, state: list) -> float:
-        cog_state = self.state_2_cog_state(state=state)
-        if len(self.generalist_domain) != 0:  # iff G
-            if len(self.generalist_domain) == self.N:  # iff full G
-                cog_fitness = self.landscape.query_first_fitness(state=cog_state)  # use "AB"
-            else:
-                cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=cog_state, state=state)
-        else:  # iff S
-            if len(self.specialist_domain) == self.N:  # iff full S
-                cog_fitness = self.landscape.query_second_fitness(state=state)
-            else:
-                cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=cog_state, state=state)
+        """
+        If Full G, it can perceive the real fitness on the shallow landscape
+        Otherwise, it can only perceive partial fitness
+        """
+        if len(self.generalist_domain) == self.N:  # iff full G
+            cog_fitness = self.landscape.query_first_fitness(state=state)  # use "AB"
+        else:
+            cog_state = self.state_2_cog_state(state=state)
+            cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=cog_state, state=state)
         return cog_fitness
 
     def search(self) -> None:
@@ -60,7 +58,7 @@ class Agent:
             next_state[index] = "B"
         elif next_state[index] == "B":
             next_state[index] = "A"
-        elif next_state[index] in ["0", "1", "2", "3"]:
+        elif next_state[index] in ["0", "1", "2", "3"]:  # from socialized solutions
             next_state[index] = np.random.choice(["A", "B"])
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(state=next_state)
@@ -113,6 +111,12 @@ class Agent:
         self.cog_fitness_across_time.append(self.cog_fitness)
 
     def state_2_cog_state(self, state: list) -> list:
+        """
+        For Full G, it perceives the real fitness in the shallow landscape
+        Similarly, for Full S, it also perceives the real fitness in the deep landscape
+        :param state: the real state
+        :return: the cognitive state is only a state with unknown shelter
+        """
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
             if index in self.generalist_domain:
@@ -121,32 +125,33 @@ class Agent:
                 cog_state[index] = "*"
         return cog_state
 
-    def shared_state_2_cog_state(self, state: list) -> list:
-        cog_state = state.copy()
-        for index, bit_value in enumerate(state):
+    def shared_cog_state_2_cog_state(self, cog_state: list) -> list:
+        """
+        The shared state include the "*" -> it is the perceived solution from the sharer
+        UNKNOWN domain: one cannot perceive and express the solution accurately
+        Resonating with the literature on imperfect socialization (e.g., imperfect imitation, imperfect convey, imperfect acquisition)
+        :param cog_state: shared cog_state for evaluation
+        :return:self-perceived cog_state
+        """
+        self_cog_state = cog_state.copy()
+        for index, bit_value in enumerate(cog_state):
             if index in self.generalist_domain:
-                if bit_value in ["A", "B"]:
-                    continue
+                if bit_value == "*":
+                    self_cog_state[index] = self.state[index]
+                elif bit_value in ["0", "1"]:
+                    self_cog_state[index] = "A"
+                elif bit_value in ["2", "3"]:
+                    self_cog_state[index] = "B"
                 else:
-                    if bit_value in ["0", "1"]:
-                        cog_state[index] = "A"
-                    elif bit_value in ["2", "3"]:
-                        cog_state[index] = "B"
-                    else:
-                        raise ValueError("Unsupported Value")
+                    pass
             else:
-                cog_state[index] = "*"
-        return cog_state
+                self_cog_state[index] = "*"
+        return self_cog_state
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
-        """
-        Recalling that we cannot normalize the cognitive fitness, which is personal bias and does not affect the search
-        But providing quantitative difference or to what extent this solution is better than previous one is unrealistic
-        Thus, the evaluation only provide qualitative feedback -> True: not worse; False: worse
-        """
-        cur_cog_fitness = self.get_cog_fitness(state=cur_state)
-        next_cog_fitness = self.get_cog_fitness(state=next_state)
-        if next_cog_fitness >= cur_cog_fitness:
+        cur_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=cur_state)
+        next_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=next_state)
+        if next_cog_fitness > cur_cog_fitness:
             return True
         else:
             return False
