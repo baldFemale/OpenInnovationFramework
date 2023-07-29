@@ -49,7 +49,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    expertise_amount = 12
+    expertise_amount = 16
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 50
     # DVs
