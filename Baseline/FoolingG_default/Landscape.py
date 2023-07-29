@@ -211,16 +211,14 @@ class Landscape:
         :param state: original "AB"
         :return: partial fitness on the shallow landscape
         """
-
-        aligned_cog_state = cog_state.copy()
         translation_table = str.maketrans('AB', '01')
         scoped_fitness = []
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
             dependency = self.dependency_map[row]
-            bin_index = "".join([aligned_cog_state[j] for j in dependency])  # the unknown domain will shape the contingency condition
-            bin_index = aligned_cog_state[row] + bin_index
+            bin_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
+            bin_index = state[row] + bin_index
             bin_index = bin_index.translate(translation_table)  # "AB" to "01"
             index = int(bin_index, 2)
             scoped_fitness.append(self.FC_1[row][index])  # not need to normalize; does not affect the local search
