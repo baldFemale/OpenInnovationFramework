@@ -11,14 +11,13 @@ import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
-import statistics
 
 
 # mp version
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
