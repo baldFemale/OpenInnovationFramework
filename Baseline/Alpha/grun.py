@@ -5,13 +5,12 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Agent import Agent
+from Generalist import Generalist
 from Landscape import Landscape
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
-import statistics
 
 
 # mp version
@@ -22,7 +21,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        generalist = Agent(N=N, landscape=landscape, state_num=state_num,
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
                            generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
@@ -49,7 +48,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    expertise_amount = 12
+    expertise_amount = 18
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     alpha_list = [0.1, 0.2, 0.3, 0.4]
     concurrency = 50
