@@ -345,7 +345,7 @@ class Landscape:
     def count_first_local_optima(self):
         counter = 0
         for key, value in self.first_cache.items():
-            neighbor_list = self.get_neighbor_list(key=key)
+            neighbor_list = self.get_first_neighbor_list(key=key)
             is_local_optima = True
             for neighbor in neighbor_list:
                 if self.query_first_fitness(state=list(neighbor)) > value:
@@ -359,7 +359,7 @@ class Landscape:
     def count_second_local_optima(self):
         counter = 0
         for key, value in self.second_cache.items():
-            neighbor_list = self.get_neighbor_list(key=key)
+            neighbor_list = self.get_second_neighbor_list(key=key)
             is_local_optima = True
             for neighbor in neighbor_list:
                 if self.query_second_fitness(state=list(neighbor)) > value:
