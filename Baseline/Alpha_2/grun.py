@@ -21,8 +21,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
         performance_across_agent_time.append(generalist.fitness_across_time)

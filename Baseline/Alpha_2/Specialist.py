@@ -9,13 +9,11 @@ from Landscape import Landscape
 
 
 class Specialist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None,
-                 generalist_expertise=None, specialist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, specialist_expertise=None):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
-        :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
         """
         self.landscape = landscape
@@ -31,13 +29,6 @@ class Specialist:
         self.fitness = self.landscape.query_second_fitness(state=self.state)
         self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.cog_cache = {}
-        if specialist_expertise and generalist_expertise:
-            if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
-                raise ValueError("Entire Expertise Exceed N")
-        if generalist_expertise and (generalist_expertise % 2 != 0):
-            raise ValueError("Problematic G Expertise")
-        if specialist_expertise and (specialist_expertise % 4 != 0):
-            raise ValueError("Problematic S Expertise")
 
     def get_cog_fitness(self, state: list) -> float:
         """
