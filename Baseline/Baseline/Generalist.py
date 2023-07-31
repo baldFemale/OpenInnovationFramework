@@ -192,8 +192,7 @@ if __name__ == '__main__':
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
 
     # landscape.describe()
-    agent = Agent(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+    agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
     # agent.describe()
     for _ in range(search_iteration):
         agent.search()
