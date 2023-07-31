@@ -1,0 +1,17 @@
+This version is implemented after AOM acceptance but before the AOM presentation
+
+This model adopt a double sampling from uniform distribution to construct a 4-state landscape
+
+--First, generate the binary landscape as usual
+--Second, based on the Fitness Contribution Matrix (BinFC), generate 2^(K+1) points from every position in BinFC
+Then we can get a new 4^(K+1) Fitness Contribution Matrix (QuartFC)
+--Third, generalists search on binary landscape and get performance (and feedback) from it
+Specialists search on quarterly landscape and get performance (and feedback) from it
+--The problem arises from this separate landscape; we cannot distinguish what is the source of performance gap;
+Actually, G and S will perform the same. The performance gap arises from the hyper-parameter "alpha"
+-> the alpha further complex the landscape by adding one more complexity within the domain yet across granularity.
+(see the results at E:\data\gst-0730-23\Alpha)
+
+Therefore, I want to roll back to a previous version that G and S will search on the same landscape but perceive it from different cognitive landscape
+
+Therefore, we may attribute the performance difference to the perception about problem space that guides the search dynamics.
