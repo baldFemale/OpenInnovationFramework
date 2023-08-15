@@ -21,7 +21,8 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=expertise_amount)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
+                           generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
         performance_across_agent_time.append(generalist.fitness_across_time)
@@ -44,12 +45,12 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     agent_num = 100
-    search_iteration = 200
+    search_iteration = 100
     N = 9
     state_num = 4
-    expertise_amount = 18
+    expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    alpha_list = [0.5, 0.6, 0.7, 0.8, 0.9]
+    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.45, 0.50]
     concurrency = 50
     for alpha in alpha_list:
         # DVs

@@ -47,9 +47,9 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    expertise_amount = 36
+    expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    alpha_list = [0.5, 0.6, 0.7, 0.8, 0.9]
+    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.45, 0.50]
     concurrency = 50
     for alpha in alpha_list:
         # DVs
