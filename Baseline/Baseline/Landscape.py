@@ -208,17 +208,23 @@ class Landscape:
         Remove the fitness contribution of the unknown domain;
         But the unknown domains indirectly contribute to other elements' contributions via interdependency
         :param cog_state: state of "AB" with unknown shelter
-        :param state: original "AB"
+        :param state: original "0123"
         :return: partial fitness on the shallow landscape
         """
         translation_table = str.maketrans('AB', '01')
         scoped_fitness = []
+        aligned_cog_state = []
+        for bit in state:
+            if bit in ["0", "1"]:
+                aligned_cog_state.append("A")
+            else:
+                aligned_cog_state.append("B")
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
             dependency = self.dependency_map[row]
-            bin_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
-            bin_index = state[row] + bin_index
+            bin_index = "".join([aligned_cog_state[j] for j in dependency])  # the unknown domain will shape the contingency condition
+            bin_index = aligned_cog_state[row] + bin_index
             bin_index = bin_index.translate(translation_table)  # "AB" to "01"
             index = int(bin_index, 2)
             scoped_fitness.append(self.FC_1[row][index])  # not need to normalize; does not affect the local search

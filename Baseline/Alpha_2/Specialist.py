@@ -186,7 +186,7 @@ if __name__ == '__main__':
     state_num = 4
     generalist_expertise = 0
     specialist_expertise = 24
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.05)
 
     # landscape.describe()
     agent = Specialist(N=N, landscape=landscape, state_num=state_num,

@@ -25,9 +25,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Independent/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Independent/partial_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_full" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MaxMin/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/ClusterRangeScaling/full_full" isTestSource="false" />
@@ -35,7 +32,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MaxMin/alpha_0.1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward" isTestSource="false" />
