@@ -27,7 +27,7 @@ class Specialist:
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
         self.cog_state = self.state_2_cog_state(state=self.state)
-        self.cog_fitness = self.get_cog_fitness(state=self.state)
+        self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
         self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.cog_cache = {}
@@ -39,15 +39,14 @@ class Specialist:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def get_cog_fitness(self, state: list) -> float:
+    def get_cog_fitness(self, state: list, cog_state: list) -> float:
         """
         If Full S, it can perceive the real fitness on the deep landscape
         Otherwise, it can only perceive partial fitness
         """
         if len(self.specialist_domain) == self.N:  # iff full S
-            cog_fitness = self.landscape.query_second_fitness(state=state)
+            cog_fitness = self.landscape.query_second_fitness(state=cog_state)
         else:
-            cog_state = self.state_2_cog_state(state=state)
             cog_fitness = self.landscape.query_scoped_second_fitness(cog_state=cog_state, state=state)
         return cog_fitness
 
@@ -59,7 +58,7 @@ class Specialist:
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
-        next_cog_fitness = self.get_cog_fitness(state=next_state)
+        next_cog_fitness = self.get_cog_fitness(state=next_state, cog_state=next_cog_state)
         if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
@@ -183,18 +182,19 @@ if __name__ == '__main__':
     np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 8
+    K = 3
     state_num = 4
     generalist_expertise = 0
-    specialist_expertise = 36
+    specialist_expertise = 24
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
 
     # landscape.describe()
-    agent = Agent(N=N, landscape=landscape, state_num=state_num,
+    agent = Specialist(N=N, landscape=landscape, state_num=state_num,
                     generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
     # agent.describe()
     for _ in range(search_iteration):
         agent.search()
+        print(agent.cog_state, agent.state)
     import matplotlib.pyplot as plt
     x = range(len(agent.fitness_across_time))
     plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")

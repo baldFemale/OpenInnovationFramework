@@ -38,30 +38,25 @@ class Generalist:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def get_cog_fitness(self, state: list) -> float:
+    def get_cog_fitness(self, cog_state: list, state: list) -> float:
         """
         If Full G, it can perceive the real fitness on the shallow landscape
         Otherwise, it can only perceive partial fitness
         """
         if len(self.generalist_domain) == self.N:  # iff full G
-            cog_fitness = self.landscape.query_first_fitness(state=state)  # use "AB"
+            cog_fitness = self.landscape.query_first_fitness(state=cog_state)  # use "AB"
         else:
-            cog_state = self.state_2_cog_state(state=state)
             cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=cog_state, state=state)
         return cog_fitness
 
     def search(self) -> None:
         next_state = self.state.copy()
         index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
-        if next_state[index] == "A":
-            next_state[index] = "B"
-        elif next_state[index] == "B":
-            next_state[index] = "A"
-        elif next_state[index] in ["0", "1", "2", "3"]:  # from socialized solutions
-            next_state[index] = np.random.choice(["A", "B"])
+        free_space = ["0", "1", "2", "3"]
+        free_space.remove(next_state[index])
+        next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
-        next_cog_fitness = self.get_cog_fitness(state=next_state)
+        next_cog_fitness = self.get_cog_fitness(state=next_cog_state)
         if next_cog_fitness > self.cog_fitness:
             self.state = next_state
             self.cog_state = next_cog_state
@@ -187,8 +182,8 @@ if __name__ == '__main__':
     N = 9
     K = 8
     state_num = 4
-    generalist_expertise = 0
-    specialist_expertise = 36
+    generalist_expertise = 18
+    specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
 
     # landscape.describe()
@@ -196,6 +191,7 @@ if __name__ == '__main__':
     # agent.describe()
     for _ in range(search_iteration):
         agent.search()
+        print(agent.cog_state, agent.state)
     import matplotlib.pyplot as plt
     x = range(len(agent.fitness_across_time))
     plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")

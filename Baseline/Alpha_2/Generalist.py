@@ -38,15 +38,14 @@ class Generalist:
         if specialist_expertise and (specialist_expertise % 4 != 0):
             raise ValueError("Problematic S Expertise")
 
-    def get_cog_fitness(self, state: list) -> float:
+    def get_cog_fitness(self, cog_state: list, state: list) -> float:
         """
         If Full G, it can perceive the real fitness on the shallow landscape
         Otherwise, it can only perceive partial fitness
         """
         if len(self.generalist_domain) == self.N:  # iff full G
-            cog_fitness = self.landscape.query_first_fitness(state=state)  # use "AB"
+            cog_fitness = self.landscape.query_first_fitness(state=cog_state)  # use "AB"
         else:
-            cog_state = self.state_2_cog_state(state=state)
             cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=cog_state, state=state)
         return cog_fitness
 
