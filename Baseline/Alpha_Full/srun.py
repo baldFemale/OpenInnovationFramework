@@ -5,7 +5,7 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 import multiprocessing as mp
 import time
@@ -21,12 +21,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=expertise_amount)
         for _ in range(search_iteration):
-            generalist.search()
-        performance_across_agent_time.append(generalist.fitness_across_time)
-        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+            specialist.search()
+        performance_across_agent_time.append(specialist.fitness_across_time)
+        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -45,10 +44,10 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     agent_num = 100
-    search_iteration = 100
+    search_iteration = 200
     N = 9
     state_num = 4
-    expertise_amount = 12
+    expertise_amount = 36  # Full Domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
     concurrency = 50
@@ -109,16 +108,16 @@ if __name__ == '__main__':
             cog_performance_across_K_time.append(cog_performance_across_time)
             variance_across_K_time.append(variance_across_time)
         # remove time dimension
-        with open("g_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("s_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(performance_across_K, out_file)
-        with open("g_variance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("s_variance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_K, out_file)
         # retain time dimension
-        with open("g_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("s_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(performance_across_K_time, out_file)
-        with open("g_cog_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("s_cog_performance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(cog_performance_across_K_time, out_file)
-        with open("g_variance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("s_variance_across_K_time_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()

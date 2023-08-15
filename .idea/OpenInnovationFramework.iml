@@ -49,12 +49,10 @@
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollbackTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollforwardTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS_default" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Trakectory" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization" isTestSource="false" />
@@ -62,6 +60,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Socialization/Imitation" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization/Learning" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Compare_Landscape" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_Domain" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_Expertise" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_Full" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
