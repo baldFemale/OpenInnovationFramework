@@ -80,6 +80,10 @@ class Landscape:
         self.FC_2 = FC_2
 
     def calculate_first_fitness(self, state: list) -> float:
+        """
+        :param state: state of "AB"; transfer AB within this function
+        :return: cognitive fitness on the first level
+        """
         result = []
         state = "".join(state)
         translation_table = str.maketrans('AB', '01')

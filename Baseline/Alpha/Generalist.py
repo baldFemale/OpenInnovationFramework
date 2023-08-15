@@ -9,12 +9,14 @@ from Landscape import Landscape
 
 
 class Generalist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None,
+                 generalist_expertise=None, specialist_expertise=None):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
+        :param specialist_expertise: the amount of S knowledge
         """
         self.landscape = landscape
         self.crowd = crowd
@@ -28,6 +30,13 @@ class Generalist:
         self.fitness = self.landscape.query_first_fitness(state=self.state)
         self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.cog_cache = {}
+        if specialist_expertise and generalist_expertise:
+            if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
+                raise ValueError("Entire Expertise Exceed N")
+        if generalist_expertise and (generalist_expertise % 2 != 0):
+            raise ValueError("Problematic G Expertise")
+        if specialist_expertise and (specialist_expertise % 4 != 0):
+            raise ValueError("Problematic S Expertise")
 
     def get_cog_fitness(self, state: list) -> float:
         """
@@ -57,7 +66,7 @@ class Generalist:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.fitness = self.landscape.query_first_fitness(state=self.state)
+            self.fitness = self.landscape.query_second_fitness(state=self.state)
         self.fitness_across_time.append(self.fitness)
         self.cog_fitness_across_time.append(self.cog_fitness)
 
@@ -71,7 +80,7 @@ class Generalist:
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(state=next_state)
         feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
-        if next_cog_fitness >= self.cog_fitness:  # focal perception is positive
+        if next_cog_fitness > self.cog_fitness:  # focal perception is positive
             if feedback:  # peer feedback is also positive
                 self.state = next_state
                 self.cog_state = next_cog_state
@@ -183,8 +192,7 @@ if __name__ == '__main__':
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
 
     # landscape.describe()
-    agent = Agent(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+    agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
     # agent.describe()
     for _ in range(search_iteration):
         agent.search()
