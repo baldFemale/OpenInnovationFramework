@@ -5,35 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S16" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S20" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S28" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S32" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_16.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_20.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_28.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_32.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/grun_12.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/grun_12.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/grun_18.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/grun_18.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/grun_6.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/grun_6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/slurm_G12" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/slurm_G12" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/slurm_G18" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/slurm_G18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG_default/slurm_G6" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/slurm_G6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/slurm_S12" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S12" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/slurm_S24" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S24" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/slurm_S36" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S36" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/srun_12.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_12.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_24.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS_default/srun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_36.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_12.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_12.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_24.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_36.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +63,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/FoolingS_default",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/FoolingS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Alpha_Full" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Alpha_Expertise" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -363,7 +347,7 @@
       <workItem from="1692079655385" duration="1610000" />
       <workItem from="1692082950059" duration="7896000" />
       <workItem from="1692101423538" duration="2513000" />
-      <workItem from="1692154233402" duration="2087000" />
+      <workItem from="1692154233402" duration="2829000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -708,7 +692,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="259" />
+    <option name="localTasksCounter" value="260" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
