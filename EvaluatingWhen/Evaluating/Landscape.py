@@ -82,7 +82,7 @@ class Landscape:
     def calculate_first_fitness(self, state: list) -> float:
         result = []
         state = "".join(state)
-        translation_table = str.maketrans('AB', '01')
+        translation_table = str.maketrans('AB', '01')  # "A" -> "0"; "B" -> "1"
         converted_string = state.translate(translation_table)  # decoded into "01"
         for i in range(self.N):
             dependency = self.dependency_map[i]
@@ -204,15 +204,21 @@ class Landscape:
         return self.first_cache["".join(state)]
 
     def query_scoped_first_fitness(self, cog_state: list, state: list) -> float:
-        aligned_cog_state = cog_state.copy()  # to know the contingence condition
-        for row in range(self.N):
-            if aligned_cog_state[row] == "*":
-                if state[row] in ["0", "1"]:
-                    aligned_cog_state[row] = "A"
-                else:
-                    aligned_cog_state[row] = "B"
+        """
+        Remove the fitness contribution of the unknown domain;
+        But the unknown domains indirectly contribute to other elements' contributions via interdependency
+        :param cog_state: state of "AB" with unknown shelter
+        :param state: original "0123"
+        :return: partial fitness on the shallow landscape
+        """
         translation_table = str.maketrans('AB', '01')
         scoped_fitness = []
+        aligned_cog_state = []
+        for bit in state:
+            if bit in ["0", "1"]:
+                aligned_cog_state.append("A")
+            else:
+                aligned_cog_state.append("B")
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
@@ -359,21 +365,21 @@ class Landscape:
     #     avg_fitness_distance = total_distance / total_neighbors
     #     return avg_fitness_distance
 
-    # def get_neighbor_list(self, key: str) -> list:
-    #     """
-    #     This is also for the Coarse Landscape
-    #     :param key: string from the coarse landscape cache dict, e.g., "0011"
-    #     :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
-    #     """
-    #     neighbor_states = []
-    #     for i, char in enumerate(key):
-    #         neighbors = []
-    #         for neighbor in range(4):
-    #             if neighbor != int(char):
-    #                 new_state = key[:i] + str(neighbor) + key[i + 1:]
-    #                 neighbors.append(new_state)
-    #         neighbor_states.extend(neighbors)
-    #     return neighbor_states
+    def get_neighbor_list(self, key: str) -> list:
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "0011"
+        :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
+        """
+        neighbor_states = []
+        for i, char in enumerate(key):
+            neighbors = []
+            for neighbor in range(4):
+                if neighbor != int(char):
+                    new_state = key[:i] + str(neighbor) + key[i + 1:]
+                    neighbors.append(new_state)
+            neighbor_states.extend(neighbors)
+        return neighbor_states
 
     @staticmethod
     def get_hamming_distance(state_1: list, state_2: list) -> int:

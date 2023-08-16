@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S16" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S20" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S28" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/slurm_S32" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_16.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_20.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_28.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_32.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_12.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_12.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_24.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_24.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/srun_36.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/srun_36.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +67,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/FoolingS",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingWhen/Evaluating",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -75,11 +79,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen\Evaluating" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS_default" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Alpha_Full" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Alpha_Expertise" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -347,7 +351,7 @@
       <workItem from="1692079655385" duration="1610000" />
       <workItem from="1692082950059" duration="7896000" />
       <workItem from="1692101423538" duration="2513000" />
-      <workItem from="1692154233402" duration="2829000" />
+      <workItem from="1692154233402" duration="6915000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -692,7 +696,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="260" />
+    <option name="localTasksCounter" value="261" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

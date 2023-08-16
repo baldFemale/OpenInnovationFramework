@@ -5,7 +5,8 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Agent import Agent
+from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 from Crowd import Crowd
 import multiprocessing as mp
@@ -19,20 +20,20 @@ import statistics
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Sharing Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12)
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for agent in crowd.agents:
         for _ in range(search_iteration):
             agent.search()
     for agent_index in range(agent_num):
-        generalist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         generalist.state = crowd.agents[agent_index].state.copy()
-        generalist.cog_fitness = generalist.get_cog_fitness(state=generalist.state)
+        generalist.cog_fitness = generalist.get_cog_fitness(state=generalist.state, cog_state=generalist.cog_state)
         generalist.fitness = generalist.landscape.query_second_fitness(state=generalist.state)
         for _ in range(search_iteration):
             generalist.search()

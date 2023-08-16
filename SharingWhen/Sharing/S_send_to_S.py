@@ -5,7 +5,8 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Agent import Agent
+from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 from Crowd import Crowd
 import multiprocessing as mp
@@ -24,15 +25,15 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     cog_performance_across_agent_time = []
     # Sharing Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12)
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for agent in crowd.agents:
         for _ in range(search_iteration):
             agent.search()
     for agent_index in range(agent_num):
-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         specialist.state = crowd.agents[agent_index].state.copy()
-        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state)
+        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state, cog_state=specialist.cog_state)
         specialist.fitness = specialist.landscape.query_second_fitness(state=specialist.state)
         for _ in range(search_iteration):
             specialist.search()
