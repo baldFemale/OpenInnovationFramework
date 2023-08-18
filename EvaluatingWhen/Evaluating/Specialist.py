@@ -69,15 +69,14 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
         index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
-        next_cog_fitness = self.get_cog_fitness(state=next_state)
+        next_cog_fitness = self.get_cog_fitness(state=next_state, cog_state=self.cog_state)
         feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
-        if next_cog_fitness >= self.cog_fitness:  # focal perception is positive
+        if next_cog_fitness > self.cog_fitness:  # focal perception is positive
             if feedback:  # peer feedback is also positive
                 self.state = next_state
                 self.cog_state = next_cog_state

@@ -4,24 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely">
-      <change afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingWhen/Evaluating",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/SharingWhen/Sharing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -79,11 +81,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen\Evaluating" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS_default" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG_default" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Baseline" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -351,7 +353,7 @@
       <workItem from="1692079655385" duration="1610000" />
       <workItem from="1692082950059" duration="7896000" />
       <workItem from="1692101423538" duration="2513000" />
-      <workItem from="1692154233402" duration="6915000" />
+      <workItem from="1692154233402" duration="10152000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -696,7 +698,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="261" />
+    <option name="localTasksCounter" value="262" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -714,7 +716,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reshape the project structure" />
     <MESSAGE value="Reduce the workload of gg_coordination" />
     <MESSAGE value="Add the exp of gg, ss under Priority" />
     <MESSAGE value="Unify the figure format" />
@@ -739,7 +740,8 @@
     <MESSAGE value="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape" />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception." />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely" />
+    <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />

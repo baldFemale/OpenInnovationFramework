@@ -68,7 +68,6 @@ class Generalist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
         index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
@@ -81,7 +80,7 @@ class Generalist:
                 self.state = next_state
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
-                self.fitness = self.landscape.query_first_fitness(state=self.state)
+                self.fitness = self.landscape.query_second_fitness(state=self.state)
             else:  # feedback is negative
                 if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
                     pass
@@ -92,7 +91,7 @@ class Generalist:
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
-                    self.fitness = self.landscape.query_first_fitness(state=self.state)
+                    self.fitness = self.landscape.query_second_fitness(state=self.state)
         else:
             if feedback:  # 2nd conflict: self "-" and peer "+"
                 if np.random.uniform(0, 1) < roll_forward_ratio:
@@ -100,7 +99,7 @@ class Generalist:
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
-                    self.fitness = self.landscape.query_first_fitness(state=self.state)
+                    self.fitness = self.landscape.query_second_fitness(state=self.state)
                 else:
                     pass
         self.fitness_across_time.append(self.fitness)
