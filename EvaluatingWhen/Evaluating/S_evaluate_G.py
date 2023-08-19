@@ -27,12 +27,12 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
-            specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
-        performance_across_agent_time.append(specialist.fitness_across_time)
-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+            generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+        performance_across_agent_time.append(generalist.fitness_across_time)
+        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
