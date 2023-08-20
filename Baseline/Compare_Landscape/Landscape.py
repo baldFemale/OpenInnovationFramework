@@ -11,7 +11,7 @@ import numpy as np
 
 
 class Landscape:
-    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.5):
+    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.25):
         """
         :param N:
         :param K:
@@ -27,8 +27,7 @@ class Landscape:
         self.FC_1 = None
         self.FC_2 = None
         self.seed = None
-        self.first_local_optima = {}
-        self.second_local_optima = {}
+        self.local_optima = {}
         self.first_cache = {}  # state string to overall fitness: state_num ^ N: [1]
         self.second_cache = {}
         self.max_normalizer_1, self.min_normalizer_1 = 1, 0
@@ -209,17 +208,23 @@ class Landscape:
         Remove the fitness contribution of the unknown domain;
         But the unknown domains indirectly contribute to other elements' contributions via interdependency
         :param cog_state: state of "AB" with unknown shelter
-        :param state: original "AB"
+        :param state: original "0123"
         :return: partial fitness on the shallow landscape
         """
         translation_table = str.maketrans('AB', '01')
         scoped_fitness = []
+        aligned_cog_state = []
+        for bit in state:
+            if bit in ["0", "1"]:
+                aligned_cog_state.append("A")
+            else:
+                aligned_cog_state.append("B")
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
             dependency = self.dependency_map[row]
-            bin_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
-            bin_index = state[row] + bin_index
+            bin_index = "".join([aligned_cog_state[j] for j in dependency])  # the unknown domain will shape the contingency condition
+            bin_index = aligned_cog_state[row] + bin_index
             bin_index = bin_index.translate(translation_table)  # "AB" to "01"
             index = int(bin_index, 2)
             scoped_fitness.append(self.FC_1[row][index])  # not need to normalize; does not affect the local search
@@ -328,19 +333,12 @@ class Landscape:
                 raise ValueError("Unsupported bit value: ", bit)
         return [i for i in product(*alternative_pool)]
 
-    def create_first_fitness_rank(self):
-        fitness_cache = list(self.first_cache.values())
-        ranks = rankdata(fitness_cache)
-        ranks = [int(each) for each in ranks]
-        rank_dict = {key: rank for key, rank in zip(self.first_cache.keys(), ranks)}
-        return rank_dict
-
-    def create_second_fitness_rank(self):
-        fitness_cache = list(self.second_cache.values())
-        ranks = rankdata(fitness_cache)
-        ranks = [int(each) for each in ranks]
-        rank_dict = {key: rank for key, rank in zip(self.second_cache.keys(), ranks)}
-        return rank_dict
+    # def create_fitness_rank(self):
+    #     fitness_cache = list(self.cache.values())
+    #     ranks = rankdata(fitness_cache)
+    #     ranks = [int(each) for each in ranks]
+    #     rank_dict = {key: rank for key, rank in zip(self.cache.keys(), ranks)}
+    #     return rank_dict
 
     def count_first_local_optima(self):
         counter = 0
@@ -353,7 +351,7 @@ class Landscape:
                     break
             if is_local_optima:
                 counter += 1
-                self.first_local_optima[key] = value
+                self.local_optima[key] = value
         return counter
 
     def count_second_local_optima(self):
@@ -362,55 +360,60 @@ class Landscape:
             neighbor_list = self.get_second_neighbor_list(key=key)
             is_local_optima = True
             for neighbor in neighbor_list:
-                if self.query_second_fitness(state=list(neighbor)) > value:
+                if self.query_first_fitness(state=list(neighbor)) > value:
                     is_local_optima = False
                     break
             if is_local_optima:
                 counter += 1
-                self.second_local_optima[key] = value
+                self.local_optima[key] = value
         return counter
 
-    def calculate_first_avg_fitness_distance(self):
-        total_distance = 0
-        total_neighbors = 0
-        for key in self.first_cache.keys():
-            neighbors = self.get_first_neighbor_list(key)
-            total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
-            total_neighbors += len(neighbors)
-        avg_fitness_distance = total_distance / total_neighbors
-        return avg_fitness_distance
-
-    def calculate_second_avg_fitness_distance(self):
-        total_distance = 0
-        total_neighbors = 0
-        for key in self.second_cache.keys():
-            neighbors = self.get_second_neighbor_list(key)
-            total_distance += sum(abs(self.second_cache[key] - self.second_cache[neighbor]) for neighbor in neighbors)
-            total_neighbors += len(neighbors)
-        avg_fitness_distance = total_distance / total_neighbors
-        return avg_fitness_distance
-
     def get_first_neighbor_list(self, key: str) -> list:
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "AABB"
+        :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
+        """
         neighbor_states = []
-        for i, char in enumerate(key):  # "AB" string
-            neighbors = []
-            for neighbor in ["A", "B"]:
-                if neighbor != char:
-                    new_state = key[:i] + str(neighbor) + key[i + 1:]
-                    neighbors.append(new_state)
-            neighbor_states.extend(neighbors)
+        for i, char in enumerate(key):
+            for bit in ["A", "B"]:
+                if bit != char:
+                    new_state = key[:i] + str(bit) + key[i + 1:]
+                    neighbor_states.append(new_state)
         return neighbor_states
 
     def get_second_neighbor_list(self, key: str) -> list:
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "0011"
+        :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
+        """
         neighbor_states = []
-        for i, char in enumerate(key):  # "0123" string
+        for i, char in enumerate(key):
             neighbors = []
-            for neighbor in ["0", "1", "2", "3"]:
-                if neighbor != char:
+            for neighbor in range(4):
+                if neighbor != int(char):
                     new_state = key[:i] + str(neighbor) + key[i + 1:]
                     neighbors.append(new_state)
             neighbor_states.extend(neighbors)
         return neighbor_states
+
+    def calculate_avg_fitness_distance(self):
+        first_avg_fitness_distance = 0
+        for key in self.first_cache.keys():  # "AB"
+            first_total_distance = 0
+            neighbors = self.get_first_neighbor_list(key)
+            first_total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
+            first_total_distance /= len(neighbors)
+            first_avg_fitness_distance += first_total_distance
+        second_avg_fitness_distance = 0
+        for key in self.second_cache.keys():  # "0123"
+            second_total_distance = 0
+            neighbors = self.get_second_neighbor_list(key)
+            second_total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
+            second_total_distance /= len(neighbors)
+            second_avg_fitness_distance += second_total_distance
+        return first_avg_fitness_distance
 
     @staticmethod
     def get_hamming_distance(state_1: list, state_2: list) -> int:

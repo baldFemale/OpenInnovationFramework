@@ -17,7 +17,7 @@ import pickle
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.5)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     for _ in range(agent_num):
@@ -46,11 +46,11 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     agent_num = 100
-    search_iteration = 200
-    N = 9
+    search_iteration = 100
+    N = 10
     state_num = 4
-    expertise_amount = 32
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    expertise_amount = 16
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
     performance_across_K = []
