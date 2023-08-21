@@ -360,7 +360,7 @@ class Landscape:
             neighbor_list = self.get_second_neighbor_list(key=key)
             is_local_optima = True
             for neighbor in neighbor_list:
-                if self.query_first_fitness(state=list(neighbor)) > value:
+                if self.query_second_fitness(state=list(neighbor)) > value:
                     is_local_optima = False
                     break
             if is_local_optima:
@@ -410,10 +410,10 @@ class Landscape:
         for key in self.second_cache.keys():  # "0123"
             second_total_distance = 0
             neighbors = self.get_second_neighbor_list(key)
-            second_total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
+            second_total_distance += sum(abs(self.second_cache[key] - self.second_cache[neighbor]) for neighbor in neighbors)
             second_total_distance /= len(neighbors)
             second_avg_fitness_distance += second_total_distance
-        return first_avg_fitness_distance
+        return first_avg_fitness_distance / (2 ** self.N), second_avg_fitness_distance / (4 ** self.N)
 
     @staticmethod
     def get_hamming_distance(state_1: list, state_2: list) -> int:
@@ -453,16 +453,19 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    N = 10
-    K = 9
+    N = 9
+    K = 8
     state_num = 4
     np.random.seed(1000)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
-    landscape.describe()
-    t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin", alpha=0.01)
+    # landscape.describe()
     # landscape.create_fitness_rank()
-    # landscape.count_local_optima()
+    first_local_peak = landscape.count_first_local_optima()
+    second_local_peak = landscape.count_second_local_optima()
+    first_distance, second_distance = landscape.calculate_avg_fitness_distance()
+    print("first_local_peak: ", first_local_peak, first_local_peak / (2 ** N))
+    print("second_local_peak: ", second_local_peak, second_local_peak / (4 ** N))
+    print("first distance: ", first_distance, "second distance: ", second_distance)
     # ave_distance = landscape.calculate_avg_fitness_distance()
     # ave_distance = round(ave_distance, 4)
     # print(landscape.local_optima)
@@ -472,7 +475,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     # plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
     # plt.xlabel("Range")
-    # plt.ylabel("Count")
+    # plt.ylabel("Count")s
     # plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
     #     N, K, len(landscape.local_optima.keys()), ave_distance))
     # plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(
