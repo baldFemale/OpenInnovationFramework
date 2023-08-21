@@ -46,10 +46,10 @@ if __name__ == '__main__':
     landscape_iteration = 300
     agent_num = 100
     search_iteration = 100
-    N = 10
+    N = 12
     state_num = 4
     expertise_amount = 16
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 50
     # DVs
     performance_across_K = []
