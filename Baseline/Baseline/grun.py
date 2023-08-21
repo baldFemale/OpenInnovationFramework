@@ -54,14 +54,10 @@ if __name__ == '__main__':
     # DVs
     performance_across_K = []
     variance_across_K = []
-    first_quantile_across_K = []
-    lats_quantile_across_K = []
 
     performance_across_K_time = []
     cog_performance_across_K_time = []
     variance_across_K_time = []
-    first_quantile_across_K_time = []
-    last_quantile_across_K_time = []
     for K in K_list:
         manager = mp.Manager()
         return_dict = manager.dict()

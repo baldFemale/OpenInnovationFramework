@@ -4,18 +4,24 @@
 # @FileName: Crowd.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
-from Agent import Agent
+from Generalist import Generalist
+from Specialist import Specialist
 
 
 class Crowd:
     def __init__(self, N: int, agent_num: int, generalist_expertise: int, specialist_expertise: int,
-                 landscape: object, state_num: int, ):
+                 landscape: object, state_num: int, label: str):
         self.agent_num = agent_num
         self.agents = []
         for _ in range(agent_num):
-            agent = Agent(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-            self.agents.append(agent)
+            if label == "G":
+                agent = Generalist(N=N, landscape=landscape, state_num=state_num,
+                               generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+                self.agents.append(agent)
+            elif label == "S":
+                agent = Specialist(N=N, landscape=landscape, state_num=state_num,
+                               generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+                self.agents.append(agent)
         self.solutions = []
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
