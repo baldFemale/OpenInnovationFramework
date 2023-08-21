@@ -5,28 +5,28 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Agent import Agent
+from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 from Crowd import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
-import statistics
 
 
 # mp version
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0)
+                           generalist_expertise=16, specialist_expertise=0, label="G")
     for _ in range(agent_num):
-        generalist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                            generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
             generalist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
@@ -36,26 +36,13 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_time = []
     cog_performance_across_time = []
     variance_across_time = []
-    first_quantile_across_time = []
-    last_quantile_across_time = []
     for period in range(search_iteration):
         temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
         temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
         performance_across_time.append(sum(temp_1) / len(temp_1))
-
-        # Measure the quantiles
-        quantiles = statistics.quantiles(temp_1, n=4)
-        first_quantile = quantiles[0]
-        last_quantile = quantiles[-1]
-        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
-        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
-        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
-        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
-
         cog_performance_across_time.append(sum(temp_2) / len(temp_2))
         variance_across_time.append(np.std(temp_1))
-    return_dict[loop] = [performance_across_time, cog_performance_across_time,
-                         variance_across_time, first_quantile_across_time, last_quantile_across_time]
+    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time]
     sema.release()
 
 
@@ -64,12 +51,12 @@ if __name__ == '__main__':
     landscape_iteration = 300
     agent_num = 100
     search_iteration = 200
-    N = 9
+    N = 12
     state_num = 4
-    generalist_expertise = 12
+    generalist_expertise = 16
     specialist_expertise = 0
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    roll_back_list = [0.1, 0.2, 0.3, 0.4]
+    roll_back_list = [0.5, 0.6, 0.7, 0.8, 0.9]
     concurrency = 50
     for roll_back in roll_back_list:
         # DVs
@@ -163,6 +150,6 @@ if __name__ == '__main__':
             pickle.dump(last_quantile_across_K_time, out_file)
 
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
 
 

@@ -13,7 +13,6 @@ import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
-import statistics
 
 
 # mp version

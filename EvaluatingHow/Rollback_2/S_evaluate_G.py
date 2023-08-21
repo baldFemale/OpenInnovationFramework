@@ -12,7 +12,6 @@ import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
-import statistics
 
 
 # mp version
@@ -36,8 +35,6 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     performance_across_time = []
     cog_performance_across_time = []
     variance_across_time = []
-    first_quantile_across_time = []
-    last_quantile_across_time = []
     for period in range(search_iteration):
         temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
         temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
