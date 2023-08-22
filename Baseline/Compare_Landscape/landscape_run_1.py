@@ -19,9 +19,7 @@ def func(N=None, K=None, state_num=None, alpha=None, loop=None, return_dict=None
     first_local_peak = landscape.count_first_local_optima()
     second_local_peak = landscape.count_second_local_optima()
     first_distance, second_distance = landscape.calculate_avg_fitness_distance()
-    first_cache = landscape.first_cache.values()
-    second_cache = landscape.second_cache.values()
-    return_dict[loop] = [first_cache, second_cache, first_local_peak, second_local_peak, first_distance, second_distance]
+    return_dict[loop] = [first_local_peak, second_local_peak, first_distance, second_distance]
     sema.release()
 
 
