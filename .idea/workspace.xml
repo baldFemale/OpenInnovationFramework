@@ -5,22 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
-      <change afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/landscape_run_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/landscape_run_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/slurm_landscape_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/slurm_landscape_3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/Rollback_2/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/landscape_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/landscape_run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/slurm_landscape" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/slurm_landscape" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingHow/Rollback",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/Compare_Landscape",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,8 +69,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\Rollback" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Compare_Landscape" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\Rollback" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\EarlySharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -350,7 +341,7 @@
       <workItem from="1692079655385" duration="1610000" />
       <workItem from="1692082950059" duration="7896000" />
       <workItem from="1692101423538" duration="2513000" />
-      <workItem from="1692154233402" duration="37697000" />
+      <workItem from="1692154233402" duration="40741000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -695,7 +686,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="270" />
+    <option name="localTasksCounter" value="271" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
