@@ -51,8 +51,9 @@ if __name__ == '__main__':
             temp_first_cache, temp_second_cache = [], []
             for result in returns:  # 50 landscape repetitions
                 temp_first_cache.extend(result[0])
+                temp_second_cache.extend(result[1])
             first_cache_across_K.append(temp_first_cache)
-            second_cache_across_K.append(returns[-1][1])
+            second_cache_across_K.append(temp_second_cache)
         with open("first_cache_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(first_cache_across_K, out_file)
         with open("second_local_peak_across_K_alpha_{0}".format(alpha), 'wb') as out_file:

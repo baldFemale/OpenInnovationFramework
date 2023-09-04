@@ -28,7 +28,7 @@ if __name__ == '__main__':
     landscape_iteration = 50
     N = 10
     state_num = 4
-    alpha_list = [0.05, 0.10, 0.15]
+    alpha_list = c
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
