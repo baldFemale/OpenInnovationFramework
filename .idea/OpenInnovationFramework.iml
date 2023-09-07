@@ -63,6 +63,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Alpha_Full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingG" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Ushape" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
