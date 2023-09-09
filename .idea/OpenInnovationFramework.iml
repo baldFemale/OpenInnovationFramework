@@ -33,7 +33,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline_no_wander" isTestSource="false" />
@@ -65,6 +64,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Ushape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/EvaluatingForwardBackward" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
