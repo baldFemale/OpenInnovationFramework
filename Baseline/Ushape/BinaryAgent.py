@@ -8,9 +8,8 @@ import numpy as np
 from Landscape import Landscape
 
 
-class Generalist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None,
-                 generalist_expertise=None, specialist_expertise=None):
+class BinaryAgent:
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, expertise_amont=None):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
@@ -21,41 +20,34 @@ class Generalist:
         self.landscape = landscape
         self.crowd = crowd
         self.N = N
-        self.state_num = state_num
-        self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
-        self.specialist_domain = []
-        self.state = np.random.choice(range(self.state_num), self.N).tolist()
+        self.expertise_amont = expertise_amont
+        self.domain = np.random.choice(range(self.N),  expertise_amont // 2, replace=False).tolist()
+        self.state = np.random.choice(["0", "1"], self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
-        self.fitness = self.landscape.query_second_fitness(state=self.state)
+        self.fitness = self.landscape.query_fitness(state=self.state)
         self.cog_fitness_across_time, self.fitness_across_time = [], []
         self.cog_cache = {}
-        if specialist_expertise and generalist_expertise:
-            if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
-                raise ValueError("Entire Expertise Exceed N")
-        if generalist_expertise and (generalist_expertise % 2 != 0):
-            raise ValueError("Problematic G Expertise")
-        if specialist_expertise and (specialist_expertise % 4 != 0):
-            raise ValueError("Problematic S Expertise")
 
     def get_cog_fitness(self, cog_state: list, state: list) -> float:
         """
         If Full G, it can perceive the real fitness on the shallow landscape
         Otherwise, it can only perceive partial fitness
         """
-        if len(self.generalist_domain) == self.N:  # iff full G
-            cog_fitness = self.landscape.query_first_fitness(state=cog_state)  # use "AB"
+        if len(self.expertise_amont) == self.N:  # iff full G
+            cog_fitness = self.landscape.query_fitness(state=cog_state)  # use "AB"
         else:
-            cog_fitness = self.landscape.query_scoped_first_fitness(cog_state=cog_state, state=state)  # use "AB*" and "0123"
+            cog_fitness = self.landscape.query_scoped_fitness(cog_state=cog_state, state=state)  # use "AB*" and "0123"
         return cog_fitness
 
     def search(self) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        free_space = ["0", "1", "2", "3"]
-        free_space.remove(next_state[index])
-        next_state[index] = np.random.choice(free_space)
+        index = np.random.choice(self.domain)
+        if next_state[index] == "0":
+            next_state[index] = "1"
+        else:
+            next_state[index] = "0"
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         if next_cog_fitness > self.cog_fitness:
@@ -68,10 +60,11 @@ class Generalist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
-        free_space = ["0", "1", "2", "3"]
-        free_space.remove(next_state[index])
-        next_state[index] = np.random.choice(free_space)
+        index = np.random.choice(self.domain)
+        if next_state[index] == "0":
+            next_state[index] = "1"
+        else:
+            next_state[index] = "0"
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
@@ -114,11 +107,8 @@ class Generalist:
         """
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
-            if index in self.generalist_domain:
-                if bit_value in ["0", "1"]:
-                    cog_state[index] = "A"
-                else:
-                    cog_state[index] = "B"
+            if index in self.domain:
+                continue
             else:
                 cog_state[index] = "*"
         return cog_state
@@ -133,7 +123,7 @@ class Generalist:
         """
         self_cog_state = cog_state.copy()
         for index, bit_value in enumerate(cog_state):
-            if index in self.generalist_domain:
+            if index in self.domain:
                 if bit_value == "*":
                     self_cog_state[index] = self.state[index]
                 elif bit_value in ["0", "1"]:
@@ -155,7 +145,7 @@ class Generalist:
             return False
 
     def describe(self) -> None:
-        print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
+        print("Agent of G/S Domain: ", self.domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
         print("Cognitive State: {0}, Cognitive Fitness: {1}".format(self.cog_state, self.cog_fitness))
 

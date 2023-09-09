@@ -6,8 +6,7 @@
 # Observing PEP 8 coding style
 import numpy as np
 from Generalist import Generalist
-from Specialist import Specialist
-from Landscape import Landscape
+from BinaryLandscape import BinaryLandscape
 from Crowd import Crowd
 import multiprocessing as mp
 import time
@@ -19,7 +18,7 @@ import pickle
 def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
+    landscape = BinaryLandscape(N=N, K=K)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Evaluator Crowd
