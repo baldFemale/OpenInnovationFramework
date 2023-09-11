@@ -64,6 +64,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Ushape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/EvaluatingForwardBackward" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
