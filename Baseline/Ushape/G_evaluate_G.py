@@ -5,7 +5,7 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Generalist import Generalist
+from BinaryAgent import BinaryAgent
 from BinaryLandscape import BinaryLandscape
 from Crowd import Crowd
 import multiprocessing as mp
@@ -15,18 +15,16 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+def func(N=None, K=None, expertise_amount=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = BinaryLandscape(N=N, K=K)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=14, specialist_expertise=0, label="G")
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, expertise_amount=expertise_amount)
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        generalist = BinaryAgent(N=N, landscape=landscape, crowd=crowd, expertise_amount=expertise_amount)
         for _ in range(search_iteration):
             generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(generalist.fitness_across_time)
@@ -47,13 +45,12 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 500
-    agent_num = 200
-    search_iteration = 300
+    landscape_iteration = 300
+    agent_num = 100
+    search_iteration = 200
     N = 10
     state_num = 4
-    generalist_expertise = 14
-    specialist_expertise = 0
+    expertise_amount = 14
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     concurrency = 50
     # DVs
@@ -70,7 +67,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+            p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
                                               agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()

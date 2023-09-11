@@ -5,11 +5,11 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Landscape import Landscape
+from BinaryLandscape import BinaryLandscape
 
 
 class BinaryAgent:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, expertise_amont=None):
+    def __init__(self, N=None, landscape=None, crowd=None, expertise_amount=None):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
@@ -20,8 +20,8 @@ class BinaryAgent:
         self.landscape = landscape
         self.crowd = crowd
         self.N = N
-        self.expertise_amont = expertise_amont
-        self.domain = np.random.choice(range(self.N),  expertise_amont // 2, replace=False).tolist()
+        self.expertise_amount = expertise_amount
+        self.domain = np.random.choice(range(self.N),  expertise_amount // 2, replace=False).tolist()
         self.state = np.random.choice(["0", "1"], self.N).tolist()
         self.state = [str(i) for i in self.state]  # state format: a list of string
         self.cog_state = self.state_2_cog_state(state=self.state)
@@ -35,7 +35,7 @@ class BinaryAgent:
         If Full G, it can perceive the real fitness on the shallow landscape
         Otherwise, it can only perceive partial fitness
         """
-        if len(self.expertise_amont) == self.N:  # iff full G
+        if len(self.expertise_amount) == self.N:  # iff full G
             cog_fitness = self.landscape.query_fitness(state=cog_state)  # use "AB"
         else:
             cog_fitness = self.landscape.query_scoped_fitness(cog_state=cog_state, state=state)  # use "AB*" and "0123"
@@ -156,15 +156,14 @@ if __name__ == '__main__':
     t0 = time.time()
     np.random.seed(1000)
     search_iteration = 100
-    N = 12
+    N = 9
     K = 3
     state_num = 4
-    generalist_expertise = 16
-    specialist_expertise = 0
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
+    expertise_amount = 16
+    landscape = BinaryLandscape(N=N, K=K)
 
     # landscape.describe()
-    agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
+    agent = BinaryAgent(N=N, landscape=landscape, expertise_amount=expertise_amount)
     # agent.describe()
     for _ in range(search_iteration):
         agent.search()
@@ -173,7 +172,7 @@ if __name__ == '__main__':
     x = range(len(agent.fitness_across_time))
     plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")
     plt.plot(x, agent.cog_fitness_across_time, "k--", label="Cognitive Fitness")
-    plt.title('Performance at N={0}, K={1}, G={2}, S={3}'.format(N, K, generalist_expertise, specialist_expertise))
+    plt.title('Performance at N={0}, K={1}, E={2}'.format(N, K, expertise_amount))
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
