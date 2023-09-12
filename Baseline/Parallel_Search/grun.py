@@ -28,16 +28,20 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
+    converged_performance_list = [performance_list[-1] for performance_list in performance_across_agent_time]
+    best_performance = max(converged_performance_list)
+
     performance_across_time = []
     cog_performance_across_time = []
     variance_across_time = []
+    # including the best performance -> the probability of best performance or the average of the best performance
     for period in range(search_iteration):
         temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
         temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
         performance_across_time.append(sum(temp_1) / len(temp_1))
         cog_performance_across_time.append(sum(temp_2) / len(temp_2))
         variance_across_time.append(np.std(temp_1))
-    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time]
+    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time, best_performance]
     sema.release()
 
 
@@ -45,7 +49,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     # agent_num = 100
-    agent_num_list = [10, 30, 50, 70, 90]
+    agent_num_list = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     search_iteration = 100
     N = 9
     state_num = 4
@@ -55,6 +59,7 @@ if __name__ == '__main__':
     # DVs
     performance_across_K = []
     variance_across_K = []
+    best_performance_across_K = []
 
     performance_across_K_time = []
     cog_performance_across_K_time = []
@@ -77,10 +82,12 @@ if __name__ == '__main__':
 
             temp_fitness_time, temp_cog_time, temp_var_time = [], [], []
             temp_fitness, temp_cog, temp_var = [], [], []
+            temp_best_performance = []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness_time.append(result[0])
                 temp_cog_time.append(result[1])
                 temp_var_time.append(result[2])
+                temp_best_performance.append(result[3])
 
                 temp_fitness.append(result[0][-1])
                 temp_cog.append(result[1][-1])
@@ -88,6 +95,7 @@ if __name__ == '__main__':
 
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
             variance_across_K.append(sum(temp_var) / len(temp_var))
+            best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
 
             performance_across_time = []
             cog_performance_across_time = []
@@ -107,6 +115,8 @@ if __name__ == '__main__':
             pickle.dump(performance_across_K, out_file)
         with open("g_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(variance_across_K, out_file)
+        with open("g_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+            pickle.dump(best_performance_across_K, out_file)
         # retain time dimension
         with open("g_performance_across_K_time_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(performance_across_K_time, out_file)
