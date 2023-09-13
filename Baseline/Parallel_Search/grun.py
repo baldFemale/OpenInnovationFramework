@@ -47,15 +47,15 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 1
     # agent_num = 100
-    agent_num_list = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    search_iteration = 100
+    agent_num_list = np.arange(10, 200, step=10, dtype=int).tolist()
+    search_iteration = 200
     N = 9
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 1
     # DVs
     performance_across_K = []
     variance_across_K = []

@@ -54,7 +54,7 @@ class BinaryAgent:
             self.state = next_state
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
-            self.fitness = self.landscape.query_second_fitness(state=self.state)
+            self.fitness = self.landscape.query_fitness(state=self.state)
         self.fitness_across_time.append(self.fitness)
         self.cog_fitness_across_time.append(self.cog_fitness)
 
@@ -73,7 +73,7 @@ class BinaryAgent:
                 self.state = next_state
                 self.cog_state = next_cog_state
                 self.cog_fitness = next_cog_fitness
-                self.fitness = self.landscape.query_second_fitness(state=self.state)
+                self.fitness = self.landscape.query_fitness(state=self.state)
             else:  # feedback is negative
                 if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
                     pass
@@ -84,7 +84,7 @@ class BinaryAgent:
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
-                    self.fitness = self.landscape.query_second_fitness(state=self.state)
+                    self.fitness = self.landscape.query_fitness(state=self.state)
         else:
             if feedback:  # 2nd conflict: self "-" and peer "+"
                 if np.random.uniform(0, 1) < roll_forward_ratio:
@@ -92,7 +92,7 @@ class BinaryAgent:
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
-                    self.fitness = self.landscape.query_second_fitness(state=self.state)
+                    self.fitness = self.landscape.query_fitness(state=self.state)
                 else:
                     pass
         self.fitness_across_time.append(self.fitness)
