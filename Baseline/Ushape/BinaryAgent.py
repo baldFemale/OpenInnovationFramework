@@ -35,7 +35,7 @@ class BinaryAgent:
         If Full G, it can perceive the real fitness on the shallow landscape
         Otherwise, it can only perceive partial fitness
         """
-        if len(self.expertise_amount) == self.N:  # iff full G
+        if self.expertise_amount == 2 * self.N:  # iff full G
             cog_fitness = self.landscape.query_fitness(state=cog_state)  # use "AB"
         else:
             cog_fitness = self.landscape.query_scoped_fitness(cog_state=cog_state, state=state)  # use "AB*" and "0123"

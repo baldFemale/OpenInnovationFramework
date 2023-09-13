@@ -15,8 +15,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, expertise_amount=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, expertise_amount=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = BinaryLandscape(N=N, K=K)
     performance_across_agent_time = []
@@ -67,8 +66,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
-                                              agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, expertise_amount, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -117,5 +115,3 @@ if __name__ == '__main__':
 
     t1 = time.time()
     print("Evaluating GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-

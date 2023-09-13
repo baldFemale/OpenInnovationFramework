@@ -152,6 +152,9 @@ class Specialist:
         else:
             return False
 
+    def scoped_evaluate(self, cur_state: list, next_state: list) -> bool:
+        complemented
+
     # def cog_state_2_state(self, cog_state=None):
     #     state = cog_state.copy()
     #     for index, bit_value in enumerate(cog_state):

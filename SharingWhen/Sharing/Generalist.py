@@ -166,12 +166,12 @@ if __name__ == '__main__':
     t0 = time.time()
     np.random.seed(1000)
     search_iteration = 100
-    N = 9
-    K = 2
+    N = 12
+    K = 3
     state_num = 4
-    generalist_expertise = 18
+    generalist_expertise = 16
     specialist_expertise = 0
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.2)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
 
     # landscape.describe()
     agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
@@ -188,7 +188,7 @@ if __name__ == '__main__':
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
     plt.legend(frameon=False, fontsize=10)
-    plt.savefig("T_performance.png", transparent=True, dpi=200)
+    plt.savefig("G_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()
     t1 = time.time()
