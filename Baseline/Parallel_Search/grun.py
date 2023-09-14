@@ -20,17 +20,21 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    print("Agent Num: {0}, K: {1}".format(agent_num, K))
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
                            generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
+        print("Agent: ",  generalist.state)
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
+
     converged_performance_list = [performance_list[-1] for performance_list in performance_across_agent_time]
     best_performance = max(converged_performance_list)
-
+    worst_performance = min(converged_performance_list)
+    print("Performance List: ", converged_performance_list)
     performance_across_time = []
     cog_performance_across_time = []
     variance_across_time = []
@@ -41,7 +45,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         performance_across_time.append(sum(temp_1) / len(temp_1))
         cog_performance_across_time.append(sum(temp_2) / len(temp_2))
         variance_across_time.append(np.std(temp_1))
-    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time, best_performance]
+    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time, best_performance, worst_performance]
     sema.release()
 
 
@@ -49,22 +53,23 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 1
     # agent_num = 100
-    agent_num_list = np.arange(10, 200, step=10, dtype=int).tolist()
+    agent_num_list = np.arange(10, 210, step=10, dtype=int).tolist()
     search_iteration = 200
     N = 9
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 1
-    # DVs
-    performance_across_K = []
-    variance_across_K = []
-    best_performance_across_K = []
-
-    performance_across_K_time = []
-    cog_performance_across_K_time = []
-    variance_across_K_time = []
     for agent_num in agent_num_list:
+        # DVs
+        performance_across_K = []
+        variance_across_K = []
+        best_performance_across_K = []
+        worst_performance_across_K = []
+
+        performance_across_K_time = []
+        cog_performance_across_K_time = []
+        variance_across_K_time = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -82,12 +87,13 @@ if __name__ == '__main__':
 
             temp_fitness_time, temp_cog_time, temp_var_time = [], [], []
             temp_fitness, temp_cog, temp_var = [], [], []
-            temp_best_performance = []
+            temp_best_performance, temp_worst_performance = [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness_time.append(result[0])
                 temp_cog_time.append(result[1])
                 temp_var_time.append(result[2])
                 temp_best_performance.append(result[3])
+                temp_worst_performance.append(result[4])
 
                 temp_fitness.append(result[0][-1])
                 temp_cog.append(result[1][-1])
@@ -96,6 +102,7 @@ if __name__ == '__main__':
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
             variance_across_K.append(sum(temp_var) / len(temp_var))
             best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
+            worst_performance_across_K.append(sum(temp_worst_performance) / len(temp_worst_performance))
 
             performance_across_time = []
             cog_performance_across_time = []
@@ -117,6 +124,8 @@ if __name__ == '__main__':
             pickle.dump(variance_across_K, out_file)
         with open("g_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(best_performance_across_K, out_file)
+        with open("g_worst_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+            pickle.dump(worst_performance_across_K, out_file)
         # retain time dimension
         with open("g_performance_across_K_time_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(performance_across_K_time, out_file)
