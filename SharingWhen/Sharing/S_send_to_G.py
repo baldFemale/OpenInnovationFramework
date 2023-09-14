@@ -70,7 +70,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     agent_num = 100
-    search_iteration = 200
+    search_iteration = 400
     N = 9
     state_num = 4
     generalist_expertise = 12
