@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
-      <change afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/GG_Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/SG_Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/SS_Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/GS_Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_5.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_3.py" afterDir="false" />
@@ -360,7 +361,7 @@
       <workItem from="1693811205665" duration="2548000" />
       <workItem from="1694072097411" duration="5273000" />
       <workItem from="1694095966099" duration="32433000" />
-      <workItem from="1694754991585" duration="10323000" />
+      <workItem from="1694754991585" duration="10434000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -705,7 +706,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="288" />
+    <option name="localTasksCounter" value="289" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
