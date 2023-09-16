@@ -6,6 +6,7 @@
 # Observing PEP 8 coding style
 import numpy as np
 from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 import multiprocessing as mp
 import time
@@ -14,19 +15,21 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, expertise_amount=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
-    for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
-        for _ in range(search_iteration):
-            generalist.search()
-        performance_across_agent_time.append(generalist.fitness_across_time)
-        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+
+    generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
+                       generalist_expertise=expertise_amount)
+    specialist = Specialist(N=N, landscape=landscape, state_num=state_num,
+                       generalist_expertise=expertise_amount)
+    for _ in range(search_iteration):
+        generalist.search()
+    performance_across_agent_time.append(generalist.fitness_across_time)
+    cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
