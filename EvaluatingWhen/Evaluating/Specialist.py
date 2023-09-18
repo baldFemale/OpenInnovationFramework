@@ -29,7 +29,7 @@ class Specialist:
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.cog_fitness_across_time, self.fitness_across_time = [], []
+        self.cog_fitness_across_time, self.fitness_across_time = [self.cog_fitness], [self.fitness]
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
             if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
@@ -69,7 +69,8 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
