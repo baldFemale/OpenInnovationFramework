@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Ushape/BinaryAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Ushape/BinaryAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Ushape/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Ushape/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Ushape/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SuperTrajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/SuperTrajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -70,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/Ushape",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/TwoComplexity",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,11 +73,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\TwoComplexity" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Ushape" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingG" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
@@ -361,7 +352,7 @@
       <workItem from="1694072097411" duration="5273000" />
       <workItem from="1694095966099" duration="32433000" />
       <workItem from="1694754991585" duration="11024000" />
-      <workItem from="1694872406865" duration="11161000" />
+      <workItem from="1694872406865" duration="12536000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -706,7 +697,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="293" />
+    <option name="localTasksCounter" value="294" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
