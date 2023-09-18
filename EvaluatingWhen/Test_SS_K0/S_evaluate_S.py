@@ -55,7 +55,7 @@ if __name__ == '__main__':
     state_num = 4
     generalist_expertise = 0
     specialist_expertise = 12
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0]
     concurrency = 50
     # DVs
     performance_across_K = []
