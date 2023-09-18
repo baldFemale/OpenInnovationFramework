@@ -51,7 +51,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 1
+    landscape_iteration = 300
     # agent_num = 100
     agent_num_list = np.arange(10, 210, step=10, dtype=int).tolist()
     search_iteration = 200
