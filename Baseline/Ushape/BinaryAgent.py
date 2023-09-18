@@ -60,7 +60,8 @@ class BinaryAgent:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(self.domain)
+        # index = np.random.choice(self.domain)
+        index = np.random.choice(self.N)  # This will lead to U-shape
         if next_state[index] == "0":
             next_state[index] = "1"
         else:

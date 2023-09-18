@@ -29,7 +29,7 @@ class Generalist:
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.cog_fitness_across_time, self.fitness_across_time = [], []
+        self.cog_fitness_across_time, self.fitness_across_time = [self.cog_fitness], [self.fitness]
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
             if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
@@ -68,13 +68,15 @@ class Generalist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
         next_cog_state = self.state_2_cog_state(state=next_state)
         next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         feedback = self.crowd.evaluate(cur_state=self.state, next_state=next_state)
+
         if next_cog_fitness > self.cog_fitness:  # focal perception is positive
             if feedback:  # peer feedback is also positive
                 self.state = next_state
@@ -154,6 +156,14 @@ class Generalist:
         else:
             return False
 
+    def private_evaluate(self, cur_state: list, next_state: list, expertise: list) -> bool:
+        cur_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=cur_state)
+        next_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=next_state)
+        if next_cog_fitness > cur_cog_fitness:
+            return True
+        else:
+            return False
+
     def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
@@ -167,9 +177,9 @@ if __name__ == '__main__':
     np.random.seed(1000)
     search_iteration = 100
     N = 9
-    K = 2
+    K = 0
     state_num = 4
-    generalist_expertise = 18
+    generalist_expertise = 12
     specialist_expertise = 0
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.2)
 

@@ -29,7 +29,7 @@ class Specialist:
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.cog_fitness_across_time, self.fitness_across_time = [], []
+        self.cog_fitness_across_time, self.fitness_across_time = [self.cog_fitness], [self.fitness]
         self.cog_cache = {}
         if specialist_expertise and generalist_expertise:
             if generalist_expertise // 2 + specialist_expertise // 4 > self.N:
@@ -69,7 +69,8 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -177,23 +178,22 @@ class Specialist:
 if __name__ == '__main__':
     # Test Example
     import time
+    from Crowd import Crowd
     t0 = time.time()
-    np.random.seed(1000)
-    search_iteration = 200
-    N = 10
-    K = 4
+    np.random.seed(110)
+    search_iteration = 100
+    N = 9
+    K = 0
     state_num = 4
     generalist_expertise = 0
-    specialist_expertise = 20
+    specialist_expertise = 12
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-
-    # landscape.describe()
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     agent = Specialist(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
-    # agent.describe()
+                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise, crowd=crowd)
     for _ in range(search_iteration):
-        agent.search()
-        print(agent.cog_state, agent.state)
+        agent.feedback_search(roll_back_ratio=0, roll_forward_ratio=0.5)
     import matplotlib.pyplot as plt
     x = range(len(agent.fitness_across_time))
     plt.plot(x, agent.fitness_across_time, "k-", label="Fitness")
@@ -203,7 +203,7 @@ if __name__ == '__main__':
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
     plt.legend(frameon=False, fontsize=10)
-    plt.savefig("S_performance.png", transparent=True, dpi=200)
+    plt.savefig("T_performance.png", transparent=True, dpi=200)
     plt.show()
     plt.clf()
     t1 = time.time()
