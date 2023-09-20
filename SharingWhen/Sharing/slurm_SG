@@ -3,8 +3,10 @@
 #SBATCH --job-name=Sharing_SG
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=100gb
+#SBATCH --mem=120gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=50
+#SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
+#SBATCH --exclude=xcng1
+which python
 python S_send_to_G.py
