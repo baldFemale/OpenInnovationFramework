@@ -3,8 +3,9 @@
 #SBATCH --job-name=Evaluating_SG
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=100gb
+#SBATCH --mem=150gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=50
+#SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
-python S_evaluate_G.py
+#SBATCH --exclude=xcng[0-1]
+srun python S_evaluate_G.py

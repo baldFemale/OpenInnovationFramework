@@ -47,15 +47,15 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 200
     agent_num = 100
-    search_iteration = 300
+    search_iteration = 200
     N = 12
     state_num = 4
     generalist_expertise = 0
     specialist_expertise = 16
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    concurrency = 50
+    concurrency = 40
     # DVs
     performance_across_K = []
     variance_across_K = []

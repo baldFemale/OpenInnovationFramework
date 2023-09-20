@@ -7,6 +7,5 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
-#SBATCH --exclude=xcng1
-which python
-python G_send_to_G.py
+#SBATCH --exclude=xcng[0-1]
+srun python G_send_to_G.py
