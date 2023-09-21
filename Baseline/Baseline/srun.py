@@ -44,7 +44,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 400
     agent_num = 100
     search_iteration = 100
     N = 10

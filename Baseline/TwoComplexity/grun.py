@@ -20,8 +20,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=alpha)
     convergence_list = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount, specialist_expertise=0)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
         convergence_list.append(generalist.fitness)
@@ -34,7 +33,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 300
     agent_num = 100
-    search_iteration = 100
+    search_iteration = 200
     N = 12
     state_num = 4
     expertise_amount = 24  # Full Domains

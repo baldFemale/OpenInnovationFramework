@@ -20,11 +20,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=alpha)
     convergence_list = []
     for _ in range(agent_num):
-        generalist = Specialist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num,
+                           specialist_expertise=expertise_amount)
         for _ in range(search_iteration):
-            generalist.search()
-        convergence_list.append(generalist.fitness)
+            specialist.search()
+        convergence_list.append(specialist.fitness)
     convergence = sum(convergence_list) / len(convergence_list)
     return_dict[loop] = [convergence]
     sema.release()
