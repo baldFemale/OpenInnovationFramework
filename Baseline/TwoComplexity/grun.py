@@ -21,7 +21,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
     convergence_list = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+                           generalist_expertise=expertise_amount, specialist_expertise=0)
         for _ in range(search_iteration):
             generalist.search()
         convergence_list.append(generalist.fitness)

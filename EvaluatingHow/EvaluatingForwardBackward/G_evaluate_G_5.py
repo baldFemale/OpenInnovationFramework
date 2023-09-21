@@ -16,7 +16,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=None,
          search_iteration=None, roll_forward=None, roll_back=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
@@ -26,8 +26,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
             generalist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=roll_forward)
         performance_across_agent_time.append(generalist.fitness_across_time)
@@ -54,7 +53,6 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     generalist_expertise = 12
-    specialist_expertise = 0
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # roll_forward_list = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     roll_forward_list = [0.8, 0.9]
@@ -76,7 +74,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+                    p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
                                                       agent_num, search_iteration, roll_forward, roll_back, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()

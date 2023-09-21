@@ -16,7 +16,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
@@ -26,8 +26,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_e
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=16, label="S")
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
             specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(specialist.fitness_across_time)
@@ -53,7 +52,6 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 12
     state_num = 4
-    generalist_expertise = 0
     specialist_expertise = 16
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     concurrency = 40
@@ -71,7 +69,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
                                               agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
