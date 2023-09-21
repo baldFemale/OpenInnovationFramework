@@ -7,4 +7,4 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-python G_evaluate_S_5.py
+srun python G_evaluate_S_5.py

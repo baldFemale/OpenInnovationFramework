@@ -15,12 +15,10 @@ class Crowd:
         self.agents = []
         for _ in range(agent_num):
             if label == "G":
-                agent = Generalist(N=N, landscape=landscape, state_num=state_num,
-                               generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+                agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
                 self.agents.append(agent)
             elif label == "S":
-                agent = Specialist(N=N, landscape=landscape, state_num=state_num,
-                               generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+                agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
         self.solutions = []
 
