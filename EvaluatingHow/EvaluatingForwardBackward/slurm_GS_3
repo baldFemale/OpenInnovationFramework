@@ -3,7 +3,7 @@
 #SBATCH --job-name=z3GS
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=100gb
+#SBATCH --mem=150gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
