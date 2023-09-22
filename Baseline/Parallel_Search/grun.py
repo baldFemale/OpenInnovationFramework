@@ -20,13 +20,11 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
-    print("Agent Num: {0}, K: {1}".format(agent_num, K))
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
                            generalist_expertise=expertise_amount)
         for _ in range(search_iteration):
             generalist.search()
-        print("Agent: ",  generalist.state)
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
@@ -34,7 +32,6 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     converged_performance_list = [performance_list[-1] for performance_list in performance_across_agent_time]
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)
-    print("Performance List: ", converged_performance_list)
     performance_across_time = []
     cog_performance_across_time = []
     variance_across_time = []
@@ -51,7 +48,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 500
     # agent_num = 100
     agent_num_list = np.arange(10, 210, step=10, dtype=int).tolist()
     search_iteration = 200
@@ -59,7 +56,7 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 1
+    concurrency = 50
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []

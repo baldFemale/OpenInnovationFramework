@@ -7,4 +7,4 @@
 #SBATCH --partition=medium
 #SBATCH --cpus-per-task=10
 #SBATCH --ntasks=1
-python Trajectory_K0.py
+srun python Trajectory_K0.py

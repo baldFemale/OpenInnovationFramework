@@ -47,7 +47,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 500
     # agent_num = 100
     agent_num_list = np.arange(10, 210, step=10, dtype=int).tolist()
     search_iteration = 200
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 1
+    concurrency = 50
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []

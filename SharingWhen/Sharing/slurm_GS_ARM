@@ -1,10 +1,11 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=Baseline_G_Trajectory
+#SBATCH --job-name=Sharing_GS
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=20gb
+#SBATCH --mem=800gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
-srun python Trajectory_G.py
+#SBATCH --nodelist=xcng1
+srun python G_send_to_S.py
