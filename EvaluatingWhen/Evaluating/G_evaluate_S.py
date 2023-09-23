@@ -23,7 +23,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=16, specialist_expertise=0, label="G")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
@@ -46,13 +46,14 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 100
     search_iteration = 200
-    N = 12
+    N = 9
     state_num = 4
-    specialist_expertise = 16
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    specialist_expertise = 12
+    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     # DVs
     performance_across_K = []

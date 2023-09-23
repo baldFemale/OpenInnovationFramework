@@ -25,7 +25,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Sharing Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=16, label="S")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for agent in crowd.agents:
         for _ in range(search_iteration):
             agent.search()
@@ -56,13 +56,14 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 300
+    landscape_iteration = 400
     agent_num = 100
     search_iteration = 200
-    N = 12
+    N = 9
     state_num = 4
-    generalist_expertise = 16
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    generalist_expertise = 12
+    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     # DVs
     performance_across_K = []

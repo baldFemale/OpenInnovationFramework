@@ -3,7 +3,7 @@
 #SBATCH --job-name=Evaluating_GG
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=800gb
+#SBATCH --mem=200gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
