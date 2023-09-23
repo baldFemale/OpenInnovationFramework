@@ -5,53 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
-      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_G_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_S_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_G_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/slurm_S_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_4" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_5" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GG_5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_4" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_5" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_GS_5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_4" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_5" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SG_5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_4" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_5" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/slurm_SS_5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/G_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/S_send_to_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/slurm_SS" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -389,7 +343,7 @@
       <workItem from="1694095966099" duration="32433000" />
       <workItem from="1694754991585" duration="11024000" />
       <workItem from="1694872406865" duration="14053000" />
-      <workItem from="1695302253113" duration="26009000" />
+      <workItem from="1695302253113" duration="26039000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -734,7 +688,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="307" />
+    <option name="localTasksCounter" value="308" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
