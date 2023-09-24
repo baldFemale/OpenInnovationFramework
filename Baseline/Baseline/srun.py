@@ -44,13 +44,13 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 600
     agent_num = 100
-    search_iteration = 100
-    N = 10
+    search_iteration = 400
+    N = 9
     state_num = 4
-    expertise_amount = 16
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    expertise_amount = 12
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 50
     # DVs
     performance_across_K = []

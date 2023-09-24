@@ -4,30 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;">
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/grun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/slurm_G" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/slurm_S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)">
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/grun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/grun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/grun_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_G_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_G_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_G_4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_S_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_S_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_S_4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/srun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/srun_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/srun_4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/grun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/srun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/JointConfusion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MutualClimb.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/MutualClimb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointConfusion/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/srun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/grun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_G_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/slurm_S_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search/srun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism/LessIsEnough",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/Parallel_Search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,11 +84,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\LessIsEnough" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\TwoComplexity" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen\Evaluating" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\EvaluatingForwardBackward" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\JointConfusion" />
@@ -366,7 +365,7 @@
       <workItem from="1694754991585" duration="11024000" />
       <workItem from="1694872406865" duration="14053000" />
       <workItem from="1695302253113" duration="26305000" />
-      <workItem from="1695558791347" duration="1612000" />
+      <workItem from="1695558791347" duration="4657000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -711,7 +710,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="309" />
+    <option name="localTasksCounter" value="310" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -729,7 +728,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reduce the workload of gg_coordination" />
     <MESSAGE value="Add the exp of gg, ss under Priority" />
     <MESSAGE value="Unify the figure format" />
     <MESSAGE value="The second version of Coordination&#10;-- Two steps of proposer and evaluator structure." />
@@ -754,7 +752,8 @@
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception." />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely" />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely&#10;&#10;5. Socialization Design&#10;--Evaluation; Sensitivity: timing, how&#10;--Sharing; Sensitivity: timing, how (incomplete) -&gt; individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution;&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;" />
+    <MESSAGE value="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
