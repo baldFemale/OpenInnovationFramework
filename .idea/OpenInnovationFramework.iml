@@ -69,6 +69,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Test_SS_K0" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualClimb" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

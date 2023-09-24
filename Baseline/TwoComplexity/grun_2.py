@@ -38,7 +38,9 @@ if __name__ == '__main__':
     state_num = 4
     expertise_amount = 18  # Full Domains
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25]
+    # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+    # alpha_list = [0.025, 0.075, 0.125, 0.175, 0.225, 0.275, 0.325, 0.375, 0.425, 0.475]
+    alpha_list = [0.275, 0.325, 0.375, 0.425, 0.475]
     concurrency = 40
     for alpha in alpha_list:
         # DVs
