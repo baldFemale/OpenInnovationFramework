@@ -28,7 +28,6 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
-
     converged_performance_list = [performance_list[-1] for performance_list in performance_across_agent_time]
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)

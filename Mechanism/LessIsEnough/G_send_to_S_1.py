@@ -29,6 +29,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
             agent.search()
     solution_list = [agent.state.copy() for agent in crowd.agents]
     converged_performance_list = []
+    converged_solution_list = []
     for agent_index in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
         specialist.state = solution_list[agent_index]
@@ -37,12 +38,28 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
         for _ in range(search_iteration):
             specialist.search()
         converged_performance_list.append(specialist.fitness)
+        converged_solution_list.append(specialist.state)
+    diversity = get_diversity(belief_pool=converged_solution_list)
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
     variance_list = np.std(converged_performance_list)
-    return_dict[loop] = [average_performance, variance_list, best_performance]
+    return_dict[loop] = [average_performance, variance_list, best_performance, diversity]
     sema.release()
 
+def get_diversity(belief_pool: list):
+    diversity = 0
+    for index in range(len(belief_pool)):
+        selected_pool = belief_pool[index + 1::]
+        one_pair_diversity = [get_distance(belief_pool[index], belief) for belief in selected_pool]
+        diversity += sum(one_pair_diversity)
+    return diversity / len(belief_pool[0]) / (len(belief_pool) - 1) / len(belief_pool) * 2
+
+def get_distance(a=None, b=None):
+    acc = 0
+    for i in range(len(a)):
+        if a[i] != b[i]:
+            acc += 1
+    return acc
 
 if __name__ == '__main__':
     t0 = time.time()
@@ -60,6 +77,7 @@ if __name__ == '__main__':
         performance_across_K = []
         variance_across_K = []
         best_performance_across_K = []
+        diversity_across_K = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -75,15 +93,17 @@ if __name__ == '__main__':
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            temp_fitness, temp_variance, temp_best_performance = [], [], []
+            temp_fitness, temp_variance, temp_best_performance, temp_diversity = [], [], [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness.append(result[0])
                 temp_variance.append(result[1])
                 temp_best_performance.append(result[2])
+                temp_diversity.append(result[3])
 
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
             variance_across_K.append(sum(temp_variance) / len(temp_variance))
             best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
+            diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
         # remove time dimension
         with open("gs_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
@@ -92,6 +112,8 @@ if __name__ == '__main__':
             pickle.dump(variance_across_K, out_file)
         with open("gs_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(best_performance_across_K, out_file)
+        with open("gs_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+            pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
