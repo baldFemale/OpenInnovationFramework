@@ -42,8 +42,8 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     diversity = get_diversity(belief_pool=converged_solution_list)
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
-    variance_list = np.std(converged_performance_list)
-    return_dict[loop] = [average_performance, variance_list, best_performance, diversity]
+    variance = np.std(converged_performance_list)
+    return_dict[loop] = [average_performance, variance, best_performance, diversity]
     sema.release()
 
 def get_diversity(belief_pool: list):
