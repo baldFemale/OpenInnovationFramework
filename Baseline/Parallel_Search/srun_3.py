@@ -31,24 +31,18 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)
     variance = np.std(converged_performance_list)
-    diversity = get_diversity(belief_pool=converged_solution_list)
+    diversity = get_diversity(belief_pool=converged_solution_list) / agent_num
     return_dict[loop] = [average_performance, variance, diversity, best_performance, worst_performance]
     sema.release()
 
 def get_diversity(belief_pool: list):
-    diversity = 0
-    for index in range(len(belief_pool)):
-        selected_pool = belief_pool[index + 1::]
-        one_pair_diversity = [get_distance(belief_pool[index], belief) for belief in selected_pool]
-        diversity += sum(one_pair_diversity)
-    return diversity / len(belief_pool[0]) / (len(belief_pool) - 1) / len(belief_pool) * 2
+    unique_solutions = []
+    for belief in belief_pool:
+        string_belief = "".join(belief)
+        unique_solutions.append(string_belief)
+    unique_solutions = set(unique_solutions)
+    return len(unique_solutions)
 
-def get_distance(a=None, b=None):
-    acc = 0
-    for i in range(len(a)):
-        if a[i] != b[i]:
-            acc += 1
-    return acc
 
 if __name__ == '__main__':
     t0 = time.time()

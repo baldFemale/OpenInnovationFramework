@@ -112,7 +112,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_unknown_2" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (Python_Workplace)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
