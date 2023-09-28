@@ -55,7 +55,7 @@ if __name__ == '__main__':
     generalist_expertise = 12
     # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 40
+    concurrency = 60
     # DVs
     performance_across_K = []
     variance_across_K = []

@@ -58,7 +58,7 @@ if __name__ == '__main__':
     crowd_knowledge_list = [12, 14, 16, 18]
     # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 40
+    concurrency = 50
     for crowd_knowledge in crowd_knowledge_list:
         # DVs
         average_performance_across_K = []
