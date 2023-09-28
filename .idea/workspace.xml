@@ -11,12 +11,16 @@
       <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_S.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_G.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K0.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K4.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K8.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Trajectory_K0.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Trajectory_K4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Trajectory_K8.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Trajectory_K8.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/slurm_trajectory_0" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/slurm_trajectory_4" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/slurm_trajectory_8" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_trajectory_8" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,7 +362,7 @@
       <workItem from="1695558791347" duration="5965000" />
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
-      <workItem from="1695901971615" duration="4412000" />
+      <workItem from="1695901971615" duration="4681000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -703,7 +707,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="318" />
+    <option name="localTasksCounter" value="319" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
