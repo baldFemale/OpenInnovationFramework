@@ -6,7 +6,9 @@
 # Observing PEP 8 coding style
 import numpy as np
 from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
+from Crowd import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
@@ -14,17 +16,19 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
+def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    # Evaluator Crowd
+    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=expertise_amount)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
-            generalist.search()
+            generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
 
@@ -48,9 +52,10 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    expertise_amount = 12
+    generalist_expertise = 12
+    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 40
     # DVs
     performance_across_K = []
     variance_across_K = []
@@ -65,7 +70,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, expertise_amount,
+            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
                                               agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
@@ -101,19 +106,19 @@ if __name__ == '__main__':
         cog_performance_across_K_time.append(cog_performance_across_time)
         variance_across_K_time.append(variance_across_time)
     # remove time dimension
-    with open("g_performance_across_K", 'wb') as out_file:
+    with open("gg_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("g_variance_across_K", 'wb') as out_file:
+    with open("gg_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("g_performance_across_K_time", 'wb') as out_file:
+    with open("gg_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("g_cog_performance_across_K_time", 'wb') as out_file:
+    with open("gg_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("g_variance_across_K_time", 'wb') as out_file:
+    with open("gg_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Evaluating GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
 
