@@ -20,6 +20,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     performance_across_agent_time = []
     cog_performance_across_agent_time = []
+    converged_solution_list = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
                            generalist_expertise=expertise_amount)
@@ -27,6 +28,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
             generalist.search()
         performance_across_agent_time.append(generalist.fitness_across_time)
         cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+        converged_solution_list.append(generalist.state)
 
     performance_across_time = []
     cog_performance_across_time = []
