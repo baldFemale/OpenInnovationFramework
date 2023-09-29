@@ -48,11 +48,11 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(10, 60, step=10, dtype=int).tolist()
+    agent_num_list = np.arange(110, 160, step=10, dtype=int).tolist()
     search_iteration = 200
     N = 9
     state_num = 4
-    generalist_expertise = 12
+    generalist_expertise = 18
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     for agent_num in agent_num_list:
