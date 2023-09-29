@@ -89,7 +89,7 @@ if __name__ == '__main__':
     generalist_expertise = 12
     K_list = [0, 4, 8]
     # roll_forward_list = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-    roll_forward_list = [0, 0.1]
+    roll_forward_list = [0.6, 0.7]
     roll_back_list = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     concurrency = 50
     for roll_forward in roll_forward_list:
@@ -142,4 +142,4 @@ if __name__ == '__main__':
                 pickle.dump(pair_wise_diversity_across_K, out_file)
 
     t1 = time.time()
-    print("GG_1: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+    print("GG_4: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

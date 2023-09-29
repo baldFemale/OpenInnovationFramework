@@ -86,7 +86,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    generalist_expertise = 12
+    individual_expertise = 12
     K_list = [0, 4, 8]
     # roll_forward_list = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     roll_forward_list = [0, 0.1]
@@ -107,7 +107,7 @@ if __name__ == '__main__':
                 jobs = []
                 for loop in range(landscape_iteration):
                     sema.acquire()
-                    p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
+                    p = mp.Process(target=func, args=(N, K, state_num, individual_expertise,
                                                       agent_num, search_iteration, roll_forward, roll_back, loop, return_dict, sema))
                     jobs.append(p)
                     p.start()
