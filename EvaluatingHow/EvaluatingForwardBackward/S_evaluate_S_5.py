@@ -55,9 +55,9 @@ def get_pair_wise_diversity(belief_pool: list):
         diversity += sum(one_pair_diversity)
     return diversity / len(belief_pool[0]) / (len(belief_pool) - 1) / len(belief_pool) * 2
 
-def get_distance(self, a=None, b=None):
+def get_distance(a=None, b=None):
     acc = 0
-    for i in range(self.m):
+    for i in range(len(a)):
         if a[i] != b[i]:
             acc += 1
     return acc

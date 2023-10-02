@@ -5,9 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_G_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/G_evaluate_S_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_G_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/S_evaluate_S_5.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,7 +367,7 @@
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
       <workItem from="1695901971615" duration="6257000" />
-      <workItem from="1695964695729" duration="10816000" />
+      <workItem from="1695964695729" duration="11046000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -695,7 +712,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="323" />
+    <option name="localTasksCounter" value="324" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
