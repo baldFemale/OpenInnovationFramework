@@ -5,15 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)">
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +71,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/EvaluatingHow/EvaluatingForwardBackward",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/Trakectory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,11 +83,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\EvaluatingForwardBackward" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\LessIsEnough" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Parallel_Search" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\TwoComplexity" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\JointConfusion" />
@@ -356,7 +368,7 @@
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
       <workItem from="1695901971615" duration="6257000" />
-      <workItem from="1695964695729" duration="16013000" />
+      <workItem from="1695964695729" duration="19613000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -701,7 +713,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="327" />
+    <option name="localTasksCounter" value="328" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
