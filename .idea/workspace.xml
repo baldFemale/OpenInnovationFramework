@@ -5,27 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)">
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/Agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/Figure Template.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_performance_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_performance_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_performance_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_performance_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_Heatmap_Trajectory_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_Heatmap_Trajectory_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_Heatmap_Trajectory_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_Heatmap_Trajectory_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/SearchTrajectory.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/SuperTrajectory.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/Trajectory_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/Trajectory_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/SuperGeneralist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Trakectory/SuperSpecialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/SuperGeneralist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/JointConfusion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/MutualClimb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/SuperSpecialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/slurm_trajectory_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/slurm_trajectory_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/JointConfusion/srun.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +84,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Baseline/Trakectory",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,11 +96,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\EvaluatingForwardBackward" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\LessIsEnough" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Parallel_Search" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\JointConfusion" />
@@ -368,7 +381,7 @@
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
       <workItem from="1695901971615" duration="6257000" />
-      <workItem from="1695964695729" duration="19613000" />
+      <workItem from="1695964695729" duration="28221000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -713,7 +726,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="328" />
+    <option name="localTasksCounter" value="329" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
