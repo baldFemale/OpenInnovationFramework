@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)">
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/grun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/slurm_G" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/slurm_S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/srun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_8.png" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/G_Heatmap_Trajectory_K_8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_8.png" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/S_performance_K_8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Procedural/SearchTrajectory.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/SearchTrajectory.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +62,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism/Discrete",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,11 +74,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Discrete" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\EvaluatingForwardBackward" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\LessIsEnough" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\JointConfusion" />
@@ -348,7 +359,7 @@
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
       <workItem from="1695901971615" duration="6257000" />
-      <workItem from="1695964695729" duration="28907000" />
+      <workItem from="1695964695729" duration="31775000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -693,7 +704,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="330" />
+    <option name="localTasksCounter" value="331" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
