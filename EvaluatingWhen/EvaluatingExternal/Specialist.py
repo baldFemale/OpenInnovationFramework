@@ -43,8 +43,8 @@ class Specialist:
 
     def search(self) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -113,52 +113,73 @@ class Specialist:
                 cog_state[index] = "*"
         return cog_state
 
-    def shared_cog_state_2_cog_state(self, cog_state: list) -> list:
+    def cog_state_2_state(self, cog_state: list) -> list:
         """
-        The shared state include the "*" -> it is the perceived solution from the sharer
-        UNKNOWN domain: one cannot perceive and express the solution accurately
-        Resonating with the literature on imperfect socialization (e.g., imperfect imitation, imperfect convey, imperfect acquisition)
-        :param cog_state: shared cog_state for evaluation
-        :return:self-perceived cog_state
+        For Full G, it perceives the real fitness in the shallow landscape
+        Similarly, for Full S, it also perceives the real fitness in the deep landscape
+        :param state: the real state
+        :return: "0213" -> "AB**"
         """
-        self_cog_state = cog_state.copy()
+        state = []
         for index, bit_value in enumerate(cog_state):
-            if index in self.specialist_domain:
-                if bit_value == "*":
-                    self_cog_state[index] = self.state[index]
-                elif bit_value == "A":
-                    self_cog_state[index] = np.random.choice(["0", "1"])
-                elif bit_value == "B":
-                    self_cog_state[index] = np.random.choice(["2", "3"])
-                else:
-                    pass
-            else:
-                self_cog_state[index] = "*"
-        return self_cog_state
+            if bit_value == "A":
+                state.append(np.random.choice(["0", "1"]))
+            elif bit_value == "B":
+                state.append(np.random.choice(["2", "3"]))
+            elif bit_value == "*":
+                state.append(np.random.choice(["0", "1", "2", "3"]))
+        return state
 
-    def evaluate(self, cur_state: list, next_state: list) -> bool:
-        cur_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=cur_state)
-        next_cog_fitness = self.shared_cog_state_2_cog_state(cog_state=next_state)
+    def public_evaluate(self, cur_state: list, next_state: list) -> bool:
+        """
+        Use the explicit state information; only utilize the knowledge domain, not mindset
+        """
+        cur_cog_state = self.state_2_cog_state(state=cur_state)
+        next_cog_state = self.state_2_cog_state(state=next_state)
+        cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
+        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         if next_cog_fitness > cur_cog_fitness:
             return True
         else:
             return False
 
-    # def cog_state_2_state(self, cog_state=None):
-    #     state = cog_state.copy()
-    #     for index, bit_value in enumerate(cog_state):
-    #         # if (index not in self.generalist_domain) and (index not in self.specialist_domain):
-    #         #     state[index] = str(random.choice(range(self.state_num)))
-    #         if index in self.generalist_domain:
-    #             if bit_value == "A":
-    #                 state[index] = random.choice(["0", "1"])
-    #             elif bit_value == "B":
-    #                 state[index] = random.choice(["2", "3"])
-    #             else:
-    #                 raise ValueError("Unsupported state element: ", bit_value)
-    #         else:
-    #             pass
-    #     return state
+    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
+        """
+        With additional "*" shelter due to inexplicit expression and acquisition
+        """
+        aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
+        # aligned as the G cog_state: only has "A", "B", and "*"
+        for index in range(self.N):
+            if index in self.generalist_domain:
+                if aligned_cur_cog_state[index] in ["0", "1"]:
+                    aligned_cur_cog_state[index] = "A"
+                elif aligned_cur_cog_state[index] in ["2", "3"]:
+                    aligned_cur_cog_state[index] = "B"
+                elif aligned_cur_cog_state[index] == "*":
+                    aligned_cur_cog_state[index] = self.cog_state[index]
+                else:
+                    pass
+
+                if aligned_next_cog_state[index] in ["0", "1"]:
+                    aligned_next_cog_state[index] = "A"
+                elif aligned_next_cog_state[index] in ["2", "3"]:
+                    aligned_next_cog_state[index] = "B"
+                elif aligned_next_cog_state[index] == "*":
+                    aligned_next_cog_state[index] = self.cog_state[index]
+                else:
+                    pass
+            else:
+                aligned_cur_cog_state[index] = "*"
+                aligned_next_cog_state[index] = "*"
+        aligned_cur_state = self.cog_state_2_state(cog_state=aligned_cur_cog_state)
+        aligned_next_state = self.cog_state_2_state(cog_state=aligned_next_cog_state)
+        # the randomness in reverse mapping could produce additional difference; but it is random
+        cur_cog_fitness = self.get_cog_fitness(cog_state=aligned_cur_cog_state, state=aligned_cur_state)
+        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=aligned_next_state)
+        if next_cog_fitness > cur_cog_fitness:
+            return True
+        else:
+            return False
 
     def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
@@ -181,8 +202,7 @@ if __name__ == '__main__':
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    agent = Specialist(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise, crowd=crowd)
+    agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise, crowd=crowd)
     for _ in range(search_iteration):
         agent.feedback_search(roll_back_ratio=0, roll_forward_ratio=0.5)
     import matplotlib.pyplot as plt

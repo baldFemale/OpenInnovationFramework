@@ -5,11 +5,92 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)&#10;----Using procedural vs. discrete mechanism&#10;----Procedural: using SuperG and SuperS to show that G are easily get confused and thus their solution retain promising directions; while S are more accurate and thus their solutions are more likely to create joint confusion -&gt; due to the partially attractiveness -&gt; it even become stronger with increasing S knowledge -&gt; One will also get stuck facing the same solution -&gt; it become an paradoxical tension regarding knowledege: more knowledege is good for the focal solver but it is bad for the collaboration">
-      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/S_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Baseline/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingG/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/FoolingS/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/Parallel_Search_Full/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Discrete/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/Procedural/Crowd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Domain/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Expertise/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Baseline/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingG/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/FoolingS/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search_Full/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search_Full/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search_Full/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search_Full/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Figure Template.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_Heatmap_Trajectory_K_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/G_performance_K_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_Heatmap_Trajectory_K_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/S_performance_K_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SearchTrajectory.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SuperGeneralist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SuperSpecialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Procedural/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/SuperTrajectory.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Trajectory_G.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/Trajectory_S.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/slurm_trajectory_G" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Trakectory/slurm_trajectory_S" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingHow/EvaluatingForwardBackward/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Crowd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory_K0.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory_K4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/Trajectory_K8.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/slurm_trajectory_0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/slurm_trajectory_4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingHow/RollbackTrajectory/slurm_trajectory_8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingExternal/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvaluatingWhen/EvaluatingKnowledge/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/Sharing/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +136,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism/Discrete",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/SharingWhen/Sharing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,11 +148,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Procedural" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\LessIsEnough" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Discrete" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Trakectory" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow\EvaluatingForwardBackward" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen" />
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingWhen\EvaluatingKnowledge" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\JointConfusion" />
@@ -92,8 +173,8 @@
       <recentPaths value="$PROJECT_DIR$" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.Specialist (1)">
-    <configuration name="BinaryLandscape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Generalist (1)">
+    <configuration name="Generalist (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -101,12 +182,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Baseline/Ushape" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/EvaluatingWhen/Evaluating" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Baseline/Ushape/BinaryLandscape.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EvaluatingWhen/Evaluating/Generalist.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -115,7 +196,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Landscape" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Generalist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OpenInnovationFramework" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -123,12 +204,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Baseline/Compare_Landscape" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Mechanism/Discrete" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Baseline/Compare_Landscape/Landscape.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Mechanism/Discrete/Generalist.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -205,11 +286,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Generalist (1)" />
+        <item itemvalue="Python.Generalist" />
         <item itemvalue="Python.Specialist (1)" />
         <item itemvalue="Python.Specialist" />
         <item itemvalue="Python.Trajectory_G" />
-        <item itemvalue="Python.BinaryLandscape" />
-        <item itemvalue="Python.Landscape" />
       </list>
     </recent_temporary>
   </component>
@@ -352,7 +433,8 @@
       <workItem from="1695818493148" duration="1519000" />
       <workItem from="1695892530932" duration="1608000" />
       <workItem from="1695901971615" duration="6257000" />
-      <workItem from="1695964695729" duration="33280000" />
+      <workItem from="1695964695729" duration="40365000" />
+      <workItem from="1696423090541" duration="263000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -697,7 +779,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="332" />
+    <option name="localTasksCounter" value="333" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -748,10 +830,10 @@
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__2_.coverage" NAME="Agent (2) Coverage Results" MODIFIED="1687338095185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Landscape__1_.coverage" NAME="Landscape (1) Coverage Results" MODIFIED="1687338040131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MaxMin/full_20" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Tshape.coverage" NAME="Tshape Coverage Results" MODIFIED="1684928888375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist.coverage" NAME="Generalist Coverage Results" MODIFIED="1692101101060" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Baseline/Alpha_2" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist.coverage" NAME="Generalist Coverage Results" MODIFIED="1696417294980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Mechanism/Discrete" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Evaluator__1_.coverage" NAME="Evaluator (1) Coverage Results" MODIFIED="1672234674572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Topdown/gs" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Agent__3_.coverage" NAME="Agent (3) Coverage Results" MODIFIED="1685089008361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Independent/full_full" />
-    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist__1_.coverage" NAME="Generalist (1) Coverage Results" MODIFIED="1692603335646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Baseline/Baseline" />
+    <SUITE FILE_PATH="coverage/OpenInnovationFramework$Generalist__1_.coverage" NAME="Generalist (1) Coverage Results" MODIFIED="1696421329186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EvaluatingWhen/Evaluating" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Crowd.coverage" NAME="Crowd Coverage Results" MODIFIED="1692452561641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EvaluatingWhen/Evaluating" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Specialist.coverage" NAME="Specialist Coverage Results" MODIFIED="1695038358598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EvaluatingWhen/Evaluating" />
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Specialist__1_.coverage" NAME="Specialist (1) Coverage Results" MODIFIED="1695040370988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EvaluatingWhen/Test_SS_K0" />

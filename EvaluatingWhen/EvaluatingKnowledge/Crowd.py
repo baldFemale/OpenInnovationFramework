@@ -23,16 +23,17 @@ class Crowd:
         self.solutions = []
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
-        opinions = [agent.evaluate(cur_state=cur_state,
+        opinions = [agent.public_evaluate(cur_state=cur_state,
                                    next_state=next_state) for agent in self.agents]
         true_count = sum(1 for item in opinions if item)
         return true_count > self.agent_num / 2
 
-    def private_evaluate(self, cur_state: list, next_state: list, expertise: list) -> bool:
-        opinions = [agent.evaluate(cur_state=cur_state,
-                                   next_state=next_state) for agent in self.agents]
+    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
+        opinions = [agent.private_evaluate(cur_cog_state=cur_cog_state,
+                                   next_cog_state=next_cog_state) for agent in self.agents]
         true_count = sum(1 for item in opinions if item)
         return true_count > self.agent_num / 2
+
 
 if __name__ == '__main__':
     # Test why Generalists provide a poor feedback
