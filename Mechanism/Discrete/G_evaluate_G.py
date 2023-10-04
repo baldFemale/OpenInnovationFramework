@@ -28,7 +28,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         for _ in range(search_iteration):
             generalist.search()
     # Joint local optima
-    for agent in crowd.agents:
+    # for agent in crowd.agents:
 
     return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time]
     sema.release()
