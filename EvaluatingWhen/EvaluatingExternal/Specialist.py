@@ -60,8 +60,8 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -128,6 +128,10 @@ class Specialist:
                 state.append(np.random.choice(["2", "3"]))
             elif bit_value == "*":
                 state.append(np.random.choice(["0", "1", "2", "3"]))
+            elif bit_value in ["0", "1", "2", "3"]:
+                state.append(bit_value)
+            else:
+                raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
@@ -148,24 +152,24 @@ class Specialist:
         With additional "*" shelter due to inexplicit expression and acquisition
         """
         aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
-        # aligned as the G cog_state: only has "A", "B", and "*"
+        # aligned as the S cog_state: only has "0123", and "*"
         for index in range(self.N):
-            if index in self.generalist_domain:
-                if aligned_cur_cog_state[index] in ["0", "1"]:
-                    aligned_cur_cog_state[index] = "A"
-                elif aligned_cur_cog_state[index] in ["2", "3"]:
-                    aligned_cur_cog_state[index] = "B"
+            if index in self.specialist_domain:
+                if aligned_cur_cog_state[index] == "A":
+                    aligned_cur_cog_state[index] = np.random.choice(["0", "1"])
+                elif aligned_cur_cog_state[index] == "B":
+                    aligned_cur_cog_state[index] = np.random.choice(["2", "3"])
                 elif aligned_cur_cog_state[index] == "*":
-                    aligned_cur_cog_state[index] = self.cog_state[index]
+                    aligned_cur_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
                 else:
                     pass
 
-                if aligned_next_cog_state[index] in ["0", "1"]:
-                    aligned_next_cog_state[index] = "A"
-                elif aligned_next_cog_state[index] in ["2", "3"]:
-                    aligned_next_cog_state[index] = "B"
+                if aligned_next_cog_state[index] == "A":
+                    aligned_next_cog_state[index] = np.random.choice(["0", "1"])
+                elif aligned_next_cog_state[index] == "B":
+                    aligned_next_cog_state[index] = np.random.choice(["2", "3"])
                 elif aligned_next_cog_state[index] == "*":
-                    aligned_next_cog_state[index] = self.cog_state[index]
+                    aligned_next_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
                 else:
                     pass
             else:

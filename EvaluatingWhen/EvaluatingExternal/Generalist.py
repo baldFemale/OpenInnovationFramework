@@ -134,6 +134,10 @@ class Generalist:
                 state.append(np.random.choice(["2", "3"]))
             elif bit_value == "*":
                 state.append(np.random.choice(["0", "1", "2", "3"]))
+            elif bit_value in ["0", "1", "2", "3"]:
+                state.append(bit_value)
+            else:
+                raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
