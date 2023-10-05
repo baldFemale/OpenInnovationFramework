@@ -73,7 +73,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_JointConfusion" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Procedural" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
