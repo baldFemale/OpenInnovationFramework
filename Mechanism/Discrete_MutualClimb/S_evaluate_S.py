@@ -23,22 +23,25 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    joint_confusion_rate_list = []
+    mutual_climb_rate_list = []
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
             specialist.search()
-        # Joint local optima
-        reached_solution = specialist.state
-        count = 0
-        for agent in crowd.agents:
-            if agent.is_local_optima(state=reached_solution):
-                count += 1
-        joint_confusion_rate = count / 50
-        joint_confusion_rate_list.append(joint_confusion_rate)
-    final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
-    return_dict[loop] = [final_joint_confusion_rate]
-    sema.release()
+            # Mutual Climb
+            reached_solution = specialist.state
+            count = 0
+            for agent in crowd.agents:
+                suggestion = agent.suggest_better_state(state=reached_solution)
+                if len(suggestion) != 0:
+                    climb = specialist.suggest_better_state(state=suggestion)
+                    if len(climb) != 0:
+                        count += 1
+            mutual_climb_rate = count / 50
+            mutual_climb_rate_list.append(mutual_climb_rate)
+        final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
+        return_dict[loop] = [final_mutual_climb_rate]
+        sema.release()
 
 
 if __name__ == '__main__':
@@ -76,7 +79,7 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("ss_joint_confusion_across_K", 'wb') as out_file:
+    with open("ss_mutual_climb_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
