@@ -128,6 +128,10 @@ class Specialist:
                 state.append(np.random.choice(["2", "3"]))
             elif bit_value == "*":
                 state.append(np.random.choice(["0", "1", "2", "3"]))
+            elif bit_value in ["0", "1", "2", "3"]:
+                state.append(bit_value)
+            else:
+                raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
@@ -148,24 +152,24 @@ class Specialist:
         With additional "*" shelter due to inexplicit expression and acquisition
         """
         aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
-        # aligned as the G cog_state: only has "A", "B", and "*"
+        # aligned as the S cog_state: only has "0123", and "*"
         for index in range(self.N):
-            if index in self.generalist_domain:
-                if aligned_cur_cog_state[index] in ["0", "1"]:
-                    aligned_cur_cog_state[index] = "A"
-                elif aligned_cur_cog_state[index] in ["2", "3"]:
-                    aligned_cur_cog_state[index] = "B"
+            if index in self.specialist_domain:
+                if aligned_cur_cog_state[index] == "A":
+                    aligned_cur_cog_state[index] = np.random.choice(["0", "1"])
+                elif aligned_cur_cog_state[index] == "B":
+                    aligned_cur_cog_state[index] = np.random.choice(["2", "3"])
                 elif aligned_cur_cog_state[index] == "*":
-                    aligned_cur_cog_state[index] = self.cog_state[index]
+                    aligned_cur_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
                 else:
                     pass
 
-                if aligned_next_cog_state[index] in ["0", "1"]:
-                    aligned_next_cog_state[index] = "A"
-                elif aligned_next_cog_state[index] in ["2", "3"]:
-                    aligned_next_cog_state[index] = "B"
+                if aligned_next_cog_state[index] == "A":
+                    aligned_next_cog_state[index] = np.random.choice(["0", "1"])
+                elif aligned_next_cog_state[index] == "B":
+                    aligned_next_cog_state[index] = np.random.choice(["2", "3"])
                 elif aligned_next_cog_state[index] == "*":
-                    aligned_next_cog_state[index] = self.cog_state[index]
+                    aligned_next_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
                 else:
                     pass
             else:
@@ -180,6 +184,46 @@ class Specialist:
             return True
         else:
             return False
+
+    def is_local_optima(self, state: list) -> bool:
+        """
+        This is for joint confusin vs. mutual climb mechanism
+        For simplification, we only consider the public evaluation mode
+        The ambiguity in expression/acquisition is neglected
+        :param state:
+        :return:
+        """
+        neighbor_states = []
+        for index in range(self.N):
+            for bit in ["0", "1", "2", "3"]:
+                new_state = state.copy()
+                if bit != state[index]:
+                    new_state[index] = bit
+                    neighbor_states.append(new_state)
+        for neighbor in neighbor_states:
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
+                return False
+        return True
+
+    def suggest_better_state(self, state: list) -> list:
+        """
+        This is for joint confusin vs. mutual climb mechanism
+        For simplification, we only consider the public evaluation mode
+        The ambiguity in expression/acquisition is neglected
+        :param state:
+        :return:
+        """
+        neighbor_states = []
+        for index in range(self.N):
+            for bit in ["0", "1", "2", "3"]:
+                new_state = state.copy()
+                if bit != state[index]:
+                    new_state[index] = bit
+                    neighbor_states.append(new_state)
+        for neighbor in neighbor_states:
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
+                return neighbor
+        return []
 
     def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
@@ -202,8 +246,7 @@ if __name__ == '__main__':
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    agent = Specialist(N=N, landscape=landscape, state_num=state_num,
-                    generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise, crowd=crowd)
+    agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise, crowd=crowd)
     for _ in range(search_iteration):
         agent.feedback_search(roll_back_ratio=0, roll_forward_ratio=0.5)
     import matplotlib.pyplot as plt

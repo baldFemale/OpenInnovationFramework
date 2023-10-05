@@ -134,6 +134,10 @@ class Generalist:
                 state.append(np.random.choice(["2", "3"]))
             elif bit_value == "*":
                 state.append(np.random.choice(["0", "1", "2", "3"]))
+            elif bit_value in ["0", "1", "2", "3"]:
+                state.append(bit_value)
+            else:
+                raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
@@ -206,6 +210,26 @@ class Generalist:
             if self.public_evaluate(cur_state=state, next_state=neighbor):
                 return False
         return True
+
+    def suggest_better_state(self, state: list) -> list:
+        """
+        This is for joint confusin vs. mutual climb mechanism
+        For simplification, we only consider the public evaluation mode
+        The ambiguity in expression/acquisition is neglected
+        :param state:
+        :return:
+        """
+        neighbor_states = []
+        for index in range(self.N):
+            for bit in ["0", "1", "2", "3"]:
+                new_state = state.copy()
+                if bit != state[index]:
+                    new_state[index] = bit
+                    neighbor_states.append(new_state)
+        for neighbor in neighbor_states:
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
+                return neighbor
+        return []
 
     def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
