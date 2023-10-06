@@ -60,8 +60,8 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -205,7 +205,7 @@ class Specialist:
                 return False
         return True
 
-    def suggest_better_state(self, state: list) -> list:
+    def suggest_better_state_from_expertise(self, state: list) -> list:
         """
         This is for joint confusin vs. mutual climb mechanism
         For simplification, we only consider the public evaluation mode
@@ -213,6 +213,29 @@ class Specialist:
         :param state:
         :return:
         """
+        suggestions = []
+        neighbor_states = []
+        for index in range(self.N):
+            if index in self.specialist_domain:  # only from within domains
+                for bit in ["0", "1", "2", "3"]:
+                    new_state = state.copy()
+                    if bit != state[index]:
+                        new_state[index] = bit
+                        neighbor_states.append(new_state)
+        for neighbor in neighbor_states:
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
+                suggestions.append(neighbor)
+        return suggestions
+
+    def suggest_better_state_from_all(self, state: list) -> list:
+        """
+        This is for joint confusin vs. mutual climb mechanism
+        For simplification, we only consider the public evaluation mode
+        The ambiguity in expression/acquisition is neglected
+        :param state:
+        :return:
+        """
+        suggestions = []
         neighbor_states = []
         for index in range(self.N):
             for bit in ["0", "1", "2", "3"]:
@@ -222,8 +245,8 @@ class Specialist:
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
             if self.public_evaluate(cur_state=state, next_state=neighbor):
-                return neighbor
-        return []
+                suggestions.append(neighbor)
+        return suggestions
 
     def describe(self) -> None:
         print("Agent of G/S Domain: ", self.generalist_domain, self.specialist_domain)
