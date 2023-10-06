@@ -32,8 +32,9 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
         reached_solution = specialist.state
         count = 0
         for agent in crowd.agents:
-            if agent.is_local_optima(state=reached_solution):
-                count += 1
+            if landscape.query_second_fitness(state=reached_solution) < 1:
+                if agent.is_local_optima(state=reached_solution):
+                    count += 1
         joint_confusion_rate = count / 50
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)

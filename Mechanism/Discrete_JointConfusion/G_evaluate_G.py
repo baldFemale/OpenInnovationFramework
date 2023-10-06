@@ -32,8 +32,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         reached_solution = generalist.state
         count = 0
         for agent in crowd.agents:
-            if agent.is_local_optima(state=reached_solution):
-                count += 1
+            if landscape.query_second_fitness(state=reached_solution) < 1:
+                if agent.is_local_optima(state=reached_solution):
+                    count += 1
         joint_confusion_rate = count / 50
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
@@ -78,7 +79,6 @@ if __name__ == '__main__':
     # remove time dimension
     with open("gg_joint_confusion_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
-
     t1 = time.time()
     print("Evaluating GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
