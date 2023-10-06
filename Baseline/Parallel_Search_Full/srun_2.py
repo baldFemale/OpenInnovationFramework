@@ -64,8 +64,8 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(60, 110, step=10, dtype=int).tolist()
-    search_iteration = 200
+    agent_num_list = np.arange(100, 200, step=20, dtype=int).tolist()
+    search_iteration = 100
     N = 9
     state_num = 4
     specialist_expertise = 36
