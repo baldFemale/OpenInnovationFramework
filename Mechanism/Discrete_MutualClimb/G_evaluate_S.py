@@ -28,20 +28,20 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
             specialist.search()
-            # Mutual Climb
-            reached_solution = specialist.state
-            count = 0
-            for agent in crowd.agents:
-                suggestion = agent.suggest_better_state(state=reached_solution)
-                if len(suggestion) != 0:
-                    climb = specialist.suggest_better_state(state=suggestion)
-                    if len(climb) != 0:
-                        count += 1
-            mutual_climb_rate = count / 50
-            mutual_climb_rate_list.append(mutual_climb_rate)
-        final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
-        return_dict[loop] = [final_mutual_climb_rate]
-        sema.release()
+        # Mutual Climb
+        reached_solution = specialist.state.copy()
+        count = 0
+        for agent in crowd.agents:
+            suggestion = agent.suggest_better_state(state=reached_solution)
+            if len(suggestion) != 0:
+                climb = specialist.suggest_better_state(state=suggestion)
+                if len(climb) != 0:
+                    count += 1
+        mutual_climb_rate = count / 50
+        mutual_climb_rate_list.append(mutual_climb_rate)
+    final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
+    return_dict[loop] = [final_mutual_climb_rate]
+    sema.release()
 
 
 if __name__ == '__main__':
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     specialist_expertise = 12
     # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 40
+    concurrency = 50
     # DVs
     joint_confusion_across_K = []
     for K in K_list:
