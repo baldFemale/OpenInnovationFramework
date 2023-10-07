@@ -32,9 +32,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         reached_solution = generalist.state.copy()
         count = 0
         for agent in crowd.agents:
-            suggestion = agent.suggest_better_state(state=reached_solution)
+            suggestion = agent.suggest_better_state_from_expertise(state=reached_solution)
             if len(suggestion) != 0:
-                climb = generalist.suggest_better_state(state=suggestion)
+                climb = generalist.suggest_better_state_from_expertise(state=suggestion)
                 if len(climb) != 0:
                     if landscape.query_second_fitness(state=climb) > landscape.query_second_fitness(state=reached_solution):
                         count += 1

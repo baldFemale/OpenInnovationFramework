@@ -144,6 +144,8 @@ class Generalist:
         """
         Use the explicit state information; only utilize the knowledge domain, not mindset
         """
+        if (len(cur_state) == 0) or (len(next_state) == 0):
+            raise ValueError("Blank State List")
         cur_cog_state = self.state_2_cog_state(state=cur_state)
         next_cog_state = self.state_2_cog_state(state=next_state)
         cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
@@ -221,13 +223,14 @@ class Generalist:
         """
         suggestions = []
         neighbor_states = []
-        for index in range(self.N):
-            if index in self.generalist_domain:  # only from within domains
-                for bit in ["0", "1", "2", "3"]:
-                    new_state = state.copy()
-                    if bit != state[index]:
-                        new_state[index] = bit
-                        neighbor_states.append(new_state)
+        for index in self.generalist_domain:  # only from within domains
+            for bit in ["0", "1", "2", "3"]:
+                new_state = state.copy()
+                if bit != state[index]:
+                    new_state[index] = bit
+                    neighbor_states.append(new_state)
+        if len(neighbor_states) == 0:
+            return []
         for neighbor in neighbor_states:
             if self.public_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
