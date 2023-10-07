@@ -237,9 +237,9 @@ class Landscape:
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
-            dependency = self.dependency_map[row]
+            dependency = list(self.dependency_map[row])
             qua_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
-            qua_index = state[row] + qua_index
+            qua_index = str(state[row]) + qua_index
             index = int(qua_index, 4)
             scoped_fitness.append(self.FC_2[row][index])  # not need to normalize; does not affect the local search
         return sum(scoped_fitness) / len(scoped_fitness)

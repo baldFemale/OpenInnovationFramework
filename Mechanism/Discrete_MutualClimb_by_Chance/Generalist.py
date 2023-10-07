@@ -215,7 +215,7 @@ class Generalist:
 
     def suggest_better_state_from_expertise(self, state: list) -> list:
         """
-        This is for joint confusin vs. mutual climb mechanism
+        This is for joint confusion vs. mutual climb mechanism
         For simplification, we only consider the public evaluation mode
         The ambiguity in expression/acquisition is neglected
         :param state:
@@ -223,7 +223,7 @@ class Generalist:
         """
         suggestions = []
         neighbor_states = []
-        for index in self.generalist_domain:  # only from within domains
+        for index in self.generalist_domain:  # only from within expertise domains
             for bit in ["0", "1", "2", "3"]:
                 new_state = state.copy()
                 if bit != state[index]:

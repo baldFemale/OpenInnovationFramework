@@ -60,8 +60,8 @@ class Specialist:
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
-        index = np.random.choice(self.generalist_domain + self.specialist_domain)
-        # index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
+        # index = np.random.choice(self.generalist_domain + self.specialist_domain)
+        index = np.random.choice(range(self.N))  # if mindset changes; if environmental turbulence arise outside one's knowledge
         free_space = ["0", "1", "2", "3"]
         free_space.remove(next_state[index])
         next_state[index] = np.random.choice(free_space)
@@ -138,6 +138,8 @@ class Specialist:
         """
         Use the explicit state information; only utilize the knowledge domain, not mindset
         """
+        if (len(cur_state) == 0) or (len(next_state) == 0):
+            raise ValueError("Blank State List")
         cur_cog_state = self.state_2_cog_state(state=cur_state)
         next_cog_state = self.state_2_cog_state(state=next_state)
         cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
@@ -207,7 +209,7 @@ class Specialist:
 
     def suggest_better_state_from_expertise(self, state: list) -> list:
         """
-        This is for joint confusin vs. mutual climb mechanism
+        This is for joint confusion vs. mutual climb mechanism
         For simplification, we only consider the public evaluation mode
         The ambiguity in expression/acquisition is neglected
         :param state:
@@ -215,13 +217,14 @@ class Specialist:
         """
         suggestions = []
         neighbor_states = []
-        for index in range(self.N):
-            if index in self.specialist_domain:  # only from within domains
-                for bit in ["0", "1", "2", "3"]:
-                    new_state = state.copy()
-                    if bit != state[index]:
-                        new_state[index] = bit
-                        neighbor_states.append(new_state)
+        for index in self.specialist_domain:  # only from within expertise domains
+            for bit in ["0", "1", "2", "3"]:
+                new_state = state.copy()
+                if bit != state[index]:
+                    new_state[index] = bit
+                    neighbor_states.append(new_state)
+        if len(neighbor_states) == 0:
+            return []
         for neighbor in neighbor_states:
             if self.public_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
