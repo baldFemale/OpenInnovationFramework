@@ -36,9 +36,7 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None,
             climbed_list = specialist.suggest_better_state_from_expertise(state=each_neighbor)
             if state in climbed_list:
                 climbed_list.remove(state)
-            if len(climbed_list) > 1:
-                count += 1
-                break
+            count += len(climbed_list)
     mutual_climb_rate = count / 50
     return_dict[loop] = [mutual_climb_rate]
     sema.release()

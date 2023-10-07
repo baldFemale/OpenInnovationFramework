@@ -23,30 +23,24 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    mutual_climb_rate_list = []
+    count = 0
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+                                generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
             generalist.search()
         # Mutual Climb
         reached_solution = generalist.state.copy()
-        count = 0
         for agent in crowd.agents:
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
                 climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
-                finded = 0
                 for each_climb in climbs:
-                    if landscape.query_second_fitness(state=each_climb) > landscape.query_second_fitness(state=reached_solution):
+                    if landscape.query_second_fitness(state=each_climb) > landscape.query_second_fitness(
+                            state=reached_solution):
                         count += 1
-                        finded = 1
-                        break
-                if finded == 1:
-                    break
-        mutual_climb_rate = count / 50
-        mutual_climb_rate_list.append(mutual_climb_rate)
-    final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
-    return_dict[loop] = [final_mutual_climb_rate]
+    mutual_climb_rate = count / agent_num
+    return_dict[loop] = [mutual_climb_rate]
     sema.release()
 
 
