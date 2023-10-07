@@ -24,13 +24,15 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     mutual_climb_rate_list = []
+    count = 0
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
         for _ in range(search_iteration):
             specialist.search()
         # Mutual Climb
         reached_solution = specialist.state.copy()
-        count = 0
+        if specialist.fitness == 1:
+            continue
         for agent in crowd.agents:
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
@@ -43,7 +45,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
                         break
                 if finded == 1:
                     break
-        mutual_climb_rate = count / 50
+        mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
     return_dict[loop] = [final_mutual_climb_rate]
