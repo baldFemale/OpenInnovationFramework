@@ -32,12 +32,17 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         reached_solution = generalist.state.copy()
         count = 0
         for agent in crowd.agents:
-            suggestion = agent.suggest_better_state_from_expertise(state=reached_solution)
-            if len(suggestion) != 0:
-                climb = generalist.suggest_better_state_from_expertise(state=suggestion)
-                if len(climb) != 0:
-                    if landscape.query_second_fitness(state=climb) > landscape.query_second_fitness(state=reached_solution):
+            suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
+            for each_suggestion in suggestions:
+                climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
+                finded = 0
+                for each_climb in climbs:
+                    if landscape.query_second_fitness(state=each_climb) > landscape.query_second_fitness(state=reached_solution):
                         count += 1
+                        finded = 1
+                        break
+                if finded == 1:
+                    break
         mutual_climb_rate = count / 50
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)

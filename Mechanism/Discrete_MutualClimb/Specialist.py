@@ -220,9 +220,13 @@ class Specialist:
         for index in self.specialist_domain:  # only from within expertise domains
             for bit in ["0", "1", "2", "3"]:
                 new_state = state.copy()
-                if bit != state[index]:
-                    new_state[index] = bit
-                    neighbor_states.append(new_state)
+                try:
+                    if bit != state[index]:
+                        new_state[index] = bit
+                        neighbor_states.append(new_state)
+                except:
+                    print("bit: ", bit, "index: ", index, "state: ", state)
+                    raise ValueError("Break")
         if len(neighbor_states) == 0:
             return []
         for neighbor in neighbor_states:
