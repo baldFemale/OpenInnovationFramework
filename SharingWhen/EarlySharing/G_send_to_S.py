@@ -27,7 +27,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     for agent in crowd.agents:
-        for _ in range(search_iteration):
+        for _ in range(50):
             agent.search()
     solution_list = [agent.state.copy() for agent in crowd.agents]
     for agent_index in range(agent_num):

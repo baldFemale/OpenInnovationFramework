@@ -25,9 +25,9 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Sharing Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for agent in crowd.agents:
-        for _ in range(50):
+        for _ in range(100):
             agent.search()
     solution_list = [agent.state.copy() for agent in crowd.agents]
     for agent_index in range(agent_num):
@@ -115,17 +115,17 @@ if __name__ == '__main__':
         cog_performance_across_K_time.append(cog_performance_across_time)
         variance_across_K_time.append(variance_across_time)
     # remove time dimension
-    with open("gg_performance_across_K", 'wb') as out_file:
+    with open("sg_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("gg_variance_across_K", 'wb') as out_file:
+    with open("sg_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("gg_performance_across_K_time", 'wb') as out_file:
+    with open("sg_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("gg_cog_performance_across_K_time", 'wb') as out_file:
+    with open("sg_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("gg_variance_across_K_time", 'wb') as out_file:
+    with open("sg_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

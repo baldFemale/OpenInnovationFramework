@@ -17,7 +17,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=None,
+def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
@@ -27,18 +27,18 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     for agent in crowd.agents:
-        for _ in range(50):
+        for _ in range(100):
             agent.search()
     solution_list = [agent.state.copy() for agent in crowd.agents]
     for agent_index in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
-        generalist.state = solution_list[agent_index]
-        generalist.cog_fitness = generalist.get_cog_fitness(state=generalist.state, cog_state=generalist.cog_state)
-        generalist.fitness = generalist.landscape.query_second_fitness(state=generalist.state)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
+        specialist.state = solution_list[agent_index]
+        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state, cog_state=specialist.cog_state)
+        specialist.fitness = specialist.landscape.query_second_fitness(state=specialist.state)
         for _ in range(search_iteration):
-            generalist.search()
-        performance_across_agent_time.append(generalist.fitness_across_time)
-        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+            specialist.search()
+        performance_across_agent_time.append(specialist.fitness_across_time)
+        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    generalist_expertise = 12
+    specialist_expertise = 12
     # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
+            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
                                               agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
@@ -115,17 +115,17 @@ if __name__ == '__main__':
         cog_performance_across_K_time.append(cog_performance_across_time)
         variance_across_K_time.append(variance_across_time)
     # remove time dimension
-    with open("gg_performance_across_K", 'wb') as out_file:
+    with open("gs_performance_across_K", 'wb') as out_file:
         pickle.dump(performance_across_K, out_file)
-    with open("gg_variance_across_K", 'wb') as out_file:
+    with open("gs_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
     # retain time dimension
-    with open("gg_performance_across_K_time", 'wb') as out_file:
+    with open("gs_performance_across_K_time", 'wb') as out_file:
         pickle.dump(performance_across_K_time, out_file)
-    with open("gg_cog_performance_across_K_time", 'wb') as out_file:
+    with open("gs_cog_performance_across_K_time", 'wb') as out_file:
         pickle.dump(cog_performance_across_K_time, out_file)
-    with open("gg_variance_across_K_time", 'wb') as out_file:
+    with open("gs_variance_across_K_time", 'wb') as out_file:
         pickle.dump(variance_across_K_time, out_file)
 
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
