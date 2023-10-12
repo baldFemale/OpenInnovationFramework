@@ -70,12 +70,12 @@
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Test_SS_K0" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingExternal" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_JointConfusion" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_by_Chance" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_with_Fitness" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Procedural" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

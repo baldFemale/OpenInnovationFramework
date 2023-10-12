@@ -120,7 +120,7 @@ if __name__ == '__main__':
                 temp_pair_wise_diversity.append(result[3])
                 temp_best_performance.append(result[4])
                 temp_worst_performance.append(result[5])
-                temp_partial_unique.extend(result[6])
+                temp_partial_unique.append(result[6])
 
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
             variance_across_K.append(sum(temp_variance) / len(temp_variance))
