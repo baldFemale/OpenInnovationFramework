@@ -77,10 +77,10 @@ def get_distance(a=None, b=None):
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(100, 500, step=100, dtype=int).tolist()
-    search_iteration = 100
+    agent_num_list = np.arange(20, 100, step=20, dtype=int).tolist()
+    search_iteration = 200
     N = 9
     state_num = 4
     specialist_expertise = 12

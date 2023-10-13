@@ -27,11 +27,13 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         for _ in range(search_iteration):
             generalist.search()
         converged_performance_list.append(generalist.fitness)
-        converged_solution_list.append(generalist.state)
+        converged_solution_list.append(generalist.cog_state)
         domains = generalist.generalist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
-        solution_str = [generalist.state[index] for index in domains]
+        solution_str = [generalist.cog_state[index] for index in domains]
+        # using the cog_state to avoid additional difference between G and S
+        # with the same expertise domain, G1 could process different elements from G2 (e.g.,  G1 03, G2 12)
         solution_str = "".join(solution_str)
         if domain_str not in domain_solution_dict.keys():
             domain_solution_dict[domain_str] = [solution_str]
@@ -39,9 +41,8 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
             if solution_str not in domain_solution_dict[domain_str]:
                 domain_solution_dict[domain_str].append(solution_str)
     partial_unique_diversity = 0
-    for value in domain_solution_dict.values():
+    for key, value in domain_solution_dict.items():
         partial_unique_diversity += len(value)
-
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)
@@ -78,10 +79,10 @@ def get_distance(a=None, b=None):
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(1000, 1500, step=100, dtype=int).tolist()
-    search_iteration = 100
+    agent_num_list = np.arange(200, 300, step=20, dtype=int).tolist()
+    search_iteration = 200
     N = 9
     state_num = 4
     generalist_expertise = 12
