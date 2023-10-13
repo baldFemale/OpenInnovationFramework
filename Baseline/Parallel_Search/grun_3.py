@@ -48,7 +48,8 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     variance = np.std(converged_performance_list)
     unique_diversity = get_unique_diversity(belief_pool=converged_solution_list)
     pair_wise_diversity = get_pair_wise_diversity(belief_pool=converged_solution_list)
-    return_dict[loop] = [average_performance, variance, unique_diversity, pair_wise_diversity, best_performance, worst_performance, partial_unique_diversity]
+    return_dict[loop] = [average_performance, variance, unique_diversity, pair_wise_diversity,
+                         best_performance, worst_performance, partial_unique_diversity]
     sema.release()
 
 def get_unique_diversity(belief_pool: list):
@@ -77,9 +78,9 @@ def get_distance(a=None, b=None):
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 100
     # agent_num = 100
-    agent_num_list = np.arange(400, 600, step=40, dtype=int).tolist()
+    agent_num_list = np.arange(1000, 1500, step=100, dtype=int).tolist()
     search_iteration = 100
     N = 9
     state_num = 4

@@ -39,16 +39,16 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
             if solution_str not in domain_solution_dict[domain_str]:
                 domain_solution_dict[domain_str].append(solution_str)
     partial_unique_diversity = 0
-    for value in domain_solution_dict.values():
+    for key, value in domain_solution_dict.items():
         partial_unique_diversity += len(value)
-
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)
     variance = np.std(converged_performance_list)
     unique_diversity = get_unique_diversity(belief_pool=converged_solution_list)
     pair_wise_diversity = get_pair_wise_diversity(belief_pool=converged_solution_list)
-    return_dict[loop] = [average_performance, variance, unique_diversity, pair_wise_diversity, best_performance, worst_performance, partial_unique_diversity]
+    return_dict[loop] = [average_performance, variance, unique_diversity, pair_wise_diversity,
+                         best_performance, worst_performance, partial_unique_diversity]
     sema.release()
 
 def get_unique_diversity(belief_pool: list):
@@ -77,9 +77,9 @@ def get_distance(a=None, b=None):
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 100
     # agent_num = 100
-    agent_num_list = np.arange(40, 200, step=40, dtype=int).tolist()
+    agent_num_list = np.arange(100, 500, step=100, dtype=int).tolist()
     search_iteration = 100
     N = 9
     state_num = 4
