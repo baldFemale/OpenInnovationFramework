@@ -21,9 +21,13 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     converged_performance_list = []
     converged_solution_list = []
     domain_solution_dict = {}
+    aligned_domain = np.random.choice(range(N), specialist_expertise // 2, replace=False).tolist()
     for _ in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num,
                            specialist_expertise=specialist_expertise)
+        specialist.specialist_domain = aligned_domain
+        specialist.cog_state = specialist.state_2_cog_state(state=specialist.state)
+        specialist.cog_fitness = specialist.get_cog_fitness(cog_state=specialist.cog_state, state=specialist.state)
         for _ in range(search_iteration):
             specialist.search()
         converged_performance_list.append(specialist.fitness)
@@ -39,9 +43,8 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
             if solution_str not in domain_solution_dict[domain_str]:
                 domain_solution_dict[domain_str].append(solution_str)
     partial_unique_diversity = 0
-    for value in domain_solution_dict.values():
+    for key, value in domain_solution_dict.items():
         partial_unique_diversity += len(value)
-
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
     worst_performance = min(converged_performance_list)
@@ -78,9 +81,9 @@ def get_distance(a=None, b=None):
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 100
+    landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(500, 1000, step=100, dtype=int).tolist()
+    agent_num_list = np.arange(200, 400, step=50, dtype=int).tolist()
     search_iteration = 100
     N = 9
     state_num = 4
