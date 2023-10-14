@@ -19,7 +19,7 @@ import pickle
 def func(N=None, K=None, state_num=None, individual_expertise=None, agent_num=None,
          search_iteration=None, roll_forward=None, roll_back=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.1)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
