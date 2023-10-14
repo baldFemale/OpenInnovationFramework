@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)&#10;----Using procedural vs. discrete mechanism&#10;----Procedural: using SuperG and SuperS to show that G are easily get confused and thus their solution retain promising directions; while S are more accurate and thus their solutions are more likely to create joint confusion -&gt; due to the partially attractiveness -&gt; it even become stronger with increasing S knowledge -&gt; One will also get stuck facing the same solution -&gt; it become an paradoxical tension regarding knowledege: more knowledege is good for the focal solver but it is bad for the collaboration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Parallel_Search_Align_Domain/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Parallel_Search_Align_Domain/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete_JointConfusion/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete_JointConfusion/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete_MutualClimb_by_Chance/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete_MutualClimb_by_Chance/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/Discrete_MutualClimb_with_Fitness/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Discrete_MutualClimb_with_Fitness/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SharingWhen/EarlySharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/EarlySharing/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SharingWhen/MiddleSharing/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Mechanism/Discrete_MutualClimb_with_Fitness",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/SharingWhen/MiddleSharing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,11 +64,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\MiddleSharing" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Discrete_MutualClimb_with_Fitness" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\SharingWhen\Sharing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
@@ -361,7 +357,7 @@
       <workItem from="1696929111180" duration="6238000" />
       <workItem from="1697113683478" duration="2585000" />
       <workItem from="1697117860125" duration="2291000" />
-      <workItem from="1697184977898" duration="20200000" />
+      <workItem from="1697184977898" duration="21154000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -706,7 +702,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="363" />
+    <option name="localTasksCounter" value="364" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
