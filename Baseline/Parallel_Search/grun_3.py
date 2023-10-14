@@ -27,7 +27,10 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         for _ in range(search_iteration):
             generalist.search()
         converged_performance_list.append(generalist.fitness)
-        converged_solution_list.append(generalist.cog_state)
+        aligned_state = generalist.state.copy()
+        for index in generalist.generalist_domain:
+            aligned_state[index] = generalist.cog_state[index]  # release "*" and maintain "AB"
+        converged_solution_list.append(aligned_state)
         domains = generalist.generalist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
@@ -81,7 +84,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(200, 300, step=20, dtype=int).tolist()
+    agent_num_list = np.arange(400, 600, step=50, dtype=int).tolist()
     search_iteration = 200
     N = 9
     state_num = 4
