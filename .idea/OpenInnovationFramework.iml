@@ -79,6 +79,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Align_Domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CrowdInteraction" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Procedural" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SharingWhen/ProbToSharing" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

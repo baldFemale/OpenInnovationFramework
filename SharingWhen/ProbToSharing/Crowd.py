@@ -34,9 +34,6 @@ class Crowd:
         true_count = sum(1 for item in opinions if item)
         return true_count > self.agent_num / 2
 
-    def form_network(self):
-
-
 
 if __name__ == '__main__':
     # Test why Generalists provide a poor feedback

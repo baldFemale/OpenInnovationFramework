@@ -14,15 +14,10 @@ class Specialist:
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
-        :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
-        cog_state of G: only has "A", "B", and "*"
-        cog_state of S: only has "0123" and "*"
         """
         self.landscape = landscape
         self.crowd = crowd
-        self.index = None  # for crowd interaction
-        self.connections = []  # for crowd interaction
         self.N = N
         self.state_num = state_num
         self.generalist_domain = []
