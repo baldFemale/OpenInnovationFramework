@@ -6,13 +6,15 @@
 # Observing PEP 8 coding style
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 
 
 class Crowd:
     def __init__(self, N: int, agent_num: int, generalist_expertise: int, specialist_expertise: int,
-                 landscape: object, state_num: int, label: str):
+                 landscape: object, state_num: int, label: str, share_prob: float):
         self.agent_num = agent_num
         self.agents = []
+        self.share_prob = share_prob
         for _ in range(agent_num):
             if label == "G":
                 agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
@@ -33,6 +35,13 @@ class Crowd:
                                    next_cog_state=next_cog_state) for agent in self.agents]
         true_count = sum(1 for item in opinions if item)
         return true_count > self.agent_num / 2
+
+    def get_shared_state_pool(self):
+        shared_states = []
+        for agent in self.agents:
+            if np.random.uniform(0, 1) < self.share_prob:
+                shared_states.append(agent.state)
+        return shared_states
 
 
 if __name__ == '__main__':

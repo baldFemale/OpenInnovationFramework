@@ -84,7 +84,7 @@ if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
     # agent_num = 100
-    agent_num_list = np.arange(800, 1000, step=50, dtype=int).tolist()
+    agent_num_list = np.arange(1600, 2000, step=50, dtype=int).tolist()
     search_iteration = 200
     N = 9
     state_num = 4
