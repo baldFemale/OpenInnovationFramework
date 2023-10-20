@@ -21,8 +21,6 @@ class Specialist:
         """
         self.landscape = landscape
         self.crowd = crowd
-        self.index = None  # for crowd interaction
-        self.connections = []  # for crowd interaction
         self.N = N
         self.state_num = state_num
         self.generalist_domain = []

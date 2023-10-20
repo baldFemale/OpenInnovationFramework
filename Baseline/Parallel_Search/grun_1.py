@@ -36,7 +36,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         domain_str = "".join([str(i) for i in domains])
         solution_str = [generalist.cog_state[index] for index in domains]
         # using the cog_state to avoid additional difference between G and S
-        # i.e., additional inherient difference in G's default position or 0 vs. 1 and 2 vs. 3
+        # i.e., additional inherent difference in G's default position or 0 vs. 1 and 2 vs. 3
         # with the same expertise domain, G1 could process different elements from G2 (e.g.,  G1 03, G2 12)
         solution_str = "".join(solution_str)
         if domain_str not in domain_solution_dict.keys():
