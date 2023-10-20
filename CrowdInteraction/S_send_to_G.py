@@ -31,35 +31,38 @@ def func(N=None, K=None, state_num=None, share_prob=None, agent_num=None,
                 agent_1.search()
         # Crowd 1 share
         shared_states = s_crowd_1.get_shared_state_pool()
-        # Crowd 2 imitate
+        if len(shared_states) == 0:
+            pass
+        else:
+            # Crowd 2 imitate
+            for agent_2 in g_crowd_2.agents:
+                selected_index = np.random.choice(range(len(shared_states)))
+                agent_2.state = shared_states[selected_index].copy()
+                agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
+                agent_2.cog_fitness = agent_2.get_cog_fitness(cog_state=agent_2.cog_state, state=agent_2.state)
+                agent_2.fitness = landscape.query_second_fitness(state=agent_2.state)
         for agent_2 in g_crowd_2.agents:
-            selected_index = np.random.choice(range(len(shared_states)))
-            agent_2.state = shared_states[selected_index].copy()
-            agent_2.cog_state = agent_2.state_2_cog_state(state=agent_2.state)
-            agent_2.cog_fitness = agent_2.get_cog_fitness(cog_state=agent_2.cog_state, state=agent_2.state)
-            agent_2.fitness = landscape.query_second_fitness(state=agent_2.state)
             for _ in range(search_iteration):
                 agent_2.search()
         # Crowd 2 also share
         shared_states = g_crowd_2.get_shared_state_pool()
-        # Crowd 1 also imitate
-        for agent_1 in s_crowd_1.agents:
-            selected_index = np.random.choice(range(len(shared_states)))
-            agent_1.state = shared_states[selected_index].copy()
-            agent_1.cog_state = agent_1.state_2_cog_state(state=agent_1.state)
-            agent_1.cog_fitness = agent_1.get_cog_fitness(cog_state=agent_1.cog_state, state=agent_1.state)
-            agent_1.fitness = landscape.query_second_fitness(state=agent_1.state)
+        if len(shared_states) == 0:
+            pass
+        else:
+            # Crowd 1 also imitate
+            for agent_1 in s_crowd_1.agents:
+                selected_index = np.random.choice(range(len(shared_states)))
+                agent_1.state = shared_states[selected_index].copy()
+                agent_1.cog_state = agent_1.state_2_cog_state(state=agent_1.state)
+                agent_1.cog_fitness = agent_1.get_cog_fitness(cog_state=agent_1.cog_state, state=agent_1.state)
+                agent_1.fitness = landscape.query_second_fitness(state=agent_1.state)
     # Only measure the second one -> being consistent with prior comparison
-    performance_across_agent_time = []
+    performance_list = []
     for agent_2 in g_crowd_2.agents:
-        performance_across_agent_time.append(agent_2.fitness_across_time)
+        performance_list.append(agent_2.fitness_across_time[-1])
     # Average
-    performance_across_time = []
-    variance_across_time = []
-    for period in range(search_iteration):
-        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
-        performance_across_time.append(sum(temp_1) / len(temp_1))
-        variance_across_time.append(np.std(temp_1))
+    performance = sum(performance_list) / len(performance_list)
+    variance = np.std(performance_list)
     domain_solution_dict = {}
     for agent_2 in g_crowd_2.agents:
         # Only measure one half; Agent 2
@@ -76,7 +79,7 @@ def func(N=None, K=None, state_num=None, share_prob=None, agent_num=None,
     partial_unique_diversity = 0
     for key, value in domain_solution_dict.items():
         partial_unique_diversity += len(value)
-    return_dict[loop] = [performance_across_time, variance_across_time, partial_unique_diversity]
+    return_dict[loop] = [performance, variance, partial_unique_diversity]
     sema.release()
 
 def get_unique_diversity(belief_pool: list):
