@@ -29,7 +29,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
             agent.search()
     solution_list = [agent.state.copy() for agent in crowd.agents]
     converged_performance_list = []
-    converged_solution_list = []
+    domain_solution_dict = {}
     for agent_index in range(agent_num):
         specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
         specialist.state = solution_list[agent_index]
@@ -38,21 +38,25 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
         for _ in range(search_iteration):
             specialist.search()
         converged_performance_list.append(specialist.fitness)
-        converged_solution_list.append(specialist.state)
+
+        domains = specialist.specialist_domain.copy()
+        domains.sort()
+        domain_str = "".join([str(i) for i in domains])
+        solution_str = [specialist.cog_state[index] for index in domains]
+        solution_str = "".join(solution_str)
+        if domain_str not in domain_solution_dict.keys():
+            domain_solution_dict[domain_str] = [solution_str]
+        else:
+            if solution_str not in domain_solution_dict[domain_str]:
+                domain_solution_dict[domain_str].append(solution_str)
+    partial_unique_diversity = 0
+    for key, value in domain_solution_dict.items():
+        partial_unique_diversity += len(value)
     average_performance = sum(converged_performance_list) / len(converged_performance_list)
     best_performance = max(converged_performance_list)
     variance = np.std(converged_performance_list)
-    diversity = get_diversity(belief_pool=converged_solution_list) / agent_num
-    return_dict[loop] = [average_performance, variance, best_performance, diversity]
+    return_dict[loop] = [average_performance, variance, best_performance, partial_unique_diversity]
     sema.release()
-
-def get_diversity(belief_pool: list):
-    unique_solutions = []
-    for belief in belief_pool:
-        string_belief = "".join(belief)
-        unique_solutions.append(string_belief)
-    unique_solutions = set(unique_solutions)
-    return len(unique_solutions)
 
 
 if __name__ == '__main__':
@@ -64,7 +68,7 @@ if __name__ == '__main__':
     specialist_expertise = 12
     # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(10, 60, step=10, dtype=int).tolist()
+    agent_num_list = np.arange(50, 400, step=50, dtype=int).tolist()
     concurrency = 40
     for agent_num in agent_num_list:
         # DVs
