@@ -68,7 +68,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Test_SS_K0" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingExternal" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
@@ -79,6 +78,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Align_Domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CrowdInteraction" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Procedural" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough_NotHomo" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/ProbToSharing" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
