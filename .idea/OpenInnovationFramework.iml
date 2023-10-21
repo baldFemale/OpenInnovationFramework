@@ -32,12 +32,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_20" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/full_full" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes/RangeScaling/partial_20" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Baseline_no_wander" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EarlyEvaluating" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Evaluating" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/LateEvaluating" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/MiddleEvaluating" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen" isTestSource="false" />
@@ -45,13 +42,9 @@
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/LateSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/MiddleSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/Sharing" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollbackTrajectory" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/RollforwardTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Baseline" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Trakectory" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollback_2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/Rollforward_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization/Evaluating" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Socialization/Imitation" isTestSource="false" />
@@ -64,13 +57,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/FoolingS" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Ushape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MaxMin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingHow/EvaluatingForwardBackward" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Test_SS_K0" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingExternal" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/EvaluatingKnowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_JointConfusion" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_by_Chance" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_with_Fitness" isTestSource="false" />
@@ -78,6 +67,18 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Align_Domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CrowdInteraction" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Procedural" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/Evaluating" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/EvaluatingExternal" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/EvaluatingForwardBackward" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/EvaluatingKnowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/EvaluatingKnowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/EvaluatingOverlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/RollbackTrajectory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/Rollback_2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/Rollforward" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/RollforwardTrajectory" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Evaluation/Rollforward_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough_NotHomo" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SharingWhen/ProbToSharing" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
