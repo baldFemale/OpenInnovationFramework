@@ -14,6 +14,7 @@ import time
 from multiprocessing import Semaphore
 import pickle
 
+
 # mp version
 def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
@@ -23,9 +24,27 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=12, specialist_expertise=0, label="G", share_prob=0)
+    # fix 5 domains and vary 1 domain for G crowd
+    fixed_domain_g = np.random.choice(range(N), 5, replace=False).tolist()
+    for agent in crowd.agents:
+        free_space = [x for x in range(N) if x not in fixed_domain_g]
+        random_domain = np.random.choice(free_space)
+        agent.generalist_domain = fixed_domain_g.copy()
+        agent.generalist_domain.append(random_domain)
+        agent.cog_state = agent.state_2_cog_state(state=agent.state)
+        agent.cog_fitness = agent.get_cog_fitness(cog_state=agent.cog_state, state=agent.state)
+    # fix 2 domains and vary 1 domain for S crowd
+    fixed_domain_s = np.random.choice(fixed_domain_g, 2, replace=False).tolist()
     for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+                                specialist_expertise=specialist_expertise)
+        free_space = [x for x in range(N) if x not in fixed_domain_s]
+        random_domain = np.random.choice(free_space)
+        specialist.specialist_domain = fixed_domain_s.copy()
+        specialist.specialist_domain.append(random_domain)
+        specialist.cog_state = specialist.state_2_cog_state(state=specialist.state)
+        specialist.cog_fitness = specialist.get_cog_fitness(cog_state=specialist.cog_state, state=specialist.state)
         for _ in range(search_iteration):
             specialist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
         performance_across_agent_time.append(specialist.fitness_across_time)

@@ -24,13 +24,21 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
-    for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
+                           generalist_expertise=12, specialist_expertise=0, label="G",share_prob=0)
+    # fix 5 domains and vary 1 domain
+    fixed_domain = np.random.choice(range(N), 5, replace=False).tolist()
+    for agent in crowd.agents:
+        free_space = [x for x in range(N) if x not in fixed_domain]
+        random_domain = np.random.choice(free_space)
+        agent.generalist_domain = fixed_domain.copy()
+        agent.generalist_domain.append(random_domain)
+        agent.cog_state = agent.state_2_cog_state(state=agent.state)
+        agent.cog_fitness = agent.get_cog_fitness(cog_state=agent.cog_state, state=agent.state)
+        agent.crowd = crowd
         for _ in range(search_iteration):
-            generalist.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
-        performance_across_agent_time.append(generalist.fitness_across_time)
-        cog_performance_across_agent_time.append(generalist.cog_fitness_across_time)
+            agent.feedback_search(roll_back_ratio=0.5, roll_forward_ratio=0.5)
+        performance_across_agent_time.append(agent.fitness_across_time)
+        cog_performance_across_agent_time.append(agent.cog_fitness_across_time)
 
     performance_across_time = []
     cog_performance_across_time = []
