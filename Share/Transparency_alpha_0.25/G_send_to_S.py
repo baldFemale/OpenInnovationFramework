@@ -17,61 +17,70 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-    performance_across_agent_time = []
-    cog_performance_across_agent_time = []
-    # Sharing Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+    # Transparent Crowd
+    crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+                           generalist_expertise=0, specialist_expertise=12, label="S")
+    crowd_g = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
-    for agent in crowd.agents:
-        for _ in range(search_iteration):
-            agent.search()
-    solution_list = [agent.state.copy() for agent in crowd.agents]
-    for agent_index in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
-        specialist.state = solution_list[agent_index]
-        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state, cog_state=specialist.cog_state)
-        specialist.fitness = specialist.landscape.query_second_fitness(state=specialist.state)
-        for _ in range(search_iteration):
-            specialist.search()
-        performance_across_agent_time.append(specialist.fitness_across_time)
-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+    crowd_s.share_prob = 1
+    crowd_s.lr = 1
+    crowd_g.share_prob = 1
+    crowd_g.lr = 1
+    for _ in range(search_iteration):
+        crowd_s.search()
+        crowd_g.search()
+        # S share a pool to G
+        # crowd_s.get_shared_pool()
+        # s_pool = crowd_s.solution_pool.copy()
+        # crowd_g.solution_pool = s_pool
+        # crowd_g.learn_from_shared_pool()
+        # G share a pool to S
+        crowd_g.get_shared_pool()
+        g_pool = crowd_g.solution_pool.copy()
+        crowd_s.solution_pool = g_pool
+        crowd_s.learn_from_shared_pool()
 
-    performance_across_time = []
-    cog_performance_across_time = []
-    variance_across_time = []
-    for period in range(search_iteration):
-        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
-        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
-        performance_across_time.append(sum(temp_1) / len(temp_1))
-
-        cog_performance_across_time.append(sum(temp_2) / len(temp_2))
-        variance_across_time.append(np.std(temp_1))
-    return_dict[loop] = [performance_across_time, cog_performance_across_time, variance_across_time]
+    performance_list = [agent.fitness for agent in crowd_s.agents]  # !!!!!
+    average_performance = sum(performance_list) / len(performance_list)
+    best_performance = max(performance_list)
+    variance = np.std(performance_list)
+    domain_solution_dict = {}
+    for agent in crowd_s.agents:  # !!!!!
+        domains = agent.specialist_domain.copy()  # !!!!!
+        domains.sort()
+        domain_str = "".join([str(i) for i in domains])
+        solution_str = [agent.cog_state[index] for index in domains]
+        solution_str = "".join(solution_str)
+        if domain_str not in domain_solution_dict.keys():
+            domain_solution_dict[domain_str] = [solution_str]
+        else:
+            if solution_str not in domain_solution_dict[domain_str]:
+                domain_solution_dict[domain_str].append(solution_str)
+    diversity = 0
+    for index, value in domain_solution_dict.items():
+        diversity += len(value)
+    diversity /= agent_num
+    return_dict[loop] = [average_performance, best_performance, variance, diversity]
     sema.release()
 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
-    agent_num = 100
+    landscape_iteration = 200
+    agent_num = 500
     search_iteration = 200
     N = 9
     state_num = 4
-    specialist_expertise = 12
-    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     # DVs
-    performance_across_K = []
+    ave_performance_across_K = []
+    best_performance_across_K = []
     variance_across_K = []
-
-    performance_across_K_time = []
-    cog_performance_across_K_time = []
-    variance_across_K_time = []
+    diversity_across_K = []
     for K in K_list:
         manager = mp.Manager()
         return_dict = manager.dict()
@@ -79,53 +88,33 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
-                                              agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, state_num, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
             proc.join()
         returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-        temp_fitness_time, temp_cog_time, temp_var_time = [], [], []
-        temp_fitness, temp_cog, temp_var = [], [], []
-        for result in returns:  # 50 landscape repetitions
-            temp_fitness_time.append(result[0])
-            temp_cog_time.append(result[1])
-            temp_var_time.append(result[2])
+        temp_ave_performance, temp_best_performance, temp_variance, temp_diversity = [], [], [], []
+        for result in returns:  # 200 landscape repetitions
+            temp_ave_performance.append(result[0])
+            temp_best_performance.append(result[1])
+            temp_variance.append(result[2])
+            temp_diversity.append(result[3])
 
-            temp_fitness.append(result[0][-1])
-            temp_cog.append(result[1][-1])
-            temp_var.append(result[2][-1])
+        ave_performance_across_K.append(sum(temp_ave_performance) / len(temp_ave_performance))
+        best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
+        variance_across_K.append(sum(temp_variance) / len(temp_variance))
+        diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
-        performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
-        variance_across_K.append(sum(temp_var) / len(temp_var))
-
-        performance_across_time = []
-        cog_performance_across_time = []
-        variance_across_time = []
-        for period in range(search_iteration):
-            temp_1 = [performance_list[period] for performance_list in temp_fitness_time]
-            performance_across_time.append(sum(temp_1) / len(temp_1))
-            temp_2 = [performance_list[period] for performance_list in temp_cog_time]
-            cog_performance_across_time.append(sum(temp_2) / len(temp_2))
-            temp_3 = [performance_list[period] for performance_list in temp_var_time]
-            variance_across_time.append(sum(temp_3) / len(temp_3))
-        performance_across_K_time.append(performance_across_time)
-        cog_performance_across_K_time.append(cog_performance_across_time)
-        variance_across_K_time.append(variance_across_time)
-    # remove time dimension
-    with open("gs_performance_across_K", 'wb') as out_file:
-        pickle.dump(performance_across_K, out_file)
+    with open("gs_ave_performance_across_K", 'wb') as out_file:
+        pickle.dump(ave_performance_across_K, out_file)
+    with open("gs_best_performance_across_K", 'wb') as out_file:
+        pickle.dump(best_performance_across_K, out_file)
     with open("gs_variance_across_K", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    # retain time dimension
-    with open("gs_performance_across_K_time", 'wb') as out_file:
-        pickle.dump(performance_across_K_time, out_file)
-    with open("gs_cog_performance_across_K_time", 'wb') as out_file:
-        pickle.dump(cog_performance_across_K_time, out_file)
-    with open("gs_variance_across_K_time", 'wb') as out_file:
-        pickle.dump(variance_across_K_time, out_file)
+    with open("gs_diversity_across_K", 'wb') as out_file:
+        pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

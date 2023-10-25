@@ -21,7 +21,7 @@ def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, 
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     # Transparent Crowd
-    crowd = Crowd(N=N, agent_num=2 * agent_num, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     crowd.share_prob = 1
     crowd.lr = 1
@@ -48,6 +48,7 @@ def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, 
     diversity = 0
     for index, value in domain_solution_dict.items():
         diversity += len(value)
+    diversity /= agent_num
     return_dict[loop] = [average_performance, best_performance, variance, diversity]
     sema.release()
 
