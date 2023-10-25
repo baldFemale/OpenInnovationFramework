@@ -60,7 +60,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.35, 0.45, 0.50]
+    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     concurrency = 40
     # DVs
     ave_performance_across_K = []
