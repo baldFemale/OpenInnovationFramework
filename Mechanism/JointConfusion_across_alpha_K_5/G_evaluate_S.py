@@ -53,15 +53,14 @@ if __name__ == '__main__':
     concurrency = 40
     # DVs
     joint_confusion_across_K = []
-    for K in K_list:
+    for alpha in alpha_list:
         manager = mp.Manager()
         return_dict = manager.dict()
         sema = Semaphore(concurrency)
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
-                                              agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, alpha, state_num, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -75,8 +74,8 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("gs_joint_confusion_across_K", 'wb') as out_file:
+    with open("gs_joint_confusion_across_alpha", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
-    print("Evaluating GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

@@ -56,7 +56,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Baseline/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/EvaluatingWhen/Test_SS_K0" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_by_Chance" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/Discrete_MutualClimb_with_Fitness" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Baseline/Parallel_Search_Align_Domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CrowdInteraction" isTestSource="false" />
@@ -74,8 +73,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Evaluation/RollforwardTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Evaluation/Rollforward_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/LessIsEnough_NotHomo" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_alpha_K_5" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualClimb_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/EarlySharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/LateSharing" isTestSource="false" />
