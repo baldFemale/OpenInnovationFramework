@@ -19,10 +19,10 @@ import pickle
 # mp version
 def func(N=None, alpha=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=5, state_num=state_num, alpha=alpha)
+    landscape = Landscape(N=N, K=8, state_num=state_num, alpha=alpha)
     # Transparent Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     crowd.share_prob = 1
     crowd.lr = 1
     for _ in range(search_iteration):
@@ -35,7 +35,7 @@ def func(N=None, alpha=None, state_num=None, agent_num=None, search_iteration=No
     variance = np.std(performance_list)
     domain_solution_dict = {}
     for agent in crowd.agents:
-        domains = agent.specialist_domain.copy()  # !!!!!
+        domains = agent.generalist_domain.copy()  # !!!!!
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
         solution_str = [agent.cog_state[index] for index in domains]
@@ -93,14 +93,14 @@ if __name__ == '__main__':
         variance_across_K.append(sum(temp_variance) / len(temp_variance))
         diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
-    with open("ss_ave_performance_across_alpha", 'wb') as out_file:
+    with open("gg_ave_performance_across_alpha", 'wb') as out_file:
         pickle.dump(ave_performance_across_K, out_file)
-    with open("ss_best_performance_across_alpha", 'wb') as out_file:
+    with open("gg_best_performance_across_alpha", 'wb') as out_file:
         pickle.dump(best_performance_across_K, out_file)
-    with open("ss_variance_across_alpha", 'wb') as out_file:
+    with open("gg_variance_across_alpha", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("ss_diversity_across_alpha", 'wb') as out_file:
+    with open("gg_diversity_across_alpha", 'wb') as out_file:
         pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
-    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
