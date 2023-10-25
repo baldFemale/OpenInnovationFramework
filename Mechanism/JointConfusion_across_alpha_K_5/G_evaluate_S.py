@@ -21,21 +21,21 @@ def func(N=None, alpha=None, state_num=None, agent_num=None,
     np.random.seed(None)
     landscape = Landscape(N=N, K=5, state_num=state_num, alpha=alpha)
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=500, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     joint_confusion_rate_list = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=12)
         for _ in range(search_iteration):
-            generalist.search()
+            specialist.search()
         # Joint local optima
-        reached_solution = generalist.state.copy()
+        reached_solution = specialist.state
         count = 0
         for agent in crowd.agents:
             if landscape.query_second_fitness(state=reached_solution) < 1:
                 if agent.is_local_optima(state=reached_solution):
                     count += 1
-        joint_confusion_rate = count / 500
+        joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
     return_dict[loop] = [final_joint_confusion_rate]
@@ -53,14 +53,15 @@ if __name__ == '__main__':
     concurrency = 40
     # DVs
     joint_confusion_across_K = []
-    for alpha in alpha_list:
+    for K in K_list:
         manager = mp.Manager()
         return_dict = manager.dict()
         sema = Semaphore(concurrency)
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, alpha, state_num, agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
+                                              agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -74,9 +75,8 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("gg_joint_confusion_across_alpha", 'wb') as out_file:
+    with open("gs_joint_confusion_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
+
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
+    print("Evaluating GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
