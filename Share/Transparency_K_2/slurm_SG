@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=0.35alpha_6
+#SBATCH --job-name=Transparency_5
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
@@ -8,4 +8,4 @@
 #SBATCH --cpus-per-task=40
 #SBATCH --ntasks=1
 #SBATCH --exclude=xcng[0-1]
-srun python S_send_to_S.py
+srun python S_send_to_G.py

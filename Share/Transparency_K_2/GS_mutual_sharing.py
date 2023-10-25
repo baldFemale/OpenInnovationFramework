@@ -19,7 +19,7 @@ import pickle
 # mp version
 def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.35)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.10)
     # Transparent Crowd
     crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
@@ -32,18 +32,18 @@ def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, 
     for _ in range(search_iteration):
         crowd_s.search()
         crowd_g.search()
-        # S share a pool to G
-        # crowd_s.get_shared_pool()
-        # s_pool = crowd_s.solution_pool.copy()
-        # crowd_g.solution_pool = s_pool
-        # crowd_g.learn_from_shared_pool()
-        # G share a pool to S
+        crowd_s.get_shared_pool()
         crowd_g.get_shared_pool()
         g_pool = crowd_g.solution_pool.copy()
+        s_pool = crowd_s.solution_pool.copy()
         crowd_s.solution_pool = g_pool
+        crowd_g.solution_pool = s_pool
         crowd_s.learn_from_shared_pool()
+        crowd_g.learn_from_shared_pool()
 
-    performance_list = [agent.fitness for agent in crowd_s.agents]  # !!!!!
+    performance_list_1 = [agent.fitness for agent in crowd_s.agents]  # !!!!!
+    performance_list_2 = [agent.fitness for agent in crowd_g.agents]  # !!!!!
+    performance_list = performance_list_1 + performance_list_2
     average_performance = sum(performance_list) / len(performance_list)
     best_performance = max(performance_list)
     variance = np.std(performance_list)
@@ -59,10 +59,22 @@ def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, 
         else:
             if solution_str not in domain_solution_dict[domain_str]:
                 domain_solution_dict[domain_str].append(solution_str)
+
+    for agent in crowd_g.agents:  # !!!!!
+        domains = agent.generalist_domain.copy()  # !!!!!
+        domains.sort()
+        domain_str = "".join([str(i) for i in domains])
+        solution_str = [agent.cog_state[index] for index in domains]
+        solution_str = "".join(solution_str)
+        if domain_str not in domain_solution_dict.keys():
+            domain_solution_dict[domain_str] = [solution_str]
+        else:
+            if solution_str not in domain_solution_dict[domain_str]:
+                domain_solution_dict[domain_str].append(solution_str)
     diversity = 0
     for index, value in domain_solution_dict.items():
         diversity += len(value)
-    diversity /= agent_num
+    diversity /= (agent_num * 2)
     return_dict[loop] = [average_performance, best_performance, variance, diversity]
     sema.release()
 

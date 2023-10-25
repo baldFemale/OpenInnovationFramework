@@ -19,7 +19,7 @@ import pickle
 # mp version
 def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.35)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.10)
     # Transparent Crowd
     crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
