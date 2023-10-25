@@ -21,7 +21,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=500, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=state_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     joint_confusion_rate_list = []
     for _ in range(agent_num):
@@ -35,7 +35,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
             if landscape.query_second_fitness(state=reached_solution) < 1:
                 if agent.is_local_optima(state=reached_solution):
                     count += 1
-        joint_confusion_rate = count / 500
+        joint_confusion_rate = count / state_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
     return_dict[loop] = [final_joint_confusion_rate]
@@ -45,7 +45,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
 if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
-    agent_num = 100
+    agent_num = 500
     search_iteration = 200
     N = 9
     state_num = 4
