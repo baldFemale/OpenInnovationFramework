@@ -16,26 +16,26 @@ import pickle
 
 
 # mp version
-def func(N=None, alpha=None, state_num=None, agent_num=None,
+def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=2, state_num=state_num, alpha=alpha)
+    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.1)
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=state_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     joint_confusion_rate_list = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
+        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
             generalist.search()
         # Joint local optima
-        reached_solution = generalist.state.copy()
+        reached_solution = generalist.state
         count = 0
         for agent in crowd.agents:
             if landscape.query_second_fitness(state=reached_solution) < 1:
                 if agent.is_local_optima(state=reached_solution):
                     count += 1
-        joint_confusion_rate = count / agent_num
+        joint_confusion_rate = count / state_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
     return_dict[loop] = [final_joint_confusion_rate]
@@ -45,22 +45,25 @@ def func(N=None, alpha=None, state_num=None, agent_num=None,
 if __name__ == '__main__':
     t0 = time.time()
     landscape_iteration = 400
-    agent_num = 1000
+    agent_num = 500
     search_iteration = 200
     N = 9
     state_num = 4
-    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
+    generalist_expertise = 12
+    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     # DVs
     joint_confusion_across_K = []
-    for alpha in alpha_list:
+    for K in K_list:
         manager = mp.Manager()
         return_dict = manager.dict()
         sema = Semaphore(concurrency)
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, alpha, state_num, agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
+                                              agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -74,9 +77,9 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("gg_joint_confusion_across_alpha", 'wb') as out_file:
+    with open("gg_joint_confusion_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Evaluating GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
 

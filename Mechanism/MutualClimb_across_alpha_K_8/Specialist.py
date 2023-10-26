@@ -196,7 +196,7 @@ class Specialist:
         :return:
         """
         neighbor_states = []
-        for index in range(self.N):
+        for index in self.specialist_domain:
             for bit in ["0", "1", "2", "3"]:
                 new_state = state.copy()
                 if bit != state[index]:
