@@ -6,6 +6,7 @@
 # Observing PEP 8 coding style
 from Generalist import Generalist
 from Specialist import Specialist
+import numpy as np
 
 
 class Crowd:
@@ -13,6 +14,8 @@ class Crowd:
                  landscape: object, state_num: int, label: str):
         self.agent_num = agent_num
         self.agents = []
+        self.share_prob = 1
+        self.lr = 1
         for _ in range(agent_num):
             if label == "G":
                 agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
@@ -20,7 +23,57 @@ class Crowd:
             elif label == "S":
                 agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
-        self.solutions = []
+        self.solution_pool = []
+
+    def search(self):
+        for agent in self.agents:
+            agent.search()
+
+    def get_shared_pool(self):
+        self.solution_pool = []  # reset the solution pool
+        if self.share_prob == 1:
+            for agent in self.agents:
+                expertise = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                partial_solution = [agent.state[index] for index in expertise]
+                self.solution_pool.append([expertise, partial_solution])
+        else:
+            for agent in self.agents:
+                if np.random.uniform(0, 1) < self.share_prob:
+                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                    partial_solution = [agent.state[index] for index in domains]
+                    self.solution_pool.append([domains, partial_solution])
+        np.random.shuffle(self.solution_pool)  # shuffle the order
+
+    def learn_from_shared_pool(self):
+        if self.lr < 1:
+            for agent in self.agents:
+                if np.random.uniform(0, 1) < self.lr:  # some agents are willing to learn
+                    for domains, solution in self.solution_pool:
+                        learnt_solution = agent.state.copy()
+                        for domain, bit in zip(domains, solution):
+                            learnt_solution[domain] = bit
+                        cog_solution = agent.state_2_cog_state(state=learnt_solution)
+                        perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
+                        if perception > agent.cog_fitness:
+                            agent.state = solution
+                            agent.cog_state = cog_solution
+                            agent.cog_fitness = perception
+                            agent.fitness = agent.landscape.query_second_fitness(state=solution)
+                            break
+        else:  # agents always are willing to learn
+            for agent in self.agents:
+                for domains, solution in self.solution_pool:
+                    learnt_solution = agent.state.copy()
+                    for domain, bit in zip(domains, solution):
+                        learnt_solution[domain] = bit
+                    cog_solution = agent.state_2_cog_state(state=learnt_solution)
+                    perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
+                    if perception > agent.cog_fitness:
+                        agent.state = learnt_solution
+                        agent.cog_state = cog_solution
+                        agent.cog_fitness = perception
+                        agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
+                        break
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
         opinions = [agent.public_evaluate(cur_state=cur_state,

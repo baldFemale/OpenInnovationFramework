@@ -69,10 +69,10 @@ class Crowd:
                     cog_solution = agent.state_2_cog_state(state=learnt_solution)
                     perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
                     if perception > agent.cog_fitness:
-                        agent.state = solution
+                        agent.state = learnt_solution
                         agent.cog_state = cog_solution
                         agent.cog_fitness = perception
-                        agent.fitness = agent.landscape.query_second_fitness(state=solution)
+                        agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
                         break
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
