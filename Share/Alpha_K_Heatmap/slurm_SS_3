@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=DepthComplexity6
+#SBATCH --job-name=share_3
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=40
+#SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
 #SBATCH --exclude=xcng[0-1]
-srun python S_send_to_S.py
+srun python S_send_to_S_3.py

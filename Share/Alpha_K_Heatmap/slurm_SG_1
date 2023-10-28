@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=DepthComplexity4
+#SBATCH --job-name=alphaK_1
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
@@ -8,4 +8,4 @@
 #SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
 #SBATCH --exclude=xcng[0-1]
-srun python GS_exchange_sharing.py
+srun python S_send_to_G_1.py
