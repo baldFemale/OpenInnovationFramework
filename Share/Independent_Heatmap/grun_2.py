@@ -33,8 +33,8 @@ def func(N=None, K=None, alpha=None, expertise_amount=None, agent_num=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
-    agent_num = 100
+    landscape_iteration = 200
+    agent_num = 500
     search_iteration = 200
     N = 9
     expertise_amount = 12   # Equal Expertise
