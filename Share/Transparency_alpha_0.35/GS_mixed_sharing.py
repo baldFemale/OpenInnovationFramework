@@ -17,9 +17,9 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, alpha=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.35)
+    landscape = Landscape(N=N, K=8, state_num=state_num, alpha=alpha)
     # Transparent Crowd
     crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
@@ -29,6 +29,7 @@ def func(N=None, K=None, state_num=None, agent_num=None, search_iteration=None, 
     crowd_s.lr = 1
     crowd_g.share_prob = 1
     crowd_g.lr = 1
+    # Do not differentiate G from S; Form a mixed pool
     for _ in range(search_iteration):
         crowd_s.search()
         crowd_g.search()
@@ -86,21 +87,21 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     state_num = 4
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     concurrency = 40
     # DVs
     ave_performance_across_K = []
     best_performance_across_K = []
     variance_across_K = []
     diversity_across_K = []
-    for K in K_list:
+    for alpha in alpha_list:
         manager = mp.Manager()
         return_dict = manager.dict()
         sema = Semaphore(concurrency)
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, alpha, state_num, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -119,14 +120,14 @@ if __name__ == '__main__':
         variance_across_K.append(sum(temp_variance) / len(temp_variance))
         diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
-    with open("gs_ave_performance_across_K", 'wb') as out_file:
+    with open("mixed_gs_ave_performance_across_alpha", 'wb') as out_file:
         pickle.dump(ave_performance_across_K, out_file)
-    with open("gs_best_performance_across_K", 'wb') as out_file:
+    with open("mixed_gs_best_performance_across_alpha", 'wb') as out_file:
         pickle.dump(best_performance_across_K, out_file)
-    with open("gs_variance_across_K", 'wb') as out_file:
+    with open("mixed_gs_variance_across_alpha", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("gs_diversity_across_K", 'wb') as out_file:
+    with open("mixed_gs_diversity_across_alpha", 'wb') as out_file:
         pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
-    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Mixed GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

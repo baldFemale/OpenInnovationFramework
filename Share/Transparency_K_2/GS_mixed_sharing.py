@@ -19,7 +19,7 @@ import pickle
 # mp version
 def func(N=None, alpha=None, state_num=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=2, state_num=state_num, alpha=alpha)
+    landscape = Landscape(N=N, K=8, state_num=state_num, alpha=alpha)
     # Transparent Crowd
     crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=0, specialist_expertise=12, label="S")
@@ -29,6 +29,7 @@ def func(N=None, alpha=None, state_num=None, agent_num=None, search_iteration=No
     crowd_s.lr = 1
     crowd_g.share_prob = 1
     crowd_g.lr = 1
+    # Do not differentiate G from S; Form a mixed pool
     for _ in range(search_iteration):
         crowd_s.search()
         crowd_g.search()
@@ -119,14 +120,14 @@ if __name__ == '__main__':
         variance_across_K.append(sum(temp_variance) / len(temp_variance))
         diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
-    with open("gs_ave_performance_across_alpha", 'wb') as out_file:
+    with open("mixed_gs_ave_performance_across_alpha", 'wb') as out_file:
         pickle.dump(ave_performance_across_K, out_file)
-    with open("gs_best_performance_across_alpha", 'wb') as out_file:
+    with open("mixed_gs_best_performance_across_alpha", 'wb') as out_file:
         pickle.dump(best_performance_across_K, out_file)
-    with open("gs_variance_across_alpha", 'wb') as out_file:
+    with open("mixed_gs_variance_across_alpha", 'wb') as out_file:
         pickle.dump(variance_across_K, out_file)
-    with open("gs_diversity_across_alpha", 'wb') as out_file:
+    with open("mixed_gs_diversity_across_alpha", 'wb') as out_file:
         pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
-    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Mixed GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
