@@ -30,7 +30,7 @@ class Generalist:
         self.cog_state = self.state_2_cog_state(state=self.state)
         self.cog_fitness = self.get_cog_fitness(cog_state=self.cog_state, state=self.state)
         self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.cog_fitness_across_time, self.fitness_across_time = [self.cog_fitness], [self.fitness]
+        # self.cog_fitness_across_time, self.fitness_across_time = [self.cog_fitness], [self.fitness]
         self.cog_cache = {}
 
     def get_cog_fitness(self, cog_state: list, state: list) -> float:
@@ -57,8 +57,9 @@ class Generalist:
             self.cog_state = next_cog_state
             self.cog_fitness = next_cog_fitness
             self.fitness = self.landscape.query_second_fitness(state=self.state)
-        self.fitness_across_time.append(self.fitness)
-        self.cog_fitness_across_time.append(self.cog_fitness)
+        # reduce the computing
+        # self.fitness_across_time.append(self.fitness)
+        # self.cog_fitness_across_time.append(self.cog_fitness)
 
     def feedback_search(self, roll_back_ratio: float, roll_forward_ratio: float) -> None:
         next_state = self.state.copy()
