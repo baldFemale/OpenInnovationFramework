@@ -103,7 +103,7 @@ class Specialist:
         For Full G, it perceives the real fitness in the shallow landscape
         Similarly, for Full S, it also perceives the real fitness in the deep landscape
         :param state: the real state
-        :return: the cognitive state is only a state with unknown shelter
+        :return: the cognitive state for S is only a state with unknown shelter
         """
         cog_state = state.copy()
         for index, bit_value in enumerate(state):
@@ -117,7 +117,7 @@ class Specialist:
         """
         For Full G, it perceives the real fitness in the shallow landscape
         Similarly, for Full S, it also perceives the real fitness in the deep landscape
-        :param state: the real state
+        :param cog_state:
         :return: "0213" -> "AB**"
         """
         state = []
@@ -151,7 +151,7 @@ class Specialist:
 
     def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
         """
-        With additional "*" shelter due to inexplicit expression and acquisition
+        With additional "*" shelter due to inexplicit expression and acquisition of solutions
         """
         aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
         # aligned as the S cog_state: only has "0123", and "*"
@@ -189,14 +189,14 @@ class Specialist:
 
     def is_local_optima(self, state: list) -> bool:
         """
-        This is for joint confusin vs. mutual climb mechanism
+        This is for joint confusion vs. mutual climb mechanism
         For simplification, we only consider the public evaluation mode
         The ambiguity in expression/acquisition is neglected
         :param state:
         :return:
         """
         neighbor_states = []
-        for index in self.specialist_domain:
+        for index in range(self.N):
             for bit in ["0", "1", "2", "3"]:
                 new_state = state.copy()
                 if bit != state[index]:
