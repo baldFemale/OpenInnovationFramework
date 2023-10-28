@@ -84,6 +84,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Share" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Alpha_K_Heatmap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/EarlySharing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Share/Independent_Heatmap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/LateSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/MiddleSharing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/ProbToSharing" isTestSource="false" />
