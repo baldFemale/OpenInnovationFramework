@@ -74,8 +74,6 @@ if __name__ == '__main__':
     landscape_iteration = 400
     search_iteration = 200
     N = 9
-    state_num = 4
-    generalist_expertise = 12
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     agent_num_list = np.arange(50, 400, step=50, dtype=int).tolist()
     concurrency = 40

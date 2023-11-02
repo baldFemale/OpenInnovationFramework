@@ -17,45 +17,45 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-    # Sharing Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    # Transparent Crowd
+    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=0, specialist_expertise=12, label="G")
+    crowd.share_prob = 1
+    crowd.lr = 1
+    for _ in range(search_iteration):
+        crowd.search()
+        crowd.get_shared_pool()
+        crowd.learn_from_shared_pool()
+    performance_list = [agent.fitness for agent in crowd.agents]
+    average_performance = sum(performance_list) / len(performance_list)
+    best_performance = max(performance_list)
+    variance = np.std(performance_list)
+    domain_list = []
     for agent in crowd.agents:
-        for _ in range(search_iteration):
-            agent.search()
-    solution_list = [agent.state.copy() for agent in crowd.agents]
-    converged_performance_list = []
-    domain_solution_dict = {}
-    for agent_index in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
-        specialist.state = solution_list[agent_index]
-        specialist.cog_fitness = specialist.get_cog_fitness(state=specialist.state, cog_state=specialist.cog_state)
-        specialist.fitness = specialist.landscape.query_second_fitness(state=specialist.state)
-        for _ in range(search_iteration):
-            specialist.search()
-        converged_performance_list.append(specialist.fitness)
-
-        domains = specialist.specialist_domain.copy()
+        domains = agent.specialist_domain.copy()  # !!!!
         domains.sort()
-        domain_str = "".join([str(i) for i in domains])
-        solution_str = [specialist.cog_state[index] for index in domains]
-        solution_str = "".join(solution_str)
-        if domain_str not in domain_solution_dict.keys():
-            domain_solution_dict[domain_str] = [solution_str]
-        else:
-            if solution_str not in domain_solution_dict[domain_str]:
-                domain_solution_dict[domain_str].append(solution_str)
-    partial_unique_diversity = 0
-    for key, value in domain_solution_dict.items():
-        partial_unique_diversity += len(value)
-    average_performance = sum(converged_performance_list) / len(converged_performance_list)
-    best_performance = max(converged_performance_list)
-    variance = np.std(converged_performance_list)
-    return_dict[loop] = [average_performance, variance, best_performance, partial_unique_diversity]
+        if domains not in domain_list:
+            domain_list.append(domains)
+    solution_dict = {}
+    for agent in crowd.agents:
+        for domains in domain_list:
+            domain_str = "".join(domains)
+            # Using state as to solution diversity
+            solution_str = [agent.state[index] for index in domains]
+            solution_str = "".join(solution_str)
+            if domain_str not in solution_dict.keys():
+                solution_dict[domain_str] = [solution_str]
+            else:
+                if solution_str not in solution_dict[domain_str]:
+                    solution_dict[domain_str].append(solution_str)
+
+    partitioned_diversity = 0
+    for value in solution_dict.values():
+        partitioned_diversity += len(value)
+    return_dict[loop] = [average_performance, best_performance, variance, partitioned_diversity]
     sema.release()
 
 
@@ -64,12 +64,9 @@ if __name__ == '__main__':
     landscape_iteration = 400
     search_iteration = 200
     N = 9
-    state_num = 4
-    specialist_expertise = 12
-    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(1200, 1600, step=50, dtype=int).tolist()
-    concurrency = 40
+    agent_num_list = np.arange(50, 400, step=50, dtype=int).tolist()
+    concurrency = 50
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []
@@ -83,8 +80,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
-                                                  agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
