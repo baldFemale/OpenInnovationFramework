@@ -35,9 +35,7 @@ def func(N=None, K=None, state_num=None, agent_num=None,
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
                 climbs = specialist.suggest_better_state_from_expertise(state=each_suggestion)
-                if len(climbs) > 0:
-                    count += 1
-                    break
+                count += len(climbs)
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)

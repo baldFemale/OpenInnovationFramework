@@ -22,22 +22,20 @@ def func(N=None, K=None, state_num=None, agent_num=None,
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     mutual_climb_rate_list = []
     for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
+        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=12)
         for _ in range(search_iteration):
-            generalist.search()
+            specialist.search()
         # Mutual Climb
-        reached_solution = generalist.state.copy()
+        reached_solution = specialist.state.copy()
         count = 0
         for agent in crowd.agents:
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
-                climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
-                if len(climbs) > 0:
-                    count += 1
-                    break
+                climbs = specialist.suggest_better_state_from_expertise(state=each_suggestion)
+                count += len(climbs)
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
@@ -77,10 +75,8 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("gg_mutual_climb_across_K", 'wb') as out_file:
+    with open("ss_mutual_climb_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
+    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

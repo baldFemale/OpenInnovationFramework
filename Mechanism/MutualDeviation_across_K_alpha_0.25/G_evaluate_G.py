@@ -22,7 +22,7 @@ def func(N=None, K=None, state_num=None, agent_num=None,
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     mutual_climb_rate_list = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
@@ -35,9 +35,7 @@ def func(N=None, K=None, state_num=None, agent_num=None,
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
                 climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
-                if len(climbs) > 0:
-                    count += 1
-                    break
+                count += len(climbs)
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
@@ -77,8 +75,10 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("sg_mutual_climb_across_K", 'wb') as out_file:
+    with open("gg_mutual_climb_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
-    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+
+
