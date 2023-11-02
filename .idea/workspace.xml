@@ -8,9 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_S_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/G_send_to_S_4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/LessIsEnough_NotHomo/S_send_to_G_4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -366,7 +369,7 @@
       <workItem from="1697787069414" duration="14055000" />
       <workItem from="1697885846482" duration="10236000" />
       <workItem from="1697979790985" duration="47532000" />
-      <workItem from="1698577699313" duration="19847000" />
+      <workItem from="1698577699313" duration="20107000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -711,7 +714,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="409" />
+    <option name="localTasksCounter" value="410" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

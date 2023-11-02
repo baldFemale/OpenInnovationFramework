@@ -49,7 +49,7 @@ def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sem
     variance = np.std(performance_list)
     # Calculate the diversity indicator
     domain_list = []
-    for agent in crowd_s.agents:
+    for agent in crowd_s.agents:  # !!!!
         domains = agent.specialist_domain.copy()  # !!!!
         domains.sort()
         if domains not in domain_list:

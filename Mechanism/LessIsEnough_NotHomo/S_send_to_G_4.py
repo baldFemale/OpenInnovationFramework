@@ -17,45 +17,59 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-    # Sharing Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    # Transparent Crowd
+    crowd_s = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    for agent in crowd.agents:
-        for _ in range(search_iteration):
-            agent.search()
-    solution_list = [agent.state.copy() for agent in crowd.agents]
-    converged_performance_list = []
-    domain_solution_dict = {}
-    for agent_index in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
-        generalist.state = solution_list[agent_index]
-        generalist.cog_fitness = generalist.get_cog_fitness(state=generalist.state, cog_state=generalist.cog_state)
-        generalist.fitness = generalist.landscape.query_second_fitness(state=generalist.state)
-        for _ in range(search_iteration):
-            generalist.search()
-        converged_performance_list.append(generalist.fitness)
+    crowd_g = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=12, specialist_expertise=0, label="G")
+    crowd_s.share_prob = 1
+    crowd_s.lr = 1
+    crowd_g.share_prob = 1
+    crowd_g.lr = 1
+    for _ in range(search_iteration):
+        crowd_s.search()
+        crowd_g.search()
+        # S share a pool to G
+        crowd_s.get_shared_pool()
+        s_pool = crowd_s.solution_pool.copy()
+        crowd_g.solution_pool = s_pool
+        crowd_g.learn_from_shared_pool()
+        # G share a pool to S
+        # crowd_g.get_shared_pool()
+        # g_pool = crowd_g.solution_pool.copy()
+        # crowd_s.solution_pool = g_pool
+        # crowd_s.learn_from_shared_pool()
 
-        domains = generalist.generalist_domain.copy()
+    performance_list = [agent.fitness for agent in crowd_g.agents]  # !!!!!
+    average_performance = sum(performance_list) / len(performance_list)
+    best_performance = max(performance_list)
+    variance = np.std(performance_list)
+    # Calculate the diversity indicator
+    domain_list = []
+    for agent in crowd_g.agents:  # !!!!
+        domains = agent.generalist_domain.copy()  # !!!!
         domains.sort()
-        domain_str = "".join([str(i) for i in domains])
-        solution_str = [generalist.cog_state[index] for index in domains]
-        solution_str = "".join(solution_str)
-        if domain_str not in domain_solution_dict.keys():
-            domain_solution_dict[domain_str] = [solution_str]
-        else:
-            if solution_str not in domain_solution_dict[domain_str]:
-                domain_solution_dict[domain_str].append(solution_str)
-    partial_unique_diversity = 0
-    for key, value in domain_solution_dict.items():
-        partial_unique_diversity += len(value)
-    average_performance = sum(converged_performance_list) / len(converged_performance_list)
-    best_performance = max(converged_performance_list)
-    variance = np.std(converged_performance_list)
-    return_dict[loop] = [average_performance, variance, best_performance, partial_unique_diversity]
+        if domains not in domain_list:
+            domain_list.append(domains)
+    solution_dict = {}
+    for agent in crowd_g.agents:  # !!!!
+        for domains in domain_list:
+            domain_str = "".join(domains)
+            # Using state as to solution diversity
+            solution_str = [agent.state[index] for index in domains]
+            solution_str = "".join(solution_str)
+            if domain_str not in solution_dict.keys():
+                solution_dict[domain_str] = [solution_str]
+            else:
+                if solution_str not in solution_dict[domain_str]:
+                    solution_dict[domain_str].append(solution_str)
+    partitioned_diversity = 0
+    for value in solution_dict.values():
+        partitioned_diversity += len(value)
+    return_dict[loop] = [average_performance, best_performance, variance, partitioned_diversity]
     sema.release()
 
 
@@ -64,11 +78,8 @@ if __name__ == '__main__':
     landscape_iteration = 400
     search_iteration = 200
     N = 9
-    state_num = 4
-    generalist_expertise = 12
-    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(1200, 1600, step=50, dtype=int).tolist()
+    agent_num_list = np.arange(1200, 1650, step=50, dtype=int).tolist()
     concurrency = 40
     for agent_num in agent_num_list:
         # DVs
@@ -83,15 +94,14 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise,
-                                                  agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            temp_fitness, temp_variance, temp_best_performance, temp_diversity = [], [], [], []
+            temp_fitness, temp_variance, temp_best_performance, temp_cog_diversity, temp_diversity = [], [], [], [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness.append(result[0])
                 temp_variance.append(result[1])
@@ -114,4 +124,4 @@ if __name__ == '__main__':
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
-    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
