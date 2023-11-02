@@ -18,10 +18,6 @@
       <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_4" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SG_4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_4" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/slurm_SS_4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,7 +374,7 @@
       <workItem from="1697885846482" duration="10236000" />
       <workItem from="1697979790985" duration="47532000" />
       <workItem from="1698577699313" duration="20295000" />
-      <workItem from="1698928097543" duration="1148000" />
+      <workItem from="1698928097543" duration="3077000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -723,7 +719,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="412" />
+    <option name="localTasksCounter" value="413" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
