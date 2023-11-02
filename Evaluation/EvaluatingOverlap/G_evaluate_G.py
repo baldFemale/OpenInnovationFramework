@@ -24,7 +24,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
     cog_performance_across_agent_time = []
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12, specialist_expertise=0, label="G",share_prob=0)
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     # fix 5 domains and vary 1 domain
     fixed_domain = np.random.choice(range(N), 5, replace=False).tolist()
     for agent in crowd.agents:
