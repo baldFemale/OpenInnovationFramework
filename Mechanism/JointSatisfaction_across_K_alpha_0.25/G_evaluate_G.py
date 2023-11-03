@@ -32,12 +32,16 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
         # Joint satisfaction
         sender_solution = generalist.state.copy()
         sender_domain = generalist.generalist_domain.copy()
-
         count = 0
         for agent in crowd.agents:
-            if landscape.query_second_fitness(state=reached_solution) < 1:
-                if agent.is_local_optima(state=reached_solution):
-                    count += 1
+            learnt_solution = agent.state.copy()
+            for index in sender_domain:
+                learnt_solution[index] = sender_solution[index]
+            suggestions = agent.suggest_better_state_from_expertise(state=learnt_solution)
+            for each_suggestion in suggestions:
+                climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
+                climbs.remove(reached_solution)
+                count += len(climbs)
         joint_confusion_rate = count / state_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
