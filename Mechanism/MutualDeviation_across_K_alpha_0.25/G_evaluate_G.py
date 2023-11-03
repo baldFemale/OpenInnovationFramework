@@ -75,7 +75,7 @@ if __name__ == '__main__':
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
     # remove time dimension
-    with open("gg_mutual_climb_across_K", 'wb') as out_file:
+    with open("gg_mutual_deviation_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()

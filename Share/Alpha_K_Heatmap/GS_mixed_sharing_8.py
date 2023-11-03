@@ -99,4 +99,4 @@ if __name__ == '__main__':
             pickle.dump(variance_across_K, out_file)
 
     t1 = time.time()
-    print("Mixed GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Mixed GS: ", time.strftime("%d-%H:%M:%S", time.gmtime(t1-t0)))
