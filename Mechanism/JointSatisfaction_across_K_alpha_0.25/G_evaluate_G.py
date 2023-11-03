@@ -20,16 +20,19 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-    # Evaluator Crowd
+    # Sender Crowd
     crowd = Crowd(N=N, agent_num=state_num, landscape=landscape, state_num=state_num,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     joint_confusion_rate_list = []
     for _ in range(agent_num):
+        # Focal Agent
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
             generalist.search()
-        # Joint local optima
-        reached_solution = generalist.state
+        # Joint satisfaction
+        sender_solution = generalist.state.copy()
+        sender_domain = generalist.generalist_domain.copy()
+
         count = 0
         for agent in crowd.agents:
             if landscape.query_second_fitness(state=reached_solution) < 1:

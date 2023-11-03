@@ -25,6 +25,7 @@ def func(N=None, K=None, state_num=None, agent_num=None,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     mutual_climb_rate_list = []
     for _ in range(agent_num):
+        # Focal Agent
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
         for _ in range(search_iteration):
             generalist.search()

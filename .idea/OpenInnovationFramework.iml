@@ -72,7 +72,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Evaluation/RollforwardTrajectory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Evaluation/Rollforward_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_K_alpha_0.10" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_K_alpha_0.35" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_alpha_K_2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_alpha_K_5" isTestSource="false" />
@@ -92,6 +91,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_K_8" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.10" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.25" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MoreThanParallel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />

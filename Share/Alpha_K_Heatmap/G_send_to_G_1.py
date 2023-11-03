@@ -40,7 +40,7 @@ def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 500
     search_iteration = 200
     N = 9

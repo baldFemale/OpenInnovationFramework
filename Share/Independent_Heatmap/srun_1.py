@@ -39,7 +39,7 @@ if __name__ == '__main__':
     N = 9
     expertise_amount = 12   # Equal Expertise
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
-    alpha_list = [0.05, 0.10, 0.15, 0.20]
+    alpha_list = [0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175, 0.20, 0.225]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 50
     for alpha in alpha_list:
@@ -80,6 +80,6 @@ if __name__ == '__main__':
             pickle.dump(variance_across_K, out_file)
 
     t1 = time.time()
-    print("S: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("S: ", time.strftime("%d-%H:%M:%S", time.gmtime(t1-t0)))
 
 
