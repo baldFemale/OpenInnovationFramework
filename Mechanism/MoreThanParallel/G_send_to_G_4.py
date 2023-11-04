@@ -42,8 +42,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     cog_solution_dict, solution_dict = {}, {}
     for agent in crowd.agents:
         for domains in domain_list:
-            domains = [str(i) for i in domains]
-            domain_str = "".join(domains)
+            domain_str = "".join([str(i) for i in domains])
             # Using cog_state as to solution diversity
             cog_solution_str = [agent.cog_state[index] for index in domains]  # remove the additional difference in some-domain G's solution
             cog_solution_str = "".join(cog_solution_str)

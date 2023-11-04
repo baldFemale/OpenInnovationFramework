@@ -17,7 +17,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     # Transparent Crowd
@@ -57,8 +57,7 @@ def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sem
     solution_dict = {}
     for agent in crowd_s.agents:
         for domains in domain_list:
-            domains = [str(i) for i in domains]
-            domain_str = "".join(domains)
+            domain_str = "".join([str(i) for i in domains])
             # Using state as to solution diversity
             solution_str = [agent.state[index] for index in domains]
             solution_str = "".join(solution_str)

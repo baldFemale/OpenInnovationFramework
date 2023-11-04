@@ -42,8 +42,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     solution_dict = {}
     for agent in crowd.agents:
         for domains in domain_list:
-            domains = [str(i) for i in domains]
-            domain_str = "".join(domains)
+            domain_str = "".join([str(i) for i in domains])
             # Using state as to solution diversity
             solution_str = [agent.state[index] for index in domains]
             solution_str = "".join(solution_str)
