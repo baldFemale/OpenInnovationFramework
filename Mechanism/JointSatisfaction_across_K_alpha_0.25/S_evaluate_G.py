@@ -60,7 +60,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 40
+    concurrency = 50
     # DVs
     joint_confusion_across_K = []
     for K in K_list:
