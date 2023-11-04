@@ -57,6 +57,7 @@ def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sem
     solution_dict = {}
     for agent in crowd_s.agents:
         for domains in domain_list:
+            domains = [str(i) for i in domains]
             domain_str = "".join(domains)
             # Using state as to solution diversity
             solution_str = [agent.state[index] for index in domains]
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     agent_num_list = np.arange(800, 1200, step=50, dtype=int).tolist()
-    concurrency = 40
+    concurrency = 100
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []
