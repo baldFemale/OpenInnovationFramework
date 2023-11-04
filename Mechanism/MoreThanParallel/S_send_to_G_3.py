@@ -74,6 +74,9 @@ def func(N=None, K=None, search_iteration=None, loop=None, return_dict=None, sem
 
 
 if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
     landscape_iteration = 200
     search_iteration = 200
@@ -124,4 +127,6 @@ if __name__ == '__main__':
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

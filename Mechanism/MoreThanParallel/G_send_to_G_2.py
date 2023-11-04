@@ -70,6 +70,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
 
 
 if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
     landscape_iteration = 400
     search_iteration = 200
@@ -125,4 +128,6 @@ if __name__ == '__main__':
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
