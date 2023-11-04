@@ -35,7 +35,8 @@ def func(N=None, K=None, state_num=None, agent_num=None,
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
                 climbs = specialist.suggest_better_state_from_expertise(state=each_suggestion)
-                climbs.remove(reached_solution)
+                if reached_solution in climbs:
+                    climbs.remove(reached_solution)
                 count += len(climbs)
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
@@ -52,7 +53,7 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 100
     # DVs
     joint_confusion_across_K = []
     for K in K_list:
