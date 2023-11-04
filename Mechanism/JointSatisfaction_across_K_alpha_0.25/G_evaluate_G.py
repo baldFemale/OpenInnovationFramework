@@ -16,34 +16,32 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
-    # Sender Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+    sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=12, specialist_expertise=0, label="G")
-    for agent in crowd.agents:
+    receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=12, specialist_expertise=0, label="G")
+    for sender in sender_crowd.agents:
         for _ in range(search_iteration):
-            agent.search()
+            sender.search()
+    for receiver in receiver_crowd.agents:
+        for _ in range(search_iteration):
+            receiver.search()
+    # Joint Satisfaction
     joint_confusion_rate_list = []
-    # Receiver Repetition
-    for _ in range(agent_num):
-        # Focal Agent
-        generalist = Generalist(N=N, landscape=landscape, state_num=4, crowd=crowd, generalist_expertise=12)
-        for _ in range(search_iteration):
-            generalist.search()
-        # Joint satisfaction
-        sender_solution = generalist.state.copy()
-        sender_domain = generalist.generalist_domain.copy()
+    for sender in sender_crowd.agents:
+        sender_solution = sender.state.copy()
+        sender_domain = sender.generalist_domain.copy()  # !!!
         count = 0
-        for agent in crowd.agents:
-            learnt_solution = agent.state.copy()
+        for receiver in receiver_crowd.agents:
+            learnt_solution = receiver.state.copy()
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
-            cog_learnt_solution = agent.state_2_cog_state(state=learnt_solution)
-            cog_learnt_fitness = agent.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness > agent.cog_fitness:
+            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
+            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
+            if cog_learnt_fitness > receiver.cog_fitness:
                 count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
@@ -53,6 +51,9 @@ def func(N=None, K=None, agent_num=None,
 
 
 if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
     landscape_iteration = 400
     agent_num = 500
@@ -79,13 +80,10 @@ if __name__ == '__main__':
         temp_joint_confusion = []
         for result in returns:  # 50 landscape repetitions
             temp_joint_confusion.append(result[0])
-
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-
-    # remove time dimension
     with open("gg_joint_satisfaction_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     print("Joint Satisfaction GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-

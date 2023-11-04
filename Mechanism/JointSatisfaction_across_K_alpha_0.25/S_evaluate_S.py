@@ -16,26 +16,34 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
-    # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    joint_confusion_rate_list = []
-    for _ in range(agent_num):
-        specialist = Specialist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, specialist_expertise=specialist_expertise)
+    receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=0, specialist_expertise=12, label="S")
+    for sender in sender_crowd.agents:
         for _ in range(search_iteration):
-            specialist.search()
-        # Joint local optima
-        reached_solution = specialist.state
+            sender.search()
+    for receiver in receiver_crowd.agents:
+        for _ in range(search_iteration):
+            receiver.search()
+    # Joint Satisfaction
+    joint_confusion_rate_list = []
+    for sender in sender_crowd.agents:
+        sender_solution = sender.state.copy()
+        sender_domain = sender.specialist_domain.copy()  # !!!
         count = 0
-        for agent in crowd.agents:
-            if landscape.query_second_fitness(state=reached_solution) < 1:
-                if agent.is_local_optima(state=reached_solution):
-                    count += 1
-        joint_confusion_rate = count / 50
+        for receiver in receiver_crowd.agents:
+            learnt_solution = receiver.state.copy()
+            for index in sender_domain:
+                learnt_solution[index] = sender_solution[index]
+            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
+            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
+            if cog_learnt_fitness > receiver.cog_fitness:
+                count += 1
+        joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
     return_dict[loop] = [final_joint_confusion_rate]
@@ -43,14 +51,14 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
 
 
 if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
     landscape_iteration = 400
-    agent_num = 100
+    agent_num = 500
     search_iteration = 200
     N = 9
-    state_num = 4
-    specialist_expertise = 12
-    # K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 40
     # DVs
@@ -62,8 +70,7 @@ if __name__ == '__main__':
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, specialist_expertise,
-                                              agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:
@@ -73,14 +80,10 @@ if __name__ == '__main__':
         temp_joint_confusion = []
         for result in returns:  # 50 landscape repetitions
             temp_joint_confusion.append(result[0])
-
         joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-
-    # remove time dimension
-    with open("ss_joint_confusion_across_K", 'wb') as out_file:
+    with open("ss_joint_satisfaction_across_K", 'wb') as out_file:
         pickle.dump(joint_confusion_across_K, out_file)
-
     t1 = time.time()
-    print("Evaluating SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    print("Joint Satisfaction SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
