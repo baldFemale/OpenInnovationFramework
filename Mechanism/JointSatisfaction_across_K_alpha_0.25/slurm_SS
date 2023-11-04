@@ -6,6 +6,5 @@
 #SBATCH --mem=100gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=50
-#SBATCH --nodelist=xcng[0-1],xcnf[15-22,24,26-29]
 #SBATCH --ntasks=1
 srun python S_evaluate_S.py
