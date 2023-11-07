@@ -39,6 +39,8 @@ def func(N=None, K=None, state_num=None, agent_num=None,
                 if reached_solution in climbs:
                     climbs.remove(reached_solution)
                 count += len(climbs)
+            if len(suggestions) != 0:
+                count /= len(suggestions)
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
