@@ -41,7 +41,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
                 learnt_solution[index] = sender_solution[index]
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            if cog_learnt_fitness > receiver.cog_fitness:
                 count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 100
     # DVs
     joint_confusion_across_K = []
     for K in K_list:
