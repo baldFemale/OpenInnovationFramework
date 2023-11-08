@@ -16,13 +16,14 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, specialist_expertise=None,
+         search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           specialist_expertise=specialist_expertise, generalist_expertise=0, label="S")
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
@@ -60,29 +61,31 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    specialist_expertise_list = [8, 12, 16, 20, 24, 32, 36]
+    concurrency = 100
     # DVs
-    joint_confusion_across_K = []
-    for K in K_list:
-        manager = mp.Manager()
-        return_dict = manager.dict()
-        sema = Semaphore(concurrency)
-        jobs = []
-        for loop in range(landscape_iteration):
-            sema.acquire()
-            p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
-            jobs.append(p)
-            p.start()
-        for proc in jobs:
-            proc.join()
-        returns = return_dict.values()  # Don't need dict index, since it is repetition.
+    for specialist_expertise in specialist_expertise_list:
+        joint_confusion_across_K = []
+        for K in K_list:
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            sema = Semaphore(concurrency)
+            jobs = []
+            for loop in range(landscape_iteration):
+                sema.acquire()
+                p = mp.Process(target=func, args=(N, K, agent_num, specialist_expertise, search_iteration, loop, return_dict, sema))
+                jobs.append(p)
+                p.start()
+            for proc in jobs:
+                proc.join()
+            returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-        temp_joint_confusion = []
-        for result in returns:  # 50 landscape repetitions
-            temp_joint_confusion.append(result[0])
-        joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-    with open("ss_joint_satisfaction_across_K", 'wb') as out_file:
-        pickle.dump(joint_confusion_across_K, out_file)
+            temp_joint_confusion = []
+            for result in returns:  # 50 landscape repetitions
+                temp_joint_confusion.append(result[0])
+            joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
+        with open("ss_joint_satisfaction_across_K_S_{0}".format(specialist_expertise), 'wb') as out_file:
+            pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))

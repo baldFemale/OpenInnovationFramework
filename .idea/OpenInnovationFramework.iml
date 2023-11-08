@@ -94,6 +94,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_K_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MoreThanParallel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_K_alpha_0.25" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

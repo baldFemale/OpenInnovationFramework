@@ -62,7 +62,7 @@ if __name__ == '__main__':
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     generalist_expertise_list = [10, 12, 14, 16, 18]
-    concurrency = 50
+    concurrency = 100
     # DVs
     for generalist_expertise in generalist_expertise_list:
         joint_confusion_across_K = []
@@ -73,7 +73,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, agent_num, generalist_expertise, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
