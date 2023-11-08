@@ -16,17 +16,17 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, state_num=None, agent_num=None,
+def func(N=None, K=None, agent_num=None, generalist_expertise=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=0.25)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     # Evaluator Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=12, specialist_expertise=0, label="G")
     mutual_climb_rate_list = []
     for _ in range(agent_num):
         # Focal Agent
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd, generalist_expertise=12)
+        generalist = Generalist(N=N, landscape=landscape, state_num=4, crowd=crowd, generalist_expertise=generalist_expertise)
         for _ in range(search_iteration):
             generalist.search()
         # Mutual Climb
