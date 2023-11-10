@@ -1,0 +1,10 @@
+#!/bin/bash
+#SBATCH --time=3-00:00:00
+#SBATCH --job-name=deviation_1
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=junyili@u.nus.edu
+#SBATCH --mem=100gb
+#SBATCH --partition=long
+#SBATCH --cpus-per-task=100
+#SBATCH --ntasks=1
+srun python G_evaluate_G.py
