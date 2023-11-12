@@ -62,7 +62,7 @@ if __name__ == '__main__':
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     generalist_expertise_list = [10, 12, 14, 16, 18]
-    concurrency = 100
+    concurrency = 50
     # DVs
     for generalist_expertise in generalist_expertise_list:
         joint_confusion_across_K = []
