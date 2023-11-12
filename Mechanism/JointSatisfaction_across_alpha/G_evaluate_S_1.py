@@ -16,8 +16,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, alpha=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, alpha=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
@@ -34,7 +33,7 @@ def func(N=None, K=None, agent_num=None, alpha=None,
     joint_confusion_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
-        sender_domain = sender.specialist_domain.copy()  # !!!
+        sender_domain = sender.generalist_domain.copy()  # !!!
         count = 0
         for receiver in receiver_crowd.agents:
             learnt_solution = receiver.state.copy()
@@ -42,7 +41,7 @@ def func(N=None, K=None, agent_num=None, alpha=None,
                 learnt_solution[index] = sender_solution[index]
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness > receiver.cog_fitness:
+            if cog_learnt_fitness >= receiver.cog_fitness:
                 count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
