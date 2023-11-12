@@ -43,14 +43,6 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     for agent in crowd.agents:
         for domains in domain_list:
             domain_str = "".join([str(i) for i in domains])
-            # Using cog_state as to solution diversity
-            cog_solution_str = [agent.cog_state[index] for index in domains]  # remove the additional difference in some-domain G's solution
-            cog_solution_str = "".join(cog_solution_str)
-            if domain_str not in cog_solution_dict.keys():
-                cog_solution_dict[domain_str] = [cog_solution_str]
-            else:
-                if cog_solution_str not in cog_solution_dict[domain_str]:
-                    cog_solution_dict[domain_str].append(cog_solution_str)
             # Using state as to solution diversity
             solution_str = [agent.state[index] for index in domains]
             solution_str = "".join(solution_str)
@@ -59,13 +51,10 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
             else:
                 if solution_str not in solution_dict[domain_str]:
                     solution_dict[domain_str].append(solution_str)
-
-    partitioned_cog_diversity, partitioned_diversity = 0, 0
-    for value in cog_solution_dict.values():
-        partitioned_cog_diversity += len(value)
+    partitioned_diversity = 0
     for value in solution_dict.values():
         partitioned_diversity += len(value)
-    return_dict[loop] = [average_performance, best_performance, variance, partitioned_cog_diversity, partitioned_diversity]
+    return_dict[loop] = [average_performance, best_performance, variance, partitioned_diversity]
     sema.release()
 
 
@@ -101,11 +90,11 @@ if __name__ == '__main__':
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            temp_fitness, temp_variance, temp_best_performance, temp_cog_diversity, temp_diversity = [], [], [], [], []
+            temp_fitness, temp_best_performance, temp_variance, temp_cog_diversity, temp_diversity = [], [], [], [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness.append(result[0])
-                temp_variance.append(result[1])
-                temp_best_performance.append(result[2])
+                temp_best_performance.append(result[1])
+                temp_variance.append(result[2])
                 temp_cog_diversity.append(result[3])
                 temp_diversity.append(result[4])
 

@@ -101,11 +101,11 @@ if __name__ == '__main__':
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            temp_fitness, temp_variance, temp_best_performance, temp_cog_diversity, temp_diversity = [], [], [], [], []
+            temp_fitness, temp_best_performance, temp_variance, temp_cog_diversity, temp_diversity = [], [], [], [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness.append(result[0])
-                temp_variance.append(result[1])
-                temp_best_performance.append(result[2])
+                temp_best_performance.append(result[1])
+                temp_variance.append(result[2])
                 temp_cog_diversity.append(result[3])
                 temp_diversity.append(result[4])
 
