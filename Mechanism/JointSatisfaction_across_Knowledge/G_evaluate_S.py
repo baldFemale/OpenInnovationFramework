@@ -34,7 +34,7 @@ def func(N=None, K=None, agent_num=None, specialist_expertise=None,
     joint_confusion_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
-        sender_domain = sender.specialist_domain.copy()  # !!!
+        sender_domain = sender.generalist_domain.copy()  # !!!
         count = 0
         for receiver in receiver_crowd.agents:
             learnt_solution = receiver.state.copy()

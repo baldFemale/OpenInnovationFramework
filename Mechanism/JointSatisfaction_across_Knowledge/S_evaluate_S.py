@@ -23,7 +23,7 @@ def func(N=None, K=None, agent_num=None, specialist_expertise=None,
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           specialist_expertise=specialist_expertise, generalist_expertise=0, label="S")
+                           generalist_expertise=0, specialist_expertise=specialist_expertise, label="S")
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
