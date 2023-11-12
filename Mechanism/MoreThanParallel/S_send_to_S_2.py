@@ -68,13 +68,13 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(400, 800, step=50, dtype=int).tolist()
-    concurrency = 100
+    agent_num_list = np.arange(400, 850, step=50, dtype=int).tolist()
+    concurrency = 50
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []
-        variance_across_K = []
         best_performance_across_K = []
+        variance_across_K = []
         diversity_across_K = []
         for K in K_list:
             manager = mp.Manager()
@@ -90,25 +90,25 @@ if __name__ == '__main__':
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            temp_fitness, temp_variance, temp_best_performance, temp_diversity = [], [], [], []
+            temp_fitness, temp_best_performance, temp_variance, temp_diversity = [], [], [], []
             for result in returns:  # 50 landscape repetitions
                 temp_fitness.append(result[0])
-                temp_variance.append(result[1])
-                temp_best_performance.append(result[2])
+                temp_best_performance.append(result[1])
+                temp_variance.append(result[2])
                 temp_diversity.append(result[3])
 
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
-            variance_across_K.append(sum(temp_variance) / len(temp_variance))
             best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
+            variance_across_K.append(sum(temp_variance) / len(temp_variance))
             diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
         # remove time dimension
         with open("ss_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(performance_across_K, out_file)
-        with open("ss_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
-            pickle.dump(variance_across_K, out_file)
         with open("ss_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(best_performance_across_K, out_file)
+        with open("ss_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+                pickle.dump(variance_across_K, out_file)
         with open("ss_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
