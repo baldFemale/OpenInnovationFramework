@@ -21,9 +21,9 @@ def func(N=None, K=None, agent_num=None, alpha=None,
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
@@ -34,7 +34,7 @@ def func(N=None, K=None, agent_num=None, alpha=None,
     joint_confusion_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
-        sender_domain = sender.generalist_domain.copy()  # !!!
+        sender_domain = sender.specialist_domain.copy()  # !!!
         count = 0
         for receiver in receiver_crowd.agents:
             learnt_solution = receiver.state.copy()
@@ -56,14 +56,14 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 200
     agent_num = 500
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     alpha_list = [0.05, 0.10, 0.15, 0.20]
-    concurrency = 100
+    concurrency = 50
     # DVs
     for alpha in alpha_list:
         joint_confusion_across_K = []
@@ -85,9 +85,9 @@ if __name__ == '__main__':
             for result in returns:  # 50 landscape repetitions
                 temp_joint_confusion.append(result[0])
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-        with open("gg_joint_satisfaction_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("ss_joint_satisfaction_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Joint Satisfaction GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Joint Satisfaction SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

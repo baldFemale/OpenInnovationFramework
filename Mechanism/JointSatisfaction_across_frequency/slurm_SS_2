@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=mechanism
+#SBATCH --job-name=stat_alpha
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=200gb
+#SBATCH --mem=100gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=100
+#SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-srun python S_send_to_G_2.py
+srun python S_evaluate_S_2.py
