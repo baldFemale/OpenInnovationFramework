@@ -25,18 +25,18 @@ def func(N=None, K=None, state_num=None, alpha=None, loop=None, return_dict=None
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 50
-    N = 10
+    landscape_iteration = 100
+    N = 9
     state_num = 4
-    alpha_list = c
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    concurrency = 50
-    # DVs
-    first_local_peak_across_K = []
-    second_local_peak_across_K = []
-    first_distance_across_K = []
-    second_distance_across_K = []
+    alpha_list = [0.05, 0.10, 0.15]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    concurrency = 100
     for alpha in alpha_list:
+        # DVs
+        first_local_peak_across_K = []
+        second_local_peak_across_K = []
+        first_distance_across_K = []
+        second_distance_across_K = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -75,5 +75,3 @@ if __name__ == '__main__':
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
