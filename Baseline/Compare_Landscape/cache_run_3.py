@@ -60,6 +60,8 @@ if __name__ == '__main__':
             pickle.dump(second_cache_across_K, out_file)
 
         import matplotlib.pyplot as plt
+        from scipy import stats
+        import numpy as np
         for K, first_cache, second_cache in zip(K_list, first_cache_across_K, second_cache_across_K):
             fig, ax = plt.subplots()
             ax.spines["left"].set_linewidth(1.5)
@@ -67,12 +69,19 @@ if __name__ == '__main__':
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
             plt.hist(first_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-            # plt.title("First Cache N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
+            # Calculate mean and standard deviation using NumPy
+            mean_fitness = np.mean(first_cache)
+            std_dev_fitness = np.std(first_cache)
+            # Annotate the plot with mean and standard deviation information
+            plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
+                     horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
+                     bbox=dict(facecolor='white', alpha=0.8))
             plt.xlabel("Fitness Value")
             plt.ylabel("Count")
             plt.title("Coarse Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("First_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
+            plt.close(fig)
 
             fig, ax = plt.subplots()
             ax.spines["left"].set_linewidth(1.5)
@@ -80,14 +89,36 @@ if __name__ == '__main__':
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
             plt.hist(second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
-            # plt.title("Second Cache N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
+            # Calculate mean and standard deviation using NumPy
+            mean_fitness = np.mean(first_cache)
+            std_dev_fitness = np.std(first_cache)
+            # Annotate the plot with mean and standard deviation information
+            plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
+                     horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
+                     bbox=dict(facecolor='white', alpha=0.8))
             plt.xlabel("Fitness Value")
             plt.ylabel("Count")
             plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
+            plt.close(fig)
+
+            # Perform t-test
+            t_statistic, p_value = stats.ttest_ind(first_cache, second_cache)
+
+            # Check the p-value to determine significance
+            alpha = 0.05  # Set your desired significance level (commonly 0.05)
+            print("===========K={0}, alpha={1}===============".format(K, alpha))
+            if p_value < alpha:
+                print("The distributions are significantly different (reject the null hypothesis)")
+            else:
+                print("The distributions are not significantly different (fail to reject the null hypothesis)")
+
+            # Optionally, print t-statistic and p-value
+            print(f"t-statistic: {t_statistic:.4f}")
+            print(f"p-value: {p_value:.4f}")
+            print("=====================")
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
 
