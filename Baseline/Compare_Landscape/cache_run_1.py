@@ -56,22 +56,34 @@ if __name__ == '__main__':
             second_cache_across_K.append(temp_second_cache)
         with open("first_cache_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(first_cache_across_K, out_file)
-        with open("second_local_peak_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("second_cache_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(second_cache_across_K, out_file)
 
         import matplotlib.pyplot as plt
         for K, first_cache, second_cache in zip(K_list, first_cache_across_K, second_cache_across_K):
+            fig, ax = plt.subplots()
+            ax.spines["left"].set_linewidth(1.5)
+            ax.spines["right"].set_linewidth(1.5)
+            ax.spines["top"].set_linewidth(1.5)
+            ax.spines["bottom"].set_linewidth(1.5)
             plt.hist(first_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
             # plt.title("First Cache N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
-            plt.xlabel("Range")
+            plt.xlabel("Fitness Value")
             plt.ylabel("Count")
+            plt.title("Coarse Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("First_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
 
+            fig, ax = plt.subplots()
+            ax.spines["left"].set_linewidth(1.5)
+            ax.spines["right"].set_linewidth(1.5)
+            ax.spines["top"].set_linewidth(1.5)
+            ax.spines["bottom"].set_linewidth(1.5)
             plt.hist(second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
             # plt.title("Second Cache N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
-            plt.xlabel("Range")
+            plt.xlabel("Fitness Value")
             plt.ylabel("Count")
+            plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
 
