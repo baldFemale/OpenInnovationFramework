@@ -30,6 +30,8 @@ if __name__ == '__main__':
     alpha_list = [0.05, 0.10, 0.15]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 100
+    p_value_across_K_alpha = []
+    mean_diff_across_K_alpha = []
     for alpha in alpha_list:
         # DVs
         first_cache_across_K = []
@@ -62,6 +64,8 @@ if __name__ == '__main__':
         import matplotlib.pyplot as plt
         from scipy import stats
         import numpy as np
+        p_value_across_K = []
+        mean_diff_across_K = []
         for K, first_cache, second_cache in zip(K_list, first_cache_across_K, second_cache_across_K):
             fig, ax = plt.subplots()
             ax.spines["left"].set_linewidth(1.5)
@@ -90,8 +94,8 @@ if __name__ == '__main__':
             ax.spines["bottom"].set_linewidth(1.5)
             plt.hist(second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
-            mean_fitness = np.mean(first_cache)
-            std_dev_fitness = np.std(first_cache)
+            mean_fitness = np.mean(second_cache)
+            std_dev_fitness = np.std(second_cache)
             # Annotate the plot with mean and standard deviation information
             plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
                      horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
@@ -118,6 +122,17 @@ if __name__ == '__main__':
             print(f"t-statistic: {t_statistic:.4f}")
             print(f"p-value: {p_value:.4f}")
             print("=====================")
+
+            mean_diff = np.mean(first_cache) - np.mean(second_cache)
+            p_value_across_K.append(p_value)
+            mean_diff_across_K.append(mean_diff)
+
+        p_value_across_K_alpha.append(p_value_across_K)
+        mean_diff_across_K_alpha.append(mean_diff_across_K)
+    with open("p_value_across_K_alpha", 'wb') as out_file:
+        pickle.dump(p_value_across_K_alpha, out_file)
+    with open("mean_diff_across_K_alpha", 'wb') as out_file:
+        pickle.dump(mean_diff_across_K_alpha, out_file)
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
