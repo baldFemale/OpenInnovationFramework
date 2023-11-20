@@ -33,29 +33,29 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
         crowd_s.search()
         crowd_g.search()
         # S share a pool to G
-        # crowd_s.get_shared_pool()
-        # s_pool = crowd_s.solution_pool.copy()
-        # crowd_g.solution_pool = s_pool
-        # crowd_g.learn_from_shared_pool()
+        crowd_s.get_shared_pool()
+        s_pool = crowd_s.solution_pool.copy()
+        crowd_g.solution_pool = s_pool
+        crowd_g.learn_from_shared_pool()
         # G share a pool to S
-        crowd_g.get_shared_pool()
-        g_pool = crowd_g.solution_pool.copy()
-        crowd_s.solution_pool = g_pool
-        crowd_s.learn_from_shared_pool()
+        # crowd_g.get_shared_pool()
+        # g_pool = crowd_g.solution_pool.copy()
+        # crowd_s.solution_pool = g_pool
+        # crowd_s.learn_from_shared_pool()
 
-    performance_list = [agent.fitness for agent in crowd_s.agents]  # !!!!!
+    performance_list = [agent.fitness for agent in crowd_g.agents]  # !!!!!
     average_performance = sum(performance_list) / len(performance_list)
     best_performance = max(performance_list)
     variance = np.std(performance_list)
     # Calculate the diversity indicator
     domain_list = []
-    for agent in crowd_s.agents:  # !!!!
-        domains = agent.specialist_domain.copy()  # !!!!
+    for agent in crowd_g.agents:  # !!!!
+        domains = agent.generalist_domain.copy()  # !!!!
         domains.sort()
         if domains not in domain_list:
             domain_list.append(domains)
     solution_dict = {}
-    for agent in crowd_s.agents:
+    for agent in crowd_g.agents:  # !!!!
         for domains in domain_list:
             domain_str = "".join([str(i) for i in domains])
             # Using state as to solution diversity
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(50, 400, step=50, dtype=int).tolist()
+    agent_num_list = np.arange(650, 850, step=50, dtype=int).tolist()
     concurrency = 100
     for agent_num in agent_num_list:
         # DVs
@@ -117,16 +117,16 @@ if __name__ == '__main__':
             diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
         # remove time dimension
-        with open("gs_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("sg_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(performance_across_K, out_file)
-        with open("gs_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
-            pickle.dump(variance_across_K, out_file)
-        with open("gs_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("sg_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(best_performance_across_K, out_file)
-        with open("gs_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("sg_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+            pickle.dump(variance_across_K, out_file)
+        with open("sg_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
