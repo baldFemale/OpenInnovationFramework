@@ -39,7 +39,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
         domains.sort()
         if domains not in domain_list:
             domain_list.append(domains)
-    cog_solution_dict, solution_dict = {}, {}
+    solution_dict = {}
     for agent in crowd.agents:
         for domains in domain_list:
             domain_str = "".join([str(i) for i in domains])
