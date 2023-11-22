@@ -10,7 +10,7 @@ import numpy as np
 
 
 class Landscape:
-    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.5):
+    def __init__(self, N: int, K: int, state_num=4, norm="MaxMin", alpha=0.25):
         """
         :param N:
         :param K:
@@ -237,9 +237,9 @@ class Landscape:
         for row, bit in enumerate(cog_state):
             if bit == "*":
                 continue
-            dependency = list(self.dependency_map[row])
+            dependency = self.dependency_map[row]
             qua_index = "".join([state[j] for j in dependency])  # the unknown domain will shape the contingency condition
-            qua_index = str(state[row]) + qua_index
+            qua_index = state[row] + qua_index
             index = int(qua_index, 4)
             scoped_fitness.append(self.FC_2[row][index])  # not need to normalize; does not affect the local search
         return sum(scoped_fitness) / len(scoped_fitness)
@@ -316,7 +316,6 @@ class Landscape:
     #         cog_fitness += c_i
     #     return cog_fitness / len(expertise_domain)
 
-
     @staticmethod
     def cog_state_alternatives(cog_state: list) -> list:
         alternative_pool = []
@@ -340,10 +339,10 @@ class Landscape:
     #     rank_dict = {key: rank for key, rank in zip(self.cache.keys(), ranks)}
     #     return rank_dict
 
-    def count_local_optima(self):
+    def count_first_local_optima(self):
         counter = 0
         for key, value in self.first_cache.items():
-            neighbor_list = self.get_neighbor_list(key=key)
+            neighbor_list = self.get_first_neighbor_list(key=key)
             is_local_optima = True
             for neighbor in neighbor_list:
                 if self.query_first_fitness(state=list(neighbor)) > value:
@@ -354,17 +353,35 @@ class Landscape:
                 self.local_optima[key] = value
         return counter
 
-    # def calculate_avg_fitness_distance(self):
-    #     total_distance = 0
-    #     total_neighbors = 0
-    #     for key in self.first_cache.keys():
-    #         neighbors = self.get_neighbor_list(key)
-    #         total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
-    #         total_neighbors += len(neighbors)
-    #     avg_fitness_distance = total_distance / total_neighbors
-    #     return avg_fitness_distance
+    def count_second_local_optima(self):
+        counter = 0
+        for key, value in self.second_cache.items():
+            neighbor_list = self.get_second_neighbor_list(key=key)
+            is_local_optima = True
+            for neighbor in neighbor_list:
+                if self.query_second_fitness(state=list(neighbor)) > value:
+                    is_local_optima = False
+                    break
+            if is_local_optima:
+                counter += 1
+                self.local_optima[key] = value
+        return counter
 
-    def get_neighbor_list(self, key: str) -> list:
+    def get_first_neighbor_list(self, key: str) -> list:
+        """
+        This is also for the Coarse Landscape
+        :param key: string from the coarse landscape cache dict, e.g., "AABB"
+        :return:list of the neighbor state, e.g., [["0", "0", "1", "2"], ["0", "0", "1", "3"]]
+        """
+        neighbor_states = []
+        for i, char in enumerate(key):
+            for bit in ["A", "B"]:
+                if bit != char:
+                    new_state = key[:i] + str(bit) + key[i + 1:]
+                    neighbor_states.append(new_state)
+        return neighbor_states
+
+    def get_second_neighbor_list(self, key: str) -> list:
         """
         This is also for the Coarse Landscape
         :param key: string from the coarse landscape cache dict, e.g., "0011"
@@ -379,6 +396,23 @@ class Landscape:
                     neighbors.append(new_state)
             neighbor_states.extend(neighbors)
         return neighbor_states
+
+    def calculate_avg_fitness_distance(self):
+        first_avg_fitness_distance = 0
+        for key in self.first_cache.keys():  # "AB"
+            first_total_distance = 0
+            neighbors = self.get_first_neighbor_list(key)
+            first_total_distance += sum(abs(self.first_cache[key] - self.first_cache[neighbor]) for neighbor in neighbors)
+            first_total_distance /= len(neighbors)
+            first_avg_fitness_distance += first_total_distance
+        second_avg_fitness_distance = 0
+        for key in self.second_cache.keys():  # "0123"
+            second_total_distance = 0
+            neighbors = self.get_second_neighbor_list(key)
+            second_total_distance += sum(abs(self.second_cache[key] - self.second_cache[neighbor]) for neighbor in neighbors)
+            second_total_distance /= len(neighbors)
+            second_avg_fitness_distance += second_total_distance
+        return first_avg_fitness_distance / (2 ** self.N), second_avg_fitness_distance / (4 ** self.N)
 
     @staticmethod
     def get_hamming_distance(state_1: list, state_2: list) -> int:
@@ -418,16 +452,19 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    N = 10
-    K = 9
+    N = 9
+    K = 8
     state_num = 4
     np.random.seed(1000)
-    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
-    landscape.describe()
-    t1 = time.time()
-    print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin", alpha=0.01)
+    # landscape.describe()
     # landscape.create_fitness_rank()
-    # landscape.count_local_optima()
+    first_local_peak = landscape.count_first_local_optima()
+    second_local_peak = landscape.count_second_local_optima()
+    first_distance, second_distance = landscape.calculate_avg_fitness_distance()
+    print("first_local_peak: ", first_local_peak, first_local_peak / (2 ** N))
+    print("second_local_peak: ", second_local_peak, second_local_peak / (4 ** N))
+    print("first distance: ", first_distance, "second distance: ", second_distance)
     # ave_distance = landscape.calculate_avg_fitness_distance()
     # ave_distance = round(ave_distance, 4)
     # print(landscape.local_optima)
@@ -437,7 +474,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     # plt.hist(landscape.local_optima.values(), bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
     # plt.xlabel("Range")
-    # plt.ylabel("Count")
+    # plt.ylabel("Count")s
     # plt.title("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}".format(
     #     N, K, len(landscape.local_optima.keys()), ave_distance))
     # plt.savefig("Local Optima N={0}, K={1}, local optima={2}, ave_distance={3}.png".format(

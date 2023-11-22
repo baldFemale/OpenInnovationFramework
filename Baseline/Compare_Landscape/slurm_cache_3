@@ -5,10 +5,7 @@
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=100
+#SBATCH --cpus-per-task=50
 #SBATCH --ntasks=1
-# Activate the Conda environment with the desired Python version
-source ~/anaconda3/etc/profile.d/conda.sh
-conda activate py39
-
-python cache_run_3.py
+#SBATCH --exclude=xcng0,xcng1
+srun python cache_run_3.py

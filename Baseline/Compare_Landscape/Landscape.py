@@ -5,7 +5,6 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 from collections import defaultdict
-from scipy.stats import rankdata
 from itertools import product
 import numpy as np
 

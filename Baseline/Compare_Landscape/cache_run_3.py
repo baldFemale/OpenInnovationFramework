@@ -32,7 +32,7 @@ if __name__ == '__main__':
     state_num = 4
     alpha_list = [0.35, 0.40, 0.45, 0.50]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 100
+    concurrency = 50
     p_value_across_K_alpha = []
     mean_diff_across_K_alpha = []
     for alpha in alpha_list:
