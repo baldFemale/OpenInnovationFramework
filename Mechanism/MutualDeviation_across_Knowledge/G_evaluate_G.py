@@ -16,7 +16,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, generalist_expertise=None,
+def func(N=None, K=None, agent_num=None, expertise=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
@@ -26,11 +26,11 @@ def func(N=None, K=None, agent_num=None, generalist_expertise=None,
     mutual_climb_rate_list = []
     for _ in range(agent_num):
         # Focal Agent
-        generalist = Generalist(N=N, landscape=landscape, state_num=4, crowd=crowd, generalist_expertise=generalist_expertise)
+        generalist = Generalist(N=N, landscape=landscape, state_num=4, crowd=crowd, generalist_expertise=expertise)
         for _ in range(search_iteration):
             generalist.search()
         # Mutual Climb
-        reached_solution = generalist.state.copy()
+        reached_solution = generalist.state.copy() # !!!
         count = 0
         for agent in crowd.agents:
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
@@ -38,9 +38,8 @@ def func(N=None, K=None, agent_num=None, generalist_expertise=None,
                 climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
                 if reached_solution in climbs:
                     climbs.remove(reached_solution)
-                count += len(climbs)
             if len(suggestions) != 0:
-                count /= len(suggestions)
+                count += 1
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
@@ -56,32 +55,35 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    g_knowledge_list = [12, 14, 16, 18]
+    s_knowledge_list = [12, 16, 20, 24]
     concurrency = 100
     # DVs
-    joint_confusion_across_K = []
-    for K in K_list:
-        manager = mp.Manager()
-        return_dict = manager.dict()
-        sema = Semaphore(concurrency)
-        jobs = []
-        for loop in range(landscape_iteration):
-            sema.acquire()
-            p = mp.Process(target=func, args=(N, K, state_num, agent_num, search_iteration, loop, return_dict, sema))
-            jobs.append(p)
-            p.start()
-        for proc in jobs:
-            proc.join()
-        returns = return_dict.values()  # Don't need dict index, since it is repetition.
+    joint_confusion_across_K_knowledge = []
+    for g_knowledge in g_knowledge_list:
+        joint_confusion_across_K = []
+        for K in K_list:
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            sema = Semaphore(concurrency)
+            jobs = []
+            for loop in range(landscape_iteration):
+                sema.acquire()
+                p = mp.Process(target=func, args=(N, K, agent_num, g_knowledge, search_iteration, loop, return_dict, sema))
+                jobs.append(p)
+                p.start()
+            for proc in jobs:
+                proc.join()
+            returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-        temp_joint_confusion = []
-        for result in returns:  # 50 landscape repetitions
-            temp_joint_confusion.append(result[0])
+            temp_joint_confusion = []
+            for result in returns:  # 50 landscape repetitions
+                temp_joint_confusion.append(result[0])
 
-        joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-
-    # remove time dimension
-    with open("gg_mutual_deviation_across_K", 'wb') as out_file:
-        pickle.dump(joint_confusion_across_K, out_file)
+            joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
+        joint_confusion_across_K_knowledge.append(joint_confusion_across_K)
+    with open("gg_mutual_deviation_across_knowledge", 'wb') as out_file:
+        pickle.dump(joint_confusion_across_K_knowledge, out_file)
 
     t1 = time.time()
     print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
