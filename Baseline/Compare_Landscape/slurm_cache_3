@@ -7,4 +7,8 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
-srun python cache_run_3.py
+# Activate the Conda environment with the desired Python version
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate py39
+
+python cache_run_3.py
