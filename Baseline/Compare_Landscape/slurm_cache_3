@@ -7,4 +7,4 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
-python cache_run_3.py
+srun python cache_run_3.py

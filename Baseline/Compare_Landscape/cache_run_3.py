@@ -23,6 +23,9 @@ def func(N=None, K=None, state_num=None, alpha=None, loop=None, return_dict=None
 
 
 if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    from scipy import stats
+    import numpy as np
     t0 = time.time()
     landscape_iteration = 100
     N = 9
@@ -34,8 +37,10 @@ if __name__ == '__main__':
     mean_diff_across_K_alpha = []
     for alpha in alpha_list:
         # DVs
-        first_cache_across_K = []
-        second_cache_across_K = []
+        # first_cache_across_K = []
+        # second_cache_across_K = []
+        p_value_across_K = []
+        mean_diff_across_K = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -54,28 +59,18 @@ if __name__ == '__main__':
             for result in returns:  # 50 landscape repetitions
                 temp_first_cache.extend(result[0])
                 temp_second_cache.extend(result[1])
-            first_cache_across_K.append(temp_first_cache)
-            second_cache_across_K.append(temp_second_cache)
-        with open("first_cache_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(first_cache_across_K, out_file)
-        with open("second_cache_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(second_cache_across_K, out_file)
+            # first_cache_across_K.append(temp_first_cache)
+            # second_cache_across_K.append(temp_second_cache)
 
-        import matplotlib.pyplot as plt
-        from scipy import stats
-        import numpy as np
-        p_value_across_K = []
-        mean_diff_across_K = []
-        for K, first_cache, second_cache in zip(K_list, first_cache_across_K, second_cache_across_K):
             fig, ax = plt.subplots()
             ax.spines["left"].set_linewidth(1.5)
             ax.spines["right"].set_linewidth(1.5)
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
-            plt.hist(first_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+            plt.hist(temp_first_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
-            mean_fitness = np.mean(first_cache)
-            std_dev_fitness = np.std(first_cache)
+            mean_fitness = np.mean(temp_first_cache)
+            std_dev_fitness = np.std(temp_first_cache)
             # Annotate the plot with mean and standard deviation information
             plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
                      horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
@@ -92,10 +87,10 @@ if __name__ == '__main__':
             ax.spines["right"].set_linewidth(1.5)
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
-            plt.hist(second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+            plt.hist(temp_second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
-            mean_fitness = np.mean(second_cache)
-            std_dev_fitness = np.std(second_cache)
+            mean_fitness = np.mean(temp_second_cache)
+            std_dev_fitness = np.std(temp_second_cache)
             # Annotate the plot with mean and standard deviation information
             plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
                      horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
@@ -105,30 +100,21 @@ if __name__ == '__main__':
             plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
-            plt.close(fig)
 
-            # Perform t-test
-            t_statistic, p_value = stats.ttest_ind(first_cache, second_cache)
-
-            # Check the p-value to determine significance
-            alpha = 0.05  # Set your desired significance level (commonly 0.05)
-            print("===========K={0}, alpha={1}===============".format(K, alpha))
-            if p_value < alpha:
-                print("The distributions are significantly different (reject the null hypothesis)")
-            else:
-                print("The distributions are not significantly different (fail to reject the null hypothesis)")
-
-            # Optionally, print t-statistic and p-value
-            print(f"t-statistic: {t_statistic:.4f}")
-            print(f"p-value: {p_value:.4f}")
-            print("=====================")
-
-            mean_diff = np.mean(first_cache) - np.mean(second_cache)
+            # T-test
+            t_statistic, p_value = stats.ttest_ind(temp_first_cache, temp_second_cache)
+            mean_diff = np.mean(temp_first_cache) - np.mean(temp_second_cache)
             p_value_across_K.append(p_value)
             mean_diff_across_K.append(mean_diff)
 
         p_value_across_K_alpha.append(p_value_across_K)
         mean_diff_across_K_alpha.append(mean_diff_across_K)
+
+        # with open("first_cache_alpha_{0}".format(alpha), 'wb') as out_file:
+        #     pickle.dump(first_cache_across_K, out_file)
+        # with open("second_cache_alpha_{0}".format(alpha), 'wb') as out_file:
+        #     pickle.dump(second_cache_across_K, out_file)
+
     with open("p_value_across_K_alpha", 'wb') as out_file:
         pickle.dump(p_value_across_K_alpha, out_file)
     with open("mean_diff_across_K_alpha", 'wb') as out_file:
