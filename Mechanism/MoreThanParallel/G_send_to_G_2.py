@@ -62,7 +62,7 @@ if __name__ == '__main__':
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     agent_num_list = np.arange(400, 650, step=50, dtype=int).tolist()
-    concurrency = 80
+    concurrency = 100
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []
