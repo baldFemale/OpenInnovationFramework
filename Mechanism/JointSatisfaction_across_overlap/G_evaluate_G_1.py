@@ -41,8 +41,7 @@ def func(N=None, K=None, agent_num=None, overlap=None,
         if overlap == 0:
             usable_domain_list = [i for i in range(N) if i not in sender_domain]
             for receiver in receiver_crowd.agents:
-                receiver.generalist_domain = np.random.choice(usable_domain_list, 6) # !!!
-
+                receiver.generalist_domain = np.random.choice(usable_domain_list, 6)  # !!!
                 learnt_solution = receiver.state.copy()
                 for index in sender_domain:
                     learnt_solution[index] = sender_solution[index]
