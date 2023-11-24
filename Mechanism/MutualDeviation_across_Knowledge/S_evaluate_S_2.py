@@ -55,11 +55,8 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    g_knowledge_list = [12, 14, 16, 18]
-    s_knowledge_list = [12, 16, 20, 24]
+    s_knowledge_list = [16]
     concurrency = 100
-    # DVs
-    joint_confusion_across_K_knowledge = []
     for s_knowledge in s_knowledge_list:
         joint_confusion_across_K = []
         for K in K_list:
@@ -81,9 +78,8 @@ if __name__ == '__main__':
                 temp_joint_confusion.append(result[0])
 
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-        joint_confusion_across_K_knowledge.append(joint_confusion_across_K)
-    with open("ss_mutual_deviation_across_knowledge", 'wb') as out_file:
-        pickle.dump(joint_confusion_across_K_knowledge, out_file)
+        with open("ss_mutual_deviation_across_K_knowledge_{0}".format(s_knowledge), 'wb') as out_file:
+            pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
     print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
