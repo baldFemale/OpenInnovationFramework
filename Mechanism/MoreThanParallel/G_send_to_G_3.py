@@ -33,28 +33,22 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     average_performance = sum(performance_list) / len(performance_list)
     best_performance = max(performance_list)
     variance = np.std(performance_list)
-    domain_list = []
+    domain_solution_dict = {}
     for agent in crowd.agents:
         domains = agent.generalist_domain.copy()  # !!!!
         domains.sort()
-        if domains not in domain_list:
-            domain_list.append(domains)
-    cog_solution_dict, solution_dict = {}, {}
-    for agent in crowd.agents:
-        for domains in domain_list:
-            domain_str = "".join([str(i) for i in domains])
-            # Using state as to solution diversity
-            solution_str = [agent.state[index] for index in domains]
-            solution_str = "".join(solution_str)
-            if domain_str not in solution_dict.keys():
-                solution_dict[domain_str] = [solution_str]
-            else:
-                if solution_str not in solution_dict[domain_str]:
-                    solution_dict[domain_str].append(solution_str)
-    partitioned_diversity = 0
-    for value in solution_dict.values():
-        partitioned_diversity += len(value)
-    return_dict[loop] = [average_performance, best_performance, variance, partitioned_diversity]
+        domain_str = "".join([str(i) for i in domains])
+        solution_str = [agent.state[index] for index in domains]
+        solution_str = "".join(solution_str)
+        if domain_str not in domain_solution_dict.keys():
+            domain_solution_dict[domain_str] = [solution_str]
+        else:
+            if solution_str not in domain_solution_dict[domain_str]:
+                domain_solution_dict[domain_str].append(solution_str)
+    diversity = 0
+    for key, value in domain_solution_dict.items():
+        diversity += len(value)
+    return_dict[loop] = [average_performance, best_performance, variance, diversity]
     sema.release()
 
 
@@ -67,7 +61,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    agent_num_list = np.arange(650, 850, step=50, dtype=int).tolist()
+    agent_num_list = np.arange(650, 750, step=50, dtype=int).tolist()
     concurrency = 100
     for agent_num in agent_num_list:
         # DVs

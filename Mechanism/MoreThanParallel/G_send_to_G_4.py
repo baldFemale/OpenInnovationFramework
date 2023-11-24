@@ -1,3 +1,4 @@
+#!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
@@ -5,6 +6,8 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
+from Generalist import Generalist
+from Specialist import Specialist
 from Landscape import Landscape
 from Crowd import Crowd
 import multiprocessing as mp
@@ -20,8 +23,12 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     # Transparent Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=12, specialist_expertise=0, label="G")
+    crowd.share_prob = 1
+    crowd.lr = 1
     for _ in range(search_iteration):
         crowd.search()
+        crowd.get_shared_pool()
+        crowd.learn_from_shared_pool()
     performance_list = [agent.fitness for agent in crowd.agents]
     average_performance = sum(performance_list) / len(performance_list)
     best_performance = max(performance_list)
@@ -46,13 +53,16 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
 
 
 if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
     landscape_iteration = 400
-    agent_num_list = np.arange(50, 400, step=50, dtype=int).tolist()
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 80
+    agent_num_list = np.arange(750, 850, step=50, dtype=int).tolist()
+    concurrency = 100
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []
@@ -81,19 +91,21 @@ if __name__ == '__main__':
                 temp_diversity.append(result[3])
 
             performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
-            best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
             variance_across_K.append(sum(temp_variance) / len(temp_variance))
+            best_performance_across_K.append(sum(temp_best_performance) / len(temp_best_performance))
             diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
+
         # remove time dimension
-        with open("g_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("gg_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(performance_across_K, out_file)
-        with open("g_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
-            pickle.dump(best_performance_across_K, out_file)
-        with open("g_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("gg_variance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(variance_across_K, out_file)
-        with open("g_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+        with open("gg_best_performance_across_K_size_{0}".format(agent_num), 'wb') as out_file:
+            pickle.dump(best_performance_across_K, out_file)
+        with open("gg_diversity_across_K_size_{0}".format(agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
+
     t1 = time.time()
-    print("G12_1: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
