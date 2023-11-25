@@ -19,7 +19,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     # Transparent Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for _ in range(search_iteration):
         crowd.search()
     performance_list = [agent.fitness for agent in crowd.agents]
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 80
+    concurrency = 100
     for agent_num in agent_num_list:
         # DVs
         performance_across_K = []

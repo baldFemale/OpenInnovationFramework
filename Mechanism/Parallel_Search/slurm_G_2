@@ -5,6 +5,6 @@
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=80
+#SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
 srun python grun_2.py
