@@ -115,9 +115,9 @@ if __name__ == '__main__':
         # with open("second_cache_alpha_{0}".format(alpha), 'wb') as out_file:
         #     pickle.dump(second_cache_across_K, out_file)
 
-    with open("p_value_across_K_alpha", 'wb') as out_file:
+    with open("p_value_across_K_alpha_3", 'wb') as out_file:
         pickle.dump(p_value_across_K_alpha, out_file)
-    with open("mean_diff_across_K_alpha", 'wb') as out_file:
+    with open("mean_diff_across_K_alpha_3", 'wb') as out_file:
         pickle.dump(mean_diff_across_K_alpha, out_file)
 
     t1 = time.time()
