@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=x
+#SBATCH --job-name=yyt
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=400gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=100
+#SBATCH --cpus-per-task=80
 #SBATCH --ntasks=1
 srun python S_send_to_G_3.py
