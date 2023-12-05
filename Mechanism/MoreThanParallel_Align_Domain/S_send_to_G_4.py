@@ -29,6 +29,16 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     crowd_s.lr = 1
     crowd_g.share_prob = 1
     crowd_g.lr = 1
+    aligned_domain_g = np.random.choice(range(N), 6, replace=False).tolist()
+    aligned_domain_s = np.random.choice(range(N), 3, replace=False).tolist()
+    for agent in crowd_g.agents:
+        agent.generalist_domain = aligned_domain_g
+        agent.cog_state = agent.state_2_cog_state(state=agent.state)
+        agent.cog_fitness = agent.get_cog_fitness(cog_state=agent.cog_state, state=agent.state)
+    for agent in crowd_s.agents:
+        agent.specialist_domain = aligned_domain_s
+        agent.cog_state = agent.state_2_cog_state(state=agent.state)
+        agent.cog_fitness = agent.get_cog_fitness(cog_state=agent.cog_state, state=agent.state)
     for _ in range(search_iteration):
         crowd_s.search()
         crowd_g.search()

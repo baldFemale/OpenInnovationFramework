@@ -25,6 +25,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
                            generalist_expertise=12, specialist_expertise=0, label="G")
     crowd.share_prob = 1
     crowd.lr = 1
+    aligned_domain = np.random.choice(range(N), 6, replace=False).tolist()
+    for agent in crowd.agents:
+        agent.generalist_domain = aligned_domain
+        agent.cog_state = agent.state_2_cog_state(state=agent.state)
+        agent.cog_fitness = agent.get_cog_fitness(cog_state=agent.cog_state, state=agent.state)
     for _ in range(search_iteration):
         crowd.search()
         crowd.get_shared_pool()
