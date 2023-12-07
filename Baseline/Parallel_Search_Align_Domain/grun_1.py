@@ -32,7 +32,7 @@ def func(N=None, K=None, state_num=None, generalist_expertise=None, agent_num=No
             generalist.search()
         converged_performance_list.append(generalist.fitness)
         converged_solution_list.append(generalist.state)
-        domains = generalist.generalist_domain.copy()
+        domains = generalist.generalist_domain.copy()   #!!!
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
         solution_str = [generalist.state[index] for index in domains]

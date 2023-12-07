@@ -32,7 +32,7 @@ def func(N=None, K=None, state_num=None, specialist_expertise=None, agent_num=No
             specialist.search()
         converged_performance_list.append(specialist.fitness)
         converged_solution_list.append(specialist.state)
-        domains = specialist.specialist_domain.copy()
+        domains = specialist.specialist_domain.copy()  #!!!
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
         solution_str = [specialist.state[index] for index in domains]
