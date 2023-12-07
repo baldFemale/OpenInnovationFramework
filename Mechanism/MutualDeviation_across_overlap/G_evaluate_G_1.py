@@ -16,10 +16,10 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, alpha=None,
+def func(N=None, K=None, agent_num=None, overlap=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=12, specialist_expertise=0, label="G")
@@ -32,6 +32,16 @@ def func(N=None, K=None, agent_num=None, alpha=None,
         # Mutual Climb
         reached_solution = generalist.state.copy()
         count = 0
+        # Revise the Receivers' domain
+        useable_domain_list = [i for i in range(N) if i not in generalist.generalist_domain]
+        overlapped_domain_list = np.random.choice(generalist.generalist_domain, overlap)
+        if overlap == 0:
+            for agent in crowd.agents:
+                agent.generalist_domain = np.random.choice(useable_domain_list, 6)
+        else:
+            for agent in crowd.agents:
+                agent.generalist_domain = np.random.choice(useable_domain_list, 6 - overlap) + np.random.choice(
+                    overlapped_domain_list, overlap)
         for agent in crowd.agents:
             suggestions = agent.suggest_better_state_from_expertise(state=reached_solution)
             for each_suggestion in suggestions:
@@ -56,10 +66,9 @@ if __name__ == '__main__':
     N = 9
     state_num = 4
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
-    alpha_list = [0.05, 0.10, 0.15, 0.20]
-    concurrency = 50
-    for alpha in alpha_list:
+    overlap_list = [0, 1, 2, 3]
+    concurrency = 100
+    for overlap in overlap_list:
         joint_confusion_across_K = []
         for K in K_list:
             manager = mp.Manager()
@@ -68,7 +77,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, alpha, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, agent_num, overlap, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
@@ -82,7 +91,7 @@ if __name__ == '__main__':
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
         # remove time dimension
-        with open("gg_mutual_deviation_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("gg_mutual_deviation_across_K_overlap_{0}".format(overlap), 'wb') as out_file:
             pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
