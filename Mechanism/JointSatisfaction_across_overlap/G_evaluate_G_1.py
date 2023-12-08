@@ -49,6 +49,18 @@ def func(N=None, K=None, agent_num=None, overlap=None,
                 cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
                 if cog_learnt_fitness >= receiver.cog_fitness:
                     count += 1
+        else:
+            usable_domain_list = [i for i in range(N) if i not in sender_domain]
+            overlapped_domain_list = np.random.choice(sender_domain, overlap)
+            for receiver in receiver_crowd.agents:
+                receiver.generalist_domain = np.random.choice(usable_domain_list, 6 - overlap) + np.random.choice(overlapped_domain_list, overlap) # !!!
+                learnt_solution = receiver.state.copy()
+                for index in sender_domain:
+                    learnt_solution[index] = sender_solution[index]
+                cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
+                cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
+                if cog_learnt_fitness >= receiver.cog_fitness:
+                    count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
     final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)

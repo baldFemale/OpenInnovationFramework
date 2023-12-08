@@ -101,6 +101,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_frequency" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MoreThanParallel_Align_Domain" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
@@ -142,7 +143,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/AOM2023/Independent/GST_unknown_2" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/ScatteredLandscapes" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (base) (2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (Python_Workplace)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
