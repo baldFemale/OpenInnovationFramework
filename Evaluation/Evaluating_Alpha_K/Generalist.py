@@ -78,11 +78,10 @@ class Generalist:
                 self.cog_fitness = next_cog_fitness
                 self.fitness = self.landscape.query_second_fitness(state=self.state)
             else:  # feedback is negative
-                if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
+                if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and crowd "-"
                     pass
-                    # roll back; follow the peer feedback and refuse; bounded rationality:
-                    # 1) biased perception and thus biased feedback from peers;
-                    # 2) generate imperfect solutions and thus received imperfect solutions from peers.
+                    # roll back; follow the crowd feedback and refuse;
+                    # biased perception for everyone and thus biased feedback from crowds;
                 else:
                     self.state = next_state
                     self.cog_state = next_cog_state
@@ -91,7 +90,7 @@ class Generalist:
         else:
             if feedback:  # 2nd conflict: self "-" and peer "+"
                 if np.random.uniform(0, 1) < roll_forward_ratio:
-                # roll forward; follow the positive feedback and accept;
+                    # roll forward; follow the crowd feedback and accept;
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
@@ -142,7 +141,9 @@ class Generalist:
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
         """
-        Use the explicit state information; only utilize the knowledge domain, not mindset
+        Simple way to evaluate
+        Given a full state, individuals evaluate according to their knowledge.
+        !!! Used in current version
         """
         if (len(cur_state) == 0) or (len(next_state) == 0):
             raise ValueError("Blank State List")
@@ -157,7 +158,9 @@ class Generalist:
 
     def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
         """
-        With additional "*" shelter due to inexplicit expression and acquisition
+        Complicated way to evaluate
+        With additional "*" shelter due to inexplicit expression and acquisition;
+        !!! Not used in the current version
         """
         aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
         # aligned as the G cog_state: only has "A", "B", and "*"

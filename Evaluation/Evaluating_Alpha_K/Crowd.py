@@ -82,6 +82,12 @@ class Crowd:
         return true_count > self.agent_num / 2
 
     def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
+        """
+        Not used in current version
+        :param cur_cog_state:
+        :param next_cog_state:
+        :return:
+        """
         opinions = [agent.private_evaluate(cur_cog_state=cur_cog_state,
                                    next_cog_state=next_cog_state) for agent in self.agents]
         true_count = sum(1 for item in opinions if item)

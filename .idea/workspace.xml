@@ -5,32 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)&#10;----Using procedural vs. discrete mechanism&#10;----Procedural: using SuperG and SuperS to show that G are easily get confused and thus their solution retain promising directions; while S are more accurate and thus their solutions are more likely to create joint confusion -&gt; due to the partially attractiveness -&gt; it even become stronger with increasing S knowledge -&gt; One will also get stuck facing the same solution -&gt; it become an paradoxical tension regarding knowledege: more knowledege is good for the focal solver but it is bad for the collaboration">
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Trajectory_K0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Trajectory_K4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Trajectory_K8.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_trajectory_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_trajectory_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_trajectory_8" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/Evaluator Cache Distribution.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/Evaluator Cache Distribution.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/TwoComplexity/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/EvaluatingForwardBackward/GG_Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/EvaluatingForwardBackward/GG_Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel_Align_Domain/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel_Align_Domain/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_1" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +73,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Evaluation",
+    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Evaluation/Evaluating_Alpha_K",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,11 +85,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Evaluation\Evaluating_Alpha_K" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Evaluation" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\MoreThanParallel" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Baseline" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
@@ -242,7 +239,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-67fca87a943a-c986f194a52a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.11799.259" />
+        <option value="bundled-python-sdk-7a29c1521ef0-c986f194a52a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.11799.298" />
       </set>
     </attachedChunks>
   </component>
@@ -414,7 +411,8 @@
       <workItem from="1702010598120" duration="2951000" />
       <workItem from="1702641933192" duration="1133000" />
       <workItem from="1702644227788" duration="1869000" />
-      <workItem from="1702716312887" duration="1938000" />
+      <workItem from="1702716312887" duration="2108000" />
+      <workItem from="1702728064641" duration="2086000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -759,7 +757,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="475" />
+    <option name="localTasksCounter" value="476" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
