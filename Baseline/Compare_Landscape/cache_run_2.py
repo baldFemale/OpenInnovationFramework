@@ -32,7 +32,7 @@ if __name__ == '__main__':
     state_num = 4
     alpha_list = [0.20, 0.25, 0.30]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 100
     # Nature three colors
     nature_orange = "#F16C23"
     nature_blue = "#2B6A99"
@@ -104,6 +104,7 @@ if __name__ == '__main__':
             plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
+            plt.close(fig)
 
             # T-test
             t_statistic, p_value = stats.ttest_ind(temp_first_cache, temp_second_cache)
