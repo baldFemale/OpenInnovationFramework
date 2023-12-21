@@ -1,0 +1,534 @@
+Index: EvaluatingHow/Rollback/G_evaluate_S.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n# @Time     : 9/26/2022 20:23\n# @Author   : Junyi\n# @FileName: run.py\n# @Software  : PyCharm\n# Observing PEP 8 coding style\nimport numpy as np\nfrom Agent import Agent\nfrom Landscape import Landscape\nfrom Crowd import Crowd\nimport multiprocessing as mp\nimport time\nfrom multiprocessing import Semaphore\nimport pickle\nimport statistics\n\n\n# mp version\ndef func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,\n         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):\n    np.random.seed(None)\n    landscape = Landscape(N=N, K=K, state_num=state_num)\n    performance_across_agent_time = []\n    cog_performance_across_agent_time = []\n    # Evaluator Crowd\n    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,\n                           generalist_expertise=12, specialist_expertise=0)\n    for _ in range(agent_num):\n        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,\n                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)\n        for _ in range(search_iteration):\n            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)\n        performance_across_agent_time.append(specialist.fitness_across_time)\n        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)\n\n    performance_across_time = []\n    cog_performance_across_time = []\n    variance_across_time = []\n    first_quantile_across_time = []\n    last_quantile_across_time = []\n    for period in range(search_iteration):\n        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]\n        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]\n        performance_across_time.append(sum(temp_1) / len(temp_1))\n\n        # Measure the quantiles\n        quantiles = statistics.quantiles(temp_1, n=4)\n        first_quantile = quantiles[0]\n        last_quantile = quantiles[-1]\n        above_first_quantile = [num for num in temp_1 if num >= first_quantile]\n        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))\n        below_last_quantile = [num for num in temp_1 if num <= last_quantile]\n        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))\n\n        cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n        variance_across_time.append(np.std(temp_1))\n    return_dict[loop] = [performance_across_time, cog_performance_across_time,\n                         variance_across_time, first_quantile_across_time, last_quantile_across_time]\n    sema.release()\n\n\nif __name__ == '__main__':\n    t0 = time.time()\n    landscape_iteration = 300\n    agent_num = 100\n    search_iteration = 200\n    N = 9\n    state_num = 4\n    generalist_expertise = 0\n    specialist_expertise = 12\n    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]\n    roll_back_list = [0.1, 0.2, 0.3, 0.4]\n    concurrency = 50\n\n    for roll_back in roll_back_list:\n        # DVs\n        performance_across_K = []\n        variance_across_K = []\n        first_quantile_across_K = []\n        lats_quantile_across_K = []\n\n        performance_across_K_time = []\n        cog_performance_across_K_time = []\n        variance_across_K_time = []\n        first_quantile_across_K_time = []\n        last_quantile_across_K_time = []\n        for K in K_list:\n            manager = mp.Manager()\n            return_dict = manager.dict()\n            sema = Semaphore(concurrency)\n            jobs = []\n            for loop in range(landscape_iteration):\n                sema.acquire()\n                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,\n                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))\n                jobs.append(p)\n                p.start()\n            for proc in jobs:\n                proc.join()\n            returns = return_dict.values()  # Don't need dict index, since it is repetition.\n\n            temp_fitness_time, temp_cog_time, temp_var_time, \\\n                temp_first_time, temp_last_time = [], [], [], [], []\n            temp_fitness, temp_cog, temp_var, \\\n                temp_first, temp_last = [], [], [], [], []\n            for result in returns:  # 50 landscape repetitions\n                temp_fitness_time.append(result[0])\n                temp_cog_time.append(result[1])\n                temp_var_time.append(result[2])\n                temp_first_time.append(result[3])\n                temp_last_time.append(result[4])\n\n                temp_fitness.append(result[0][-1])\n                temp_cog.append(result[1][-1])\n                temp_var.append(result[2][-1])\n                temp_first.append(result[3][-1])\n                temp_last.append(result[4][-1])\n\n            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))\n            variance_across_K.append(sum(temp_var) / len(temp_var))\n            first_quantile_across_K.append(sum(temp_first) / len(temp_first))\n            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))\n\n            performance_across_time = []\n            cog_performance_across_time = []\n            variance_across_time = []\n            first_quantile_across_time = []\n            last_quantile_across_time = []\n            for period in range(search_iteration):\n                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]\n                performance_across_time.append(sum(temp_1) / len(temp_1))\n                temp_2 = [performance_list[period] for performance_list in temp_cog_time]\n                cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n                temp_3 = [performance_list[period] for performance_list in temp_var_time]\n                variance_across_time.append(sum(temp_3) / len(temp_3))\n                temp_4 = [performance_list[period] for performance_list in temp_first_time]\n                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))\n                temp_5 = [performance_list[period] for performance_list in temp_last_time]\n                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))\n            performance_across_K_time.append(performance_across_time)\n            cog_performance_across_K_time.append(cog_performance_across_time)\n            variance_across_K_time.append(variance_across_time)\n            first_quantile_across_K_time.append(first_quantile_across_time)\n            last_quantile_across_K_time.append(last_quantile_across_time)\n        # remove time dimension\n        with open(\"gs_performance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K, out_file)\n        with open(\"gs_variance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K, out_file)\n        with open(\"gs_first_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K, out_file)\n        with open(\"gs_last_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(lats_quantile_across_K, out_file)\n        # retain time dimension\n        with open(\"gs_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K_time, out_file)\n        with open(\"gs_cog_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(cog_performance_across_K_time, out_file)\n        with open(\"gs_variance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K_time, out_file)\n        with open(\"gs_first_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K_time, out_file)\n        with open(\"gs_last_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(last_quantile_across_K_time, out_file)\n\n    t1 = time.time()\n    print(\"GS: \", time.strftime(\"%H:%M:%S\", time.gmtime(t1-t0)))\n\n\n
+===================================================================
+diff --git a/EvaluatingHow/Rollback/G_evaluate_S.py b/EvaluatingHow/Rollback/G_evaluate_S.py
+--- a/EvaluatingHow/Rollback/G_evaluate_S.py	
++++ b/EvaluatingHow/Rollback/G_evaluate_S.py	
+@@ -1,169 +1,0 @@
+-# -*- coding: utf-8 -*-
+-# @Time     : 9/26/2022 20:23
+-# @Author   : Junyi
+-# @FileName: run.py
+-# @Software  : PyCharm
+-# Observing PEP 8 coding style
+-import numpy as np
+-from Agent import Agent
+-from Landscape import Landscape
+-from Crowd import Crowd
+-import multiprocessing as mp
+-import time
+-from multiprocessing import Semaphore
+-import pickle
+-import statistics
+-
+-
+-# mp version
+-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+-         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):
+-    np.random.seed(None)
+-    landscape = Landscape(N=N, K=K, state_num=state_num)
+-    performance_across_agent_time = []
+-    cog_performance_across_agent_time = []
+-    # Evaluator Crowd
+-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+-                           generalist_expertise=12, specialist_expertise=0)
+-    for _ in range(agent_num):
+-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+-        for _ in range(search_iteration):
+-            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
+-        performance_across_agent_time.append(specialist.fitness_across_time)
+-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+-
+-    performance_across_time = []
+-    cog_performance_across_time = []
+-    variance_across_time = []
+-    first_quantile_across_time = []
+-    last_quantile_across_time = []
+-    for period in range(search_iteration):
+-        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
+-        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
+-        performance_across_time.append(sum(temp_1) / len(temp_1))
+-
+-        # Measure the quantiles
+-        quantiles = statistics.quantiles(temp_1, n=4)
+-        first_quantile = quantiles[0]
+-        last_quantile = quantiles[-1]
+-        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
+-        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
+-        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
+-        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
+-
+-        cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-        variance_across_time.append(np.std(temp_1))
+-    return_dict[loop] = [performance_across_time, cog_performance_across_time,
+-                         variance_across_time, first_quantile_across_time, last_quantile_across_time]
+-    sema.release()
+-
+-
+-if __name__ == '__main__':
+-    t0 = time.time()
+-    landscape_iteration = 300
+-    agent_num = 100
+-    search_iteration = 200
+-    N = 9
+-    state_num = 4
+-    generalist_expertise = 0
+-    specialist_expertise = 12
+-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+-    roll_back_list = [0.1, 0.2, 0.3, 0.4]
+-    concurrency = 50
+-
+-    for roll_back in roll_back_list:
+-        # DVs
+-        performance_across_K = []
+-        variance_across_K = []
+-        first_quantile_across_K = []
+-        lats_quantile_across_K = []
+-
+-        performance_across_K_time = []
+-        cog_performance_across_K_time = []
+-        variance_across_K_time = []
+-        first_quantile_across_K_time = []
+-        last_quantile_across_K_time = []
+-        for K in K_list:
+-            manager = mp.Manager()
+-            return_dict = manager.dict()
+-            sema = Semaphore(concurrency)
+-            jobs = []
+-            for loop in range(landscape_iteration):
+-                sema.acquire()
+-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+-                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))
+-                jobs.append(p)
+-                p.start()
+-            for proc in jobs:
+-                proc.join()
+-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+-
+-            temp_fitness_time, temp_cog_time, temp_var_time, \
+-                temp_first_time, temp_last_time = [], [], [], [], []
+-            temp_fitness, temp_cog, temp_var, \
+-                temp_first, temp_last = [], [], [], [], []
+-            for result in returns:  # 50 landscape repetitions
+-                temp_fitness_time.append(result[0])
+-                temp_cog_time.append(result[1])
+-                temp_var_time.append(result[2])
+-                temp_first_time.append(result[3])
+-                temp_last_time.append(result[4])
+-
+-                temp_fitness.append(result[0][-1])
+-                temp_cog.append(result[1][-1])
+-                temp_var.append(result[2][-1])
+-                temp_first.append(result[3][-1])
+-                temp_last.append(result[4][-1])
+-
+-            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
+-            variance_across_K.append(sum(temp_var) / len(temp_var))
+-            first_quantile_across_K.append(sum(temp_first) / len(temp_first))
+-            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))
+-
+-            performance_across_time = []
+-            cog_performance_across_time = []
+-            variance_across_time = []
+-            first_quantile_across_time = []
+-            last_quantile_across_time = []
+-            for period in range(search_iteration):
+-                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]
+-                performance_across_time.append(sum(temp_1) / len(temp_1))
+-                temp_2 = [performance_list[period] for performance_list in temp_cog_time]
+-                cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-                temp_3 = [performance_list[period] for performance_list in temp_var_time]
+-                variance_across_time.append(sum(temp_3) / len(temp_3))
+-                temp_4 = [performance_list[period] for performance_list in temp_first_time]
+-                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))
+-                temp_5 = [performance_list[period] for performance_list in temp_last_time]
+-                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))
+-            performance_across_K_time.append(performance_across_time)
+-            cog_performance_across_K_time.append(cog_performance_across_time)
+-            variance_across_K_time.append(variance_across_time)
+-            first_quantile_across_K_time.append(first_quantile_across_time)
+-            last_quantile_across_K_time.append(last_quantile_across_time)
+-        # remove time dimension
+-        with open("gs_performance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K, out_file)
+-        with open("gs_variance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K, out_file)
+-        with open("gs_first_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K, out_file)
+-        with open("gs_last_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(lats_quantile_across_K, out_file)
+-        # retain time dimension
+-        with open("gs_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K_time, out_file)
+-        with open("gs_cog_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(cog_performance_across_K_time, out_file)
+-        with open("gs_variance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K_time, out_file)
+-        with open("gs_first_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K_time, out_file)
+-        with open("gs_last_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(last_quantile_across_K_time, out_file)
+-
+-    t1 = time.time()
+-    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+-
+-
+Index: EvaluatingHow/Rollback/S_evaluate_S.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n# @Time     : 9/26/2022 20:23\n# @Author   : Junyi\n# @FileName: run.py\n# @Software  : PyCharm\n# Observing PEP 8 coding style\nimport numpy as np\nfrom Agent import Agent\nfrom Landscape import Landscape\nfrom Crowd import Crowd\nimport multiprocessing as mp\nimport time\nfrom multiprocessing import Semaphore\nimport pickle\nimport statistics\n\n\n# mp version\ndef func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,\n         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):\n    np.random.seed(None)\n    landscape = Landscape(N=N, K=K, state_num=state_num)\n    performance_across_agent_time = []\n    cog_performance_across_agent_time = []\n    # Evaluator Crowd\n    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,\n                           generalist_expertise=0, specialist_expertise=12)\n    for _ in range(agent_num):\n        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,\n                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)\n        for _ in range(search_iteration):\n            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)\n        performance_across_agent_time.append(specialist.fitness_across_time)\n        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)\n\n    performance_across_time = []\n    cog_performance_across_time = []\n    variance_across_time = []\n    first_quantile_across_time = []\n    last_quantile_across_time = []\n    for period in range(search_iteration):\n        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]\n        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]\n        performance_across_time.append(sum(temp_1) / len(temp_1))\n\n        # Measure the quantiles\n        quantiles = statistics.quantiles(temp_1, n=4)\n        first_quantile = quantiles[0]\n        last_quantile = quantiles[-1]\n        above_first_quantile = [num for num in temp_1 if num >= first_quantile]\n        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))\n        below_last_quantile = [num for num in temp_1 if num <= last_quantile]\n        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))\n\n        cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n        variance_across_time.append(np.std(temp_1))\n    return_dict[loop] = [performance_across_time, cog_performance_across_time,\n                         variance_across_time, first_quantile_across_time, last_quantile_across_time]\n    sema.release()\n\n\nif __name__ == '__main__':\n    t0 = time.time()\n    landscape_iteration = 300\n    agent_num = 100\n    search_iteration = 200\n    N = 9\n    state_num = 4\n    generalist_expertise = 0\n    specialist_expertise = 12\n    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]\n    roll_back_list = [0.1, 0.2, 0.3, 0.4]\n    concurrency = 50\n\n    for roll_back in roll_back_list:\n        # DVs\n        performance_across_K = []\n        variance_across_K = []\n        first_quantile_across_K = []\n        lats_quantile_across_K = []\n\n        performance_across_K_time = []\n        cog_performance_across_K_time = []\n        variance_across_K_time = []\n        first_quantile_across_K_time = []\n        last_quantile_across_K_time = []\n        for K in K_list:\n            manager = mp.Manager()\n            return_dict = manager.dict()\n            sema = Semaphore(concurrency)\n            jobs = []\n            for loop in range(landscape_iteration):\n                sema.acquire()\n                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,\n                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))\n                jobs.append(p)\n                p.start()\n            for proc in jobs:\n                proc.join()\n            returns = return_dict.values()  # Don't need dict index, since it is repetition.\n\n            temp_fitness_time, temp_cog_time, temp_var_time, \\\n                temp_first_time, temp_last_time = [], [], [], [], []\n            temp_fitness, temp_cog, temp_var, \\\n                temp_first, temp_last = [], [], [], [], []\n            for result in returns:  # 50 landscape repetitions\n                temp_fitness_time.append(result[0])\n                temp_cog_time.append(result[1])\n                temp_var_time.append(result[2])\n                temp_first_time.append(result[3])\n                temp_last_time.append(result[4])\n\n                temp_fitness.append(result[0][-1])\n                temp_cog.append(result[1][-1])\n                temp_var.append(result[2][-1])\n                temp_first.append(result[3][-1])\n                temp_last.append(result[4][-1])\n\n            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))\n            variance_across_K.append(sum(temp_var) / len(temp_var))\n            first_quantile_across_K.append(sum(temp_first) / len(temp_first))\n            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))\n\n            performance_across_time = []\n            cog_performance_across_time = []\n            variance_across_time = []\n            first_quantile_across_time = []\n            last_quantile_across_time = []\n            for period in range(search_iteration):\n                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]\n                performance_across_time.append(sum(temp_1) / len(temp_1))\n                temp_2 = [performance_list[period] for performance_list in temp_cog_time]\n                cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n                temp_3 = [performance_list[period] for performance_list in temp_var_time]\n                variance_across_time.append(sum(temp_3) / len(temp_3))\n                temp_4 = [performance_list[period] for performance_list in temp_first_time]\n                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))\n                temp_5 = [performance_list[period] for performance_list in temp_last_time]\n                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))\n            performance_across_K_time.append(performance_across_time)\n            cog_performance_across_K_time.append(cog_performance_across_time)\n            variance_across_K_time.append(variance_across_time)\n            first_quantile_across_K_time.append(first_quantile_across_time)\n            last_quantile_across_K_time.append(last_quantile_across_time)\n        # remove time dimension\n        with open(\"ss_performance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K, out_file)\n        with open(\"ss_variance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K, out_file)\n        with open(\"ss_first_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K, out_file)\n        with open(\"ss_last_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(lats_quantile_across_K, out_file)\n        # retain time dimension\n        with open(\"ss_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K_time, out_file)\n        with open(\"ss_cog_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(cog_performance_across_K_time, out_file)\n        with open(\"ss_variance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K_time, out_file)\n        with open(\"ss_first_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K_time, out_file)\n        with open(\"ss_last_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(last_quantile_across_K_time, out_file)\n\n    t1 = time.time()\n    print(\"SS: \", time.strftime(\"%H:%M:%S\", time.gmtime(t1-t0)))\n\n\n
+===================================================================
+diff --git a/EvaluatingHow/Rollback/S_evaluate_S.py b/EvaluatingHow/Rollback/S_evaluate_S.py
+--- a/EvaluatingHow/Rollback/S_evaluate_S.py	
++++ b/EvaluatingHow/Rollback/S_evaluate_S.py	
+@@ -1,169 +1,0 @@
+-# -*- coding: utf-8 -*-
+-# @Time     : 9/26/2022 20:23
+-# @Author   : Junyi
+-# @FileName: run.py
+-# @Software  : PyCharm
+-# Observing PEP 8 coding style
+-import numpy as np
+-from Agent import Agent
+-from Landscape import Landscape
+-from Crowd import Crowd
+-import multiprocessing as mp
+-import time
+-from multiprocessing import Semaphore
+-import pickle
+-import statistics
+-
+-
+-# mp version
+-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+-         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):
+-    np.random.seed(None)
+-    landscape = Landscape(N=N, K=K, state_num=state_num)
+-    performance_across_agent_time = []
+-    cog_performance_across_agent_time = []
+-    # Evaluator Crowd
+-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+-                           generalist_expertise=0, specialist_expertise=12)
+-    for _ in range(agent_num):
+-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+-        for _ in range(search_iteration):
+-            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
+-        performance_across_agent_time.append(specialist.fitness_across_time)
+-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+-
+-    performance_across_time = []
+-    cog_performance_across_time = []
+-    variance_across_time = []
+-    first_quantile_across_time = []
+-    last_quantile_across_time = []
+-    for period in range(search_iteration):
+-        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
+-        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
+-        performance_across_time.append(sum(temp_1) / len(temp_1))
+-
+-        # Measure the quantiles
+-        quantiles = statistics.quantiles(temp_1, n=4)
+-        first_quantile = quantiles[0]
+-        last_quantile = quantiles[-1]
+-        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
+-        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
+-        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
+-        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
+-
+-        cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-        variance_across_time.append(np.std(temp_1))
+-    return_dict[loop] = [performance_across_time, cog_performance_across_time,
+-                         variance_across_time, first_quantile_across_time, last_quantile_across_time]
+-    sema.release()
+-
+-
+-if __name__ == '__main__':
+-    t0 = time.time()
+-    landscape_iteration = 300
+-    agent_num = 100
+-    search_iteration = 200
+-    N = 9
+-    state_num = 4
+-    generalist_expertise = 0
+-    specialist_expertise = 12
+-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+-    roll_back_list = [0.1, 0.2, 0.3, 0.4]
+-    concurrency = 50
+-
+-    for roll_back in roll_back_list:
+-        # DVs
+-        performance_across_K = []
+-        variance_across_K = []
+-        first_quantile_across_K = []
+-        lats_quantile_across_K = []
+-
+-        performance_across_K_time = []
+-        cog_performance_across_K_time = []
+-        variance_across_K_time = []
+-        first_quantile_across_K_time = []
+-        last_quantile_across_K_time = []
+-        for K in K_list:
+-            manager = mp.Manager()
+-            return_dict = manager.dict()
+-            sema = Semaphore(concurrency)
+-            jobs = []
+-            for loop in range(landscape_iteration):
+-                sema.acquire()
+-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+-                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))
+-                jobs.append(p)
+-                p.start()
+-            for proc in jobs:
+-                proc.join()
+-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+-
+-            temp_fitness_time, temp_cog_time, temp_var_time, \
+-                temp_first_time, temp_last_time = [], [], [], [], []
+-            temp_fitness, temp_cog, temp_var, \
+-                temp_first, temp_last = [], [], [], [], []
+-            for result in returns:  # 50 landscape repetitions
+-                temp_fitness_time.append(result[0])
+-                temp_cog_time.append(result[1])
+-                temp_var_time.append(result[2])
+-                temp_first_time.append(result[3])
+-                temp_last_time.append(result[4])
+-
+-                temp_fitness.append(result[0][-1])
+-                temp_cog.append(result[1][-1])
+-                temp_var.append(result[2][-1])
+-                temp_first.append(result[3][-1])
+-                temp_last.append(result[4][-1])
+-
+-            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
+-            variance_across_K.append(sum(temp_var) / len(temp_var))
+-            first_quantile_across_K.append(sum(temp_first) / len(temp_first))
+-            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))
+-
+-            performance_across_time = []
+-            cog_performance_across_time = []
+-            variance_across_time = []
+-            first_quantile_across_time = []
+-            last_quantile_across_time = []
+-            for period in range(search_iteration):
+-                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]
+-                performance_across_time.append(sum(temp_1) / len(temp_1))
+-                temp_2 = [performance_list[period] for performance_list in temp_cog_time]
+-                cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-                temp_3 = [performance_list[period] for performance_list in temp_var_time]
+-                variance_across_time.append(sum(temp_3) / len(temp_3))
+-                temp_4 = [performance_list[period] for performance_list in temp_first_time]
+-                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))
+-                temp_5 = [performance_list[period] for performance_list in temp_last_time]
+-                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))
+-            performance_across_K_time.append(performance_across_time)
+-            cog_performance_across_K_time.append(cog_performance_across_time)
+-            variance_across_K_time.append(variance_across_time)
+-            first_quantile_across_K_time.append(first_quantile_across_time)
+-            last_quantile_across_K_time.append(last_quantile_across_time)
+-        # remove time dimension
+-        with open("ss_performance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K, out_file)
+-        with open("ss_variance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K, out_file)
+-        with open("ss_first_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K, out_file)
+-        with open("ss_last_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(lats_quantile_across_K, out_file)
+-        # retain time dimension
+-        with open("ss_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K_time, out_file)
+-        with open("ss_cog_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(cog_performance_across_K_time, out_file)
+-        with open("ss_variance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K_time, out_file)
+-        with open("ss_first_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K_time, out_file)
+-        with open("ss_last_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(last_quantile_across_K_time, out_file)
+-
+-    t1 = time.time()
+-    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+-
+-
+Index: EvaluatingHow/Rollback/S_evaluate_G.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n# @Time     : 9/26/2022 20:23\n# @Author   : Junyi\n# @FileName: run.py\n# @Software  : PyCharm\n# Observing PEP 8 coding style\nimport numpy as np\nfrom Agent import Agent\nfrom Landscape import Landscape\nfrom Crowd import Crowd\nimport multiprocessing as mp\nimport time\nfrom multiprocessing import Semaphore\nimport pickle\nimport statistics\n\n\n# mp version\ndef func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,\n         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):\n    np.random.seed(None)\n    landscape = Landscape(N=N, K=K, state_num=state_num)\n    performance_across_agent_time = []\n    cog_performance_across_agent_time = []\n    # Evaluator Crowd\n    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,\n                           generalist_expertise=0, specialist_expertise=12)\n    for _ in range(agent_num):\n        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,\n                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)\n        for _ in range(search_iteration):\n            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)\n        performance_across_agent_time.append(specialist.fitness_across_time)\n        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)\n\n    performance_across_time = []\n    cog_performance_across_time = []\n    variance_across_time = []\n    first_quantile_across_time = []\n    last_quantile_across_time = []\n    for period in range(search_iteration):\n        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]\n        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]\n        performance_across_time.append(sum(temp_1) / len(temp_1))\n\n        # Measure the quantiles\n        quantiles = statistics.quantiles(temp_1, n=4)\n        first_quantile = quantiles[0]\n        last_quantile = quantiles[-1]\n        above_first_quantile = [num for num in temp_1 if num >= first_quantile]\n        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))\n        below_last_quantile = [num for num in temp_1 if num <= last_quantile]\n        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))\n\n        cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n        variance_across_time.append(np.std(temp_1))\n    return_dict[loop] = [performance_across_time, cog_performance_across_time,\n                         variance_across_time, first_quantile_across_time, last_quantile_across_time]\n    sema.release()\n\n\nif __name__ == '__main__':\n    t0 = time.time()\n    landscape_iteration = 300\n    agent_num = 100\n    search_iteration = 200\n    N = 9\n    state_num = 4\n    generalist_expertise = 12\n    specialist_expertise = 0\n    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]\n    roll_back_list = [0.1, 0.2, 0.3, 0.4]\n    concurrency = 50\n\n    for roll_back in roll_back_list:\n        # DVs\n        performance_across_K = []\n        variance_across_K = []\n        first_quantile_across_K = []\n        lats_quantile_across_K = []\n\n        performance_across_K_time = []\n        cog_performance_across_K_time = []\n        variance_across_K_time = []\n        first_quantile_across_K_time = []\n        last_quantile_across_K_time = []\n        for K in K_list:\n            manager = mp.Manager()\n            return_dict = manager.dict()\n            sema = Semaphore(concurrency)\n            jobs = []\n            for loop in range(landscape_iteration):\n                sema.acquire()\n                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,\n                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))\n                jobs.append(p)\n                p.start()\n            for proc in jobs:\n                proc.join()\n            returns = return_dict.values()  # Don't need dict index, since it is repetition.\n\n            temp_fitness_time, temp_cog_time, temp_var_time, \\\n                temp_first_time, temp_last_time = [], [], [], [], []\n            temp_fitness, temp_cog, temp_var, \\\n                temp_first, temp_last = [], [], [], [], []\n            for result in returns:  # 50 landscape repetitions\n                temp_fitness_time.append(result[0])\n                temp_cog_time.append(result[1])\n                temp_var_time.append(result[2])\n                temp_first_time.append(result[3])\n                temp_last_time.append(result[4])\n\n                temp_fitness.append(result[0][-1])\n                temp_cog.append(result[1][-1])\n                temp_var.append(result[2][-1])\n                temp_first.append(result[3][-1])\n                temp_last.append(result[4][-1])\n\n            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))\n            variance_across_K.append(sum(temp_var) / len(temp_var))\n            first_quantile_across_K.append(sum(temp_first) / len(temp_first))\n            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))\n\n            performance_across_time = []\n            cog_performance_across_time = []\n            variance_across_time = []\n            first_quantile_across_time = []\n            last_quantile_across_time = []\n            for period in range(search_iteration):\n                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]\n                performance_across_time.append(sum(temp_1) / len(temp_1))\n                temp_2 = [performance_list[period] for performance_list in temp_cog_time]\n                cog_performance_across_time.append(sum(temp_2) / len(temp_2))\n                temp_3 = [performance_list[period] for performance_list in temp_var_time]\n                variance_across_time.append(sum(temp_3) / len(temp_3))\n                temp_4 = [performance_list[period] for performance_list in temp_first_time]\n                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))\n                temp_5 = [performance_list[period] for performance_list in temp_last_time]\n                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))\n            performance_across_K_time.append(performance_across_time)\n            cog_performance_across_K_time.append(cog_performance_across_time)\n            variance_across_K_time.append(variance_across_time)\n            first_quantile_across_K_time.append(first_quantile_across_time)\n            last_quantile_across_K_time.append(last_quantile_across_time)\n        # remove time dimension\n        with open(\"sg_performance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K, out_file)\n        with open(\"sg_variance_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K, out_file)\n        with open(\"sg_first_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K, out_file)\n        with open(\"sg_last_quantile_across_K_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(lats_quantile_across_K, out_file)\n        # retain time dimension\n        with open(\"sg_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(performance_across_K_time, out_file)\n        with open(\"sg_cog_performance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(cog_performance_across_K_time, out_file)\n        with open(\"sg_variance_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(variance_across_K_time, out_file)\n        with open(\"sg_first_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(first_quantile_across_K_time, out_file)\n        with open(\"sg_last_quantile_across_K_time_beta_{0}\".format(roll_back), 'wb') as out_file:\n            pickle.dump(last_quantile_across_K_time, out_file)\n\n    t1 = time.time()\n    print(\"SG: \", time.strftime(\"%H:%M:%S\", time.gmtime(t1-t0)))\n\n\n
+===================================================================
+diff --git a/EvaluatingHow/Rollback/S_evaluate_G.py b/EvaluatingHow/Rollback/S_evaluate_G.py
+--- a/EvaluatingHow/Rollback/S_evaluate_G.py	
++++ b/EvaluatingHow/Rollback/S_evaluate_G.py	
+@@ -1,169 +1,0 @@
+-# -*- coding: utf-8 -*-
+-# @Time     : 9/26/2022 20:23
+-# @Author   : Junyi
+-# @FileName: run.py
+-# @Software  : PyCharm
+-# Observing PEP 8 coding style
+-import numpy as np
+-from Agent import Agent
+-from Landscape import Landscape
+-from Crowd import Crowd
+-import multiprocessing as mp
+-import time
+-from multiprocessing import Semaphore
+-import pickle
+-import statistics
+-
+-
+-# mp version
+-def func(N=None, K=None, state_num=None, generalist_expertise=None, specialist_expertise=None, agent_num=None,
+-         search_iteration=None, roll_back=None, loop=None, return_dict=None, sema=None):
+-    np.random.seed(None)
+-    landscape = Landscape(N=N, K=K, state_num=state_num)
+-    performance_across_agent_time = []
+-    cog_performance_across_agent_time = []
+-    # Evaluator Crowd
+-    crowd = Crowd(N=N, agent_num=50, landscape=landscape, state_num=state_num,
+-                           generalist_expertise=0, specialist_expertise=12)
+-    for _ in range(agent_num):
+-        specialist = Agent(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
+-                           generalist_expertise=generalist_expertise, specialist_expertise=specialist_expertise)
+-        for _ in range(search_iteration):
+-            specialist.feedback_search(roll_back_ratio=roll_back, roll_forward_ratio=0)
+-        performance_across_agent_time.append(specialist.fitness_across_time)
+-        cog_performance_across_agent_time.append(specialist.cog_fitness_across_time)
+-
+-    performance_across_time = []
+-    cog_performance_across_time = []
+-    variance_across_time = []
+-    first_quantile_across_time = []
+-    last_quantile_across_time = []
+-    for period in range(search_iteration):
+-        temp_1 = [performance_list[period] for performance_list in performance_across_agent_time]
+-        temp_2 = [performance_list[period] for performance_list in cog_performance_across_agent_time]
+-        performance_across_time.append(sum(temp_1) / len(temp_1))
+-
+-        # Measure the quantiles
+-        quantiles = statistics.quantiles(temp_1, n=4)
+-        first_quantile = quantiles[0]
+-        last_quantile = quantiles[-1]
+-        above_first_quantile = [num for num in temp_1 if num >= first_quantile]
+-        first_quantile_across_time.append(sum(above_first_quantile) / len(above_first_quantile))
+-        below_last_quantile = [num for num in temp_1 if num <= last_quantile]
+-        last_quantile_across_time.append(sum(below_last_quantile) / len(below_last_quantile))
+-
+-        cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-        variance_across_time.append(np.std(temp_1))
+-    return_dict[loop] = [performance_across_time, cog_performance_across_time,
+-                         variance_across_time, first_quantile_across_time, last_quantile_across_time]
+-    sema.release()
+-
+-
+-if __name__ == '__main__':
+-    t0 = time.time()
+-    landscape_iteration = 300
+-    agent_num = 100
+-    search_iteration = 200
+-    N = 9
+-    state_num = 4
+-    generalist_expertise = 12
+-    specialist_expertise = 0
+-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+-    roll_back_list = [0.1, 0.2, 0.3, 0.4]
+-    concurrency = 50
+-
+-    for roll_back in roll_back_list:
+-        # DVs
+-        performance_across_K = []
+-        variance_across_K = []
+-        first_quantile_across_K = []
+-        lats_quantile_across_K = []
+-
+-        performance_across_K_time = []
+-        cog_performance_across_K_time = []
+-        variance_across_K_time = []
+-        first_quantile_across_K_time = []
+-        last_quantile_across_K_time = []
+-        for K in K_list:
+-            manager = mp.Manager()
+-            return_dict = manager.dict()
+-            sema = Semaphore(concurrency)
+-            jobs = []
+-            for loop in range(landscape_iteration):
+-                sema.acquire()
+-                p = mp.Process(target=func, args=(N, K, state_num, generalist_expertise, specialist_expertise,
+-                                                  agent_num, search_iteration, roll_back, loop, return_dict, sema))
+-                jobs.append(p)
+-                p.start()
+-            for proc in jobs:
+-                proc.join()
+-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+-
+-            temp_fitness_time, temp_cog_time, temp_var_time, \
+-                temp_first_time, temp_last_time = [], [], [], [], []
+-            temp_fitness, temp_cog, temp_var, \
+-                temp_first, temp_last = [], [], [], [], []
+-            for result in returns:  # 50 landscape repetitions
+-                temp_fitness_time.append(result[0])
+-                temp_cog_time.append(result[1])
+-                temp_var_time.append(result[2])
+-                temp_first_time.append(result[3])
+-                temp_last_time.append(result[4])
+-
+-                temp_fitness.append(result[0][-1])
+-                temp_cog.append(result[1][-1])
+-                temp_var.append(result[2][-1])
+-                temp_first.append(result[3][-1])
+-                temp_last.append(result[4][-1])
+-
+-            performance_across_K.append(sum(temp_fitness) / len(temp_fitness))
+-            variance_across_K.append(sum(temp_var) / len(temp_var))
+-            first_quantile_across_K.append(sum(temp_first) / len(temp_first))
+-            lats_quantile_across_K.append(sum(temp_last) / len(temp_last))
+-
+-            performance_across_time = []
+-            cog_performance_across_time = []
+-            variance_across_time = []
+-            first_quantile_across_time = []
+-            last_quantile_across_time = []
+-            for period in range(search_iteration):
+-                temp_1 = [performance_list[period] for performance_list in temp_fitness_time]
+-                performance_across_time.append(sum(temp_1) / len(temp_1))
+-                temp_2 = [performance_list[period] for performance_list in temp_cog_time]
+-                cog_performance_across_time.append(sum(temp_2) / len(temp_2))
+-                temp_3 = [performance_list[period] for performance_list in temp_var_time]
+-                variance_across_time.append(sum(temp_3) / len(temp_3))
+-                temp_4 = [performance_list[period] for performance_list in temp_first_time]
+-                first_quantile_across_time.append((sum(temp_4) / len(temp_4)))
+-                temp_5 = [performance_list[period] for performance_list in temp_last_time]
+-                last_quantile_across_time.append((sum(temp_5) / len(temp_5)))
+-            performance_across_K_time.append(performance_across_time)
+-            cog_performance_across_K_time.append(cog_performance_across_time)
+-            variance_across_K_time.append(variance_across_time)
+-            first_quantile_across_K_time.append(first_quantile_across_time)
+-            last_quantile_across_K_time.append(last_quantile_across_time)
+-        # remove time dimension
+-        with open("sg_performance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K, out_file)
+-        with open("sg_variance_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K, out_file)
+-        with open("sg_first_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K, out_file)
+-        with open("sg_last_quantile_across_K_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(lats_quantile_across_K, out_file)
+-        # retain time dimension
+-        with open("sg_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(performance_across_K_time, out_file)
+-        with open("sg_cog_performance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(cog_performance_across_K_time, out_file)
+-        with open("sg_variance_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(variance_across_K_time, out_file)
+-        with open("sg_first_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(first_quantile_across_K_time, out_file)
+-        with open("sg_last_quantile_across_K_time_beta_{0}".format(roll_back), 'wb') as out_file:
+-            pickle.dump(last_quantile_across_K_time, out_file)
+-
+-    t1 = time.time()
+-    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+-
+-
