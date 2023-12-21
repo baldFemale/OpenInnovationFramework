@@ -20,44 +20,39 @@ def func(N=None, K=None, agent_num=None, overlap=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
-    sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=12, specialist_expertise=0, label="G")
-    for sender in sender_crowd.agents:
+    mutual_climb_rate_list = []
+    for _ in range(agent_num):
+        # Sender
+        specialist = Specialist(N=N, landscape=landscape, state_num=4, specialist_expertise=12)  # !!!
         for _ in range(search_iteration):
-            sender.search()
-    # for receiver in receiver_crowd.agents:
-    #     for _ in range(search_iteration):
-    #         receiver.search()
-    # Joint Satisfaction
-    joint_confusion_rate_list = []
-    for sender in sender_crowd.agents:
-        sender_solution = sender.state.copy()
-        sender_domain = sender.specialist_domain.copy()  # !!!
-        count = 0
+            specialist.search()
+        reached_solution = specialist.state.copy()
+        sender_domain = specialist.generalist_domain.copy()  # !!!
         other_domain_list = [i for i in range(N) if i not in sender_domain]
         # Re-Generate the Receiver Accordingly
+        count = 0
         for receiver in receiver_crowd.agents:
-            receiver.generalist_domain = np.random.choice(other_domain_list, 6 - overlap) + np.random.choice(sender_domain, overlap) # !!!
+            receiver.generalist_domain = np.random.choice(other_domain_list, 6 - overlap) + np.random.choice(
+                sender_domain, overlap)  # !!!
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
             receiver.cog_fitness = receiver.get_cog_fitness(cog_state=receiver.cog_state, state=receiver.state)
             receiver.fitness = landscape.query_second_fitness(state=receiver.state)
-            for _ in range(search_iteration):
-                receiver.search()
-            learnt_solution = receiver.state.copy()
-            for index in sender_domain:
-                learnt_solution[index] = sender_solution[index]
-            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
-            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
-                count += 1
-        joint_confusion_rate = count / agent_num
-        joint_confusion_rate_list.append(joint_confusion_rate)
-    final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
-    return_dict[loop] = [final_joint_confusion_rate]
+            suggestions = receiver.suggest_better_state_from_expertise(state=reached_solution)
+            for each_suggestion in suggestions:
+                climbs = specialist.suggest_better_state_from_expertise(state=each_suggestion)  # !!!
+                if reached_solution in climbs:
+                    climbs.remove(reached_solution)
+                if len(climbs) != 0:
+                    count += 1
+                    break
+        mutual_climb_rate = count / agent_num
+        mutual_climb_rate_list.append(mutual_climb_rate)
+    final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
+    return_dict[loop] = [final_mutual_climb_rate]
     sema.release()
 
 
@@ -72,7 +67,7 @@ if __name__ == '__main__':
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
-    overlap_list = [1, 2, 3]  # for GS: at least 0 overlap, yet start from 1; at most 3 overlap
+    overlap_list = [1, 2, 3]  # for SG: at least 0 overlap, yet start from 1; at most 3 overlap
     concurrency = 100
     # DVs
     for overlap in overlap_list:
