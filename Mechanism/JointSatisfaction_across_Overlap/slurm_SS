@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=3-00:00:00
-#SBATCH --job-name=stat_alpha
+#SBATCH --job-name=overlap4
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=200gb
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
-srun python G_evaluate_G_1.py
+srun python S_evaluate_S.py
