@@ -3,9 +3,8 @@
 #SBATCH --job-name=Cache_3
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=junyili@u.nus.edu
-#SBATCH --mem=200gb
+#SBATCH --mem=400gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=50
+#SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
-#SBATCH --exclude=xcng0,xcng1
 srun python cache_run_3.py

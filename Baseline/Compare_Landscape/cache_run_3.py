@@ -32,7 +32,11 @@ if __name__ == '__main__':
     state_num = 4
     alpha_list = [0.35, 0.40, 0.45, 0.50]
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    concurrency = 50
+    concurrency = 100
+    # Nature three colors
+    nature_orange = "#F16C23"
+    nature_blue = "#2B6A99"
+    nature_green = "#1B7C3D"
     p_value_across_K_alpha = []
     mean_diff_across_K_alpha = []
     for alpha in alpha_list:
@@ -67,7 +71,7 @@ if __name__ == '__main__':
             ax.spines["right"].set_linewidth(1.5)
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
-            plt.hist(temp_first_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+            plt.hist(temp_first_cache, bins=40, facecolor=nature_blue, edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
             mean_fitness = np.mean(temp_first_cache)
             std_dev_fitness = np.std(temp_first_cache)
@@ -87,7 +91,7 @@ if __name__ == '__main__':
             ax.spines["right"].set_linewidth(1.5)
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
-            plt.hist(temp_second_cache, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+            plt.hist(temp_second_cache, bins=40, facecolor=nature_orange, edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
             mean_fitness = np.mean(temp_second_cache)
             std_dev_fitness = np.std(temp_second_cache)
@@ -100,6 +104,7 @@ if __name__ == '__main__':
             plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
+            plt.close(fig)
 
             # T-test
             t_statistic, p_value = stats.ttest_ind(temp_first_cache, temp_second_cache)

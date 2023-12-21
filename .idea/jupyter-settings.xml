@@ -3,11 +3,11 @@
   <component name="JupyterPersistentConnectionParameters">
     <option name="moduleParameters">
       <map>
-        <entry key="F:/Python_Workplace/DAOs/.idea/DAOs.iml">
+        <entry key="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml">
           <value>
             <JupyterConnectionParameters>
               <option name="managed" value="true" />
-              <option name="sdkHomePath" value="C:\Anaconda3.7\python.exe" />
+              <option name="sdkHomePath" value="C:\Anaconda3\python.exe" />
             </JupyterConnectionParameters>
           </value>
         </entry>
