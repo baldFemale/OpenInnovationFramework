@@ -22,7 +22,7 @@ def func(N=None, K=None, agent_num=None, alpha=None,
     landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     mutual_climb_rate_list = []
     for _ in range(agent_num):
         # Focal Agent
@@ -38,9 +38,9 @@ def func(N=None, K=None, agent_num=None, alpha=None,
                 climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
                 if reached_solution in climbs:
                     climbs.remove(reached_solution)
-                count += len(climbs)
-            if len(suggestions) != 0:
-                count /= len(suggestions)
+                if len(climbs) != 0:
+                    count += 1
+                    break
         mutual_climb_rate = count / agent_num
         mutual_climb_rate_list.append(mutual_climb_rate)
     final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
@@ -54,10 +54,9 @@ if __name__ == '__main__':
     agent_num = 500
     search_iteration = 200
     N = 9
-    state_num = 4
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
-    alpha_list = [0.25, 0.30, 0.35, 0.40, 0.45]
+    alpha_list = [0.05, 0.10, 0.15, 0.20]
     concurrency = 50
     for alpha in alpha_list:
         joint_confusion_across_K = []
@@ -82,10 +81,8 @@ if __name__ == '__main__':
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
 
         # remove time dimension
-        with open("gg_mutual_deviation_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("sg_mutual_deviation_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(joint_confusion_across_K, out_file)
 
     t1 = time.time()
-    print("GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
-
+    print("SG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
