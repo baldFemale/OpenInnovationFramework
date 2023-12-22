@@ -39,7 +39,7 @@ def func(N=None, K=None, agent_num=None, overlap=None,
         other_domain_list = [i for i in range(N) if i not in sender_domain]
         # Re-Generate the Receiver Accordingly
         for receiver in receiver_crowd.agents:
-            receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap) + np.random.choice(sender_domain, overlap) # !!!
+            receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(sender_domain, overlap).tolist() # !!!
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
