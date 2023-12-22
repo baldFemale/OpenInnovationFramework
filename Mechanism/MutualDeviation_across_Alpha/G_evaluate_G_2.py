@@ -58,7 +58,7 @@ if __name__ == '__main__':
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     alpha_list = [0.25, 0.30, 0.35, 0.40, 0.45]
-    concurrency = 50
+    concurrency = 100
     for alpha in alpha_list:
         joint_confusion_across_K = []
         for K in K_list:
