@@ -89,9 +89,9 @@ if __name__ == '__main__':
             for result in returns:  # 50 landscape repetitions
                 temp_joint_confusion.append(result[0])
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-        with open("gg_joint_satisfaction_across_K_overlap_{0}".format(overlap), 'wb') as out_file:
+        with open("gg_mutual_deviation_across_K_overlap_{0}".format(overlap), 'wb') as out_file:
             pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Joint Satisfaction GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Mutual Deviation GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

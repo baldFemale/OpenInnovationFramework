@@ -37,7 +37,6 @@ def func(N=None, K=None, state_num=None, agent_num=None,
                 climbs = specialist.suggest_better_state_from_expertise(state=each_suggestion)
                 if reached_solution in climbs:
                     climbs.remove(reached_solution)
-                count += len(climbs)
                 if len(climbs) != 0:
                     count += 1
                     break
