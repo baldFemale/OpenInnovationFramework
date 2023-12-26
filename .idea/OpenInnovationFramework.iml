@@ -103,6 +103,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Overlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mutual Deviation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mutual Deviation/MutualDeviation_across_Alpha" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mutual Deviation/MutualDeviation_across_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mutual Deviation/MutualDeviation_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mutual Deviation/MutualDeviation_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

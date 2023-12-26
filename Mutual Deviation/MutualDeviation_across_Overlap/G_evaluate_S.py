@@ -20,39 +20,54 @@ def func(N=None, K=None, agent_num=None, overlap=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
-    mutual_climb_rate_list = []
-    for _ in range(agent_num):
-        # Sender
-        generalist = Generalist(N=N, landscape=landscape, state_num=4, generalist_expertise=12)  # !!!
+    for sender in sender_crowd.agents:
         for _ in range(search_iteration):
-            generalist.search()
-        reached_solution = generalist.state.copy()
-        sender_domain = generalist.generalist_domain.copy()  # !!!
-        other_domain_list = [i for i in range(N) if i not in sender_domain]
-        # Re-Generate the Receiver Accordingly
+            sender.search()
+    # Mutual Deviation
+    mutual_deviation_rate_list = []
+    for sender in sender_crowd.agents:
+        sender_solution = sender.state.copy()
+        sender_domain = sender.generalist_domain.copy()  # !!!
         count = 0
+        # Adjust the receiver crowd according to overlap
+        other_domain_list = [i for i in range(N) if i not in sender_solution]
         for receiver in receiver_crowd.agents:
-            receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(
-                sender_domain, overlap).tolist()  # !!!
+            if overlap == 3:
+                receiver.specialist_domain = np.random.choice(sender_domain, overlap).tolist()  # !!! G Overlap 3, 4, 5;  S Overlap: 1, 2, 3
+            else:
+                receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(
+                    sender_domain, overlap).tolist()  # !!! G Overlap 3, 4, 5;  S Overlap: 1, 2, 3
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
             receiver.cog_fitness = receiver.get_cog_fitness(cog_state=receiver.cog_state, state=receiver.state)
             receiver.fitness = landscape.query_second_fitness(state=receiver.state)
-            suggestions = receiver.suggest_better_state_from_expertise(state=reached_solution)
+
+            for _ in range(search_iteration):
+                receiver.search()
+
+            learnt_solution = receiver.state.copy()  # Keep the receiver's mindset
+            for index in sender_domain:
+                learnt_solution[index] = sender_solution[index]
+            suggestions = receiver.suggest_better_state_from_expertise(state=learnt_solution)
             for each_suggestion in suggestions:
-                climbs = generalist.suggest_better_state_from_expertise(state=each_suggestion)
-                if reached_solution in climbs:
-                    climbs.remove(reached_solution)
-                if len(climbs) != 0:
+                learnt_suggestion = sender.state.copy()  # Keep the sender's mindset
+                for index in receiver.specialist_domain:  # !!!
+                    learnt_suggestion[index] = each_suggestion[index]
+                deviations = sender.suggest_better_state_from_expertise(state=learnt_suggestion)
+                if sender_solution in deviations:
+                    deviations.remove(sender_solution)
+                if len(deviations) != 0:
                     count += 1
                     break
-        mutual_climb_rate = count / agent_num
-        mutual_climb_rate_list.append(mutual_climb_rate)
-    final_mutual_climb_rate = sum(mutual_climb_rate_list) / len(mutual_climb_rate_list)
-    return_dict[loop] = [final_mutual_climb_rate]
+        mutual_deviation_rate = count / agent_num
+        mutual_deviation_rate_list.append(mutual_deviation_rate)
+    final_mutual_deviation_rate = sum(mutual_deviation_rate_list) / len(mutual_deviation_rate_list)
+    return_dict[loop] = [final_mutual_deviation_rate]
     sema.release()
 
 
