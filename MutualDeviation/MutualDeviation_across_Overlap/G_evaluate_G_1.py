@@ -73,13 +73,13 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 200
-    agent_num = 500
-    search_iteration = 200
+    landscape_iteration = 100
+    agent_num = 400
+    search_iteration = 100
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
-    overlap_list = [1, 2, 3]  # for GG: at least 3 overlap; at most 6 overlap
+    overlap_list = [1]  # for GG: at least 3 overlap; at most 6 overlap
     concurrency = 100
     # DVs
     for overlap in overlap_list:
