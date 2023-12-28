@@ -142,7 +142,7 @@ class Generalist:
 
     def public_evaluate(self, cur_state: list, next_state: list) -> bool:
         """
-        Use the explicit state information; only utilize the knowledge domain, not mindset
+        Use the explicit state information
         """
         if (len(cur_state) == 0) or (len(next_state) == 0):
             raise ValueError("Blank State List")

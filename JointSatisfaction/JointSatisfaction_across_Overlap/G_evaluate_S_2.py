@@ -27,37 +27,39 @@ def func(N=None, K=None, agent_num=None, overlap=None,
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
-    # for receiver in receiver_crowd.agents:
-    #     for _ in range(search_iteration):
-    #         receiver.search()
     # Joint Satisfaction
-    joint_confusion_rate_list = []
+    joint_satisfaction_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
         sender_domain = sender.generalist_domain.copy()  # !!!
         count = 0
+        # Adjust the receiver crowd according to overlap
         other_domain_list = [i for i in range(N) if i not in sender_domain]
-        # Re-Generate the Receiver Accordingly
         for receiver in receiver_crowd.agents:
-            receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(sender_domain, overlap).tolist() # !!!
+            if overlap == 3:
+                receiver.specialist_domain = np.random.choice(sender_domain, overlap).tolist()  # !!! G Overlap 1, 2, 3;  S Overlap: 1, 2, 3
+            else:
+                receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(
+                    sender_domain, overlap).tolist()  # !!! G Overlap 3, 4, 5;  S Overlap: 1, 2, 3
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
             receiver.cog_fitness = receiver.get_cog_fitness(cog_state=receiver.cog_state, state=receiver.state)
             receiver.fitness = landscape.query_second_fitness(state=receiver.state)
+
             for _ in range(search_iteration):
                 receiver.search()
-            learnt_solution = receiver.state.copy()
+
+            learnt_solution = receiver.state.copy()  #  Keep the receiver's mindset
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
-            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
-            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            better_solution = receiver.suggest_better_state_from_expertise(state=learnt_solution)
+            if len(better_solution) == 0:
                 count += 1
-        joint_confusion_rate = count / agent_num
-        joint_confusion_rate_list.append(joint_confusion_rate)
-    final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
-    return_dict[loop] = [final_joint_confusion_rate]
+        joint_satisfaction_rate = count / agent_num
+        joint_satisfaction_rate_list.append(joint_satisfaction_rate)
+    final_joint_satisfaction_rate = sum(joint_satisfaction_rate_list) / len(joint_satisfaction_rate_list)
+    return_dict[loop] = [final_joint_satisfaction_rate]
     sema.release()
 
 
@@ -71,8 +73,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
-    overlap_list = [1, 2, 3]  # for GS: at least 0 overlap, yet start from 1; at most 3 overlap
+    overlap_list = [2]  # for GS: at least 0 overlap, yet start from 1; at most 3 overlap
     concurrency = 100
     # DVs
     for overlap in overlap_list:

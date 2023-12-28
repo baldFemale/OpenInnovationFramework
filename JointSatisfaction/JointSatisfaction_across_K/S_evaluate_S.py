@@ -39,9 +39,8 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
             learnt_solution = receiver.state.copy()
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
-            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
-            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            better_solution = receiver.suggest_better_state_from_expertise(state=learnt_solution)
+            if len(better_solution) == 0:
                 count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
