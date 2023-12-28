@@ -91,14 +91,18 @@
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.10" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.25" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MoreThanParallel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MoreThanParallel_Align_Domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Evaluation/Evaluating_Alpha_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_across_Overlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/JointSatisfaction" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/JointSatisfaction/JointSatisfaction_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/JointSatisfaction/JointSatisfaction_across_K" isTestSource="false" />
