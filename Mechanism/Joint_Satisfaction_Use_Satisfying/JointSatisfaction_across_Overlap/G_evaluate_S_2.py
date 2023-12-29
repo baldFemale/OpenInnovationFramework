@@ -74,7 +74,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    overlap_list = [2, 3]  # The qualitative results will not change across overlap;
+    overlap_list = [2]  # The qualitative results will not change across overlap;
     # By using more knowledgeable specialists, we can increase the magnitude of the difference by enabling more overlap
     concurrency = 100
     # DVs
