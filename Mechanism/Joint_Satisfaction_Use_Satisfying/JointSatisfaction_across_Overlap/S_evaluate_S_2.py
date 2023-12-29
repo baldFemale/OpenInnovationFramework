@@ -21,9 +21,9 @@ def func(N=None, K=None, agent_num=None, overlap=None,
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
@@ -31,13 +31,16 @@ def func(N=None, K=None, agent_num=None, overlap=None,
     joint_satisfaction_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
-        sender_domain = sender.generalist_domain.copy()  # !!!
+        sender_domain = sender.specialist_domain.copy()  # !!!
         count = 0
         # Adjust the receiver crowd according to overlap
         other_domain_list = [i for i in range(N) if i not in sender_domain]
         for receiver in receiver_crowd.agents:
-            receiver.generalist_domain = np.random.choice(other_domain_list, 6 - overlap).tolist() + np.random.choice(
-                sender_domain, overlap).tolist()  # !!! G Overlap 1, 2, 3;  S Overlap: 1, 2, 3
+            if overlap == 0:
+                receiver.specialist_domain = np.random.choice(other_domain_list,3).tolist()  # !!!
+            else:
+                receiver.specialist_domain = (np.random.choice(other_domain_list, 3 - overlap).tolist() +
+                                              np.random.choice(sender_domain, overlap).tolist())  # !!!
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
@@ -47,16 +50,17 @@ def func(N=None, K=None, agent_num=None, overlap=None,
             for _ in range(search_iteration):
                 receiver.search()
 
-            learnt_solution = receiver.state.copy()  # Keep the receiver's mindset
+            learnt_solution = receiver.state.copy()   # Keep the receiver's mindset
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
-            better_solution = receiver.suggest_better_state_from_expertise(state=learnt_solution)
-            if len(better_solution) == 0:
+            cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
+            cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
+            if cog_learnt_fitness >= receiver.cog_fitness:
                 count += 1
         joint_satisfaction_rate = count / agent_num
         joint_satisfaction_rate_list.append(joint_satisfaction_rate)
-    final_joint_satisfaction_rate = sum(joint_satisfaction_rate_list) / len(joint_satisfaction_rate_list)
-    return_dict[loop] = [final_joint_satisfaction_rate]
+    final_joint_confusion_rate = sum(joint_satisfaction_rate_list) / len(joint_satisfaction_rate_list)
+    return_dict[loop] = [final_joint_confusion_rate]
     sema.release()
 
 
@@ -70,7 +74,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    overlap_list = [1]
+    overlap_list = [2, 3]
     concurrency = 100
     # DVs
     for overlap in overlap_list:
@@ -93,9 +97,9 @@ if __name__ == '__main__':
             for result in returns:  # 50 landscape repetitions
                 temp_joint_confusion.append(result[0])
             joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-        with open("gg_joint_satisfaction_across_K_overlap_{0}".format(overlap), 'wb') as out_file:
+        with open("ss_joint_satisfaction_across_K_overlap_{0}".format(overlap), 'wb') as out_file:
             pickle.dump(joint_confusion_across_K, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Joint Satisfaction GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Joint Satisfaction SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
