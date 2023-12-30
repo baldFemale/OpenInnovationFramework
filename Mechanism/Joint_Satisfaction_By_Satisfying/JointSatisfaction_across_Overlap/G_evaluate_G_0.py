@@ -36,8 +36,8 @@ def func(N=None, K=None, agent_num=None, overlap=None,
         # Adjust the receiver crowd according to overlap
         other_domain_list = [i for i in range(N) if i not in sender_domain]
         for receiver in receiver_crowd.agents:
-            if overlap == 0:
-                receiver.generalist_domain = np.random.choice(other_domain_list,6).tolist()  # !!!
+            if overlap == 6:
+                receiver.generalist_domain = sender_domain  # !!!
             else:
                 receiver.generalist_domain = (np.random.choice(other_domain_list, 6 - overlap).tolist() +
                                               np.random.choice(sender_domain, overlap).tolist())  # !!!
@@ -55,7 +55,7 @@ def func(N=None, K=None, agent_num=None, overlap=None,
                 learnt_solution[index] = sender_solution[index]
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            if cog_learnt_fitness > receiver.cog_fitness:
                 count += 1
         joint_satisfaction_rate = count / agent_num
         joint_satisfaction_rate_list.append(joint_satisfaction_rate)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    overlap_list = [0]
+    overlap_list = [3]
     concurrency = 100
     # DVs
     for overlap in overlap_list:
