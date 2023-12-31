@@ -126,6 +126,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency" isTestSource="false" />
@@ -133,6 +137,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

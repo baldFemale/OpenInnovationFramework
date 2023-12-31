@@ -26,9 +26,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
-    for receiver in receiver_crowd.agents:
-        for _ in range(search_iteration):
-            receiver.search()
+    # for receiver in receiver_crowd.agents:
+    #     for _ in range(search_iteration):
+    #         receiver.search()
     # Joint Satisfaction
     joint_confusion_rate_list = []
     for sender in sender_crowd.agents:
@@ -41,7 +41,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
                 learnt_solution[index] = sender_solution[index]
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            if cog_learnt_fitness > receiver.cog_fitness:
                 count += 1
         joint_confusion_rate = count / agent_num
         joint_confusion_rate_list.append(joint_confusion_rate)
