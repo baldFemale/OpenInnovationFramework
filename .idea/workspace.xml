@@ -5,113 +5,195 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1. Simplify the model, Three classes:&#10;--Generalist&#10;--Specialist&#10;--Landscape; binary first and then resample into quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--perceive it as &quot;*&quot; in cognitive fitness -&gt; no difference -&gt; thus feedback from external domain is beneficial&#10;--calculate it as default -- out of one's control due to unknown&#10;&#10;5. Socialization Design&#10;--Evaluation&#10;--Sharing; &#10;---- individual may not provide exact solution of what they are; instead, they may suffer from ambiguity when sharing their solution; (pending)&#10;--It is full of imperfect socialization, such as imperfect sharing (give), imperfect imitation (acquisition), imperfect evaluation;&#10;--First implement the simple model before complicating&#10;--e.g., agents first all share, and then with probability to share (contingency pending)&#10;--agents first are all influenced by crowd, and the with probability to be influenced (contingency pending)&#10;&#10;6. Measures&#10;--Average Performance&#10;--Best/Worst Performance&#10;--Exact counter of MutualClimb or JointConfusion (pending)&#10;----Using procedural vs. discrete mechanism&#10;----Procedural: using SuperG and SuperS to show that G are easily get confused and thus their solution retain promising directions; while S are more accurate and thus their solutions are more likely to create joint confusion -&gt; due to the partially attractiveness -&gt; it even become stronger with increasing S knowledge -&gt; One will also get stuck facing the same solution -&gt; it become an paradoxical tension regarding knowledege: more knowledege is good for the focal solver but it is bad for the collaboration">
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/G_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/S_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_SS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/G_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/S_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_SS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_G_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GS_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/G_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_GG_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_GG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_GS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_GS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_SG_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_SG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_SS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/slurm_SS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/G_evaluate_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/G_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/S_evaluate_G.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/S_evaluate_S.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/slurm_GG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/slurm_GS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/slurm_SG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K/slurm_SS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_G_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_S_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/G_evaluate_S_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_G_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_S_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/S_evaluate_S_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GG_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GG_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_GS_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SG_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SG_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge/slurm_SS_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_G_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_S_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_G_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_G_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_S_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_S_3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GG_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GS_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SG_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SG_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SG_3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SS_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SS_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_SS_3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_GG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_GS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_SG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_SS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Alpha/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Alpha/slurm_SS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_G_1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GG_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GG_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GS_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_GS_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SG_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SG_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SS_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Frequency/slurm_SS_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_K/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Knowledge/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/G_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/S_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_0" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GG_3" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_GG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_GS_3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_0" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/JointSatisfaction_By_Local_Optima_New/JointSatisfaction_across_Overlap/slurm_SS_3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -500,7 +582,7 @@
       <workItem from="1702889816648" duration="26041000" />
       <workItem from="1703386843192" duration="11066000" />
       <workItem from="1703587608578" duration="8505000" />
-      <workItem from="1704042047696" duration="2656000" />
+      <workItem from="1704042047696" duration="3270000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -845,7 +927,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="496" />
+    <option name="localTasksCounter" value="497" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
