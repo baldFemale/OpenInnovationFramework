@@ -38,9 +38,11 @@ def func(N=None, K=None, agent_num=None, overlap=None,
         for receiver in receiver_crowd.agents:
             if overlap == 3:
                 receiver.specialist_domain = np.random.choice(sender_domain, overlap).tolist()  # !!! G Overlap 3, 4, 5;  S Overlap: 1, 2, 3
+            elif overlap == 0:
+                receiver.specialist_domain = np.random.choice(other_domain_list, 3).tolist()
             else:
-                receiver.specialist_domain = np.random.choice(other_domain_list, 3 - overlap).tolist() + np.random.choice(
-                    sender_domain, overlap).tolist()  # !!! G Overlap 3, 4, 5;  S Overlap: 1, 2, 3
+                receiver.specialist_domain = (np.random.choice(other_domain_list, 3 - overlap).tolist() +
+                                              np.random.choice(sender_domain, overlap).tolist())
             receiver.state = np.random.choice(range(4), N).tolist()
             receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
             receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
