@@ -78,10 +78,11 @@ class Generalist:
                 self.cog_fitness = next_cog_fitness
                 self.fitness = self.landscape.query_second_fitness(state=self.state)
             else:  # feedback is negative
-                if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and crowd "-"
+                if np.random.uniform(0, 1) < roll_back_ratio:  # 1st conflict: self "+" and peer "-"
                     pass
-                    # roll back; follow the crowd feedback and refuse;
-                    # biased perception for everyone and thus biased feedback from crowds;
+                    # roll back; follow the peer feedback and refuse; bounded rationality:
+                    # 1) biased perception and thus biased feedback from peers;
+                    # 2) generate imperfect solutions and thus received imperfect solutions from peers.
                 else:
                     self.state = next_state
                     self.cog_state = next_cog_state
@@ -90,7 +91,7 @@ class Generalist:
         else:
             if feedback:  # 2nd conflict: self "-" and peer "+"
                 if np.random.uniform(0, 1) < roll_forward_ratio:
-                    # roll forward; follow the crowd feedback and accept;
+                # roll forward; follow the positive feedback and accept;
                     self.state = next_state
                     self.cog_state = next_cog_state
                     self.cog_fitness = next_cog_fitness
@@ -139,14 +140,13 @@ class Generalist:
                 raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
-    def public_evaluate(self, cur_state: list, next_state: list) -> bool:
+    def full_evaluate(self, cur_state: list, next_state: list) -> bool:
         """
-        Simple way to evaluate
-        Given a full state, individuals evaluate according to their knowledge.
-        !!! Used in current version
+        Use the explicit state information; only utilize the knowledge domain, not mindset
         """
         if (len(cur_state) == 0) or (len(next_state) == 0):
             raise ValueError("Blank State List")
+        # Evaluator can only access the full solution
         cur_cog_state = self.state_2_cog_state(state=cur_state)
         next_cog_state = self.state_2_cog_state(state=next_state)
         cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
@@ -156,41 +156,23 @@ class Generalist:
         else:
             return False
 
-    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
+    def partial_evaluate(self, cur_state: list, next_state: list, visible_scope: list) -> bool:
         """
-        Complicated way to evaluate
-        With additional "*" shelter due to inexplicit expression and acquisition;
-        !!! Not used in the current version
+        Use the explicit state information; only utilize the knowledge domain, not mindset
         """
-        aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
-        # aligned as the G cog_state: only has "A", "B", and "*"
-        for index in range(self.N):
-            if index in self.generalist_domain:
-                if aligned_cur_cog_state[index] in ["0", "1"]:
-                    aligned_cur_cog_state[index] = "A"
-                elif aligned_cur_cog_state[index] in ["2", "3"]:
-                    aligned_cur_cog_state[index] = "B"
-                elif aligned_cur_cog_state[index] == "*":
-                    aligned_cur_cog_state[index] = self.cog_state[index]
-                else:
-                    pass
-
-                if aligned_next_cog_state[index] in ["0", "1"]:
-                    aligned_next_cog_state[index] = "A"
-                elif aligned_next_cog_state[index] in ["2", "3"]:
-                    aligned_next_cog_state[index] = "B"
-                elif aligned_next_cog_state[index] == "*":
-                    aligned_next_cog_state[index] = self.cog_state[index]
-                else:
-                    pass
-            else:
-                aligned_cur_cog_state[index] = "*"
-                aligned_next_cog_state[index] = "*"
-        aligned_cur_state = self.cog_state_2_state(cog_state=aligned_cur_cog_state)
-        aligned_next_state = self.cog_state_2_state(cog_state=aligned_next_cog_state)
-        # the randomness in reverse mapping could produce additional difference; but it is random
-        cur_cog_fitness = self.get_cog_fitness(cog_state=aligned_cur_cog_state, state=aligned_cur_state)
-        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=aligned_next_state)
+        if (len(cur_state) == 0) or (len(next_state) == 0):
+            raise ValueError("Blank State List")
+        # Evaluator can only access the solution fragments within sharers' expertise
+        evaluated_cur_state = self.state.copy()
+        for index in visible_scope:
+            evaluated_cur_state[index] = cur_state[index]
+        evaluated_next_state = self.state.copy()
+        for index in visible_scope:
+            evaluated_next_state[index] = next_state[index]
+        cur_cog_state = self.state_2_cog_state(state=evaluated_cur_state)
+        next_cog_state = self.state_2_cog_state(state=evaluated_next_state)
+        cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
+        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         if next_cog_fitness > cur_cog_fitness:
             return True
         else:
@@ -212,7 +194,7 @@ class Generalist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 return False
         return True
 
@@ -235,7 +217,7 @@ class Generalist:
         if len(neighbor_states) == 0:
             return []
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 
@@ -256,7 +238,7 @@ class Generalist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 

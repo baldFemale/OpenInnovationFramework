@@ -134,12 +134,13 @@ class Specialist:
                 raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
-    def public_evaluate(self, cur_state: list, next_state: list) -> bool:
+    def full_evaluate(self, cur_state: list, next_state: list) -> bool:
         """
         Use the explicit state information; only utilize the knowledge domain, not mindset
         """
         if (len(cur_state) == 0) or (len(next_state) == 0):
             raise ValueError("Blank State List")
+        # Evaluator can only access the full solution
         cur_cog_state = self.state_2_cog_state(state=cur_state)
         next_cog_state = self.state_2_cog_state(state=next_state)
         cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
@@ -149,39 +150,23 @@ class Specialist:
         else:
             return False
 
-    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
+    def partial_evaluate(self, cur_state: list, next_state: list, visible_scope: list) -> bool:
         """
-        With additional "*" shelter due to inexplicit expression and acquisition of solutions
+        Use the explicit state information; only utilize the knowledge domain, not mindset
         """
-        aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
-        # aligned as the S cog_state: only has "0123", and "*"
-        for index in range(self.N):
-            if index in self.specialist_domain:
-                if aligned_cur_cog_state[index] == "A":
-                    aligned_cur_cog_state[index] = np.random.choice(["0", "1"])
-                elif aligned_cur_cog_state[index] == "B":
-                    aligned_cur_cog_state[index] = np.random.choice(["2", "3"])
-                elif aligned_cur_cog_state[index] == "*":
-                    aligned_cur_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
-                else:
-                    pass
-
-                if aligned_next_cog_state[index] == "A":
-                    aligned_next_cog_state[index] = np.random.choice(["0", "1"])
-                elif aligned_next_cog_state[index] == "B":
-                    aligned_next_cog_state[index] = np.random.choice(["2", "3"])
-                elif aligned_next_cog_state[index] == "*":
-                    aligned_next_cog_state[index] = np.random.choice(["0", "1", "2", "3"])
-                else:
-                    pass
-            else:
-                aligned_cur_cog_state[index] = "*"
-                aligned_next_cog_state[index] = "*"
-        aligned_cur_state = self.cog_state_2_state(cog_state=aligned_cur_cog_state)
-        aligned_next_state = self.cog_state_2_state(cog_state=aligned_next_cog_state)
-        # the randomness in reverse mapping could produce additional difference; but it is random
-        cur_cog_fitness = self.get_cog_fitness(cog_state=aligned_cur_cog_state, state=aligned_cur_state)
-        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=aligned_next_state)
+        if (len(cur_state) == 0) or (len(next_state) == 0):
+            raise ValueError("Blank State List")
+        # Evaluator can only access the solution fragments within sharers' expertise
+        evaluated_cur_state = self.state.copy()
+        for index in visible_scope:
+            evaluated_cur_state[index] = cur_state[index]
+        evaluated_next_state = self.state.copy()
+        for index in visible_scope:
+            evaluated_next_state[index] = next_state[index]
+        cur_cog_state = self.state_2_cog_state(state=evaluated_cur_state)
+        next_cog_state = self.state_2_cog_state(state=evaluated_next_state)
+        cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
+        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
         if next_cog_fitness > cur_cog_fitness:
             return True
         else:
@@ -203,7 +188,7 @@ class Specialist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 return False
         return True
 
@@ -226,7 +211,7 @@ class Specialist:
         if len(neighbor_states) == 0:
             return []
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 
@@ -247,7 +232,7 @@ class Specialist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.public_evaluate(cur_state=state, next_state=neighbor):
+            if self.full_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 

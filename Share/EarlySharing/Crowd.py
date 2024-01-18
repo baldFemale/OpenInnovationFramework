@@ -76,14 +76,8 @@ class Crowd:
                         break
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
-        opinions = [agent.public_evaluate(cur_state=cur_state,
-                                   next_state=next_state) for agent in self.agents]
-        true_count = sum(1 for item in opinions if item)
-        return true_count > self.agent_num / 2
-
-    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
-        opinions = [agent.private_evaluate(cur_cog_state=cur_cog_state,
-                                   next_cog_state=next_cog_state) for agent in self.agents]
+        opinions = [agent.partial_evaluate(cur_state=cur_state, next_state=next_state,
+                                   visible_scope=agent.generalist_domain+agent.specialist_domain) for agent in self.agents]
         true_count = sum(1 for item in opinions if item)
         return true_count > self.agent_num / 2
 
@@ -97,13 +91,16 @@ if __name__ == '__main__':
                   generalist_expertise=12, specialist_expertise=0, label="G")
     generalist = Generalist(N=N, landscape=landscape, state_num=state_num, crowd=crowd,
                             generalist_expertise=12)
+    fitness_across_time, cog_fitness_across_time = [], []
     for _ in range(100):
         generalist.feedback_search(roll_back_ratio=1, roll_forward_ratio=1)
         print(generalist.state, generalist.cog_fitness, generalist.fitness)
+        fitness_across_time.append(generalist.fitness)
+        cog_fitness_across_time.append(generalist.cog_fitness)
     import matplotlib.pyplot as plt
-    x = range(len(generalist.fitness_across_time))
-    plt.plot(x, generalist.fitness_across_time, "k-", label="Fitness")
-    plt.plot(x, generalist.cog_fitness_across_time, "k--", label="Cognitive Fitness")
+    x = range(len(fitness_across_time))
+    plt.plot(x, fitness_across_time, "k-", label="Fitness")
+    plt.plot(x, cog_fitness_across_time, "k--", label="Cognitive Fitness")
     plt.xlabel('Iteration', fontweight='bold', fontsize=10)
     plt.ylabel('Performance', fontweight='bold', fontsize=10)
     # plt.xticks(x)
