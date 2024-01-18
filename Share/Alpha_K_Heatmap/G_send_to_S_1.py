@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     # alpha_list = [0.025, 0.075, 0.125, 0.175, 0.225, 0.275, 0.325, 0.375, 0.425]
     alpha_list = [0.025, 0.075, 0.125, 0.175]
-    concurrency = 50
+    concurrency = 100
     for alpha in alpha_list:
         ave_performance_across_K = []
         best_performance_across_K = []

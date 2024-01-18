@@ -41,21 +41,21 @@ def func(N=None, K=None, agent_num=None, overlap=None,
             else:
                 receiver.generalist_domain = (np.random.choice(other_domain_list, 6 - overlap).tolist() +
                                               np.random.choice(sender_domain, overlap).tolist())  # !!!
-            receiver.state = np.random.choice(range(4), N).tolist()
-            receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
-            receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
-            receiver.cog_fitness = receiver.get_cog_fitness(cog_state=receiver.cog_state, state=receiver.state)
-            receiver.fitness = landscape.query_second_fitness(state=receiver.state)
-
-            for _ in range(search_iteration):
-                receiver.search()
+            # receiver.state = np.random.choice(range(4), N).tolist()
+            # receiver.state = [str(i) for i in receiver.state]  # state format: a list of string
+            # receiver.cog_state = receiver.state_2_cog_state(state=receiver.state)
+            # receiver.cog_fitness = receiver.get_cog_fitness(cog_state=receiver.cog_state, state=receiver.state)
+            # receiver.fitness = landscape.query_second_fitness(state=receiver.state)
+            #
+            # for _ in range(search_iteration):
+            #     receiver.search()
 
             learnt_solution = receiver.state.copy()   # Keep the receiver's mindset
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
-            if cog_learnt_fitness >= receiver.cog_fitness:
+            if cog_learnt_fitness > receiver.cog_fitness:
                 count += 1
         joint_satisfaction_rate = count / agent_num
         joint_satisfaction_rate_list.append(joint_satisfaction_rate)
@@ -69,9 +69,9 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 200
-    agent_num = 500
-    search_iteration = 200
+    landscape_iteration = 100
+    agent_num = 400
+    search_iteration = 100
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     overlap_list = [0]  # for SG: at least 0 overlap, yet start from 1; at most 3 overlap
