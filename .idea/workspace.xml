@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_GS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/slurm_SS_2" afterDir="false" />
-    </list>
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -413,7 +399,7 @@
       <workItem from="1703858137721" duration="8626000" />
       <workItem from="1703934382524" duration="2420000" />
       <workItem from="1703937681700" duration="50000" />
-      <workItem from="1705671926759" duration="583000" />
+      <workItem from="1705671926759" duration="1192000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -758,7 +744,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="510" />
+    <option name="localTasksCounter" value="511" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
