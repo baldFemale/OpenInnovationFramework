@@ -5,6 +5,6 @@
 #SBATCH --mail-user=junyili@u.nus.edu
 #SBATCH --mem=400gb
 #SBATCH --partition=long
-#SBATCH --cpus-per-task=128
+#SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
 srun python S_evaluate_G_2.py
