@@ -21,7 +21,7 @@ def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop
     landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     # Evaluator Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     performance_list = []
     for _ in range(agent_num):
         # Feedback Receiver
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     # alpha_list = [0.025, 0.075, 0.125, 0.175, 0.225, 0.275, 0.325, 0.375, 0.425]
-    alpha_list = [0.20, 0.25, 0.30]
+    alpha_list = [0.35, 0.40, 0.45]
     concurrency = 100
     # DVs
     for alpha in alpha_list:
@@ -78,12 +78,12 @@ if __name__ == '__main__':
             variance_across_K.append(sum(temp_variance) / len(temp_variance))
             # diversity_across_K.append(sum(temp_diversity) / len(temp_diversity))
 
-        with open("ss_ave_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("gs_ave_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(ave_performance_across_K, out_file)
-        with open("ss_best_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("gs_best_performance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(best_performance_across_K, out_file)
-        with open("ss_variance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("gs_variance_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_K, out_file)
 
     t1 = time.time()
-    print("SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("GS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

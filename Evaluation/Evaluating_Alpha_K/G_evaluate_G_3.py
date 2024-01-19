@@ -38,14 +38,14 @@ def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 400
-    agent_num = 500
-    search_iteration = 200
+    landscape_iteration = 300
+    agent_num = 400
+    search_iteration = 100
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     # alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45]
     # alpha_list = [0.025, 0.075, 0.125, 0.175, 0.225, 0.275, 0.325, 0.375, 0.425]
-    alpha_list = [0.45]
+    alpha_list = [0.35, 0.40, 0.45]
     concurrency = 100
     # DVs
     for alpha in alpha_list:
