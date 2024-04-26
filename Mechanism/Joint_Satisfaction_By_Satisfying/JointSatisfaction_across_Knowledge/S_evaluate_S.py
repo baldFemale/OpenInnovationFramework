@@ -56,9 +56,9 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 600
     agent_num = 500
-    search_iteration = 200
+    search_iteration = 500
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     specialist_expertise_list = [8, 12, 16]
