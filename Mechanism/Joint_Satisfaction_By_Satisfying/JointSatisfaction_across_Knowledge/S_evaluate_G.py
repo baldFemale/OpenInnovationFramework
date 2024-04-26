@@ -61,7 +61,7 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    generalist_expertise_list = [10, 12, 14, 16, 18]
+    generalist_expertise_list = [8, 12, 16]
     concurrency = 50
     # DVs
     for generalist_expertise in generalist_expertise_list:

@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_G_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/G_evaluate_S_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_G_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/Evaluating_Alpha_K/S_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/slurm_SS" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -432,6 +426,9 @@
       <workItem from="1705759711119" duration="1864000" />
       <workItem from="1711528389081" duration="49000" />
       <workItem from="1713186654514" duration="2342000" />
+      <workItem from="1713870772949" duration="32000" />
+      <workItem from="1714051406924" duration="769000" />
+      <workItem from="1714115240585" duration="1202000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -776,7 +773,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="512" />
+    <option name="localTasksCounter" value="514" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
