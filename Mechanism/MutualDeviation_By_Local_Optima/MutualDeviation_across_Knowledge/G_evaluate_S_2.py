@@ -60,12 +60,12 @@ def func(N=None, K=None, agent_num=None, expertise=None,
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 400
     agent_num = 500
-    search_iteration = 200
+    search_iteration = 300
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    s_knowledge_list = [16]
+    s_knowledge_list = [12]
     concurrency = 100
     for s_knowledge in s_knowledge_list:
         joint_confusion_across_K = []

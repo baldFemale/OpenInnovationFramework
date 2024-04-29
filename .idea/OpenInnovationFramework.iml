@@ -76,7 +76,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_alpha_K_5" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointConfusion_across_alpha_K_8" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualClimb_across_alpha_K_8" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/Mutual_Climb_by_Chance" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Alpha_K_Heatmap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/EarlySharing" isTestSource="false" />
@@ -104,7 +103,6 @@
       <sourceFolder url="file://$MODULE_DIR$/JointSatisfaction_Use_Local_Optima/JointSatisfaction_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/JointSatisfaction_Use_Local_Optima/JointSatisfaction_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima/JointSatisfaction_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima/JointSatisfaction_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/JointSatisfaction_By_Local_Optima/JointSatisfaction_across_Knowledge" isTestSource="false" />
@@ -115,7 +113,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Overlap" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Dissatisfying" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Dissatisfying/MutualDeviation_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Dissatisfying/MutualDeviation_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Dissatisfying/MutualDeviation_across_Knowledge" isTestSource="false" />
@@ -136,7 +133,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying_New/JointSatisfaction_across_Overlap" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_K" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge" isTestSource="false" />
