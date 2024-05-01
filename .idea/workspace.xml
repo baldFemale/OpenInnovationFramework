@@ -7,10 +7,16 @@
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Alpha/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Alpha/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_K/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_K/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Knowledge/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Overlap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Joint_Satisfaction_By_Satisfying/JointSatisfaction_across_Overlap/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Alpha/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Alpha/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_K/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_K/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Knowledge/Evaluator.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Overlap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MutualDeviation_By_Local_Optima/MutualDeviation_across_Overlap/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Share/Alpha_K_Heatmap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Share/Alpha_K_Heatmap/Evaluator.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,22 +71,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Python_Workplace/OpenInnovationFramework/Evaluation/Evaluating_Alpha_K",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Evaluation/Evaluating_Alpha_K&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Evaluation\Evaluating_Alpha_K" />
@@ -425,7 +431,11 @@
       <workItem from="1713186654514" duration="2342000" />
       <workItem from="1713870772949" duration="32000" />
       <workItem from="1714051406924" duration="769000" />
-      <workItem from="1714115240585" duration="27331000" />
+      <workItem from="1714115240585" duration="32351000" />
+      <workItem from="1714467073676" duration="6949000" />
+      <workItem from="1714483438002" duration="526000" />
+      <workItem from="1714483986008" duration="177000" />
+      <workItem from="1714484176926" duration="19740000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -770,7 +780,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="517" />
+    <option name="localTasksCounter" value="518" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
