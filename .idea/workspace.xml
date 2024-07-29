@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/Distance and Peaks Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/Distance and Peaks Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/Landscape Concept.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/Landscape Concept.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/SmoothLandscape.png" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/SmoothLandscape.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -427,7 +428,9 @@
       <workItem from="1714483986008" duration="177000" />
       <workItem from="1714484176926" duration="19763000" />
       <workItem from="1714736102296" duration="865000" />
-      <workItem from="1715610900456" duration="297000" />
+      <workItem from="1715610900456" duration="1061000" />
+      <workItem from="1715695814893" duration="24000" />
+      <workItem from="1722238868310" duration="921000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -772,7 +775,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="519" />
+    <option name="localTasksCounter" value="520" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
