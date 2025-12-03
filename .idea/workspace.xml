@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/Landscape Concept.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/Landscape Concept.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/Compare_Landscape/SmoothLandscape.png" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/SmoothLandscape.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Alpha_Full/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Alpha_Full/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Figure Template.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Figure Template.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/MoreThanParallel/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +68,10 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/Python_Workplace/OpenInnovationFramework/Evaluation/Evaluating_Alpha_K&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -75,6 +79,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -87,11 +92,11 @@
       <recent name="E:\Python_Workplace\OpenInnovationFramework\MutualDeviation\MutualDeviation_across_Overlap" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Joint_Satisfaction_Use_Satisfying" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\JointSatisfaction" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\FoolingS" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -234,8 +239,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-PY-252.25557.178" />
+        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
       </set>
     </attachedChunks>
   </component>
@@ -430,7 +435,13 @@
       <workItem from="1714736102296" duration="865000" />
       <workItem from="1715610900456" duration="1061000" />
       <workItem from="1715695814893" duration="24000" />
-      <workItem from="1722238868310" duration="921000" />
+      <workItem from="1722238868310" duration="945000" />
+      <workItem from="1741090521138" duration="671000" />
+      <workItem from="1753774005927" duration="3394000" />
+      <workItem from="1754566742436" duration="105000" />
+      <workItem from="1756457324884" duration="503000" />
+      <workItem from="1763814479486" duration="1911000" />
+      <workItem from="1763989343860" duration="18377000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -775,7 +786,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="520" />
+    <option name="localTasksCounter" value="521" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
