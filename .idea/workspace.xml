@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanism/Parallel_Search/Evaluator_Highest_Performance.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -439,6 +440,7 @@
       <workItem from="1763814479486" duration="1911000" />
       <workItem from="1763989343860" duration="18433000" />
       <workItem from="1768198764318" duration="136000" />
+      <workItem from="1768198970541" duration="2331000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -783,7 +785,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="522" />
+    <option name="localTasksCounter" value="523" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
