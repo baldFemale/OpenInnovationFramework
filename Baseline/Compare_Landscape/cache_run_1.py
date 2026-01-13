@@ -91,7 +91,7 @@ if __name__ == '__main__':
             ax.spines["right"].set_linewidth(1.5)
             ax.spines["top"].set_linewidth(1.5)
             ax.spines["bottom"].set_linewidth(1.5)
-            plt.hist(temp_second_cache, bins=40, facecolor=nature_orange, edgecolor="black", alpha=0.7)
+            plt.hist(temp_second_cache, bins=40, facecolor="gray", edgecolor="black", alpha=0.7)
             # Calculate mean and standard deviation using NumPy
             mean_fitness = np.mean(temp_second_cache)
             std_dev_fitness = np.std(temp_second_cache)
@@ -99,9 +99,9 @@ if __name__ == '__main__':
             plt.text(0.95, 0.95, f"Mean: {mean_fitness:.2f}\nStd Dev: {std_dev_fitness:.2f}",
                      horizontalalignment='right', verticalalignment='top', transform=ax.transAxes,
                      bbox=dict(facecolor='white', alpha=0.8))
-            plt.xlabel("Fitness Value")
-            plt.ylabel("Count")
-            plt.title("Fine Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
+            plt.xlabel("Fitness Value", fontweight='bold', fontsize=12)
+            plt.ylabel("Count", fontweight='bold', fontsize=12)
+            plt.title("Fine-grained Landscape $N={0}$, $K={1}$, $\\alpha={2}$".format(N, K, alpha))
             plt.savefig("Second_N{0}_K{1}_alpha_{2}.png".format(N, K, alpha))
             plt.clf()
             plt.close(fig)
