@@ -4,59 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures">
-      <change afterPath="$PROJECT_DIR$/Baseline/Compare_Landscape/Fitness_distribution.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/ColoredLandscape.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Distance and Peaks Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Fitness Distribution Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Fitness_distribution.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/GreyLandscape.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Landscape Concept.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Landscape Features.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/SmoothLandscape.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/cache_run_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/cache_run_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/cache_run_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/landscape_run_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/landscape_run_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/landscape_run_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_cache_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_cache_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_cache_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_landscape_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_landscape_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/Compare_Landscape/slurm_landscape_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/grun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/grun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/slurm_G_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/slurm_G_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/slurm_S_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/slurm_S_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/srun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/srun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Diversity.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Highest_Performance.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/grun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/grun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/srun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/srun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -495,6 +443,7 @@
       <workItem from="1768377032898" duration="668000" />
       <workItem from="1768377766519" duration="306000" />
       <workItem from="1768378076831" duration="18000" />
+      <workItem from="1768378103144" duration="71000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -839,7 +788,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="527" />
+    <option name="localTasksCounter" value="528" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
