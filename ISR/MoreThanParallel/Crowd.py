@@ -14,7 +14,7 @@ class Crowd:
                  landscape: object, state_num: int, label: str):
         self.agent_num = agent_num
         self.agents = []
-        self.share_prob = 1
+        self.share_prob_list = [1] * agent_num
         self.lr = 1
         for _ in range(agent_num):
             if label == "G":
@@ -31,18 +31,12 @@ class Crowd:
 
     def get_shared_pool(self):
         self.solution_pool = []  # reset the solution pool
-        if self.share_prob == 1:
-            for agent in self.agents:
-                expertise = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                partial_solution = [agent.state[index] for index in expertise]
-                self.solution_pool.append([expertise, partial_solution])
-        else:
-            for agent in self.agents:
-                if np.random.uniform(0, 1) < self.share_prob:
-                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                    partial_solution = [agent.state[index] for index in domains]
-                    self.solution_pool.append([domains, partial_solution])
-        np.random.shuffle(self.solution_pool)  # shuffle the order
+        for agent, share_prob in zip(self.agents, self.share_prob_list):
+            if np.random.uniform(0, 1) < share_prob:
+                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                partial_solution = [agent.state[index] for index in domains]
+                self.solution_pool.append([domains, partial_solution])
+        np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
     def learn_from_shared_pool(self):
         if self.lr < 1:
