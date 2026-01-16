@@ -4,43 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Calibrate the interaction setting">
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Diversity.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Highest_Performance.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/grun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/grun_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_G_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_G_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_S_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_S_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/srun_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/srun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Diversity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Diversity.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Highest_Performance.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/srun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_2.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -824,7 +793,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="529" />
+    <option name="localTasksCounter" value="530" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -842,7 +811,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="The second version of Topdown&#10;--Update the team search() function for all recombinations&#10;--Mutual alignment of solution and mindset" />
     <MESSAGE value="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
@@ -867,7 +835,8 @@
     <MESSAGE value="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary" />
     <MESSAGE value="Manuscript preparing&#10;1. Formating figures" />
     <MESSAGE value="Manuscript preparing&#10;1. Formating figures&#10;2. Calibrate the interaction setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Manuscript preparing&#10;1. Formating figures&#10;2. Calibrate the interaction setting" />
+    <MESSAGE value="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1694265591296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Baseline/Ushape" />
