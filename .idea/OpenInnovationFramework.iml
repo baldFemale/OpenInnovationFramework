@@ -143,6 +143,12 @@
       <sourceFolder url="file://$MODULE_DIR$/ISR/Appendix/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Coupled_Search" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/MoreThanParallel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_K" isTestSource="false" />
