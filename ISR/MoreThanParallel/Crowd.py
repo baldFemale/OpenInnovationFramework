@@ -15,7 +15,7 @@ class Crowd:
         self.agent_num = agent_num
         self.agents = []
         self.share_prob_list = [1] * agent_num
-        self.lr = 1
+        # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
             if label == "G":
                 agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
@@ -39,35 +39,20 @@ class Crowd:
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
     def learn_from_shared_pool(self):
-        if self.lr < 1:
-            for agent in self.agents:
-                if np.random.uniform(0, 1) < self.lr:  # some agents are willing to learn
-                    for domains, solution in self.solution_pool:
-                        learnt_solution = agent.state.copy()
-                        for domain, bit in zip(domains, solution):
-                            learnt_solution[domain] = bit
-                        cog_solution = agent.state_2_cog_state(state=learnt_solution)
-                        perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
-                        if perception > agent.cog_fitness:
-                            agent.state = solution
-                            agent.cog_state = cog_solution
-                            agent.cog_fitness = perception
-                            agent.fitness = agent.landscape.query_second_fitness(state=solution)
-                            break
-        else:  # agents always are willing to learn
-            for agent in self.agents:
-                for domains, solution in self.solution_pool:
-                    learnt_solution = agent.state.copy()
-                    for domain, bit in zip(domains, solution):
-                        learnt_solution[domain] = bit
-                    cog_solution = agent.state_2_cog_state(state=learnt_solution)
-                    perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
-                    if perception > agent.cog_fitness:
-                        agent.state = learnt_solution
-                        agent.cog_state = cog_solution
-                        agent.cog_fitness = perception
-                        agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
-                        break
+        # remove the lr parameter; all agents will learn if shared
+        for agent in self.agents:
+            for domains, solution in self.solution_pool:
+                learnt_solution = agent.state.copy()
+                for domain, bit in zip(domains, solution):
+                    learnt_solution[domain] = bit
+                cog_solution = agent.state_2_cog_state(state=learnt_solution)
+                perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
+                if perception > agent.cog_fitness:
+                    agent.state = learnt_solution
+                    agent.cog_state = cog_solution
+                    agent.cog_fitness = perception
+                    agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
+                    break
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
         opinions = [agent.public_evaluate(cur_state=cur_state,

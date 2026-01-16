@@ -5,54 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Calibrate the interaction setting">
-      <change afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Evaluator_adopted_from_MoreThanParallel.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Coupled_Search/G_send_to_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Coupled_Search/G_send_to_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_G_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_G_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_G_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_G_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_S_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_S_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_S_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/S_send_to_S_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GG_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_GS_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SG_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/slurm_SS_4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Diversity.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Highest_Performance.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/grun_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/grun_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_G_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_G_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_S_1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/slurm_S_2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/srun_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/srun_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/Evaluator_Highest_Performance.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/G_send_to_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Interaction/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/slurm_G_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Appendix/TwoComplexity/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/G_send_to_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Diversity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Diversity.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Highest_Performance.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_G_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/slurm_S_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/srun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,31 +103,31 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/Coupled_Search",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ISR/Coupled_Search" />
       <recent name="$PROJECT_DIR$/ISR" />
+      <recent name="$PROJECT_DIR$/ISR/Appendix/TwoComplexity" />
+      <recent name="$PROJECT_DIR$/ISR/Coupled_Search" />
       <recent name="$PROJECT_DIR$/ISR/Interaction" />
       <recent name="$PROJECT_DIR$/ISR/Appendix" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Evaluation\Evaluating_Alpha_K" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR/Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Joint_Satisfaction_Use_Satisfying" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\JointSatisfaction" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\EvaluatingHow" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -836,7 +824,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="528" />
+    <option name="localTasksCounter" value="529" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
