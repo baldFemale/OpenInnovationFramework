@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Diversity.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/grun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_G_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/slurm_S_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha/srun_1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -451,7 +455,7 @@
       <workItem from="1768378076831" duration="18000" />
       <workItem from="1768826128702" duration="863000" />
       <workItem from="1768912438215" duration="3081000" />
-      <workItem from="1768984012460" duration="7046000" />
+      <workItem from="1768984012460" duration="10521000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -796,7 +800,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="536" />
+    <option name="localTasksCounter" value="537" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

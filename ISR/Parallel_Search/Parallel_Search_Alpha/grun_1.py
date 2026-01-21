@@ -52,8 +52,8 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K = 4
-    alpha_list = [0.1, 0.2, 0.3, 0.4, 0.5]
-    concurrency = 100
+    alpha_list = [0.025, 0.05, 0.075, 0.1]
+    concurrency = 50
     for alpha in alpha_list:
         # DVs
         breakthrough_likelihood_across_size = []
@@ -93,5 +93,4 @@ if __name__ == '__main__':
 
     t1 = time.time()
     print("Parallel Search Across Alpha: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
-
 
