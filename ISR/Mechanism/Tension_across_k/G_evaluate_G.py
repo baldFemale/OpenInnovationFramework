@@ -35,26 +35,31 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, retur
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
         sender_domain = sender.generalist_domain.copy()  # !!!
-        # Joint Confirmation
         confirmation_count = 0
+        deviation_count = 0
         for receiver in receiver_crowd.agents:
             learnt_solution = receiver.state.copy()
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
+            # Joint Confirmation
+            # if the learnt_solution is better
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
             if cog_learnt_fitness > receiver.cog_fitness:
                 confirmation_count += 1
 
             # Mutual Deviation
-            deviation_count = 0
+            # if the learnt_solution will be better
             suggestions = receiver.suggest_better_state_from_expertise(state=learnt_solution)
-        joint_confusion_rate = confirmation_count / agent_num
-        joint_confirmation_rate_list.append(joint_confusion_rate)
-
-
+            if len(suggestions) != 0:
+                deviation_count += 1
+        joint_confirmation_rate = confirmation_count / agent_num
+        joint_confirmation_rate_list.append(joint_confirmation_rate)
+        mutual_deviation_rate = deviation_count / agent_num
+        mutual_deviation_rate_list.append(mutual_deviation_rate)
     joint_confirmation = sum(joint_confirmation_rate_list) / len(joint_confirmation_rate_list)
-    return_dict[loop] = [joint_confirmation]
+    mutual_deviation = sum(mutual_deviation_rate_list) / len(mutual_deviation_rate_list)
+    return_dict[loop] = [joint_confirmation, mutual_deviation]
     sema.release()
 
 
@@ -71,6 +76,7 @@ if __name__ == '__main__':
     concurrency = 100
     # DVs
     joint_confirmation_across_K = []
+    mutual_deviation_across_K = []
     for K in K_list:
         manager = mp.Manager()
         return_dict = manager.dict()
@@ -83,11 +89,14 @@ if __name__ == '__main__':
             p.start()
         for proc in jobs:
             proc.join()
-        results = np.array(list(return_dict.values()))
+        results = np.array(list(return_dict.values()), dtype=float)  # shape: (reps, 2)
         joint_confirmation_across_K.append(results[:, 0].mean())
-    with open("gg_joint_confirmation", 'wb') as out_file:
+        mutual_deviation_across_K.append(results[:, 1].mean())
+    with open("gg_joint_confirmation.pkl", 'wb') as out_file:
         pickle.dump(joint_confirmation_across_K, out_file)
+    with open("gg_mutual_deviation.pkl", 'wb') as out_file:
+        pickle.dump(mutual_deviation_across_K, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Joint Confirmation of GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Interpretation Dynamics of GG: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
