@@ -145,13 +145,13 @@
       <sourceFolder url="file://$MODULE_DIR$/ISR/Coupled_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/MoreThanParallel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_K" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Joint_confirmation_across_k" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_alpha" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_k" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

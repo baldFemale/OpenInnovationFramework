@@ -7,91 +7,90 @@
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
       <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/G_evaluate_G_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/G_evaluate_G_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/G_evaluate_S_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/G_evaluate_S_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/S_evaluate_G_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/S_evaluate_G_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/S_evaluate_S_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/S_evaluate_S_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_GG_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_GG_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_GS_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_GS_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_SG_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_SG_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_SS_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency/slurm_SS_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_K/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/S_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Knowledge/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/Crowd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_GS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/JointSatisfaction_across_Overlap/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/MoreThanParallel/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_alpha/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_k/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_knowledge/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_GS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Joint_confirmation_across_overlap/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -533,7 +532,7 @@
       <workItem from="1768378076831" duration="18000" />
       <workItem from="1768826128702" duration="863000" />
       <workItem from="1768912438215" duration="3081000" />
-      <workItem from="1768984012460" duration="846000" />
+      <workItem from="1768984012460" duration="2720000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -878,7 +877,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="533" />
+    <option name="localTasksCounter" value="534" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
