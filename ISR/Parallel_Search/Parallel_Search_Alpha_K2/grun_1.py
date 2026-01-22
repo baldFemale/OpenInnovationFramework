@@ -19,7 +19,7 @@ def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop
     landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     # Transparent Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     for _ in range(search_iteration):
         crowd.search()
     performance_list = [agent.fitness for agent in crowd.agents]
@@ -28,7 +28,7 @@ def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop
     variance = np.std(performance_list)
     domain_solution_dict = {}
     for agent in crowd.agents:
-        domains = agent.specialist_domain.copy()  # !!!!
+        domains = agent.generalist_domain.copy()  # !!!!
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
         solution_str = [agent.state[index] for index in domains]
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     agent_num_list = np.arange(50, 500, step=50, dtype=int).tolist()
     search_iteration = 200
     N = 9
-    K = 4
+    K = 2
     alpha_list = [0.025, 0.05, 0.075, 0.1]
     concurrency = 50
     for alpha in alpha_list:
@@ -81,17 +81,16 @@ if __name__ == '__main__':
             average_performance_across_size.append(means[1])
             variance_across_size.append(means[2])
             diversity_across_size.append(means[3])
-
         # remove time dimension
-        with open("s_breakthrough_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("g_breakthrough_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(breakthrough_likelihood_across_size, out_file)
-        with open("s_ave_performance_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("g_ave_performance_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(average_performance_across_size, out_file)
-        with open("s_variance_acros_size_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("g_variance_acros_size_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(variance_across_size, out_file)
-        with open("s_diversity_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
+        with open("g_diversity_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(diversity_across_size, out_file)
-    t1 = time.time()
-    print("S12_1: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
+    t1 = time.time()
+    print("Parallel Search Across Alpha: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
 
