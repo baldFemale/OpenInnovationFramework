@@ -18,7 +18,7 @@ import pickle
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.05)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
@@ -68,11 +68,11 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 400
+    landscape_iteration = 500
     agent_num = 500
     search_iteration = 200
     N = 9
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
     concurrency = 100
     # DVs
     joint_confirmation_across_K = []
