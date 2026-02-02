@@ -16,9 +16,9 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, alpha=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.05)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=alpha)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
@@ -72,19 +72,21 @@ if __name__ == '__main__':
     agent_num = 500
     search_iteration = 200
     N = 9
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
+    # K_list = [1, 2, 3, 4, 5, 6, 7, 8]
+    K = 4
+    alpha_list = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
     concurrency = 100
     # DVs
     joint_confirmation_across_K = []
     mutual_deviation_across_K = []
-    for K in K_list:
+    for alpha in alpha_list:
         manager = mp.Manager()
         return_dict = manager.dict()
         sema = Semaphore(concurrency)
         jobs = []
         for loop in range(landscape_iteration):
             sema.acquire()
-            p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, loop, return_dict, sema))
+            p = mp.Process(target=func, args=(N, K, alpha, agent_num, search_iteration, loop, return_dict, sema))
             jobs.append(p)
             p.start()
         for proc in jobs:

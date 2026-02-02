@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time     : 9/26/2022 20:23
-# @Author   : Junyi
-# @FileName: run.py
-# @Software  : PyCharm
-# Observing PEP 8 coding style
 import numpy as np
 from Generalist import Generalist
 from Specialist import Specialist
@@ -16,10 +11,9 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, specialist_expertise=None,
-         search_iteration=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, specialist_expertise=None, agent_num=None, search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.05)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=12, label="S")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
@@ -27,27 +21,40 @@ def func(N=None, K=None, agent_num=None, specialist_expertise=None,
     for sender in sender_crowd.agents:
         for _ in range(search_iteration):
             sender.search()
-    # for receiver in receiver_crowd.agents:
-    #     for _ in range(search_iteration):
-    #         receiver.search()
-    # Joint Satisfaction
-    joint_confusion_rate_list = []
+    # Test whether the solutions configured by others are more attractive to the focal solver
+    for receiver in receiver_crowd.agents:
+        for _ in range(search_iteration):
+            receiver.search()
+    joint_confirmation_rate_list = []
+    mutual_deviation_rate_list = []
     for sender in sender_crowd.agents:
         sender_solution = sender.state.copy()
         sender_domain = sender.specialist_domain.copy()  # !!!
-        count = 0
+        confirmation_count = 0
+        deviation_count = 0
         for receiver in receiver_crowd.agents:
             learnt_solution = receiver.state.copy()
             for index in sender_domain:
                 learnt_solution[index] = sender_solution[index]
+            # Joint Confirmation
+            # if the learnt_solution is better
             cog_learnt_solution = receiver.state_2_cog_state(state=learnt_solution)
             cog_learnt_fitness = receiver.get_cog_fitness(cog_state=cog_learnt_solution, state=learnt_solution)
             if cog_learnt_fitness > receiver.cog_fitness:
-                count += 1
-        joint_confusion_rate = count / agent_num
-        joint_confusion_rate_list.append(joint_confusion_rate)
-    final_joint_confusion_rate = sum(joint_confusion_rate_list) / len(joint_confusion_rate_list)
-    return_dict[loop] = [final_joint_confusion_rate]
+                confirmation_count += 1
+
+            # Mutual Deviation
+            # if the learnt_solution could be better
+            suggestions = receiver.suggest_better_state_from_expertise(state=learnt_solution)
+            if len(suggestions) != 0:
+                deviation_count += 1
+        joint_confirmation_rate = confirmation_count / agent_num
+        joint_confirmation_rate_list.append(joint_confirmation_rate)
+        mutual_deviation_rate = deviation_count / agent_num
+        mutual_deviation_rate_list.append(mutual_deviation_rate)
+    joint_confirmation = sum(joint_confirmation_rate_list) / len(joint_confirmation_rate_list)
+    mutual_deviation = sum(mutual_deviation_rate_list) / len(mutual_deviation_rate_list)
+    return_dict[loop] = [joint_confirmation, mutual_deviation]
     sema.release()
 
 
@@ -56,16 +63,20 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 600
+    landscape_iteration = 400
     agent_num = 500
-    search_iteration = 500
+    search_iteration = 200
     N = 9
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
+    # 2, 3, 4 domains
     specialist_expertise_list = [8, 12, 16]
-    concurrency = 50
+    concurrency = 100
     # DVs
+    joint_confirmation_across_knowledge = []
+    mutual_deviation_across_knowledge = []
     for specialist_expertise in specialist_expertise_list:
-        joint_confusion_across_K = []
+        joint_confirmation_across_K = []
+        mutual_deviation_across_K = []
         for K in K_list:
             manager = mp.Manager()
             return_dict = manager.dict()
@@ -78,15 +89,17 @@ if __name__ == '__main__':
                 p.start()
             for proc in jobs:
                 proc.join()
-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+            results = np.array(list(return_dict.values()), dtype=float)  # shape: (reps, 2)
+            joint_confirmation_across_K.append(results[:, 0].mean())
+            mutual_deviation_across_K.append(results[:, 1].mean())
+        joint_confirmation_across_knowledge.append(joint_confirmation_across_K)
+        mutual_deviation_across_knowledge.append(mutual_deviation_across_K)  # shape: (knowledge_list, K_list)
 
-            temp_joint_confusion = []
-            for result in returns:  # 50 landscape repetitions
-                temp_joint_confusion.append(result[0])
-            joint_confusion_across_K.append(sum(temp_joint_confusion) / len(temp_joint_confusion))
-        with open("ss_joint_satisfaction_across_K_S_{0}".format(specialist_expertise), 'wb') as out_file:
-            pickle.dump(joint_confusion_across_K, out_file)
+        with open("ss_joint_confirmation_across_knowledge_K", 'wb') as out_file:
+            pickle.dump(joint_confirmation_across_knowledge, out_file)
+        with open("ss_mutual_deviation_across_knowledge_K", 'wb') as out_file:
+            pickle.dump(mutual_deviation_across_knowledge, out_file)
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Joint Satisfaction SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("Interpretive Tension SS: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))

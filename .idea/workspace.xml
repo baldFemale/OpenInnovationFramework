@@ -5,23 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
-      <change afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/G_evaluate_S.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_G.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_k/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SG_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SG_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SS_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha/slurm_SS_2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/G_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_G.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_G.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_S.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_knowledge/S_evaluate_S.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_G_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_S_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/G_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/G_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_G_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_G_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_G_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_G_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_G_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_S_0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_S_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_S_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/S_evaluate_S_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/S_evaluate_S_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GG_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GS_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_GS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_GS_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SG_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SG_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SG_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SG_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SG_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_0" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SS_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SS_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SS_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/Mechanism/Tension_across_overlap/slurm_SS_3" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Mechanism/XX_tension_across_overlap/slurm_SS_3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,25 +114,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/Mechanism/Tension_across_alpha",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/Mechanism/Tension_across_alpha&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/Mechanism/Tension_across_alpha" />
@@ -466,7 +504,8 @@
       <workItem from="1768984012460" duration="10676000" />
       <workItem from="1769065547715" duration="20641000" />
       <workItem from="1769349360843" duration="88000" />
-      <workItem from="1769401827403" duration="353000" />
+      <workItem from="1769401827403" duration="5424000" />
+      <workItem from="1770009463661" duration="2171000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -811,7 +850,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="540" />
+    <option name="localTasksCounter" value="541" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
