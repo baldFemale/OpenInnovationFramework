@@ -52,10 +52,13 @@ if __name__ == '__main__':
     search_iteration = 200
     N = 9
     K = 2
-    alpha_list = [0.025, 0.05, 0.075, 0.1]
-    concurrency = 50
+    alpha_list = [0.05, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
+    concurrency = 100
+    breakthrough_likelihood_across_alpha = []
+    average_performance_across_alpha = []
+    variance_across_alpha = []
+    diversity_across_alpha = []
     for alpha in alpha_list:
-        # DVs
         breakthrough_likelihood_across_size = []
         average_performance_across_size = []
         variance_across_size = []
@@ -81,15 +84,20 @@ if __name__ == '__main__':
             average_performance_across_size.append(means[1])
             variance_across_size.append(means[2])
             diversity_across_size.append(means[3])
-        # remove time dimension
-        with open("g_breakthrough_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(breakthrough_likelihood_across_size, out_file)
-        with open("g_ave_performance_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(average_performance_across_size, out_file)
-        with open("g_variance_acros_size_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(variance_across_size, out_file)
-        with open("g_diversity_across_size_alpha_{0}".format(alpha), 'wb') as out_file:
-            pickle.dump(diversity_across_size, out_file)
+
+        breakthrough_likelihood_across_alpha.append(breakthrough_likelihood_across_size)
+        average_performance_across_alpha.append(average_performance_across_size)
+        variance_across_alpha.append(variance_across_size)
+        diversity_across_alpha.append(diversity_across_size)
+
+    with open("g_breakthrough_likelihood_across_alpha", 'wb') as out_file:
+        pickle.dump(breakthrough_likelihood_across_alpha, out_file)
+    with open("g_average_performance_across_alpha", 'wb') as out_file:
+        pickle.dump(average_performance_across_alpha, out_file)
+    with open("g_variance_across_alpha", 'wb') as out_file:
+        pickle.dump(variance_across_alpha, out_file)
+    with open("g_diversity_across_alpha", 'wb') as out_file:
+        pickle.dump(diversity_across_alpha, out_file)
 
     t1 = time.time()
     print("Parallel Search Across Alpha: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
