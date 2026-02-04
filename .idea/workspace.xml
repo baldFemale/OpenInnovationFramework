@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
-      <change afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Crowd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Evaluator_adopted_from_MoreThanParallel.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/G_send_to_G.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/G_send_to_S.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Coupled_Search/slurm_G_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/grun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/slurm_G_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/slurm_S_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K2/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4/srun_1.py" afterDir="false" />
-    </list>
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -472,7 +451,7 @@
       <workItem from="1769401827403" duration="5424000" />
       <workItem from="1770009463661" duration="2949000" />
       <workItem from="1770012563049" duration="1056000" />
-      <workItem from="1770036012931" duration="1103000" />
+      <workItem from="1770036012931" duration="1741000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -817,7 +796,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="542" />
+    <option name="localTasksCounter" value="543" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
