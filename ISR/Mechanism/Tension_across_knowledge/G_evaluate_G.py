@@ -15,7 +15,7 @@ def func(N=None, K=None, generalist_expertise=None, agent_num=None, search_itera
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.05)
     sender_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=generalist_expertise, specialist_expertise=0, label="G")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
     receiver_crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=generalist_expertise, specialist_expertise=0, label="G")
     for sender in sender_crowd.agents:
@@ -84,7 +84,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, generalist_expertise, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, generalist_expertise, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:

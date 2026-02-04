@@ -84,7 +84,7 @@ if __name__ == '__main__':
             jobs = []
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, specialist_expertise, search_iteration, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, specialist_expertise, agent_num, search_iteration, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
             for proc in jobs:
