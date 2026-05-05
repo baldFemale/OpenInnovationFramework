@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Highest_Performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/Parallel_Search/Parallel_Search_K/Evaluator_Highest_Performance.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -458,6 +457,9 @@
       <workItem from="1772439731299" duration="1004000" />
       <workItem from="1774683057897" duration="611000" />
       <workItem from="1774788132113" duration="1734000" />
+      <workItem from="1774789874983" duration="11000" />
+      <workItem from="1774964618359" duration="639000" />
+      <workItem from="1777465529269" duration="4516000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -802,7 +804,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="547" />
+    <option name="localTasksCounter" value="548" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
