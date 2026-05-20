@@ -29,10 +29,15 @@ class Landscape:
         self.local_optima = {}
         self.first_cache = {}  # state string to overall fitness: state_num ^ N: [1]
         self.second_cache = {}
+
+        # Rank cache for the true/refined landscape.
+        # Key: state string in second_cache, e.g., "0123".
+        # Value: descending fitness rank, where 1 is the global-best solution.
+        self.second_rank_cache = {}
+
         self.max_normalizer_1, self.min_normalizer_1 = 1, 0
         self.max_normalizer_2, self.min_normalizer_2 = 1, 0
         self.norm = norm
-        self.fitness_to_rank_dict = None  # using the rank information to measure the potential performance of GST
         self.initialize()  # Initialization and Normalization
 
     def create_IM(self):
@@ -114,6 +119,29 @@ class Landscape:
             bits = "".join(state)
             self.second_cache[bits] = self.calculate_second_fitness(state)
 
+    def store_second_rank_cache(self):
+        """
+        Store the rank of each solution on the true/refined landscape.
+
+        The rank is based only on self.second_cache because second_cache is the
+        true fitness landscape. Rank 1 corresponds to the highest-fitness state.
+        Ties receive the same competition rank, e.g., 1, 2, 2, 4.
+        """
+        self.second_rank_cache = {}
+
+        sorted_items = sorted(
+            self.second_cache.items(),
+            key=lambda item: item[1],
+            reverse=True
+        )
+        previous_fitness = None
+        current_rank = 0
+        for index, (state, fitness) in enumerate(sorted_items, start=1):
+            if fitness != previous_fitness:
+                current_rank = index
+                previous_fitness = fitness
+            self.second_rank_cache[state] = current_rank
+
     def initialize(self):
         self.create_IM()
         self.create_first_fitness_configuration()
@@ -131,6 +159,8 @@ class Landscape:
                 self.first_cache[k] = (self.first_cache[k] - self.min_normalizer_1) / (self.max_normalizer_1 - self.min_normalizer_1)
             for k in self.second_cache.keys():
                 self.second_cache[k] = (self.second_cache[k] - self.min_normalizer_2) / (self.max_normalizer_2 - self.min_normalizer_2)
+
+        self.store_second_rank_cache()
         # elif self.norm == "Max":
         #     for k in self.first_cache.keys():
         #         self.first_cache[k] = self.first_cache[k] / self.max_normalizer
@@ -231,6 +261,9 @@ class Landscape:
 
     def query_second_fitness(self, state: list) -> float:
         return self.second_cache["".join(state)]
+
+    def query_second_fitness_rank(self, state: list) -> int:
+        return self.second_rank_cache["".join(state)]
 
     def query_scoped_second_fitness(self, cog_state: list, state: list) -> float:
         scoped_fitness = []
@@ -397,7 +430,7 @@ class Landscape:
             print(key, value)
             break
         for key, value in self.second_cache.items():
-            print(key, value)
+            print(key, value, "Rank:", self.second_rank_cache[key])
             break
         # for seed_state in self.seed_state_list:
         #     print(seed_state, self.query_fitness(state=seed_state))
@@ -418,12 +451,37 @@ if __name__ == '__main__':
     # Test Example
     import time
     t0 = time.time()
-    N = 10
-    K = 9
+    N = 6
+    K = 2
     state_num = 4
     np.random.seed(1000)
     landscape = Landscape(N=N, K=K, state_num=state_num, norm="MaxMin")
     landscape.describe()
+
+    # Test: the highest-fitness state should have rank 1.
+    # With one-based ranks, the lowest-fitness state should have rank state_num ** N,
+    # not state_num ** N - 1.
+    max_state = max(landscape.second_cache, key=landscape.second_cache.get)
+    min_state = min(landscape.second_cache, key=landscape.second_cache.get)
+    expected_lowest_rank = state_num ** N
+
+    assert landscape.query_second_fitness_rank(list(max_state)) == 1, (
+        f"Highest-fitness state {max_state} should have rank 1, "
+        f"but got {landscape.query_second_fitness_rank(list(max_state))}."
+    )
+    assert landscape.query_second_fitness_rank(list(min_state)) == expected_lowest_rank, (
+        f"Lowest-fitness state {min_state} should have rank {expected_lowest_rank}, "
+        f"but got {landscape.query_second_fitness_rank(list(min_state))}."
+    )
+
+    print("Rank cache test passed.")
+    print("Highest-fitness state:", max_state,
+          "Fitness:", landscape.query_second_fitness(list(max_state)),
+          "Rank:", landscape.query_second_fitness_rank(list(max_state)))
+    print("Lowest-fitness state:", min_state,
+          "Fitness:", landscape.query_second_fitness(list(min_state)),
+          "Rank:", landscape.query_second_fitness_rank(list(min_state)))
+
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
     # landscape.create_fitness_rank()

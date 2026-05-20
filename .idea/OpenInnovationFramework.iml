@@ -138,20 +138,20 @@
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Mechanism/MutualDeviation_By_Local_Optima_New/MutualDeviation_across_Overlap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Appendix" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Appendix/Compare_Landscape" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Appendix/TwoComplexity" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/Coupled_Search" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/MoreThanParallel" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_K" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_alpha" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_k" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/Tension_across_knowledge" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Mechanism/XX_tension_across_overlap" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/Parallel_Search/Parallel_Search_Alpha_K4" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/1_Parallel_Search" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/1_Parallel_Search/Parallel_Search_K" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism/JointSatisfaction_across_Frequency" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism/Tension_across_alpha" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism/Tension_across_k" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism/Tension_across_knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/3_Mechanism/XX_tension_across_overlap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix/Compare_Landscape" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix/TwoComplexity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />
