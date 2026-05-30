@@ -23,7 +23,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
     # Transparent Crowd
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                  generalist_expertise=12, specialist_expertise=0, label="G")
+                  generalist_expertise=0, specialist_expertise=12, label="S")
     crowd.share_prob_list = [uniform_prob] * agent_num
     for period in range(search_iteration):
         crowd.search()
@@ -36,9 +36,10 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
+    # Calculate the diversity indicator
     domain_solution_dict = {}
     for agent in crowd.agents:
-        domains = agent.generalist_domain.copy()
+        domains = agent.specialist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
         solution_str = [agent.state[index] for index in domains]
@@ -98,14 +99,14 @@ if __name__ == '__main__':
             diversity_across_K.append(means[2])
 
         # remove time dimension
-        with open("gg_visibility_start_{0}_breakthrough_fitness_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
+        with open("ss_visibility_start_{0}_breakthrough_fitness_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
-        with open("gg_visibility_start_{0}_breakthrough_rank_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
+        with open("ss_visibility_start_{0}_breakthrough_rank_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
-        with open("gg_visibility_start_{0}_diversity_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
+        with open("ss_visibility_start_{0}_diversity_across_K_size_{1}".format(visibility_start, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("GG Visibility Timing: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
+    print("SS Visibility Timing: ", time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
