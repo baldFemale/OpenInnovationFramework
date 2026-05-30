@@ -5,28 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GG_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_GS_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SG_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SG_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SG_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SG_4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SS_1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SS_2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SS_3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/slurm_SS_4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -489,7 +470,7 @@
       <workItem from="1779352491932" duration="9176000" />
       <workItem from="1779541723027" duration="23000" />
       <workItem from="1779872060205" duration="5239000" />
-      <workItem from="1779973434884" duration="4802000" />
+      <workItem from="1779973434884" duration="5362000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -834,7 +815,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="550" />
+    <option name="localTasksCounter" value="551" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
