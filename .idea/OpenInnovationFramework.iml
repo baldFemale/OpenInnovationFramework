@@ -152,6 +152,8 @@
       <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix/Compare_Landscape" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/4_Appendix/TwoComplexity" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Timing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

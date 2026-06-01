@@ -62,12 +62,12 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
-    landscape_iteration = 200
-    search_iteration = 200
+    landscape_iteration = 500
+    search_iteration = 300
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     uniform_prob = 0.2
-    visibility_start_list = [0, 50, 100, 150, 200]
+    visibility_start_list = [0, 25, 50, 75, 100, 125, 150, 175, 200]
     agent_num = 200
     concurrency = 100
 
