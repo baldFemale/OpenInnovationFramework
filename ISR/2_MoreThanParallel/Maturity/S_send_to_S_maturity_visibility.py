@@ -18,7 +18,7 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=None,
+def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_prob=None,
          maturity_threshold=None, loop=None, return_dict=None, sema=None):
     """
     Maturity-based visibility experiment.
@@ -30,7 +30,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
       cognitive fitness reaches the maturity threshold.
 
     Sharing condition:
-        share if random_draw < uniform_prob and agent.cog_fitness >= maturity_threshold
+        share if random_draw < uniform_sharing_prob and agent.cog_fitness >= maturity_threshold
     """
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
@@ -38,13 +38,13 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
     # Transparent Crowd: Specialist-to-Specialist visibility
     crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                   generalist_expertise=0, specialist_expertise=12, label="S")
-    crowd.share_prob_list = [uniform_prob] * agent_num
+    crowd.share_prob_list = [uniform_sharing_prob] * agent_num
 
     for period in range(search_iteration):
         crowd.search()
 
         # Maturity-based shared pool: visibility is always available,
-        # but only subjectively mature solutions are disclosed.
+        # but only subjectively mature S solutions are disclosed to S.
         crowd.solution_pool = []
         for agent, share_prob in zip(crowd.agents, crowd.share_prob_list):
             if (np.random.uniform(0, 1) < share_prob) and (agent.cog_fitness >= maturity_threshold):
@@ -92,13 +92,13 @@ if __name__ == '__main__':
     search_iteration = 300
     N = 9
     K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    uniform_prob = 0.2
+    uniform_sharing_prob = 1
 
     # Maturity threshold M_v: minimum cognitive fitness required for disclosure.
     # M_v = 0.0 means almost all solutions can be shared.
     # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be shared.
     maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                               0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+                               0.5, 0.6, 0.7, 0.8, 0.9]
 
     agent_num = 200
     concurrency = 100
@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_prob,
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_sharing_prob,
                                                   maturity_threshold, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()

@@ -7,4 +7,4 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
-srun python S_send_to_G_visibility_timing.py
+srun python S_send_to_G_maturity_visibility.py
