@@ -1,0 +1,152 @@
+#!/usr/bin/env py39
+# -*- coding: utf-8 -*-
+# @Time     : 9/26/2022 20:23
+# @Author   : Junyi
+# @FileName: S_send_to_S_maturity_visibility.py
+# @Software : PyCharm
+# Observing PEP 8 coding style
+
+import numpy as np
+from Generalist import Generalist
+from Specialist import Specialist
+from Landscape import Landscape
+from Crowd import Crowd
+import multiprocessing as mp
+import time
+from multiprocessing import Semaphore
+import pickle
+
+
+# mp version
+def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=None,
+         maturity_threshold=None, loop=None, return_dict=None, sema=None):
+    """
+    Maturity-based visibility experiment.
+
+    Difference from visibility-timing experiment:
+    - No timing parameter is used.
+    - Visibility is available in every period.
+    - A solution enters the shared pool only when the focal solver's
+      cognitive fitness reaches the maturity threshold.
+
+    Sharing condition:
+        share if random_draw < uniform_prob and agent.cog_fitness >= maturity_threshold
+    """
+    np.random.seed(None)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+
+    # Transparent Crowd: Specialist-to-Specialist visibility
+    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                  generalist_expertise=0, specialist_expertise=12, label="S")
+    crowd.share_prob_list = [uniform_prob] * agent_num
+
+    for period in range(search_iteration):
+        crowd.search()
+
+        # Maturity-based shared pool: visibility is always available,
+        # but only subjectively mature solutions are disclosed.
+        crowd.solution_pool = []
+        for agent, share_prob in zip(crowd.agents, crowd.share_prob_list):
+            if (np.random.uniform(0, 1) < share_prob) and (agent.cog_fitness >= maturity_threshold):
+                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                partial_solution = [agent.state[index] for index in domains]
+                crowd.solution_pool.append([domains, partial_solution])
+        np.random.shuffle(crowd.solution_pool)
+
+        crowd.learn_from_shared_pool()
+
+    performance_list = [agent.fitness for agent in crowd.agents]
+    fitness_rank_list = [landscape.query_second_fitness_rank(state=agent.state) for agent in crowd.agents]
+    breakthrough_fitness = max(performance_list)
+    breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
+
+    # Calculate the diversity indicator
+    domain_solution_dict = {}
+    for agent in crowd.agents:
+        domains = agent.specialist_domain.copy()
+        domains.sort()
+        domain_str = "".join([str(i) for i in domains])
+        solution_str = [agent.state[index] for index in domains]
+        solution_str = "".join(solution_str)
+        if domain_str not in domain_solution_dict.keys():
+            domain_solution_dict[domain_str] = [solution_str]
+        else:
+            if solution_str not in domain_solution_dict[domain_str]:
+                domain_solution_dict[domain_str].append(solution_str)
+
+    diversity = 0
+    for key, value in domain_solution_dict.items():
+        diversity += len(value)
+
+    return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
+    sema.release()
+
+
+if __name__ == '__main__':
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    t0 = time.time()
+
+    landscape_iteration = 200
+    search_iteration = 300
+    N = 9
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    uniform_prob = 0.2
+
+    # Maturity threshold M_v: minimum cognitive fitness required for disclosure.
+    # M_v = 0.0 means almost all solutions can be shared.
+    # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be shared.
+    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
+                               0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+    agent_num = 200
+    concurrency = 100
+
+    for maturity_threshold in maturity_threshold_list:
+        # DVs
+        breakthrough_fitness_across_K = []
+        breakthrough_rank_across_K = []
+        diversity_across_K = []
+
+        for K in K_list:
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            sema = Semaphore(concurrency)
+            jobs = []
+
+            for loop in range(landscape_iteration):
+                sema.acquire()
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_prob,
+                                                  maturity_threshold, loop, return_dict, sema))
+                jobs.append(p)
+                p.start()
+
+            for proc in jobs:
+                proc.join()
+
+            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+            arr = np.asarray(list(returns))  # shape: (n_runs, 3)
+            means = arr.mean(axis=0)
+
+            breakthrough_fitness_across_K.append(means[0])
+            breakthrough_rank_across_K.append(means[1])
+            diversity_across_K.append(means[2])
+
+        # Save results across K for each maturity threshold.
+        with open("ss_maturity_threshold_{0}_breakthrough_fitness_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
+            pickle.dump(breakthrough_fitness_across_K, out_file)
+
+        with open("ss_maturity_threshold_{0}_breakthrough_rank_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
+            pickle.dump(breakthrough_rank_across_K, out_file)
+
+        with open("ss_maturity_threshold_{0}_diversity_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
+            pickle.dump(diversity_across_K, out_file)
+
+    t1 = time.time()
+    now = datetime.datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    print("SS Maturity-Based Visibility: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
