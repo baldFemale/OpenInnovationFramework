@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_G_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_S_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_G_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_S_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/slurm_GG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/slurm_GS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/slurm_SG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,36 +74,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2-dimentional_lanscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Landscape.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Visibility_degree&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor": "Run",
+    "Python.2-dimentional_lanscape.executor": "Run",
+    "Python.Landscape.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Interval" />
-      <recent name="$PROJECT_DIR$/ISR/3_Mechanism/XX_tension_across_overlap" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -490,6 +506,7 @@
       <workItem from="1782390404968" duration="10607000" />
       <workItem from="1782480677566" duration="980000" />
       <workItem from="1782481664423" duration="191000" />
+      <workItem from="1782481876731" duration="458000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -834,7 +851,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="564" />
+    <option name="localTasksCounter" value="565" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
