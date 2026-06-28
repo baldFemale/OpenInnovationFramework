@@ -6,15 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Separation between Crowd_sender and Crowd_receiver">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/Evaluator_visibility_degree (1).ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_S_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_S_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -502,7 +497,7 @@
       <workItem from="1782480677566" duration="980000" />
       <workItem from="1782481664423" duration="191000" />
       <workItem from="1782481876731" duration="553000" />
-      <workItem from="1782564109633" duration="10176000" />
+      <workItem from="1782564109633" duration="11408000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -847,7 +842,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="572" />
+    <option name="localTasksCounter" value="573" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

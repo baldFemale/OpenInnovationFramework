@@ -19,36 +19,84 @@ import pickle
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=None,
          visibility_start=None, loop=None, return_dict=None, sema=None):
+    """
+    Timing-based visibility experiment with separated sender and receiver crowds.
+
+    Difference from within-crowd visibility experiment:
+    - Two independent G crowds are created on the same landscape.
+    - The sender crowd only searches and shares visible solutions after visibility starts.
+    - The receiver crowd searches throughout and learns from the sender crowd's visible solutions
+      only after visibility starts.
+    - The receiver crowd's learned solutions do not feed back into the visible pool.
+
+    Visibility condition:
+        share if period >= visibility_start and random_draw < uniform_prob
+    """
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
-    # Transparent Crowd
-    crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                  generalist_expertise=0, specialist_expertise=12, label="S")
-    crowd.share_prob_list = [uniform_prob] * agent_num
-    for period in range(search_iteration):
-        crowd.search()
-        if period >= visibility_start:
-            crowd.get_shared_pool()
-            crowd.learn_from_shared_pool()
 
-    performance_list = [agent.fitness for agent in crowd.agents]
-    fitness_rank_list = [landscape.query_second_fitness_rank(state=agent.state) for agent in crowd.agents]
+    # Sender crowd: Generalists who only search and share
+    crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                         generalist_expertise=0, specialist_expertise=12, label="S")
+
+    # Receiver crowd: Generalists who search and learn from sender's visible solutions
+    crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=0, specialist_expertise=12, label="S")
+
+    crowd_sender.share_prob_list = [uniform_prob] * agent_num
+
+    for period in range(search_iteration):
+        # Both crowds conduct their own independent search.
+        crowd_sender.search()
+        crowd_receiver.search()
+
+        # Sender crowd constructs the visible solution pool only after visibility starts.
+        # Importantly, this pool is based only on sender agents,
+        # whose states are not affected by receiver learning.
+        if period >= visibility_start:
+            crowd_sender.solution_pool = []
+            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
+                if np.random.uniform(0, 1) < share_prob:
+                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                    partial_solution = [agent.state[index] for index in domains]
+                    crowd_sender.solution_pool.append([domains, partial_solution])
+
+            np.random.shuffle(crowd_sender.solution_pool)
+
+            # Receiver crowd learns only from sender's visible solutions.
+            # No receiver solution is added back to the sender pool.
+            crowd_receiver.solution_pool = [
+                [domains.copy(), partial_solution.copy()]
+                for domains, partial_solution in crowd_sender.solution_pool
+            ]
+            crowd_receiver.learn_from_shared_pool()
+
+    # DVs are measured only on the receiver crowd.
+    performance_list = [agent.fitness for agent in crowd_receiver.agents]
+    fitness_rank_list = [
+        landscape.query_second_fitness_rank(state=agent.state)
+        for agent in crowd_receiver.agents
+    ]
+
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate the diversity indicator
+    # Calculate diversity among receiver agents.
     domain_solution_dict = {}
-    for agent in crowd.agents:
-        domains = agent.specialist_domain.copy()
+    for agent in crowd_receiver.agents:
+        domains = agent.generalist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
+
         solution_str = [agent.state[index] for index in domains]
         solution_str = "".join(solution_str)
+
         if domain_str not in domain_solution_dict.keys():
             domain_solution_dict[domain_str] = [solution_str]
         else:
             if solution_str not in domain_solution_dict[domain_str]:
                 domain_solution_dict[domain_str].append(solution_str)
+
     diversity = 0
     for key, value in domain_solution_dict.items():
         diversity += len(value)
@@ -65,8 +113,8 @@ if __name__ == '__main__':
     landscape_iteration = 200
     search_iteration = 300
     N = 9
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    uniform_prob = 0.2
+    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
+    uniform_prob = 1
     visibility_start_list = [0, 25, 50, 75, 100, 125, 150, 175, 200]
     agent_num = 200
     concurrency = 100
