@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting">
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Separation between Crowd_sender and Crowd_receiver">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/S_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/S_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/S_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/S_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/G_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/G_send_to_S_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/S_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree/S_send_to_S_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/G_send_to_S_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha/S_send_to_S_visibility_degree.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -505,7 +493,7 @@
       <workItem from="1782480677566" duration="980000" />
       <workItem from="1782481664423" duration="191000" />
       <workItem from="1782481876731" duration="553000" />
-      <workItem from="1782564109633" duration="8071000" />
+      <workItem from="1782564109633" duration="8859000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -850,7 +838,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="567" />
+    <option name="localTasksCounter" value="569" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -868,8 +856,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="The third version of priority search&#10;--For specialists, fully adopt the elements of A/B from generalists; search from limited space afterward (e.g., A-&gt; search from 0, 1)" />
-    <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
     <MESSAGE value="The third version of Coordination&#10;--fix the bugs in specialist search (state vs cog_state in free space)&#10;&#10;The second version of Autonomy&#10;--fix the bugs in specialist search (state vs cog_state in free space)" />
     <MESSAGE value="Independent Search - N12" />
     <MESSAGE value="Update the figure format for AOM2023" />
@@ -892,8 +878,10 @@
     <MESSAGE value="After AOM:&#10;1. Baseline&#10;2. Sharing as the main socialization&#10;3. Evaluating as the complementary" />
     <MESSAGE value="Manuscript preparing&#10;1. Formating figures" />
     <MESSAGE value="Manuscript preparing&#10;1. Formating figures&#10;2. Calibrate the interaction setting" />
+    <MESSAGE value="Separation between crowd_sender and crowd_receiver" />
     <MESSAGE value="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Manuscript preparing&#10;1. Formating figures&#10;2. Organize experiments and flow&#10;2. Calibrate the interaction setting" />
+    <MESSAGE value="Separation between Crowd_sender and Crowd_receiver" />
+    <option name="LAST_COMMIT_MESSAGE" value="Separation between Crowd_sender and Crowd_receiver" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1694265591296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Baseline/Ushape" />
