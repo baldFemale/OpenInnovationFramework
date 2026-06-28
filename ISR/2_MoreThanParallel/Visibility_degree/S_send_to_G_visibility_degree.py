@@ -18,62 +18,78 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, search_iteration=None,
-         visibility_prob=None, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
+         loop=None, return_dict=None, sema=None):
     """
-    Visibility-degree experiment.
+    Visibility-degree experiment with separated sender and receiver crowds.
 
-    Difference from maturity-based visibility experiment:
-    - No maturity threshold is used.
-    - Visibility is available in every period.
-    - An S solution enters the shared pool with probability visibility_prob.
+    Difference from within-crowd visibility experiment:
+    - Two independent crowds are created on the same landscape.
+    - The sender crowd is composed of specialists who only search and share visible solutions.
+    - The receiver crowd is composed of generalists who search and learn from the sender crowd's visible solutions.
+    - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Sharing condition:
         share if random_draw < visibility_prob
     """
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
+    landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Transparent Crowd: Specialist-to-Generalist visibility
-    crowd_s = Crowd(N=N, agent_num=agent_num // 2, landscape=landscape, state_num=4,
-                    generalist_expertise=0, specialist_expertise=12, label="S")
-    crowd_g = Crowd(N=N, agent_num=agent_num // 2, landscape=landscape, state_num=4,
-                    generalist_expertise=12, specialist_expertise=0, label="G")
-    crowd_s.share_prob_list = [visibility_prob] * (agent_num // 2)
-    crowd_g.share_prob_list = [visibility_prob] * (agent_num // 2)
+    # Sender crowd: Specialists who only search and share
+    crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                         generalist_expertise=0, specialist_expertise=12, label="S")
+
+    # Receiver crowd: Generalists who search and learn from sender's visible solutions
+    crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
+                           generalist_expertise=12, specialist_expertise=0, label="G")
+
+    crowd_sender.share_prob_list = [visibility_prob] * agent_num
 
     for period in range(search_iteration):
-        crowd_s.search()
-        crowd_g.search()
+        # Both crowds conduct their own independent search.
+        crowd_sender.search()
+        crowd_receiver.search()
 
-        # Visibility-degree shared pool: visibility is always available,
-        # but each S solution is disclosed to G with probability visibility_prob.
-        crowd_s.solution_pool = []
-        for agent, share_prob in zip(crowd_s.agents, crowd_s.share_prob_list):
+        # Sender crowd constructs the visible solution pool.
+        # Importantly, this pool is based only on sender agents,
+        # whose states are not affected by receiver learning.
+        crowd_sender.solution_pool = []
+        for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
             if np.random.uniform(0, 1) < share_prob:
                 domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
                 partial_solution = [agent.state[index] for index in domains]
-                crowd_s.solution_pool.append([domains, partial_solution])
-        np.random.shuffle(crowd_s.solution_pool)
+                crowd_sender.solution_pool.append([domains, partial_solution])
 
-        # S share a pool to G
-        s_pool = crowd_s.solution_pool.copy()
-        crowd_g.solution_pool = s_pool
-        crowd_g.learn_from_shared_pool()
+        np.random.shuffle(crowd_sender.solution_pool)
 
-    performance_list = [agent.fitness for agent in crowd_g.agents]
-    fitness_rank_list = [landscape.query_second_fitness_rank(state=agent.state) for agent in crowd_g.agents]
+        # Receiver crowd learns only from sender's visible solutions.
+        # No receiver solution is added back to the sender pool.
+        crowd_receiver.solution_pool = [
+            [domains.copy(), partial_solution.copy()]
+            for domains, partial_solution in crowd_sender.solution_pool
+        ]
+        crowd_receiver.learn_from_shared_pool()
+
+    # DVs are measured only on the receiver crowd.
+    performance_list = [agent.fitness for agent in crowd_receiver.agents]
+    fitness_rank_list = [
+        landscape.query_second_fitness_rank(state=agent.state)
+        for agent in crowd_receiver.agents
+    ]
+
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate the diversity indicator
+    # Calculate diversity among receiver agents.
     domain_solution_dict = {}
-    for agent in crowd_g.agents:
+    for agent in crowd_receiver.agents:
         domains = agent.generalist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
+
         solution_str = [agent.state[index] for index in domains]
         solution_str = "".join(solution_str)
+
         if domain_str not in domain_solution_dict.keys():
             domain_solution_dict[domain_str] = [solution_str]
         else:
@@ -97,7 +113,7 @@ if __name__ == '__main__':
     landscape_iteration = 200
     search_iteration = 300
     N = 9
-    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
     # Visibility degree p_v: probability that an S solution becomes visible to G.
     # p_v = 0.0 means no S solutions are visible to G.
     # p_v = 1.0 means all S solutions are visible to G in every period.
