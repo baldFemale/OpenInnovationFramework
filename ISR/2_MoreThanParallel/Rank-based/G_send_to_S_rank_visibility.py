@@ -88,7 +88,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
     # Calculate diversity among receiver agents.
     domain_solution_dict = {}
     for agent in crowd_receiver.agents:
-        domains = agent.generalist_domain.copy()
+        domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
 

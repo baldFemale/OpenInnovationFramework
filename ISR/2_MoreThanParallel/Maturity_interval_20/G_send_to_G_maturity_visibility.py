@@ -19,23 +19,18 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_prob=None,
-         fitness_threshold=None, loop=None, return_dict=None, sema=None):
+         maturity_threshold=None, loop=None, return_dict=None, sema=None):
     """
-    Rank-based visibility experiment with separated sender and receiver crowds.
+    Maturity-based visibility experiment with separated sender and receiver crowds.
 
-    Difference from maturity-based visibility experiment:
+    Difference from within-crowd visibility experiment:
     - Two independent G crowds are created on the same landscape.
     - The sender crowd only searches and shares visible solutions.
     - The receiver crowd searches and learns from the sender crowd's visible solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
-    Visibility condition:
-        share if random_draw < uniform_sharing_prob and agent.fitness >= fitness_threshold
-
-    Note:
-    - The visibility condition is triggered by the objective fitness of each sender's solution.
-    - This differs from maturity-based visibility, where visibility is triggered by
-      the sender's self-perceived cognitive fitness.
+    Sharing condition:
+        share if random_draw < uniform_sharing_prob and agent.cog_fitness >= maturity_threshold
     """
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
@@ -60,7 +55,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
         # whose states are not affected by receiver learning.
         crowd_sender.solution_pool = []
         for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-            if (np.random.uniform(0, 1) < share_prob) and (agent.fitness >= fitness_threshold):
+            if (np.random.uniform(0, 1) < share_prob) and (agent.cog_fitness >= maturity_threshold):
                 domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
                 partial_solution = [agent.state[index] for index in domains]
                 crowd_sender.solution_pool.append([domains, partial_solution])
@@ -118,19 +113,19 @@ if __name__ == '__main__':
     landscape_iteration = 200
     search_iteration = 300
     N = 9
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     uniform_sharing_prob = 1
 
-    # Fitness threshold F_v: minimum objective fitness required for disclosure.
-    # F_v = 0.0 means almost all solutions can be shared.
-    # F_v = 1.0 means only nearly perfect objectively evaluated solutions can be shared.
-    fitness_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                              0.5, 0.6, 0.7, 0.8, 0.9]
+    # Maturity threshold M_v: minimum cognitive fitness required for disclosure.
+    # M_v = 0.0 means almost all solutions can be shared.
+    # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be shared.
+    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
+                               0.5, 0.6, 0.7, 0.8, 0.9]
 
     agent_num = 200
     concurrency = 100
 
-    for fitness_threshold in fitness_threshold_list:
+    for maturity_threshold in maturity_threshold_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -145,7 +140,7 @@ if __name__ == '__main__':
             for loop in range(landscape_iteration):
                 sema.acquire()
                 p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_sharing_prob,
-                                                  fitness_threshold, loop, return_dict, sema))
+                                                  maturity_threshold, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
 
@@ -160,20 +155,20 @@ if __name__ == '__main__':
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
 
-        # Save results across K for each fitness threshold.
-        with open("gg_rank_based_fitness_threshold_{0}_breakthrough_fitness_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
+        # Save results across K for each maturity threshold.
+        with open("gg_maturity_threshold_{0}_breakthrough_fitness_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("gg_rank_based_fitness_threshold_{0}_breakthrough_rank_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
+        with open("gg_maturity_threshold_{0}_breakthrough_rank_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("gg_rank_based_fitness_threshold_{0}_diversity_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
+        with open("gg_maturity_threshold_{0}_diversity_across_K_size_{1}".format(
+                maturity_threshold, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("GG Rank-Based Visibility: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+    print("GG Maturity-Based Visibility: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
