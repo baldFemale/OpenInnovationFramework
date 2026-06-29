@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: S_send_to_S_visibility_degree.py
+# @FileName: S_send_to_G_visibility_degree.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -19,29 +19,42 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
-         loop=None, return_dict=None, sema=None):
+         visibility_interval=1, loop=None, return_dict=None, sema=None):
     """
     Visibility-degree experiment with separated sender and receiver crowds.
 
-    Difference from within-crowd visibility experiment:
-    - Two independent S crowds are created on the same landscape.
-    - The sender crowd is composed of specialists who only search and share visible solutions.
-    - The receiver crowd is composed of specialists who search and learn from the sender crowd's visible solutions.
+    - Two independent G crowds are created on the same landscape.
+    - The sender crowd only searches and shares visible solutions.
+    - The receiver crowd searches and learns from sender's visible solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
-    Sharing condition:
-        share if random_draw < visibility_prob
+    Visibility condition:
+        visibility is activated every visibility_interval periods;
+        when activated, share if random_draw < visibility_prob.
+
+    Interpretation:
+        visibility_prob = visibility intensity
+        visibility_interval = visibility frequency
+            visibility_interval = 1 means visible every period, same as the original design.
+            visibility_interval = 5 means visible at periods 5, 10, 15, ...
     """
     np.random.seed(None)
+
+    if visibility_interval is None:
+        visibility_interval = 1
+    visibility_interval = int(visibility_interval)
+    if visibility_interval < 1:
+        raise ValueError("visibility_interval must be a positive integer.")
+
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Specialists who only search and share
+    # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=0, specialist_expertise=12, label="S")
 
-    # Receiver crowd: Specialists who search and learn from sender's visible solutions
+    # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
 
     crowd_sender.share_prob_list = [visibility_prob] * agent_num
 
@@ -50,25 +63,17 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_sender.search()
         crowd_receiver.search()
 
-        # Sender crowd constructs the visible solution pool.
-        # Importantly, this pool is based only on sender agents,
-        # whose states are not affected by receiver learning.
-        crowd_sender.solution_pool = []
-        for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-            if np.random.uniform(0, 1) < share_prob:
-                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                partial_solution = [agent.state[index] for index in domains]
-                crowd_sender.solution_pool.append([domains, partial_solution])
+        if (period + 1) % visibility_interval == 0:
+            crowd_sender.solution_pool = []
+            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list ):
+                if np.random.uniform(0, 1) < share_prob:
+                    domains = (agent.generalist_domain.copy() + agent.specialist_domain.copy())
+                    partial_solution = [agent.state[index] for index in domains]
+                    crowd_sender.solution_pool.append([domains, partial_solution])
+            np.random.shuffle(crowd_sender.solution_pool)
 
-        np.random.shuffle(crowd_sender.solution_pool)
-
-        # Receiver crowd learns only from sender's visible solutions.
-        # No receiver solution is added back to the sender pool.
-        crowd_receiver.solution_pool = [
-            [domains.copy(), partial_solution.copy()]
-            for domains, partial_solution in crowd_sender.solution_pool
-        ]
-        crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.solution_pool = [[domains.copy(), partial_solution.copy()] for domains, partial_solution in crowd_sender.solution_pool]
+            crowd_receiver.learn_from_shared_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -83,7 +88,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     # Calculate diversity among receiver agents.
     domain_solution_dict = {}
     for agent in crowd_receiver.agents:
-        domains = agent.specialist_domain.copy()
+        domains = agent.generalist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
 
@@ -114,11 +119,15 @@ if __name__ == '__main__':
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
-    # Visibility degree p_v: probability that a focal S solution is disclosed to S.
-    # p_v = 0.0 means no cross-agent visibility.
-    # p_v = 1.0 means all S solutions enter the visible shared pool.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                            0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+    # Visibility degree p_v: probability that an S solution becomes visible to G
+    # during a visibility period.
+    # p_v = 0.0 means no S solutions are visible to G.
+    # p_v = 1.0 means all S solutions are visible to G during each visibility period.
+    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+    # Visibility frequency: S solutions become visible to G every x periods.
+    visibility_interval = 20
 
     agent_num = 200
     concurrency = 100
@@ -137,7 +146,8 @@ if __name__ == '__main__':
 
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, visibility_prob,
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration,
+                                                  visibility_prob, visibility_interval,
                                                   loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
@@ -153,20 +163,21 @@ if __name__ == '__main__':
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
 
-        # Save results across K for each visibility probability.
-        with open("ss_visibility_prob_{0}_breakthrough_fitness_across_K_size_{1}".format(
-                visibility_prob, agent_num), 'wb') as out_file:
+        # Save results across K for each visibility probability and visibility interval.
+        with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("ss_visibility_prob_{0}_breakthrough_rank_across_K_size_{1}".format(
-                visibility_prob, agent_num), 'wb') as out_file:
+        with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("ss_visibility_prob_{0}_diversity_across_K_size_{1}".format(
-                visibility_prob, agent_num), 'wb') as out_file:
+        with open("sg_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("SS Visibility Degree: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+    print("SG Visibility Degree with Interval {0}: ".format(visibility_interval),
+          time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
