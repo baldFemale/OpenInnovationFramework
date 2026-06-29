@@ -19,7 +19,7 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_prob=None,
-         fitness_threshold=None, loop=None, return_dict=None, sema=None):
+         fitness_threshold=None, visibility_interval=20, loop=None, return_dict=None, sema=None):
     """
     Rank-based visibility experiment with separated sender and receiver crowds.
 
@@ -55,25 +55,26 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
         crowd_sender.search()
         crowd_receiver.search()
 
-        # Sender crowd constructs the visible solution pool.
+        # Sender crowd constructs the visible solution pool only at disclosure intervals.
         # Importantly, this pool is based only on sender agents,
         # whose states are not affected by receiver learning.
-        crowd_sender.solution_pool = []
-        for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-            if (np.random.uniform(0, 1) < share_prob) and (agent.fitness >= fitness_threshold):
-                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                partial_solution = [agent.state[index] for index in domains]
-                crowd_sender.solution_pool.append([domains, partial_solution])
+        if (period + 1) % visibility_interval == 0:
+            crowd_sender.solution_pool = []
+            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
+                if (np.random.uniform(0, 1) < share_prob) and (agent.fitness >= fitness_threshold):
+                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                    partial_solution = [agent.state[index] for index in domains]
+                    crowd_sender.solution_pool.append([domains, partial_solution])
 
-        np.random.shuffle(crowd_sender.solution_pool)
+            np.random.shuffle(crowd_sender.solution_pool)
 
-        # Receiver crowd learns only from sender's visible solutions.
-        # No receiver solution is added back to the sender pool.
-        crowd_receiver.solution_pool = [
-            [domains.copy(), partial_solution.copy()]
-            for domains, partial_solution in crowd_sender.solution_pool
-        ]
-        crowd_receiver.learn_from_shared_pool()
+            # Receiver crowd learns only from sender's visible solutions.
+            # No receiver solution is added back to the sender pool.
+            crowd_receiver.solution_pool = [
+                [domains.copy(), partial_solution.copy()]
+                for domains, partial_solution in crowd_sender.solution_pool
+            ]
+            crowd_receiver.learn_from_shared_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -120,11 +121,12 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
     uniform_sharing_prob = 1
+    visibility_interval = 20
 
     # Fitness threshold F_v: minimum objective fitness required for disclosure.
     # F_v = 0.0 means almost all solutions can be shared.
     # F_v = 1.0 means only nearly perfect objectively evaluated solutions can be shared.
-    fitness_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
+    fitness_threshold_list = [0.1, 0.2, 0.3, 0.4,
                               0.5, 0.6, 0.7, 0.8, 0.9]
 
     agent_num = 200
@@ -145,7 +147,7 @@ if __name__ == '__main__':
             for loop in range(landscape_iteration):
                 sema.acquire()
                 p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_sharing_prob,
-                                                  fitness_threshold, loop, return_dict, sema))
+                                                  fitness_threshold, visibility_interval, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
 
