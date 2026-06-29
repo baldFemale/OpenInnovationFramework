@@ -88,7 +88,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     # Calculate diversity among receiver agents.
     domain_solution_dict = {}
     for agent in crowd_receiver.agents:
-        domains = agent.generalist_domain.copy()
+        domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
         domains.sort()
         domain_str = "".join([str(i) for i in domains])
 
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: S solutions become visible to G every x periods.
-    visibility_interval = 20
+    visibility_interval = 50
 
     agent_num = 200
     concurrency = 100
