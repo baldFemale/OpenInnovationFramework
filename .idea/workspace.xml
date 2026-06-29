@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Separation between Crowd_sender and Crowd_receiver">
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Evaluator.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Evaluator_maturity_visibility.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Generalist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Specialist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/slurm_GG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/slurm_GS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/slurm_SG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/slurm_SS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/G_send_to_S_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank-based/S_send_to_S_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_G_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_S_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_G_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_S_maturity_visibility.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -517,7 +503,7 @@
       <workItem from="1782732846276" duration="3903000" />
       <workItem from="1782736770613" duration="10000" />
       <workItem from="1782737143284" duration="69000" />
-      <workItem from="1782737449113" duration="2970000" />
+      <workItem from="1782737449113" duration="4097000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -862,7 +848,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="576" />
+    <option name="localTasksCounter" value="577" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
