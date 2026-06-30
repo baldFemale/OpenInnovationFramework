@@ -5,14 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="Separation between Crowd_sender and Crowd_receiver">
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Evaluator_rank_visibility.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator_updated (2).ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/Evaluator_visibility_degree.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/Evaluator_visibility_degree.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/G_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/G_send_to_S_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/S_send_to_G_visibility_degree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20/S_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/Evaluator_maturity_visibility.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_G_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/G_send_to_S_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_G_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20/S_send_to_S_maturity_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Evaluator_maturity_visibility.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_G_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_S_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_G_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_S_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator_K4_to_K8.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator_updated (1).ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/Crowd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/Evaluator_visibility_degree.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/Evaluator_visibility_degree.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/G_send_to_G_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/G_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/S_send_to_G_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50/S_send_to_S_visibility_degree.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,24 +102,24 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Visibility_degree_50",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Rank_based",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based" />
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_20" />
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_50" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_20" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_alpha" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -507,7 +530,7 @@
       <workItem from="1782736770613" duration="10000" />
       <workItem from="1782737143284" duration="69000" />
       <workItem from="1782737449113" duration="6016000" />
-      <workItem from="1782796776292" duration="8607000" />
+      <workItem from="1782796776292" duration="14663000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -852,7 +875,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="580" />
+    <option name="localTasksCounter" value="581" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

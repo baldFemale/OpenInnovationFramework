@@ -23,19 +23,25 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
     Timing-based visibility experiment with separated sender and receiver crowds.
 
     Difference from within-crowd visibility experiment:
-    - Two independent G crowds are created on the same landscape.
-    - The sender crowd only searches and shares visible solutions after visibility starts.
-    - The receiver crowd searches throughout and learns from the sender crowd's visible solutions
-      only after visibility starts.
+    - Two independent crowds are created on the same landscape.
+    - The sender crowd is composed of Specialists.
+    - The receiver crowd is composed of Generalists.
+    - The sender crowd only searches and shares visible full solutions after visibility starts.
+    - The receiver crowd searches throughout and learns from the sender crowd's visible full
+      solutions only after visibility starts.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
         share if period >= visibility_start and random_draw < uniform_prob
+
+    Visibility object:
+        share_mode = "full" means the visible object is the sender's complete
+        solution string, not a partial knowledge fragment.
     """
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Generalists who only search and share
+    # Sender crowd: Specialists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=0, specialist_expertise=12, label="S")
 
@@ -50,24 +56,17 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
         crowd_sender.search()
         crowd_receiver.search()
 
-        # Sender crowd constructs the visible solution pool only after visibility starts.
+        # Sender crowd constructs the visible full-solution pool only after visibility starts.
         # Importantly, this pool is based only on sender agents,
         # whose states are not affected by receiver learning.
         if period >= visibility_start:
-            crowd_sender.solution_pool = []
-            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-                if np.random.uniform(0, 1) < share_prob:
-                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                    partial_solution = [agent.state[index] for index in domains]
-                    crowd_sender.solution_pool.append([domains, partial_solution])
+            crowd_sender.get_shared_pool(share_mode="full")
 
-            np.random.shuffle(crowd_sender.solution_pool)
-
-            # Receiver crowd learns only from sender's visible solutions.
+            # Receiver crowd learns only from sender's visible full solutions.
             # No receiver solution is added back to the sender pool.
             crowd_receiver.solution_pool = [
-                [domains.copy(), partial_solution.copy()]
-                for domains, partial_solution in crowd_sender.solution_pool
+                [domains.copy(), solution.copy()]
+                for domains, solution in crowd_sender.solution_pool
             ]
             crowd_receiver.learn_from_shared_pool()
 
@@ -81,25 +80,16 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate diversity among receiver agents.
-    domain_solution_dict = {}
+    # Calculate full-solution diversity among receiver agents.
+    # Since visibility now discloses complete solutions, diversity should also
+    # be measured at the complete-solution level rather than only on each
+    # agent's knowledge domains.
+    full_solution_set = set()
     for agent in crowd_receiver.agents:
-        domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-        domains.sort()
-        domain_str = "".join([str(i) for i in domains])
+        solution_str = "".join([str(bit) for bit in agent.state])
+        full_solution_set.add(solution_str)
 
-        solution_str = [agent.state[index] for index in domains]
-        solution_str = "".join(solution_str)
-
-        if domain_str not in domain_solution_dict.keys():
-            domain_solution_dict[domain_str] = [solution_str]
-        else:
-            if solution_str not in domain_solution_dict[domain_str]:
-                domain_solution_dict[domain_str].append(solution_str)
-
-    diversity = 0
-    for key, value in domain_solution_dict.items():
-        diversity += len(value)
+    diversity = len(full_solution_set)
 
     return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
     sema.release()

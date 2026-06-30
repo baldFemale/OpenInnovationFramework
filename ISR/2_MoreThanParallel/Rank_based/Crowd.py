@@ -12,16 +12,26 @@ import numpy as np
 class Crowd:
     def __init__(self, N: int, agent_num: int, generalist_expertise: int, specialist_expertise: int,
                  landscape: object, state_num: int, label: str):
+        self.N = N
         self.agent_num = agent_num
         self.agents = []
         self.share_prob_list = [1] * agent_num
+
+        # Visibility sharing mode:
+        # - "full": agents disclose their whole solution string.
+        # - "partial": agents disclose only the solution components in their knowledge domains.
+        # The default is set to "full" to operationalize visibility as whole-solution visibility.
+        self.share_mode = "full"
+
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
             if label == "G":
-                agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
+                agent = Generalist(N=N, landscape=landscape, state_num=state_num,
+                                   generalist_expertise=generalist_expertise)
                 self.agents.append(agent)
             elif label == "S":
-                agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
+                agent = Specialist(N=N, landscape=landscape, state_num=state_num,
+                                   specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
         self.solution_pool = []
 
@@ -29,13 +39,39 @@ class Crowd:
         for agent in self.agents:
             agent.search()
 
-    def get_shared_pool(self):
+    def get_shared_pool(self, share_mode: str = None):
+        """
+        Construct the visible solution pool.
+
+        Parameters
+        ----------
+        share_mode : str, optional
+            - "full": share the sender's whole solution string.
+            - "partial": share only the sender's known domains and corresponding partial solution.
+
+        Notes
+        -----
+        The solution pool keeps the same internal format for both modes:
+            [domains, solution]
+        where domains identifies the indices to be copied and solution stores the corresponding bits.
+        Under full sharing, domains = [0, 1, ..., N-1] and solution = full state.
+        """
+        if share_mode is None:
+            share_mode = self.share_mode
+
+        if share_mode not in ["full", "partial"]:
+            raise ValueError("share_mode must be either 'full' or 'partial'.")
+
         self.solution_pool = []  # reset the solution pool
         for agent, share_prob in zip(self.agents, self.share_prob_list):
             if np.random.uniform(0, 1) < share_prob:
-                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                partial_solution = [agent.state[index] for index in domains]
-                self.solution_pool.append([domains, partial_solution])
+                if share_mode == "full":
+                    domains = list(range(self.N))
+                    solution = agent.state.copy()
+                else:
+                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                    solution = [agent.state[index] for index in domains]
+                self.solution_pool.append([domains, solution])
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
     def learn_from_shared_pool(self):
@@ -63,7 +99,7 @@ class Crowd:
     def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
         opinions = [agent.private_evaluate(cur_cog_state=cur_cog_state,
                                    next_cog_state=next_cog_state) for agent in self.agents]
-        true_count = sum(1 for item in opinions if item)
+        true_count = sum(1 for item in opinions)
         return true_count > self.agent_num / 2
 
 
