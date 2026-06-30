@@ -23,9 +23,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     """
     Visibility-degree experiment with separated sender and receiver crowds.
 
-    - Two independent G crowds are created on the same landscape.
-    - The sender crowd only searches and shares visible solutions.
-    - The receiver crowd searches and learns from sender's visible solutions.
+    - Two independent crowds are created on the same landscape.
+    - The S sender crowd only searches and shares visible full solutions.
+    - The G receiver crowd searches and learns from sender's visible full solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
@@ -48,7 +48,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Generalists who only search and share
+    # Sender crowd: Specialists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=0, specialist_expertise=12, label="S")
 
@@ -64,15 +64,15 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_receiver.search()
 
         if (period + 1) % visibility_interval == 0:
-            crowd_sender.solution_pool = []
-            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list ):
-                if np.random.uniform(0, 1) < share_prob:
-                    domains = (agent.generalist_domain.copy() + agent.specialist_domain.copy())
-                    partial_solution = [agent.state[index] for index in domains]
-                    crowd_sender.solution_pool.append([domains, partial_solution])
-            np.random.shuffle(crowd_sender.solution_pool)
+            # Full-solution visibility: sender agents disclose their complete solution strings.
+            # This is different from the earlier partial-fragment visibility design,
+            # where only each sender's own knowledge domains were disclosed.
+            crowd_sender.get_shared_pool(share_mode="full")
 
-            crowd_receiver.solution_pool = [[domains.copy(), partial_solution.copy()] for domains, partial_solution in crowd_sender.solution_pool]
+            crowd_receiver.solution_pool = [
+                [domains.copy(), solution.copy()]
+                for domains, solution in crowd_sender.solution_pool
+            ]
             crowd_receiver.learn_from_shared_pool()
 
     # DVs are measured only on the receiver crowd.
@@ -85,25 +85,15 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate diversity among receiver agents.
-    domain_solution_dict = {}
+    # Calculate full-solution diversity among receiver agents.
+    # Since visibility now discloses complete solution strings, diversity should also
+    # be measured over complete receiver solutions rather than over partial knowledge domains.
+    full_solution_set = set()
     for agent in crowd_receiver.agents:
-        domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-        domains.sort()
-        domain_str = "".join([str(i) for i in domains])
+        solution_str = "".join(agent.state)
+        full_solution_set.add(solution_str)
 
-        solution_str = [agent.state[index] for index in domains]
-        solution_str = "".join(solution_str)
-
-        if domain_str not in domain_solution_dict.keys():
-            domain_solution_dict[domain_str] = [solution_str]
-        else:
-            if solution_str not in domain_solution_dict[domain_str]:
-                domain_solution_dict[domain_str].append(solution_str)
-
-    diversity = 0
-    for key, value in domain_solution_dict.items():
-        diversity += len(value)
+    diversity = len(full_solution_set)
 
     return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
     sema.release()

@@ -24,8 +24,8 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     Visibility-degree experiment with separated sender and receiver crowds.
 
     - Two independent G crowds are created on the same landscape.
-    - The sender crowd only searches and shares visible solutions.
-    - The receiver crowd searches and learns from sender's visible solutions.
+    - The sender crowd only searches and shares full visible solutions.
+    - The receiver crowd searches and learns from sender's full visible solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
@@ -64,15 +64,21 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_receiver.search()
 
         if (period + 1) % visibility_interval == 0:
+            # Full visibility design:
+            # sender agents disclose their complete solution states, rather than
+            # only the fragments located in their own knowledge domains.
             crowd_sender.solution_pool = []
-            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list ):
+            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
                 if np.random.uniform(0, 1) < share_prob:
-                    domains = (agent.generalist_domain.copy() + agent.specialist_domain.copy())
-                    partial_solution = [agent.state[index] for index in domains]
-                    crowd_sender.solution_pool.append([domains, partial_solution])
+                    domains = list(range(N))
+                    full_solution = agent.state.copy()
+                    crowd_sender.solution_pool.append([domains, full_solution])
             np.random.shuffle(crowd_sender.solution_pool)
 
-            crowd_receiver.solution_pool = [[domains.copy(), partial_solution.copy()] for domains, partial_solution in crowd_sender.solution_pool]
+            crowd_receiver.solution_pool = [
+                [domains.copy(), full_solution.copy()]
+                for domains, full_solution in crowd_sender.solution_pool
+            ]
             crowd_receiver.learn_from_shared_pool()
 
     # DVs are measured only on the receiver crowd.
@@ -86,24 +92,14 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
     # Calculate diversity among receiver agents.
-    domain_solution_dict = {}
+    # Under full visibility, diversity should be measured at the complete-solution
+    # level, not only within each agent's knowledge domains.
+    full_solution_set = set()
     for agent in crowd_receiver.agents:
-        domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-        domains.sort()
-        domain_str = "".join([str(i) for i in domains])
+        solution_str = "".join(agent.state)
+        full_solution_set.add(solution_str)
 
-        solution_str = [agent.state[index] for index in domains]
-        solution_str = "".join(solution_str)
-
-        if domain_str not in domain_solution_dict.keys():
-            domain_solution_dict[domain_str] = [solution_str]
-        else:
-            if solution_str not in domain_solution_dict[domain_str]:
-                domain_solution_dict[domain_str].append(solution_str)
-
-    diversity = 0
-    for key, value in domain_solution_dict.items():
-        diversity += len(value)
+    diversity = len(full_solution_set)
 
     return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
     sema.release()
