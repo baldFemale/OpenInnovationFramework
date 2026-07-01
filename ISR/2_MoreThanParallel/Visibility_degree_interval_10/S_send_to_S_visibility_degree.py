@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: G_send_to_G_visibility_degree.py
+# @FileName: S_send_to_S_visibility_degree.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -24,8 +24,8 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     Visibility-degree experiment with separated sender and receiver crowds.
 
     - Two independent G crowds are created on the same landscape.
-    - The sender crowd only searches and shares visible full solutions.
-    - The receiver crowd searches and learns from sender's visible full solutions.
+    - The sender crowd only searches and shares full visible solutions.
+    - The receiver crowd searches and learns from sender's full visible solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
@@ -37,11 +37,6 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         visibility_interval = visibility frequency
             visibility_interval = 1 means visible every period, same as the original design.
             visibility_interval = 5 means visible at periods 5, 10, 15, ...
-
-        Visibility object:
-            share_mode = "full" means the visible object is the sender's
-            complete solution string, not a partial knowledge fragment.
-            "partial" means the visible object is the sender's partial knowledge fragment.
     """
     np.random.seed(None)
 
@@ -55,11 +50,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=12, specialist_expertise=0, label="G")
+                         generalist_expertise=0, specialist_expertise=18, label="S")
 
     # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=20, label="S")
 
     crowd_sender.share_prob_list = [visibility_prob] * agent_num
 
@@ -69,14 +64,20 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_receiver.search()
 
         if (period + 1) % visibility_interval == 0:
-            # Full-solution visibility:
-            # The sender crowd discloses complete solution strings rather than
-            # domain-specific partial fragments.
-            crowd_sender.get_shared_pool(share_mode="full")
+            # Full visibility design:
+            # sender agents disclose their complete solution states, rather than
+            # only the fragments located in their own knowledge domains.
+            crowd_sender.solution_pool = []
+            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
+                if np.random.uniform(0, 1) < share_prob:
+                    domains = list(range(N))
+                    full_solution = agent.state.copy()
+                    crowd_sender.solution_pool.append([domains, full_solution])
+            np.random.shuffle(crowd_sender.solution_pool)
 
             crowd_receiver.solution_pool = [
-                [domains.copy(), solution.copy()]
-                for domains, solution in crowd_sender.solution_pool
+                [domains.copy(), full_solution.copy()]
+                for domains, full_solution in crowd_sender.solution_pool
             ]
             crowd_receiver.learn_from_shared_pool()
 
@@ -90,13 +91,12 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate full-solution diversity among receiver agents.
-    # Since visibility now discloses complete solutions, diversity should also
-    # be measured at the complete-solution level rather than only on each
-    # agent's knowledge domains.
+    # Calculate diversity among receiver agents.
+    # Under full visibility, diversity should be measured at the complete-solution
+    # level, not only within each agent's knowledge domains.
     full_solution_set = set()
     for agent in crowd_receiver.agents:
-        solution_str = "".join([str(bit) for bit in agent.state])
+        solution_str = "".join(agent.state)
         full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)
@@ -116,13 +116,13 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Visibility degree: probability that each sender solver's current solution is disclosed
+    # Visibility degree p_v: probability that a focal S solution is disclosed to S
     # during a visibility period.
-    # visibility_prob = 0.0 means no sender solution is visible.
-    # visibility_prob = 1.0 means all sender solutions are visible during each visibility period.
+    # p_v = 0.0 means no cross-agent visibility.
+    # p_v = 1.0 means all S solutions enter the visible shared pool during each visibility period.
     visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Visibility frequency: sender solutions become visible every x periods.
+    # Visibility frequency: S solutions become visible to S every x periods.
     visibility_interval = 50
 
     agent_num = 200
@@ -142,8 +142,9 @@ if __name__ == '__main__':
 
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, visibility_prob,
-                                                  visibility_interval, loop, return_dict, sema))
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration,
+                                                  visibility_prob, visibility_interval,
+                                                  loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
 
@@ -158,21 +159,21 @@ if __name__ == '__main__':
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
 
-        # Save results across K for each visibility degree and visibility interval.
-        with open("gg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+        # Save results across K for each visibility probability and visibility interval.
+        with open("ss_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("gg_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+        with open("ss_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("gg_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+        with open("ss_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("GG Visibility Degree with Interval {0}: ".format(visibility_interval),
+    print("SS Visibility Degree with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

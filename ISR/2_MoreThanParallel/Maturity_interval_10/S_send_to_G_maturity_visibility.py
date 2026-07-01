@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: S_send_to_S_maturity_visibility.py
+# @FileName: S_send_to_G_maturity_visibility.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -24,9 +24,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
     Maturity-based visibility experiment with separated sender and receiver crowds.
 
     Difference from within-crowd visibility experiment:
-    - Two independent S crowds are created on the same landscape.
+    - Two independent crowds are created on the same landscape.
     - The sender crowd is composed of specialists who only search and share visible solutions.
-    - The receiver crowd is composed of specialists who search and learn from the sender crowd's visible full solutions.
+    - The receiver crowd is composed of generalists who search and learn from the sender crowd's visible full solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Sharing condition:
@@ -63,11 +63,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
 
     # Sender crowd: Specialists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=0, specialist_expertise=12, label="S")
+                         generalist_expertise=0, specialist_expertise=20, label="S")
 
-    # Receiver crowd: Specialists who search and learn from sender's visible solutions
+    # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=18, specialist_expertise=0, label="G")
 
     crowd_sender.share_prob_list = [uniform_sharing_prob] * agent_num
 
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     # visibility_interval = 1 means visible every period, same as the original design.
     # visibility_interval = 5 means visible at periods 5, 10, 15, ...
     # visibility_interval = 20 means visible at periods 20, 40, 60, ...
-    visibility_interval_list = [20]
+    visibility_interval_list = [10]
     # For complementary experiments, you can use:
     # visibility_interval_list = [1, 5, 10, 20, 50]
 
@@ -196,20 +196,20 @@ if __name__ == '__main__':
                 diversity_across_K.append(means[2])
 
             # Save results across K for each maturity threshold and visibility interval.
-            with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+            with open("sg_maturity_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
                     maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
                 pickle.dump(breakthrough_fitness_across_K, out_file)
 
-            with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+            with open("sg_maturity_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
                     maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
                 pickle.dump(breakthrough_rank_across_K, out_file)
 
-            with open("ss_maturity_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+            with open("sg_maturity_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
                     maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
                 pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("SS Maturity-Based Visibility with Interval: ",
+    print("SG Maturity-Based Visibility with Interval: ",
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
