@@ -60,11 +60,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_prob=Non
 
     # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=12, specialist_expertise=0, label="G")
+                         generalist_expertise=18, specialist_expertise=0, label="G")
 
     # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=18, specialist_expertise=0, label="G")
 
     crowd_sender.share_prob_list = [uniform_prob] * agent_num
 

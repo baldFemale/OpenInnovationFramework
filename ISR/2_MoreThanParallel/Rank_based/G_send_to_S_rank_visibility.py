@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: G_send_to_S_maturity_visibility.py
+# @FileName: G_send_to_S_rank_visibility.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -19,7 +19,7 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_prob=None,
-         fitness_threshold=None, visibility_interval=20, loop=None, return_dict=None, sema=None):
+         fitness_threshold=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
     """
     Rank-based visibility experiment with separated sender and receiver crowds.
 
@@ -30,7 +30,15 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
-        share the full solution if random_draw < uniform_sharing_prob and agent.fitness >= fitness_threshold
+        visibility is activated every visibility_interval periods;
+        when activated, share the full solution if random_draw < uniform_sharing_prob
+        and agent.fitness >= fitness_threshold.
+
+    Interpretation:
+        visibility_interval = visibility frequency
+            visibility_interval = 1 means visible every period.
+            visibility_interval = 5 means visible at periods 5, 10, 15, ...
+            visibility_interval = 10 is the default setting.
 
     Note:
     - The visibility condition is triggered by the objective fitness of each sender's solution.
@@ -38,15 +46,22 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
       the sender's self-perceived cognitive fitness.
     """
     np.random.seed(None)
+
+    if visibility_interval is None:
+        visibility_interval = 10
+    visibility_interval = int(visibility_interval)
+    if visibility_interval < 1:
+        raise ValueError("visibility_interval must be a positive integer.")
+
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
     # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=12, specialist_expertise=0, label="G")
+                         generalist_expertise=18, specialist_expertise=0, label="G")
 
     # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=0, specialist_expertise=20, label="S")
 
     crowd_sender.share_prob_list = [uniform_sharing_prob] * agent_num
 
@@ -115,7 +130,14 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
     uniform_sharing_prob = 1
-    visibility_interval = 20
+
+    # Visibility interval: how frequently visibility is activated.
+    # visibility_interval = 1 means visible every period.
+    # visibility_interval = 5 means visible at periods 5, 10, 15, ...
+    # visibility_interval = 10 is the default setting.
+    visibility_interval_list = [10]
+    # For complementary experiments, you can use:
+    # visibility_interval_list = [1, 5, 10, 20, 50]
 
     # Fitness threshold F_v: minimum objective fitness required for disclosure.
     # F_v = 0.0 means almost all solutions can be shared.
@@ -126,50 +148,51 @@ if __name__ == '__main__':
     agent_num = 200
     concurrency = 100
 
-    for fitness_threshold in fitness_threshold_list:
-        # DVs
-        breakthrough_fitness_across_K = []
-        breakthrough_rank_across_K = []
-        diversity_across_K = []
+    for visibility_interval in visibility_interval_list:
+        for fitness_threshold in fitness_threshold_list:
+            # DVs
+            breakthrough_fitness_across_K = []
+            breakthrough_rank_across_K = []
+            diversity_across_K = []
 
-        for K in K_list:
-            manager = mp.Manager()
-            return_dict = manager.dict()
-            sema = Semaphore(concurrency)
-            jobs = []
+            for K in K_list:
+                manager = mp.Manager()
+                return_dict = manager.dict()
+                sema = Semaphore(concurrency)
+                jobs = []
 
-            for loop in range(landscape_iteration):
-                sema.acquire()
-                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_sharing_prob,
-                                                  fitness_threshold, visibility_interval, loop, return_dict, sema))
-                jobs.append(p)
-                p.start()
+                for loop in range(landscape_iteration):
+                    sema.acquire()
+                    p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, uniform_sharing_prob,
+                                                      fitness_threshold, visibility_interval, loop, return_dict, sema))
+                    jobs.append(p)
+                    p.start()
 
-            for proc in jobs:
-                proc.join()
+                for proc in jobs:
+                    proc.join()
 
-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
-            arr = np.asarray(list(returns))  # shape: (n_runs, 3)
-            means = arr.mean(axis=0)
+                returns = return_dict.values()  # Don't need dict index, since it is repetition.
+                arr = np.asarray(list(returns))  # shape: (n_runs, 3)
+                means = arr.mean(axis=0)
 
-            breakthrough_fitness_across_K.append(means[0])
-            breakthrough_rank_across_K.append(means[1])
-            diversity_across_K.append(means[2])
+                breakthrough_fitness_across_K.append(means[0])
+                breakthrough_rank_across_K.append(means[1])
+                diversity_across_K.append(means[2])
 
-        # Save results across K for each fitness threshold.
-        with open("gs_rank_based_fitness_threshold_{0}_breakthrough_fitness_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
-            pickle.dump(breakthrough_fitness_across_K, out_file)
+            # Save results across K for each fitness threshold and visibility interval.
+            with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                    fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+                pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("gs_rank_based_fitness_threshold_{0}_breakthrough_rank_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
-            pickle.dump(breakthrough_rank_across_K, out_file)
+            with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                    fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+                pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("gs_rank_based_fitness_threshold_{0}_diversity_across_K_size_{1}".format(
-                fitness_threshold, agent_num), 'wb') as out_file:
-            pickle.dump(diversity_across_K, out_file)
+            with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+                    fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+                pickle.dump(diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("GS Rank-Based Visibility: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
+    print("GS Rank-Based Visibility with Interval: ", time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
