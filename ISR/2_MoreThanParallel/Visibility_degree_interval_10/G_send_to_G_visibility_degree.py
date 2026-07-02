@@ -60,7 +60,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=18, specialist_expertise=0, label="G")
 
-    crowd_sender.share_prob_list = [visibility_prob] * agent_num
+    crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
     for period in range(search_iteration):
         # Both crowds conduct their own independent search.
@@ -71,13 +71,13 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
             # Full-solution visibility:
             # The sender crowd discloses complete solution strings rather than
             # domain-specific partial fragments.
-            crowd_sender.get_shared_pool(share_mode="full")
+            crowd_sender.get_visible_pool(share_mode="full")
 
             crowd_receiver.solution_pool = [
                 [domains.copy(), solution.copy()]
                 for domains, solution in crowd_sender.solution_pool
             ]
-            crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.learn_from_visible_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]

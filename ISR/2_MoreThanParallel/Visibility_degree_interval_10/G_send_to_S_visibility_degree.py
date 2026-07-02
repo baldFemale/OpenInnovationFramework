@@ -55,7 +55,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=20, label="S")
 
-    crowd_sender.share_prob_list = [visibility_prob] * agent_num
+    crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
     for period in range(search_iteration):
         # Both crowds conduct their own independent search.
@@ -78,7 +78,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
                 [domains.copy(), full_solution.copy()]
                 for domains, full_solution in crowd_sender.solution_pool
             ]
-            crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.learn_from_visible_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]

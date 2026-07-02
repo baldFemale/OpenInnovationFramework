@@ -58,13 +58,13 @@ class Crowd:
         for index, agent in enumerate(self.agents):
             agent.visibility_status = index in visible_indices
 
-    def get_shared_pool(self, share_mode: str = None):
+    def get_visible_pool(self, visible_mode: str = None):
         """
         Construct the visible solution pool.
 
         Parameters
         ----------
-        share_mode : str, optional
+        visible_mode : str, optional
             - "full": share the sender's whole solution string.
             - "partial": share only the sender's known domains and corresponding partial solution.
 
@@ -75,16 +75,16 @@ class Crowd:
         where domains identifies the indices to be copied and solution stores the corresponding bits.
         Under full sharing, domains = [0, 1, ..., N-1] and solution = full state.
         """
-        if share_mode is None:
-            share_mode = self.share_mode
+        if visible_mode is None:
+            visible_mode = self.visible_mode
 
-        if share_mode not in ["full", "partial"]:
-            raise ValueError("share_mode must be either 'full' or 'partial'.")
+        if visible_mode not in ["full", "partial"]:
+            raise ValueError("visible_mode must be either 'full' or 'partial'.")
 
         self.solution_pool = []  # reset the solution pool
         for agent in self.agents:
             if agent.visibility_status:
-                if share_mode == "full":
+                if visible_mode == "full":
                     domains = list(range(self.N))
                     solution = agent.state.copy()
                 else:
@@ -93,7 +93,7 @@ class Crowd:
                 self.solution_pool.append([domains, solution])
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
-    def learn_from_shared_pool(self):
+    def learn_from_visible_pool(self):
         # remove the lr parameter; all agents will learn if shared
         for agent in self.agents:
             for domains, solution in self.solution_pool:
@@ -124,7 +124,7 @@ class Crowd:
                         for bit_i, bit_j in zip(states[i], states[j])
                         if bit_i != bit_j
                     )
-                    / N
+                    / self.N
                 )
                 distance_list.append(distance)
 
