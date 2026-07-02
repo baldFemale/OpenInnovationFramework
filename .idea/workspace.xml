@@ -4,44 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time">
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;">
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/G_send_to_G_rank_visibility.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/G_send_to_S_rank_visibility.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/S_send_to_G_rank_visibility.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/S_send_to_S_rank_visibility.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/G_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/G_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/G_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/G_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/G_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/S_send_to_G_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/S_send_to_G_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/S_send_to_S_maturity_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/S_send_to_S_maturity_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/G_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/G_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/G_send_to_S_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Landscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/S_send_to_G_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/S_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/S_send_to_S_rank_visibility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_GG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_GS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_SG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_SS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_G_visibility_timing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/G_send_to_S_visibility_timing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_G_visibility_timing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/S_send_to_S_visibility_timing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Evaluator.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/G_send_to_G_rank_visibility.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/G_send_to_S_rank_visibility.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/S_send_to_G_rank_visibility.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/S_send_to_S_rank_visibility.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_150/slurm_SS" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +90,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Timing",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Rank_based_interval_10",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -121,11 +103,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -539,7 +521,7 @@
       <workItem from="1782796776292" duration="15394000" />
       <workItem from="1782895683365" duration="4852000" />
       <workItem from="1782906323582" duration="7606000" />
-      <workItem from="1782979152836" duration="12552000" />
+      <workItem from="1782979152836" duration="13417000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -884,7 +866,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="587" />
+    <option name="localTasksCounter" value="588" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -902,7 +884,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)?&#10;-- will full S outperform full G for certainty?&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
     <MESSAGE value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; No Inherent Diff.&#10;-- will full S outperform full G for certainty? -&gt; Await&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Await&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
     <MESSAGE value="Volidate the Multi-State Landscape&#10;-- is there any inherent differences between binary and polynary landscape (e.g., distribution, variance, quantiles, max-min, etc)? -&gt; Yes, G landscape is more smooth and concentrated (average pooling concentrate the distribution) &#10;-- will full S outperform full G for certainty? -&gt; Full G &gt; Full S&#10;-- will G and S with the same amount of knowledge perform differently? -&gt; Partial G &lt; Partial S&#10;-- will the performance always increase with increasing knowledge (tunable elements)&#10;&#10;-&gt; These conclusions are based on the average pooling. In other words, the payoff is randomly assigned (expectation is the same), rather than damage if decisions are not made. The difference is the variance, randomly generated values lead to higher variance, whereas average pooling lead to smaller variance. Yet, we believe smaller variance is more reasonable for modeling generalists and shallow understandings. This average pooling is coherent with the NK model, recalling the integration from FC into fitness; More importantly, normal distribution is common adopted in social phenomenon. This tradition are strongly built on normal distribution, unless strong reasons are provided (e.g., Levinthal's (2022) Organizational Task Environments). In this paper, we stay in the tradition of normal distribution. One can extend our model to explore the boundaries of this paper.&#10;-&gt; If the assumptions are challenged, the conclusion may be different-&gt; Partial knowledge is always harmful. Yet, there are many cases where one can stay ambiguious; In fact, this also resonate with the focusing problem-solving. In fact, if we release the scope constrains, G and S will continuous to improve their performance. Thus, we are not arguing that increasing knowledge is harmful. Instead, we are saying that tuning all the elements at the same time is harmful. Simplified caricatures help the search to jump out of the local traps. Thus, the question comes as to the trade-off between focusing and divergency. How many elements should generalists and specialists handles?&#10;&#10;&#10;--recall the unknown domain shelter &quot;*&quot;&#10;-- If not applicable, may roll back to default value setups&#10;--Design separate CogLandscape class&#10;--Comparing the search trajectories among cog, ave, max, and min fitness values" />
     <MESSAGE value="Simplify the model" />
@@ -927,7 +908,8 @@
     <MESSAGE value="Last revision: crowd separation&#10;This revision: partial visibility -&gt; full visibility" />
     <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge" />
     <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time" />
-    <option name="LAST_COMMIT_MESSAGE" value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time" />
+    <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$BinaryLandscape.coverage" NAME="BinaryLandscape Coverage Results" MODIFIED="1694265591296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Baseline/Ushape" />
