@@ -18,38 +18,39 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_prob=None,
+def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=1,
          maturity_threshold=None, visibility_interval=1, loop=None, return_dict=None, sema=None):
     """
     Maturity-based visibility experiment with separated sender and receiver crowds.
 
-    Difference from within-crowd visibility experiment:
     - Two independent S crowds are created on the same landscape.
-    - The sender crowd is composed of specialists who only search and share visible solutions.
-    - The receiver crowd is composed of specialists who search and learn from the sender crowd's visible full solutions.
+    - The sender crowd is composed of specialists who only search and share visible full solutions.
+    - The receiver crowd is composed of specialists who search and learn from sender's visible full solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
-    Sharing condition:
+    Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, share if random_draw < uniform_sharing_prob
-        and agent.cog_fitness >= maturity_threshold.
-
-    Visibility object:
-        share_mode = "full" means the visible object is the sender's
-        complete solution string, not a partial knowledge fragment.
+        when activated, disclose a sender solution if:
+            1. the sender is structurally visible, and
+            2. the sender's cognitive fitness reaches maturity_threshold.
 
     Interpretation:
         maturity_threshold = maturity selectivity
-            maturity_threshold = 0.0 means almost all solutions are eligible.
-            maturity_threshold = 0.9 means only highly mature solutions are eligible.
+            maturity_threshold = 0.0 means almost all visible sender solutions are eligible.
+            maturity_threshold = 0.9 means only highly mature visible sender solutions are eligible.
 
-        uniform_sharing_prob = visibility intensity
-            uniform_sharing_prob = 1 means every eligible solution is disclosed.
+        visibility_prob = visibility intensity
+            visibility_prob = 1.0 means all sender solvers are structurally visible.
+            visibility_prob = 0.5 means half of sender solvers are structurally visible.
 
         visibility_interval = visibility frequency
             visibility_interval = 1 means visible every period, same as the original design.
             visibility_interval = 5 means visible at periods 5, 10, 15, ...
             visibility_interval = 20 means visible at periods 20, 40, 60, ...
+
+        Visibility object:
+            visible_mode = "full" means the visible object is the sender's
+            complete solution string, not a partial knowledge fragment.
     """
     np.random.seed(None)
 
@@ -63,35 +64,31 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
 
     # Sender crowd: Specialists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=0, specialist_expertise=12, label="S")
+                         generalist_expertise=0, specialist_expertise=20, label="S")
 
     # Receiver crowd: Specialists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=12, label="S")
+                           generalist_expertise=0, specialist_expertise=20, label="S")
 
-    crowd_sender.share_prob_list = [uniform_sharing_prob] * agent_num
+    crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
     for period in range(search_iteration):
         # Both crowds conduct their own independent search.
         crowd_sender.search()
         crowd_receiver.search()
 
-        # Visibility is activated only at specified intervals.
         if (period + 1) % visibility_interval == 0:
-
-            # Sender crowd constructs the visible solution pool.
-            # Importantly, this pool is based only on sender agents,
-            # whose states are not affected by receiver learning.
-            #
-            # Full-solution maturity visibility:
-            # The maturity filter is still based on the sender's subjective
-            # cognitive fitness, but the disclosed object is the sender's
-            # complete solution string rather than a domain-specific fragment.
+            # Full-solution maturity-based visibility:
+            # The sender crowd discloses complete solution strings rather than
+            # domain-specific partial fragments. A sender solution is disclosed
+            # only if the sender is structurally visible and its cognitive
+            # fitness reaches the maturity threshold.
             crowd_sender.solution_pool = []
-            full_domains = list(range(N))
-            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-                if (np.random.uniform(0, 1) < share_prob) and (agent.cog_fitness >= maturity_threshold):
-                    crowd_sender.solution_pool.append([full_domains.copy(), agent.state.copy()])
+            for agent in crowd_sender.agents:
+                if agent.visibility_status and agent.cog_fitness >= maturity_threshold:
+                    domains = list(range(N))
+                    full_solution = agent.state.copy()
+                    crowd_sender.solution_pool.append([domains, full_solution])
 
             np.random.shuffle(crowd_sender.solution_pool)
 
@@ -101,7 +98,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
                 [domains.copy(), solution.copy()]
                 for domains, solution in crowd_sender.solution_pool
             ]
-            crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.learn_from_visible_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -123,8 +120,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, uniform_sharing_
         full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)
+    pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
-    return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
+    return_dict[loop] = [
+        breakthrough_fitness, breakthrough_rank, diversity, pairwise_diversity
+    ]
     sema.release()
 
 
@@ -138,78 +138,75 @@ if __name__ == '__main__':
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
-    uniform_sharing_prob = 1
+
+    # Visibility degree is fixed in this maturity-threshold experiment.
+    # visibility_prob = 1.0 means all sender solvers are structurally visible.
+    visibility_prob = 1.0
 
     # Maturity threshold M_v: minimum cognitive fitness required for disclosure.
-    # M_v = 0.0 means almost all solutions can be shared.
-    # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be shared.
-    maturity_threshold_list = [0.1, 0.2, 0.3, 0.4, 0.5,
-                               0.6, 0.7, 0.8, 0.9]
+    # M_v = 0.0 means almost all visible sender solutions can be disclosed.
+    # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be disclosed.
+    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
+                               0.5, 0.6, 0.7, 0.8, 0.9]
 
-    # Visibility interval: how frequently visibility is activated.
-    # visibility_interval = 1 means visible every period, same as the original design.
-    # visibility_interval = 5 means visible at periods 5, 10, 15, ...
-    # visibility_interval = 20 means visible at periods 20, 40, 60, ...
-    visibility_interval_list = [10]
-    # For complementary experiments, you can use:
-    # visibility_interval_list = [1, 5, 10, 20, 50]
+    # Visibility frequency: sender solutions become visible every x periods.
+    visibility_interval = 10
 
     agent_num = 200
     concurrency = 100
 
-    for visibility_interval in visibility_interval_list:
-        for maturity_threshold in maturity_threshold_list:
-            # DVs
-            breakthrough_fitness_across_K = []
-            breakthrough_rank_across_K = []
-            diversity_across_K = []
+    for maturity_threshold in maturity_threshold_list:
+        # DVs
+        breakthrough_fitness_across_K = []
+        breakthrough_rank_across_K = []
+        diversity_across_K = []
+        pairwise_diversity_across_K = []
 
-            for K in K_list:
-                manager = mp.Manager()
-                return_dict = manager.dict()
-                sema = Semaphore(concurrency)
-                jobs = []
+        for K in K_list:
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            sema = Semaphore(concurrency)
+            jobs = []
 
-                for loop in range(landscape_iteration):
-                    sema.acquire()
-                    p = mp.Process(
-                        target=func,
-                        args=(
-                            N, K, agent_num, search_iteration,
-                            uniform_sharing_prob, maturity_threshold,
-                            visibility_interval,
-                            loop, return_dict, sema
-                        )
-                    )
-                    jobs.append(p)
-                    p.start()
+            for loop in range(landscape_iteration):
+                sema.acquire()
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, visibility_prob,
+                                                  maturity_threshold, visibility_interval,
+                                                  loop, return_dict, sema))
+                jobs.append(p)
+                p.start()
 
-                for proc in jobs:
-                    proc.join()
+            for proc in jobs:
+                proc.join()
 
-                returns = return_dict.values()  # Don't need dict index, since it is repetition.
-                arr = np.asarray(list(returns))  # shape: (n_runs, 3)
-                means = arr.mean(axis=0)
+            returns = return_dict.values()  # Don't need dict index, since it is repetition.
+            arr = np.asarray(list(returns))  # shape: (n_runs, 4)
+            means = arr.mean(axis=0)
 
-                breakthrough_fitness_across_K.append(means[0])
-                breakthrough_rank_across_K.append(means[1])
-                diversity_across_K.append(means[2])
+            breakthrough_fitness_across_K.append(means[0])
+            breakthrough_rank_across_K.append(means[1])
+            diversity_across_K.append(means[2])
+            pairwise_diversity_across_K.append(means[3])
 
-            # Save results across K for each maturity threshold and visibility interval.
-            with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
-                    maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
-                pickle.dump(breakthrough_fitness_across_K, out_file)
+        # Save results across K for each maturity threshold and visibility interval.
+        with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(breakthrough_fitness_across_K, out_file)
 
-            with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
-                    maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
-                pickle.dump(breakthrough_rank_across_K, out_file)
+        with open("ss_maturity_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(breakthrough_rank_across_K, out_file)
 
-            with open("ss_maturity_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
-                    maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
-                pickle.dump(diversity_across_K, out_file)
+        with open("ss_maturity_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+                maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(diversity_across_K, out_file)
+
+        with open("ss_maturity_threshold_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                maturity_threshold, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(pairwise_diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("SS Maturity-Based Visibility with Interval: ",
+    print("SS Maturity-Based Visibility with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

@@ -15,13 +15,11 @@ class Crowd:
         self.N = N
         self.agent_num = agent_num
         self.agents = []
-        self.share_prob_list = [1] * agent_num
-
         # Visibility sharing mode:
         # - "full": agents disclose their whole solution string.
         # - "partial": agents disclose only the solution components in their knowledge domains.
         # The default is set to "full" to operationalize visibility as whole-solution visibility.
-        self.share_mode = "full"
+        self.visibility_mode = "full"
 
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
@@ -39,13 +37,31 @@ class Crowd:
         for agent in self.agents:
             agent.search()
 
-    def get_shared_pool(self, share_mode: str = None):
+    def set_visibility_status(self, visibility_prob: float):
+        """
+        Fix solver-level visibility status for the whole experiment.
+
+        visibility_prob is interpreted as the proportion of solvers whose
+        solutions are structurally visible. Once assigned, visibility_status
+        does not change across visibility periods unless this method is called
+        again.
+        """
+        if visibility_prob < 0 or visibility_prob > 1:
+            raise ValueError("visibility_prob must be between 0 and 1.")
+
+        visible_num = int(round(visibility_prob * self.agent_num))
+        visible_indices = np.random.choice(range(self.agent_num), size=visible_num, replace=False).tolist()
+
+        for index, agent in enumerate(self.agents):
+            agent.visibility_status = index in visible_indices # True if in visible list
+
+    def get_visible_pool(self, visible_mode: str = None):
         """
         Construct the visible solution pool.
 
         Parameters
         ----------
-        share_mode : str, optional
+        visible_mode : str, optional
             - "full": share the sender's whole solution string.
             - "partial": share only the sender's known domains and corresponding partial solution.
 
@@ -56,16 +72,16 @@ class Crowd:
         where domains identifies the indices to be copied and solution stores the corresponding bits.
         Under full sharing, domains = [0, 1, ..., N-1] and solution = full state.
         """
-        if share_mode is None:
-            share_mode = self.share_mode
+        if visible_mode is None:
+            visible_mode = self.visible_mode
 
-        if share_mode not in ["full", "partial"]:
-            raise ValueError("share_mode must be either 'full' or 'partial'.")
+        if visible_mode not in ["full", "partial"]:
+            raise ValueError("visible_mode must be either 'full' or 'partial'.")
 
         self.solution_pool = []  # reset the solution pool
-        for agent, share_prob in zip(self.agents, self.share_prob_list):
-            if np.random.uniform(0, 1) < share_prob:
-                if share_mode == "full":
+        for agent in self.agents:
+            if agent.visibility_status:
+                if visible_mode == "full":
                     domains = list(range(self.N))
                     solution = agent.state.copy()
                 else:
@@ -74,7 +90,7 @@ class Crowd:
                 self.solution_pool.append([domains, solution])
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
-    def learn_from_shared_pool(self):
+    def learn_from_visible_pool(self):
         # remove the lr parameter; all agents will learn if shared
         for agent in self.agents:
             for domains, solution in self.solution_pool:
@@ -89,6 +105,27 @@ class Crowd:
                     agent.cog_fitness = perception
                     agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
                     break
+
+    def calculate_pairwise_solution_distance(self):
+        """Average pairwise normalized Hamming distance across complete solutions."""
+        states = [agent.state for agent in self.agents]
+        if len(states) <= 1:
+            return 0
+
+        distance_list = []
+        for i in range(len(states)):
+            for j in range(i + 1, len(states)):
+                distance = (
+                    sum(
+                        1
+                        for bit_i, bit_j in zip(states[i], states[j])
+                        if bit_i != bit_j
+                    )
+                    / self.N
+                )
+                distance_list.append(distance)
+
+        return np.mean(distance_list)
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
         opinions = [agent.public_evaluate(cur_state=cur_state,
