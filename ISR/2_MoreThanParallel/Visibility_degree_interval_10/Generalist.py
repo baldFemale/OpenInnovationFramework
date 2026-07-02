@@ -10,7 +10,7 @@ from Landscape import Landscape
 
 class Generalist:
     def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None,
-                 visibility_status=True):
+                 visibility_status=False):
         """
         :param N: problem dimension
         :param landscape: assigned landscape

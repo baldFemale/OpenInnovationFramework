@@ -9,8 +9,10 @@
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Crowd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/G_send_to_G_visibility_degree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/G_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Generalist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/S_send_to_G_visibility_degree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/S_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Specialist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -508,7 +510,7 @@
       <workItem from="1782796776292" duration="15394000" />
       <workItem from="1782895683365" duration="4852000" />
       <workItem from="1782906323582" duration="7606000" />
-      <workItem from="1782979152836" duration="7172000" />
+      <workItem from="1782979152836" duration="9227000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -853,7 +855,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="585" />
+    <option name="localTasksCounter" value="586" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

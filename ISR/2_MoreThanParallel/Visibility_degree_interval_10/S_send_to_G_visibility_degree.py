@@ -23,13 +23,13 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     Visibility-degree experiment with separated sender and receiver crowds.
 
     - Two independent crowds are created on the same landscape.
-    - The S sender crowd only searches and shares visible full solutions.
+    - The S sender crowd only searches and makes visible full solutions.
     - The G receiver crowd searches and learns from sender's visible full solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, share if random_draw < visibility_prob.
+        when activated, sender visibility is determined by visibility_prob.
 
     Interpretation:
         visibility_prob = visibility intensity
@@ -47,7 +47,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Specialists who only search and share
+    # Sender crowd: Specialists who only search and make solutions visible
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=0, specialist_expertise=20, label="S")
 
@@ -66,13 +66,13 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
             # Full-solution visibility: sender agents disclose their complete solution strings.
             # This is different from the earlier partial-fragment visibility design,
             # where only each sender's own knowledge domains were disclosed.
-            crowd_sender.get_shared_pool(share_mode="full")
+            crowd_sender.get_visible_pool(visible_mode="full")
 
             crowd_receiver.solution_pool = [
                 [domains.copy(), solution.copy()]
                 for domains, solution in crowd_sender.solution_pool
             ]
-            crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.learn_from_visible_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -89,7 +89,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     # be measured over complete receiver solutions rather than over partial knowledge domains.
     full_solution_set = set()
     for agent in crowd_receiver.agents:
-        solution_str = "".join(agent.state)
+        solution_str = "".join([str(bit) for bit in agent.state])
         full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)

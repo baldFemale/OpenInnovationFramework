@@ -22,14 +22,14 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     """
     Visibility-degree experiment with separated sender and receiver crowds.
 
-    - Two independent G crowds are created on the same landscape.
-    - The sender crowd only searches and shares visible full solutions.
+    - An independent G sender crowd and S receiver crowd are created on the same landscape.
+    - The sender crowd only searches and makes visible full solutions.
     - The receiver crowd searches and learns from sender's visible full solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, share the sender's full solution if random_draw < visibility_prob.
+        when activated, sender visibility is determined by visibility_prob.
 
     Interpretation:
         visibility_prob = visibility intensity for full-solution disclosure
@@ -47,11 +47,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Generalists who only search and share
+    # Sender crowd: Generalists who only search and make solutions visible
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=18, specialist_expertise=0, label="G")
 
-    # Receiver crowd: Generalists who search and learn from sender's visible solutions
+    # Receiver crowd: Specialists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=20, label="S")
 
@@ -66,17 +66,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
             # Full-solution visibility:
             # each visible sender discloses its complete solution, not only the
             # partial solution fragment within its own knowledge domains.
-            crowd_sender.solution_pool = []
-            for agent, share_prob in zip(crowd_sender.agents, crowd_sender.share_prob_list):
-                if np.random.uniform(0, 1) < share_prob:
-                    domains = list(range(N))
-                    full_solution = agent.state.copy()
-                    crowd_sender.solution_pool.append([domains, full_solution])
-            np.random.shuffle(crowd_sender.solution_pool)
+            crowd_sender.get_visible_pool(visible_mode="full")
 
             crowd_receiver.solution_pool = [
-                [domains.copy(), full_solution.copy()]
-                for domains, full_solution in crowd_sender.solution_pool
+                [domains.copy(), solution.copy()]
+                for domains, solution in crowd_sender.solution_pool
             ]
             crowd_receiver.learn_from_visible_pool()
 
@@ -95,8 +89,8 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     # unique complete solutions in the receiver crowd.
     full_solution_set = set()
     for agent in crowd_receiver.agents:
-        full_solution_str = "".join(agent.state)
-        full_solution_set.add(full_solution_str)
+        solution_str = "".join([str(bit) for bit in agent.state])
+        full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)
     pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()

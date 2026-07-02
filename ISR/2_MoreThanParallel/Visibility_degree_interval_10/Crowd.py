@@ -19,7 +19,7 @@ class Crowd:
         # - "full": agents disclose their whole solution string.
         # - "partial": agents disclose only the solution components in their knowledge domains.
         # The default is set to "full" to operationalize visibility as whole-solution visibility.
-        self.share_mode = "full"
+        self.visibility_mode = "full"
 
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
@@ -50,13 +50,10 @@ class Crowd:
             raise ValueError("visibility_prob must be between 0 and 1.")
 
         visible_num = int(round(visibility_prob * self.agent_num))
-        visible_indices = np.random.choice(
-            range(self.agent_num), size=visible_num, replace=False
-        ).tolist()
-        visible_indices = set(visible_indices)
+        visible_indices = np.random.choice(range(self.agent_num), size=visible_num, replace=False).tolist()
 
         for index, agent in enumerate(self.agents):
-            agent.visibility_status = index in visible_indices
+            agent.visibility_status = index in visible_indices # True if in visible list
 
     def get_visible_pool(self, visible_mode: str = None):
         """

@@ -38,7 +38,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
             visibility_interval = 5 means visible at periods 5, 10, 15, ...
 
         Visibility object:
-            share_mode = "full" means the visible object is the sender's
+            visible_mode = "full" means the visible object is the sender's
             complete solution string, not a partial knowledge fragment.
             "partial" means the visible object is the sender's partial knowledge fragment.
     """
@@ -71,7 +71,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
             # Full-solution visibility:
             # The sender crowd discloses complete solution strings rather than
             # domain-specific partial fragments.
-            crowd_sender.get_visible_pool(share_mode="full")
+            crowd_sender.get_visible_pool(visible_mode="full")
 
             crowd_receiver.solution_pool = [
                 [domains.copy(), solution.copy()]
