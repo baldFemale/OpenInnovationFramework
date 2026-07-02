@@ -9,17 +9,20 @@ from Landscape import Landscape
 
 
 class Specialist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, specialist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, specialist_expertise=None,
+                 visibility_status=True):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param specialist_expertise: the amount of S knowledge
+        :param visibility_status: whether this solver's solution is structurally visible
         """
         self.landscape = landscape
         self.crowd = crowd
         self.N = N
         self.state_num = state_num
+        self.visibility_status = visibility_status
         self.generalist_domain = []
         self.specialist_domain = np.random.choice(range(self.N), specialist_expertise // 4, replace=False).tolist()
         self.state = np.random.choice(range(self.state_num), self.N).tolist()

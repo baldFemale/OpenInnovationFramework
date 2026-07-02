@@ -9,13 +9,15 @@ from Landscape import Landscape
 
 
 class Generalist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None,
+                 visibility_status=True):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
+        :param visibility_status: whether this solver's solution is structurally visible
         cog_state of G: only has "A", "B", and "*"
         cog_state of S: only has "0123" and "*"
         """
@@ -23,6 +25,7 @@ class Generalist:
         self.crowd = crowd
         self.N = N
         self.state_num = state_num
+        self.visibility_status = visibility_status
         self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
         self.specialist_domain = []
         self.state = np.random.choice(range(self.state_num), self.N).tolist()

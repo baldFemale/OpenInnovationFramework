@@ -16,7 +16,6 @@ import time
 from multiprocessing import Semaphore
 import pickle
 
-
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
          visibility_interval=1, loop=None, return_dict=None, sema=None):
@@ -94,8 +93,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)
+    pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
-    return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
+    return_dict[loop] = [
+        breakthrough_fitness, breakthrough_rank, diversity, pairwise_diversity
+    ]
     sema.release()
 
 
@@ -127,6 +129,7 @@ if __name__ == '__main__':
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
         diversity_across_K = []
+        pairwise_diversity_across_K = []
 
         for K in K_list:
             manager = mp.Manager()
@@ -146,12 +149,13 @@ if __name__ == '__main__':
                 proc.join()
 
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
-            arr = np.asarray(list(returns))  # shape: (n_runs, 3)
+            arr = np.asarray(list(returns))  # shape: (n_runs, 4)
             means = arr.mean(axis=0)
 
             breakthrough_fitness_across_K.append(means[0])
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
+            pairwise_diversity_across_K.append(means[3])
 
         # Save results across K for each visibility probability and visibility interval.
         with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
@@ -165,6 +169,10 @@ if __name__ == '__main__':
         with open("sg_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
+
+        with open("sg_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(pairwise_diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
