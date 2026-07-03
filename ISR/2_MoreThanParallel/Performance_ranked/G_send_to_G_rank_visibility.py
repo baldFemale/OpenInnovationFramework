@@ -132,13 +132,35 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
                     visible_pool.append([
                         full_domains.copy(), agent.state.copy(), agent.fitness
                     ])
+            # Complete the code for the logic such that "Greater Fitness, Higher chance of being imitated"
+        if visible_pool:
+            # Greater objective fitness -> higher probability of being imitated.
+            fitness_values = np.asarray(
+                [fitness for _, _, fitness in visible_pool], dtype=float
+            )
 
-            crowd_receiver.solution_pool = [
-                [domains.copy(), solution.copy()]
-                for domains, solution, _ in visible_pool
-            ]
-             # Complete the code for the logic such that "Greater Fitness, Higher chance of being imitated"
+            # Use fitness-proportional attention. The small constant avoids
+            # division-by-zero if all visible solutions have zero fitness.
+            imitation_weights = fitness_values + 1e-10
+            imitation_probs = imitation_weights / imitation_weights.sum()
 
+            for agent in crowd_receiver.agents:
+                selected_index = np.random.choice(len(visible_pool), p=imitation_probs)
+                domains, solution, _ = visible_pool[selected_index]
+
+                imitated_solution = agent.state.copy()
+                for domain, bit in zip(domains, solution):
+                    imitated_solution[domain] = bit
+
+                # Direct imitation: no cognitive-fitness improvement check.
+                agent.state = imitated_solution
+                agent.cog_state = agent.state_2_cog_state(state=imitated_solution)
+                agent.cog_fitness = agent.get_cog_fitness(
+                    cog_state=agent.cog_state, state=imitated_solution
+                )
+                agent.fitness = agent.landscape.query_second_fitness(
+                    state=imitated_solution
+                )
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
     fitness_rank_list = [
