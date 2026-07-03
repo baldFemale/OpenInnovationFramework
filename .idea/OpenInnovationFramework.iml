@@ -155,9 +155,11 @@
       <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Timing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Maturity" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/illustrations" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Performance_ranked" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Share/Transparency_alpha_0.35" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Socialized_innovation_crowdsourcing/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Historical Codes/Reproduction_diff_GS_roles/.idea" />

@@ -122,7 +122,8 @@ if __name__ == '__main__':
     # during a visibility period.
     # visibility_prob = 0.0 means no sender solution is visible.
     # visibility_prob = 1.0 means all sender solutions are visible during each visibility period.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    visibility_prob_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10

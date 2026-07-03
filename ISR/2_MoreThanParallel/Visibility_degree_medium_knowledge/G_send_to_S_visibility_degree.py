@@ -116,7 +116,8 @@ if __name__ == '__main__':
     # during a visibility period.
     # p_v = 0.0 means no full G solutions are visible to S.
     # p_v = 1.0 means all full G solutions are visible to S during each visibility period.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    visibility_prob_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: full G solutions become visible to S every x periods.
     visibility_interval = 10

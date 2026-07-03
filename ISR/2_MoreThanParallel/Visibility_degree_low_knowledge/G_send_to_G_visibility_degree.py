@@ -54,11 +54,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=18, specialist_expertise=0, label="G")
+                         generalist_expertise=12, specialist_expertise=0, label="G")
 
     # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=18, specialist_expertise=0, label="G")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
 
     crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
@@ -122,7 +122,8 @@ if __name__ == '__main__':
     # during a visibility period.
     # visibility_prob = 0.0 means no sender solution is visible.
     # visibility_prob = 1.0 means all sender solutions are visible during each visibility period.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    visibility_prob_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
