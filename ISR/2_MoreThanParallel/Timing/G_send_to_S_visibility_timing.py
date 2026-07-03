@@ -64,11 +64,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     # Sender crowd: Generalists who only search and disclose visible solutions
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=18, specialist_expertise=0, label="G")
+                         generalist_expertise=12, specialist_expertise=0, label="G")
 
     # Receiver crowd: Specialists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=0, specialist_expertise=20, label="S")
+                           generalist_expertise=0, specialist_expertise=12, label="S")
 
     crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 200
+    landscape_iteration = 300
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
