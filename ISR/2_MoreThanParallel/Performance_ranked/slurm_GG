@@ -7,4 +7,5 @@
 #SBATCH --partition=long
 #SBATCH --cpus-per-task=100
 #SBATCH --ntasks=1
+#SBATCH --exclude=xcng0,xcnf0
 srun python G_send_to_G_rank_visibility.py

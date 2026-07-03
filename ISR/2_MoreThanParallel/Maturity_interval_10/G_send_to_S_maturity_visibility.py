@@ -147,7 +147,7 @@ if __name__ == '__main__':
     # M_v = 0.0 means almost all visible sender solutions can be disclosed.
     # M_v = 1.0 means only nearly perfect subjectively evaluated solutions can be disclosed.
     maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                               0.5, 0.6, 0.7, 0.8, 0.9]
+                               0.5, 0.6, 0.7, 0.8, 0.82, 0.84, 0.86, 0.88, 0.9]
 
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10

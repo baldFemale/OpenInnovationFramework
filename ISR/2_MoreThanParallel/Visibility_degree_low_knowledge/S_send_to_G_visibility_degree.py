@@ -22,10 +22,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     """
     Visibility-degree experiment with separated sender and receiver crowds.
 
-    - Two independent crowds are created on the same landscape.
-    - The S sender crowd only searches and makes visible full solutions.
-    - The G receiver crowd searches and learns from sender's visible full solutions.
-    - The receiver crowd's learned solutions do not feed back into the visible pool.
+    # visibility_prob determines the proportion of sender agents whose
+    # visibility_status is fixed as True for the whole run.
+    # Every visibility interval, those visible senders disclose their current full solution.
 
     Visibility condition:
         visibility is activated every visibility_interval periods;

@@ -54,11 +54,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     # Sender crowd: Specialists who only search and disclose visible solutions
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=0, specialist_expertise=20, label="S")
+                         generalist_expertise=0, specialist_expertise=12, label="S")
 
     # Receiver crowd: Generalists who search and imitate from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=18, specialist_expertise=0, label="G")
+                           generalist_expertise=12, specialist_expertise=0, label="G")
 
     crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
