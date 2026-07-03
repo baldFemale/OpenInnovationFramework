@@ -19,30 +19,19 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
-         fitness_threshold=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
+         visibility_interval=10, loop=None, return_dict=None, sema=None):
     """
-    Rank-based visibility experiment with separated sender and receiver crowds.
-
-    - A G sender crowd and an S receiver crowd are created on the same landscape.
-    - The sender crowd is composed of generalists who only search and
-      disclose visible full solutions.
-    - The receiver crowd is composed of specialists who search and
-      learn from the sender crowd's visible full solutions.
-    - The receiver crowd's learned solutions do not feed back into the visible pool.
-
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, disclose the full solution if the sender is structurally
-        visible and agent.fitness >= fitness_threshold.
+        when activated, all structurally visible sender solutions enter the
+        visible pool. Receiver attention is then rank-weighted by sender
+        objective fitness, so higher-ranked sender solutions are more likely
+        to be imitated.
 
     Interpretation:
         visibility_prob = visibility intensity
             visibility_prob = 0.0 means no sender solution is structurally visible.
             visibility_prob = 1.0 means all sender solutions are structurally visible.
-
-        fitness_threshold = objective-fitness selectivity
-            fitness_threshold = 0.0 means almost all visible sender solutions are eligible.
-            fitness_threshold = 0.9 means only high-fitness visible sender solutions are eligible.
 
         visibility_interval = visibility frequency
             visibility_interval = 1 means visible every period.
@@ -52,16 +41,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         Visibility object:
             visible_mode = "full" means the visible object is the sender's
             complete solution string, not a partial knowledge fragment.
-
-    Note:
-        This differs from maturity-based visibility: maturity-based visibility
-        uses the sender's self-perceived cognitive fitness, whereas this
-        experiment uses the sender's objective fitness.
     """
     np.random.seed(None)
 
     if visibility_interval is None:
-        visibility_interval = 10
+        visibility_interval = 150
     visibility_interval = int(visibility_interval)
     if visibility_interval < 1:
         raise ValueError("visibility_interval must be a positive integer.")
@@ -72,7 +56,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                          generalist_expertise=18, specialist_expertise=0, label="G")
 
-    # Receiver crowd: Specialists who search and learn from sender's visible solutions
+    # Receiver crowd: Specialists who search and imitate from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=0, specialist_expertise=20, label="S")
 
@@ -85,28 +69,50 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
         # Sender crowd constructs the visible full-solution pool only at
         # disclosure intervals. Importantly, this pool is based only on sender
-        # agents, whose states are not affected by receiver learning.
+        # agents, whose states are not affected by receiver imitation.
         if (period + 1) % visibility_interval == 0:
-            crowd_sender.solution_pool = []
+            visible_pool = []
             full_domains = list(range(N))
 
             for agent in crowd_sender.agents:
-                if agent.visibility_status and (agent.fitness >= fitness_threshold):
+                if agent.visibility_status:
                     # Full-solution visibility:
-                    # The sender discloses the complete solution string rather
-                    # than a domain-specific partial knowledge fragment.
-                    crowd_sender.solution_pool.append([full_domains.copy(), agent.state.copy()])
+                    visible_pool.append([
+                        full_domains.copy(), agent.state.copy(), agent.fitness
+                    ])
 
-            np.random.shuffle(crowd_sender.solution_pool)
+            if visible_pool:
+                # Greater objective fitness -> higher probability of being imitated.
+                fitness_values = np.asarray(
+                    [fitness for _, _, fitness in visible_pool], dtype=float
+                )
 
-            # Receiver crowd learns only from sender's visible full solutions.
-            # No receiver solution is added back to the sender pool.
-            crowd_receiver.solution_pool = [
-                [domains.copy(), solution.copy()]
-                for domains, solution in crowd_sender.solution_pool
-            ]
-            crowd_receiver.learn_from_visible_pool()
+                # Use fitness-proportional attention. The small constant avoids
+                # division-by-zero if all visible solutions have zero fitness.
+                imitation_weights = fitness_values + 1e-10
+                imitation_probs = imitation_weights / imitation_weights.sum()
 
+                for agent in crowd_receiver.agents:
+                    selected_index = np.random.choice(
+                        len(visible_pool), p=imitation_probs
+                    )
+                    domains, solution, _ = visible_pool[selected_index]
+
+                    imitated_solution = agent.state.copy()
+                    for domain, bit in zip(domains, solution):
+                        imitated_solution[domain] = bit
+
+                    # Direct imitation: no cognitive-fitness improvement check.
+                    agent.state = imitated_solution
+                    agent.cog_state = agent.state_2_cog_state(
+                        state=imitated_solution
+                    )
+                    agent.cog_fitness = agent.get_cog_fitness(
+                        cog_state=agent.cog_state, state=imitated_solution
+                    )
+                    agent.fitness = agent.landscape.query_second_fitness(
+                        state=imitated_solution
+                    )
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
     fitness_rank_list = [
@@ -146,25 +152,20 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Visibility probability is fixed in the rank-based visibility experiment.
-    # Keep the focal running parameter as fitness_threshold.
-    visibility_prob = 1.0
+    # Visibility degree is the focal running parameter.
+    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5,
+                            0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility interval: how frequently visibility is activated.
     # visibility_interval = 1 means visible every period.
     # visibility_interval = 5 means visible at periods 5, 10, 15, ...
     # visibility_interval = 10 is the default setting.
-    visibility_interval = 150
-
-    # Fitness threshold F_v: minimum objective fitness required for disclosure.
-    # F_v = 0.0 means almost all visible sender solutions can be disclosed.
-    # F_v = 1.0 means only nearly perfect objectively evaluated solutions can be disclosed.
-    fitness_threshold_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    visibility_interval = 10
 
     agent_num = 200
     concurrency = 100
 
-    for fitness_threshold in fitness_threshold_list:
+    for visibility_prob in visibility_prob_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -183,8 +184,7 @@ if __name__ == '__main__':
                     target=func,
                     args=(
                         N, K, agent_num, search_iteration, visibility_prob,
-                        fitness_threshold, visibility_interval,
-                        loop, return_dict, sema
+                        visibility_interval, loop, return_dict, sema
                     )
                 )
                 jobs.append(p)
@@ -202,21 +202,21 @@ if __name__ == '__main__':
             diversity_across_K.append(means[2])
             pairwise_diversity_across_K.append(means[3])
 
-        # Save results across K for each fitness threshold and visibility interval.
-        with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
-                fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+        # Save results across K for each visibility degree and visibility interval.
+        with open("gs_rank_based_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
-                fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+        with open("gs_rank_based_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_diversity_across_K_size_{2}".format(
-                fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+        with open("gs_rank_based_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
-        with open("gs_rank_based_fitness_threshold_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
-                fitness_threshold, visibility_interval, agent_num), 'wb') as out_file:
+        with open("gs_rank_based_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
     t1 = time.time()

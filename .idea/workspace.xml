@@ -5,8 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility: higher performance, more visibility">
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/S_send_to_G_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/S_send_to_S_visibility_degree_36.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/slurm_SS_full" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Evaluator_visibility_degree.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/G_send_to_G_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/G_send_to_S_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Generalist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/S_send_to_S_visibility_degree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Specialist.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/slurm_GG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/slurm_GS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/slurm_SG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/G_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/G_send_to_G_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/G_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/G_send_to_S_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/S_send_to_G_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/S_send_to_G_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/S_send_to_S_rank_visibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/S_send_to_S_rank_visibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Performance_ranked/slurm_SS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10/Evaluator_updated (2).ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Evaluator.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Evaluator_visibility_degree.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Evaluator_visibility_degree.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/G_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/G_send_to_G_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/G_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/G_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/S_send_to_G_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/S_send_to_G_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/S_send_to_S_visibility_degree.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/S_send_to_S_visibility_degree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/slurm_GG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/slurm_GG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/slurm_GS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/slurm_GS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/slurm_SG" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/slurm_SG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20/slurm_SS" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge/slurm_SS" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,10 +126,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel" />
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge" />
+      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_10" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Rank_based_interval_10" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_interval_20" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -505,7 +544,7 @@
       <workItem from="1782895683365" duration="4852000" />
       <workItem from="1782906323582" duration="7606000" />
       <workItem from="1782979152836" duration="14168000" />
-      <workItem from="1783001925884" duration="8157000" />
+      <workItem from="1783001925884" duration="12150000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -850,7 +889,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="591" />
+    <option name="localTasksCounter" value="592" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

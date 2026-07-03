@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: S_send_to_G_rank_visibility.py
+# @FileName: G_send_to_G_visibility_degree.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,47 +16,47 @@ import time
 from multiprocessing import Semaphore
 import pickle
 
-
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
-         visibility_interval=10, loop=None, return_dict=None, sema=None):
+         visibility_interval=1, loop=None, return_dict=None, sema=None):
     """
+    Visibility-degree experiment with separated sender and receiver crowds.
+
+    - Two independent G crowds are created on the same landscape.
+    - The sender crowd only searches and shares visible full solutions.
+    - The receiver crowd searches and learns from sender's visible full solutions.
+    - The receiver crowd's learned solutions do not feed back into the visible pool.
+
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, all structurally visible sender solutions enter the
-        visible pool. Receiver attention is then rank-weighted by sender
-        objective fitness, so higher-ranked sender solutions are more likely
-        to be imitated.
+        when activated, share if random_draw < visibility_prob.
 
     Interpretation:
         visibility_prob = visibility intensity
-            visibility_prob = 0.0 means no sender solution is structurally visible.
-            visibility_prob = 1.0 means all sender solutions are structurally visible.
-
         visibility_interval = visibility frequency
-            visibility_interval = 1 means visible every period.
+            visibility_interval = 1 means visible every period, same as the original design.
             visibility_interval = 5 means visible at periods 5, 10, 15, ...
-            visibility_interval = 10 is the default setting.
 
         Visibility object:
             visible_mode = "full" means the visible object is the sender's
             complete solution string, not a partial knowledge fragment.
+            "partial" means the visible object is the sender's partial knowledge fragment.
     """
     np.random.seed(None)
 
     if visibility_interval is None:
-        visibility_interval = 150
+        visibility_interval = 1
     visibility_interval = int(visibility_interval)
     if visibility_interval < 1:
         raise ValueError("visibility_interval must be a positive integer.")
 
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Specialists who only search and disclose visible solutions
+    # Sender crowd: Generalists who only search and share
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=0, specialist_expertise=20, label="S")
+                         generalist_expertise=18, specialist_expertise=0, label="G")
 
-    # Receiver crowd: Generalists who search and imitate from sender's visible solutions
+    # Receiver crowd: Generalists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                            generalist_expertise=18, specialist_expertise=0, label="G")
 
@@ -67,52 +67,18 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_sender.search()
         crowd_receiver.search()
 
-        # Sender crowd constructs the visible full-solution pool only at
-        # disclosure intervals. Importantly, this pool is based only on sender
-        # agents, whose states are not affected by receiver imitation.
         if (period + 1) % visibility_interval == 0:
-            visible_pool = []
-            full_domains = list(range(N))
+            # Full-solution visibility:
+            # The sender crowd discloses complete solution strings rather than
+            # domain-specific partial fragments.
+            crowd_sender.get_visible_pool(visible_mode="full")
 
-            for agent in crowd_sender.agents:
-                if agent.visibility_status:
-                    # Full-solution visibility:
-                    visible_pool.append([
-                        full_domains.copy(), agent.state.copy(), agent.fitness
-                    ])
+            crowd_receiver.solution_pool = [
+                [domains.copy(), solution.copy()]
+                for domains, solution in crowd_sender.solution_pool
+            ]
+            crowd_receiver.learn_from_visible_pool()
 
-            if visible_pool:
-                # Greater objective fitness -> higher probability of being imitated.
-                fitness_values = np.asarray(
-                    [fitness for _, _, fitness in visible_pool], dtype=float
-                )
-
-                # Use fitness-proportional attention. The small constant avoids
-                # division-by-zero if all visible solutions have zero fitness.
-                imitation_weights = fitness_values + 1e-10
-                imitation_probs = imitation_weights / imitation_weights.sum()
-
-                for agent in crowd_receiver.agents:
-                    selected_index = np.random.choice(
-                        len(visible_pool), p=imitation_probs
-                    )
-                    domains, solution, _ = visible_pool[selected_index]
-
-                    imitated_solution = agent.state.copy()
-                    for domain, bit in zip(domains, solution):
-                        imitated_solution[domain] = bit
-
-                    # Direct imitation: no cognitive-fitness improvement check.
-                    agent.state = imitated_solution
-                    agent.cog_state = agent.state_2_cog_state(
-                        state=imitated_solution
-                    )
-                    agent.cog_fitness = agent.get_cog_fitness(
-                        cog_state=agent.cog_state, state=imitated_solution
-                    )
-                    agent.fitness = agent.landscape.query_second_fitness(
-                        state=imitated_solution
-                    )
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
     fitness_rank_list = [
@@ -152,14 +118,13 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Visibility degree is the focal running parameter.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5,
-                            0.6, 0.7, 0.8, 0.9, 1.0]
+    # Visibility degree: probability that each sender solver's current solution is disclosed
+    # during a visibility period.
+    # visibility_prob = 0.0 means no sender solution is visible.
+    # visibility_prob = 1.0 means all sender solutions are visible during each visibility period.
+    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Visibility interval: how frequently visibility is activated.
-    # visibility_interval = 1 means visible every period.
-    # visibility_interval = 5 means visible at periods 5, 10, 15, ...
-    # visibility_interval = 10 is the default setting.
+    # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
     agent_num = 200
@@ -180,13 +145,8 @@ if __name__ == '__main__':
 
             for loop in range(landscape_iteration):
                 sema.acquire()
-                p = mp.Process(
-                    target=func,
-                    args=(
-                        N, K, agent_num, search_iteration, visibility_prob,
-                        visibility_interval, loop, return_dict, sema
-                    )
-                )
+                p = mp.Process(target=func, args=(N, K, agent_num, search_iteration, visibility_prob,
+                                                  visibility_interval, loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
 
@@ -203,24 +163,24 @@ if __name__ == '__main__':
             pairwise_diversity_across_K.append(means[3])
 
         # Save results across K for each visibility degree and visibility interval.
-        with open("sg_rank_based_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+        with open("gg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("sg_rank_based_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+        with open("gg_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("sg_rank_based_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+        with open("gg_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
 
-        with open("sg_rank_based_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+        with open("gg_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("SG Rank-Based Visibility with Interval {0}: ".format(visibility_interval),
+    print("GG Visibility Degree with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

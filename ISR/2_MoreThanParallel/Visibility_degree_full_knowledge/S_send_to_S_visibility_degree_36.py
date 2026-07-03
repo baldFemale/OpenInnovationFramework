@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 9/26/2022 20:23
 # @Author   : Junyi
-# @FileName: S_send_to_G_visibility_degree.py
+# @FileName: S_send_to_S_visibility_degree.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,21 +16,20 @@ import time
 from multiprocessing import Semaphore
 import pickle
 
-
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
          visibility_interval=1, loop=None, return_dict=None, sema=None):
     """
     Visibility-degree experiment with separated sender and receiver crowds.
 
-    - Two independent crowds are created on the same landscape.
-    - The S sender crowd only searches and shares visible full solutions.
-    - The G receiver crowd searches and learns from sender's visible full solutions.
+    - Two independent S crowds are created on the same landscape.
+    - The sender crowd only searches and makes visible full solutions.
+    - The receiver crowd searches and learns from sender's full visible solutions.
     - The receiver crowd's learned solutions do not feed back into the visible pool.
 
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, share if random_draw < visibility_prob.
+        when activated, sender visibility is determined by visibility_prob.
 
     Interpretation:
         visibility_prob = visibility intensity
@@ -48,15 +47,15 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
 
-    # Sender crowd: Specialists who only search and share
+    # Sender crowd: Specialists who only search and make solutions visible
     crowd_sender = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                         generalist_expertise=0, specialist_expertise=12, label="S")
+                         generalist_expertise=0, specialist_expertise=36, label="S")
 
-    # Receiver crowd: Generalists who search and learn from sender's visible solutions
+    # Receiver crowd: Specialists who search and learn from sender's visible solutions
     crowd_receiver = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
-                           generalist_expertise=12, specialist_expertise=0, label="G")
+                           generalist_expertise=0, specialist_expertise=36, label="S")
 
-    crowd_sender.share_prob_list = [visibility_prob] * agent_num
+    crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
     for period in range(search_iteration):
         # Both crowds conduct their own independent search.
@@ -64,16 +63,16 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         crowd_receiver.search()
 
         if (period + 1) % visibility_interval == 0:
-            # Full-solution visibility: sender agents disclose their complete solution strings.
-            # This is different from the earlier partial-fragment visibility design,
-            # where only each sender's own knowledge domains were disclosed.
-            crowd_sender.get_shared_pool(share_mode="full")
+            # Full visibility design:
+            # sender agents disclose their complete solution states, rather than
+            # only the fragments located in their own knowledge domains.
+            crowd_sender.get_visible_pool(visible_mode="full")
 
             crowd_receiver.solution_pool = [
                 [domains.copy(), solution.copy()]
                 for domains, solution in crowd_sender.solution_pool
             ]
-            crowd_receiver.learn_from_shared_pool()
+            crowd_receiver.learn_from_visible_pool()
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -85,17 +84,20 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     breakthrough_fitness = max(performance_list)
     breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate full-solution diversity among receiver agents.
-    # Since visibility now discloses complete solution strings, diversity should also
-    # be measured over complete receiver solutions rather than over partial knowledge domains.
+    # Calculate diversity among receiver agents.
+    # Under full visibility, diversity should be measured at the complete-solution
+    # level, not only within each agent's knowledge domains.
     full_solution_set = set()
     for agent in crowd_receiver.agents:
-        solution_str = "".join(agent.state)
+        solution_str = "".join([str(bit) for bit in agent.state])
         full_solution_set.add(solution_str)
 
     diversity = len(full_solution_set)
+    pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
-    return_dict[loop] = [breakthrough_fitness, breakthrough_rank, diversity]
+    return_dict[loop] = [
+        breakthrough_fitness, breakthrough_rank, diversity, pairwise_diversity
+    ]
     sema.release()
 
 
@@ -110,14 +112,15 @@ if __name__ == '__main__':
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Visibility degree p_v: probability that an S solution becomes visible to G
+    # Visibility degree p_v: probability that a focal S solution is disclosed to S
     # during a visibility period.
-    # p_v = 0.0 means no S solutions are visible to G.
-    # p_v = 1.0 means all S solutions are visible to G during each visibility period.
-    visibility_prob_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # p_v = 0.0 means no cross-agent visibility.
+    # p_v = 1.0 means all S solutions enter the visible shared pool during each visibility period.
+    visibility_prob_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Visibility frequency: S solutions become visible to G every x periods.
-    visibility_interval = 20
+    # Visibility frequency: S solutions become visible to S every x periods.
+    visibility_interval = 10
 
     agent_num = 200
     concurrency = 100
@@ -127,6 +130,7 @@ if __name__ == '__main__':
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
         diversity_across_K = []
+        pairwise_diversity_across_K = []
 
         for K in K_list:
             manager = mp.Manager()
@@ -146,28 +150,33 @@ if __name__ == '__main__':
                 proc.join()
 
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
-            arr = np.asarray(list(returns))  # shape: (n_runs, 3)
+            arr = np.asarray(list(returns))  # shape: (n_runs, 4)
             means = arr.mean(axis=0)
 
             breakthrough_fitness_across_K.append(means[0])
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
+            pairwise_diversity_across_K.append(means[3])
 
         # Save results across K for each visibility probability and visibility interval.
-        with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+        with open("ss_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+        with open("ss_visibility_prob_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("sg_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
+        with open("ss_visibility_prob_{0}_interval_{1}_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(diversity_across_K, out_file)
+
+        with open("ss_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(pairwise_diversity_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("SG Visibility Degree with Interval {0}: ".format(visibility_interval),
+    print("SS Visibility Degree with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
