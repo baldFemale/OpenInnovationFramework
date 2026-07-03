@@ -17,32 +17,73 @@ from multiprocessing import Semaphore
 import pickle
 
 
+def imitate_from_performance_ranked_pool(crowd_receiver=None, visible_pool=None, imitation_prob=None):
+    """
+    Imitate from a performance-ranked visible pool.
+
+    This is intentionally separated from Crowd.learn_from_visible_pool().
+    The latter is selective learning: adoption only occurs when the receiver
+    perceives a cognitive-fitness improvement. Here, imitation does not require
+    such perceived improvement. Instead, each receiver has a baseline imitation
+    probability, and the focal visible solution is sampled with rank-weighted
+    attention, so higher-performing sender solutions are more likely to be
+    imitated.
+    """
+    if not visible_pool:
+        return
+
+    imitation_prob = float(imitation_prob)
+    if imitation_prob < 0 or imitation_prob > 1:
+        raise ValueError("imitation_prob must be between 0 and 1.")
+
+    # Rank-weighted attention: the best visible solution receives the largest
+    # exposure weight, the second-best receives the second-largest weight, etc.
+    # This keeps visibility rank-based rather than threshold-based.
+    fitness_values = np.asarray([item[2] for item in visible_pool], dtype=float)
+    sorted_indices = np.argsort(-fitness_values)
+    attention_weights = np.zeros(len(visible_pool), dtype=float)
+
+    for rank_position, item_index in enumerate(sorted_indices):
+        attention_weights[item_index] = len(visible_pool) - rank_position
+
+    attention_probs = attention_weights / attention_weights.sum()
+
+    for agent in crowd_receiver.agents:
+        if np.random.uniform(0, 1) < imitation_prob:
+            selected_index = np.random.choice(len(visible_pool), p=attention_probs)
+            domains, solution, _ = visible_pool[selected_index]
+
+            imitated_solution = agent.state.copy()
+            for domain, bit in zip(domains, solution):
+                imitated_solution[domain] = bit
+
+            imitated_cog_solution = agent.state_2_cog_state(state=imitated_solution)
+
+            # Direct imitation: update the receiver without requiring perceived
+            # cognitive-fitness improvement.
+            agent.state = imitated_solution
+            agent.cog_state = imitated_cog_solution
+            agent.cog_fitness = agent.get_cog_fitness(
+                cog_state=imitated_cog_solution, state=imitated_solution
+            )
+            agent.fitness = agent.landscape.query_second_fitness(state=imitated_solution)
+
+
 # mp version
 def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=None,
-         fitness_threshold=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
+         visibility_interval=10, loop=None, return_dict=None, sema=None):
     """
-    Rank-based visibility experiment with separated sender and receiver crowds.
-
-    - Two independent G crowds are created on the same landscape.
-    - The sender crowd is composed of generalists who only search and
-      disclose visible full solutions.
-    - The receiver crowd is composed of generalists who search and
-      learn from the sender crowd's visible full solutions.
-    - The receiver crowd's learned solutions do not feed back into the visible pool.
-
     Visibility condition:
         visibility is activated every visibility_interval periods;
-        when activated, disclose the full solution if the sender is structurally
-        visible and agent.fitness >= fitness_threshold.
+        when activated, all structurally visible sender solutions enter the
+        visible pool. Receiver attention is then rank-weighted by sender
+        objective fitness, so higher-ranked sender solutions are more likely
+        to be imitated.
 
     Interpretation:
         visibility_prob = visibility intensity
             visibility_prob = 0.0 means no sender solution is structurally visible.
             visibility_prob = 1.0 means all sender solutions are structurally visible.
-
-        fitness_threshold = objective-fitness selectivity
-            fitness_threshold = 0.0 means almost all visible sender solutions are eligible.
-            fitness_threshold = 0.9 means only high-fitness visible sender solutions are eligible.
 
         visibility_interval = visibility frequency
             visibility_interval = 1 means visible every period.
@@ -52,11 +93,6 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
         Visibility object:
             visible_mode = "full" means the visible object is the sender's
             complete solution string, not a partial knowledge fragment.
-
-    Note:
-        This differs from maturity-based visibility: maturity-based visibility
-        uses the sender's self-perceived cognitive fitness, whereas this
-        experiment uses the sender's objective fitness.
     """
     np.random.seed(None)
 
@@ -85,27 +121,23 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
         # Sender crowd constructs the visible full-solution pool only at
         # disclosure intervals. Importantly, this pool is based only on sender
-        # agents, whose states are not affected by receiver learning.
+        # agents, whose states are not affected by receiver imitation.
         if (period + 1) % visibility_interval == 0:
-            crowd_sender.solution_pool = []
+            visible_pool = []
             full_domains = list(range(N))
 
             for agent in crowd_sender.agents:
-                if agent.visibility_status and (agent.fitness >= fitness_threshold):
+                if agent.visibility_status:
                     # Full-solution visibility:
-                    # The sender discloses the complete solution string rather
-                    # than a domain-specific partial knowledge fragment.
-                    crowd_sender.solution_pool.append([full_domains.copy(), agent.state.copy()])
+                    visible_pool.append([
+                        full_domains.copy(), agent.state.copy(), agent.fitness
+                    ])
 
-            np.random.shuffle(crowd_sender.solution_pool)
-
-            # Receiver crowd learns only from sender's visible full solutions.
-            # No receiver solution is added back to the sender pool.
             crowd_receiver.solution_pool = [
                 [domains.copy(), solution.copy()]
-                for domains, solution in crowd_sender.solution_pool
+                for domains, solution, _ in visible_pool
             ]
-            crowd_receiver.learn_from_visible_pool()
+             # Complete the code for the logic such that "Greater Fitness, Higher chance of being imitated"
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -156,9 +188,11 @@ if __name__ == '__main__':
     # visibility_interval = 10 is the default setting.
     visibility_interval = 10
 
-    # Fitness threshold F_v: minimum objective fitness required for disclosure.
-    # F_v = 0.0 means almost all visible sender solutions can be disclosed.
-    # F_v = 1.0 means only nearly perfect objectively evaluated solutions can be disclosed.
+    # Baseline imitation propensity. The variable name is retained to keep the
+    # existing parameter grid and output naming unchanged. Operationally, it is
+    # no longer a fitness threshold for disclosure.
+    # 0.1 means weak imitation after rank-weighted exposure.
+    # 0.9 means strong imitation after rank-weighted exposure.
     fitness_threshold_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
     agent_num = 200
