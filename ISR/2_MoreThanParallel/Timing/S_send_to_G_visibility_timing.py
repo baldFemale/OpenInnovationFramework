@@ -126,7 +126,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 300
+    landscape_iteration = 400
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     # Visibility probability is fixed in the timing experiment.
     # Keep the focal running parameter as visibility_start.
     visibility_prob = 1.0
-    visibility_start_list = [0, 10, 20, 30, 40, 50, 75, 100, 150, 200, 250, 280, 290, 300]
+    visibility_start_list = [0, 10, 20, 30, 40, 50, 75, 100, 200, 250, 260, 270, 280, 290]
 
     # Visibility interval: how frequently visibility is activated after visibility starts.
     # visibility_interval = 1 means visible every period after visibility starts.
