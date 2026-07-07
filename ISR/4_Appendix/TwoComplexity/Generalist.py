@@ -9,13 +9,15 @@ from Landscape import Landscape
 
 
 class Generalist:
-    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None):
+    def __init__(self, N=None, landscape=None, state_num=4, crowd=None, generalist_expertise=None,
+                 visibility_status=False):
         """
         :param N: problem dimension
         :param landscape: assigned landscape
         :param state_num: state number for each dimension
         :param generalist_expertise: the amount of G knowledge
         :param specialist_expertise: the amount of S knowledge
+        :param visibility_status: whether this solver's solution is structurally visible
         cog_state of G: only has "A", "B", and "*"
         cog_state of S: only has "0123" and "*"
         """
@@ -23,6 +25,7 @@ class Generalist:
         self.crowd = crowd
         self.N = N
         self.state_num = state_num
+        self.visibility_status = visibility_status
         self.generalist_domain = np.random.choice(range(self.N),  generalist_expertise // 2, replace=False).tolist()
         self.specialist_domain = []
         self.state = np.random.choice(range(self.state_num), self.N).tolist()
@@ -140,13 +143,12 @@ class Generalist:
                 raise ValueError("Unsupported Bit of {0}".format(bit_value))
         return state
 
-    def full_evaluate(self, cur_state: list, next_state: list) -> bool:
+    def public_evaluate(self, cur_state: list, next_state: list) -> bool:
         """
         Use the explicit state information; only utilize the knowledge domain, not mindset
         """
         if (len(cur_state) == 0) or (len(next_state) == 0):
             raise ValueError("Blank State List")
-        # Evaluator can only access the full solution
         cur_cog_state = self.state_2_cog_state(state=cur_state)
         next_cog_state = self.state_2_cog_state(state=next_state)
         cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
@@ -156,23 +158,39 @@ class Generalist:
         else:
             return False
 
-    def partial_evaluate(self, cur_state: list, next_state: list, visible_scope: list) -> bool:
+    def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
         """
-        Use the explicit state information; only utilize the knowledge domain, not mindset
+        With additional "*" shelter due to inexplicit expression and acquisition
         """
-        if (len(cur_state) == 0) or (len(next_state) == 0):
-            raise ValueError("Blank State List")
-        # Evaluator can only access the solution fragments within sharers' expertise
-        evaluated_cur_state = self.state.copy()
-        for index in visible_scope:
-            evaluated_cur_state[index] = cur_state[index]
-        evaluated_next_state = self.state.copy()
-        for index in visible_scope:
-            evaluated_next_state[index] = next_state[index]
-        cur_cog_state = self.state_2_cog_state(state=evaluated_cur_state)
-        next_cog_state = self.state_2_cog_state(state=evaluated_next_state)
-        cur_cog_fitness = self.get_cog_fitness(cog_state=cur_cog_state, state=cur_state)
-        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=next_state)
+        aligned_cur_cog_state, aligned_next_cog_state = cur_cog_state.copy(), next_cog_state.copy()
+        # aligned as the G cog_state: only has "A", "B", and "*"
+        for index in range(self.N):
+            if index in self.generalist_domain:
+                if aligned_cur_cog_state[index] in ["0", "1"]:
+                    aligned_cur_cog_state[index] = "A"
+                elif aligned_cur_cog_state[index] in ["2", "3"]:
+                    aligned_cur_cog_state[index] = "B"
+                elif aligned_cur_cog_state[index] == "*":
+                    aligned_cur_cog_state[index] = self.cog_state[index]
+                else:
+                    pass
+
+                if aligned_next_cog_state[index] in ["0", "1"]:
+                    aligned_next_cog_state[index] = "A"
+                elif aligned_next_cog_state[index] in ["2", "3"]:
+                    aligned_next_cog_state[index] = "B"
+                elif aligned_next_cog_state[index] == "*":
+                    aligned_next_cog_state[index] = self.cog_state[index]
+                else:
+                    pass
+            else:
+                aligned_cur_cog_state[index] = "*"
+                aligned_next_cog_state[index] = "*"
+        aligned_cur_state = self.cog_state_2_state(cog_state=aligned_cur_cog_state)
+        aligned_next_state = self.cog_state_2_state(cog_state=aligned_next_cog_state)
+        # the randomness in reverse mapping could produce additional difference; but it is random
+        cur_cog_fitness = self.get_cog_fitness(cog_state=aligned_cur_cog_state, state=aligned_cur_state)
+        next_cog_fitness = self.get_cog_fitness(cog_state=next_cog_state, state=aligned_next_state)
         if next_cog_fitness > cur_cog_fitness:
             return True
         else:
@@ -194,7 +212,7 @@ class Generalist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.full_evaluate(cur_state=state, next_state=neighbor):
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
                 return False
         return True
 
@@ -217,7 +235,7 @@ class Generalist:
         if len(neighbor_states) == 0:
             return []
         for neighbor in neighbor_states:
-            if self.full_evaluate(cur_state=state, next_state=neighbor):
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 
@@ -238,7 +256,7 @@ class Generalist:
                     new_state[index] = bit
                     neighbor_states.append(new_state)
         for neighbor in neighbor_states:
-            if self.full_evaluate(cur_state=state, next_state=neighbor):
+            if self.public_evaluate(cur_state=state, next_state=neighbor):
                 suggestions.append(neighbor)
         return suggestions
 

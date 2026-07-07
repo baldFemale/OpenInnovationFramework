@@ -12,16 +12,24 @@ import numpy as np
 class Crowd:
     def __init__(self, N: int, agent_num: int, generalist_expertise: int, specialist_expertise: int,
                  landscape: object, state_num: int, label: str):
+        self.N = N
         self.agent_num = agent_num
         self.agents = []
-        self.share_prob_list = [1] * agent_num
+        # Visibility sharing mode:
+        # - "full": agents disclose their whole solution string.
+        # - "partial": agents disclose only the solution components in their knowledge domains.
+        # The default is set to "full" to operationalize visibility as whole-solution visibility.
+        self.visibility_mode = "full"
+
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
             if label == "G":
-                agent = Generalist(N=N, landscape=landscape, state_num=state_num, generalist_expertise=generalist_expertise)
+                agent = Generalist(N=N, landscape=landscape, state_num=state_num,
+                                   generalist_expertise=generalist_expertise)
                 self.agents.append(agent)
             elif label == "S":
-                agent = Specialist(N=N, landscape=landscape, state_num=state_num, specialist_expertise=specialist_expertise)
+                agent = Specialist(N=N, landscape=landscape, state_num=state_num,
+                                   specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
         self.solution_pool = []
 
@@ -29,45 +37,95 @@ class Crowd:
         for agent in self.agents:
             agent.search()
 
-    def get_shared_pool(self):
+    def set_visibility_status(self, visibility_prob: float):
+        """
+        Fix solver-level visibility status for the whole experiment.
+
+        visibility_prob is interpreted as the proportion of solvers whose
+        solutions are structurally visible. Once assigned, visibility_status
+        does not change across visibility periods unless this method is called
+        again.
+        """
+        if visibility_prob < 0 or visibility_prob > 1:
+            raise ValueError("visibility_prob must be between 0 and 1.")
+
+        visible_num = int(round(visibility_prob * self.agent_num))
+        visible_indices = np.random.choice(range(self.agent_num), size=visible_num, replace=False).tolist()
+
+        for index, agent in enumerate(self.agents):
+            agent.visibility_status = index in visible_indices # True if in visible list
+
+    def get_visible_pool(self, visible_mode: str = None):
+        """
+        Construct the visible solution pool.
+
+        Parameters
+        ----------
+        visible_mode : str, optional
+            - "full": share the sender's whole solution string.
+            - "partial": share only the sender's known domains and corresponding partial solution.
+
+        Notes
+        -----
+        The solution pool keeps the same internal format for both modes:
+            [domains, solution]
+        where domains identifies the indices to be copied and solution stores the corresponding bits.
+        Under full sharing, domains = [0, 1, ..., N-1] and solution = full state.
+        """
+        if visible_mode is None:
+            visible_mode = self.visible_mode
+
+        if visible_mode not in ["full", "partial"]:
+            raise ValueError("visible_mode must be either 'full' or 'partial'.")
+
         self.solution_pool = []  # reset the solution pool
-        for agent, share_prob in zip(self.agents, self.share_prob_list):
-            if np.random.uniform(0, 1) < share_prob:
-                domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
-                partial_solution = [agent.state[index] for index in domains]
-                self.solution_pool.append([domains, partial_solution])
+        for agent in self.agents:
+            if agent.visibility_status:
+                if visible_mode == "full":
+                    domains = list(range(self.N))
+                    solution = agent.state.copy()
+                else:
+                    domains = agent.generalist_domain.copy() + agent.specialist_domain.copy()
+                    solution = [agent.state[index] for index in domains]
+                self.solution_pool.append([domains, solution])
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
-    def learn_from_shared_pool(self):
-        if self.lr < 1:
-            for agent in self.agents:
-                if np.random.uniform(0, 1) < self.lr:  # some agents are willing to learn
-                    for domains, solution in self.solution_pool:
-                        learnt_solution = agent.state.copy()
-                        for domain, bit in zip(domains, solution):
-                            learnt_solution[domain] = bit
-                        cog_solution = agent.state_2_cog_state(state=learnt_solution)
-                        perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
-                        if perception > agent.cog_fitness:
-                            agent.state = solution
-                            agent.cog_state = cog_solution
-                            agent.cog_fitness = perception
-                            agent.fitness = agent.landscape.query_second_fitness(state=solution)
-                            break
-        else:  # agents always are willing to learn
-            for agent in self.agents:
-                for domains, solution in self.solution_pool:
-                    learnt_solution = agent.state.copy()
-                    for domain, bit in zip(domains, solution):
-                        learnt_solution[domain] = bit
-                    cog_solution = agent.state_2_cog_state(state=learnt_solution)
-                    perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
-                    if perception > agent.cog_fitness:
-                        agent.state = learnt_solution
-                        agent.cog_state = cog_solution
-                        agent.cog_fitness = perception
-                        agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
-                        break
+    def learn_from_visible_pool(self):
+        # remove the lr parameter; all agents will learn if shared
+        for agent in self.agents:
+            for domains, solution in self.solution_pool:
+                learnt_solution = agent.state.copy()
+                for domain, bit in zip(domains, solution):
+                    learnt_solution[domain] = bit
+                cog_solution = agent.state_2_cog_state(state=learnt_solution)
+                perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
+                if perception > agent.cog_fitness:
+                    agent.state = learnt_solution
+                    agent.cog_state = cog_solution
+                    agent.cog_fitness = perception
+                    agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
+                    break
+
+    def calculate_pairwise_solution_distance(self):
+        """Average pairwise normalized Hamming distance across complete solutions."""
+        states = [agent.state for agent in self.agents]
+        if len(states) <= 1:
+            return 0
+
+        distance_list = []
+        for i in range(len(states)):
+            for j in range(i + 1, len(states)):
+                distance = (
+                    sum(
+                        1
+                        for bit_i, bit_j in zip(states[i], states[j])
+                        if bit_i != bit_j
+                    )
+                    / self.N
+                )
+                distance_list.append(distance)
+
+        return np.mean(distance_list)
 
     def evaluate(self, cur_state: list, next_state: list) -> bool:
         opinions = [agent.public_evaluate(cur_state=cur_state,
@@ -78,7 +136,7 @@ class Crowd:
     def private_evaluate(self, cur_cog_state: list, next_cog_state: list) -> bool:
         opinions = [agent.private_evaluate(cur_cog_state=cur_cog_state,
                                    next_cog_state=next_cog_state) for agent in self.agents]
-        true_count = sum(1 for item in opinions if item)
+        true_count = sum(1 for item in opinions)
         return true_count > self.agent_num / 2
 
 

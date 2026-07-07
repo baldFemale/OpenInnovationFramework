@@ -6,39 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision (**pending**): add the information cascade assumption; remove the separation between senders and receivers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/Crowd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/Generalist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/Landscape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/Specialist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/grun_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/slurm_G_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/slurm_S_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_Alpha_K4/srun_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Alternative_Figures/alternative_best_performance.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Alternative_Figures/alternative_dashboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Alternative_Figures/alternative_partial_unique_diversity.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Generalist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/Specialist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_G_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_G_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_G_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_S_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_S_2" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/slurm_S_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_medium_knowledge/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_G_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_G" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_G_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_S_1" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_S_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/srun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/srun_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Generalist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Generalist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Specialist.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/Specialist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +77,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/1_Parallel_Search/Parallel_Search_K",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/4_Appendix/TwoComplexity",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,11 +91,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity" />
       <recent name="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_full_knowledge" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -543,7 +515,7 @@
       <workItem from="1783327103419" duration="7497000" />
       <workItem from="1783341222342" duration="434000" />
       <workItem from="1783342481170" duration="1910000" />
-      <workItem from="1783408680193" duration="10532000" />
+      <workItem from="1783408680193" duration="10775000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -888,7 +860,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="602" />
+    <option name="localTasksCounter" value="603" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
