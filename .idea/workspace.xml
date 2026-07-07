@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision (**pending**): add the information cascade assumption; remove the separation between senders and receivers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/grun_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K/srun_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/grun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_G" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_G" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_S" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/slurm_S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/srun.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/4_Appendix/TwoComplexity/srun.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -511,7 +518,7 @@
       <workItem from="1783327103419" duration="7497000" />
       <workItem from="1783341222342" duration="434000" />
       <workItem from="1783342481170" duration="1910000" />
-      <workItem from="1783408680193" duration="11855000" />
+      <workItem from="1783408680193" duration="12756000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -856,7 +863,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="604" />
+    <option name="localTasksCounter" value="605" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

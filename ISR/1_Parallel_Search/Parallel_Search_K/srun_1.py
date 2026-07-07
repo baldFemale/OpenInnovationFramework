@@ -91,14 +91,14 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 200
+    landscape_iteration = 400
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
     # Independent-search baseline across crowd size.
     # Keep this list aligned with the evaluator for the crowd-size analysis.
-    agent_num_list = np.arange(50, 501, step=50, dtype=int).tolist()
+    agent_num_list = np.arange(50, 550, step=50, dtype=int).tolist()
 
     concurrency = 100
 

@@ -5,7 +5,6 @@
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 import numpy as np
-from Generalist import Generalist
 from Landscape import Landscape
 from Crowd import Crowd
 import multiprocessing as mp
@@ -13,24 +12,56 @@ import time
 from multiprocessing import Semaphore
 import pickle
 
-from SearchTrajectory import generalist
-
 
 # mp version
 def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, alpha=None,
          search_iteration=None, loop=None, return_dict=None, sema=None):
+    """
+    Run one independent-search repetition on one landscape.
+
+    This keeps the original K x alpha experiment design in grun.py:
+    - One G crowd is created on the landscape.
+    - Agents search independently for search_iteration periods.
+    - DVs are measured on the final states of this independent crowd.
+    """
     np.random.seed(None)
-    landscape = Landscape(N=N, K=K, state_num=state_num, alpha=alpha)
-    convergence_list = []
-    for _ in range(agent_num):
-        generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                           generalist_expertise=12)
+
+    try:
+        landscape = Landscape(N=N, K=K, state_num=state_num, alpha=alpha)
+
+        crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=state_num,
+                      generalist_expertise=expertise_amount, specialist_expertise=0, label="G")
+
         for _ in range(search_iteration):
-            generalist.search()
-        convergence_list.append(generalist.fitness)
-    convergence = sum(convergence_list) / len(convergence_list)
-    return_dict[loop] = [convergence]
-    sema.release()
+            crowd.search()
+
+        performance_list = [agent.fitness for agent in crowd.agents]
+        fitness_rank_list = [
+            landscape.query_second_fitness_rank(state=agent.state)
+            for agent in crowd.agents
+        ]
+
+        breakthrough_fitness = max(performance_list)
+        breakthrough_rank = min(fitness_rank_list)
+
+        # Full-solution diversity, aligned with the visibility scripts' DVs.
+        full_solution_set = set()
+        for agent in crowd.agents:
+            solution_str = "".join([str(bit) for bit in agent.state])
+            full_solution_set.add(solution_str)
+
+        diversity = len(full_solution_set)
+        pairwise_diversity = crowd.calculate_pairwise_solution_distance()
+        average_fitness = sum(performance_list) / len(performance_list)
+
+        return_dict[loop] = [
+            breakthrough_fitness, breakthrough_rank, diversity,
+            pairwise_diversity, average_fitness
+        ]
+
+    finally:
+        sema.release()
+
 
 if __name__ == '__main__':
     t0 = time.time()
