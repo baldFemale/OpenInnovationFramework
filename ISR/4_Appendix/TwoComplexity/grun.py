@@ -7,31 +7,13 @@
 import numpy as np
 from Generalist import Generalist
 from Landscape import Landscape
+from Crowd import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore
 import pickle
 
-
-def calculate_pairwise_solution_distance(states, N):
-    """Average pairwise normalized Hamming distance across complete solutions."""
-    if len(states) <= 1:
-        return 0
-
-    distance_list = []
-    for i in range(len(states)):
-        for j in range(i + 1, len(states)):
-            distance = (
-                sum(
-                    1
-                    for bit_i, bit_j in zip(states[i], states[j])
-                    if bit_i != bit_j
-                )
-                / N
-            )
-            distance_list.append(distance)
-
-    return np.mean(distance_list)
+from SearchTrajectory import generalist
 
 
 # mp version
@@ -39,37 +21,16 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
          search_iteration=None, loop=None, return_dict=None, sema=None):
     np.random.seed(None)
     landscape = Landscape(N=N, K=K, state_num=state_num, alpha=alpha)
-
-    fitness_list = []
-    fitness_rank_list = []
-    full_solution_set = set()
-    state_list = []
-
+    convergence_list = []
     for _ in range(agent_num):
         generalist = Generalist(N=N, landscape=landscape, state_num=state_num,
-                                generalist_expertise=expertise_amount)
+                           generalist_expertise=12)
         for _ in range(search_iteration):
             generalist.search()
-
-        fitness_list.append(generalist.fitness)
-        fitness_rank_list.append(
-            landscape.query_second_fitness_rank(state=generalist.state)
-        )
-
-        solution_str = "".join([str(bit) for bit in generalist.state])
-        full_solution_set.add(solution_str)
-        state_list.append(generalist.state)
-
-    breakthrough_fitness = max(fitness_list)
-    breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
-    diversity = len(full_solution_set)
-    pairwise_diversity = calculate_pairwise_solution_distance(states=state_list, N=N)
-
-    return_dict[loop] = [
-        breakthrough_fitness, breakthrough_rank, diversity, pairwise_diversity
-    ]
+        convergence_list.append(generalist.fitness)
+    convergence = sum(convergence_list) / len(convergence_list)
+    return_dict[loop] = [convergence]
     sema.release()
-
 
 if __name__ == '__main__':
     t0 = time.time()
@@ -89,6 +50,7 @@ if __name__ == '__main__':
         breakthrough_rank_across_K = []
         diversity_across_K = []
         pairwise_diversity_across_K = []
+        average_fitness_across_K = []
 
         for K in K_list:
             manager = mp.Manager()
@@ -105,13 +67,14 @@ if __name__ == '__main__':
                 proc.join()
             returns = return_dict.values()  # Don't need dict index, since it is repetition.
 
-            arr = np.asarray(list(returns))  # shape: (n_runs, 4)
+            arr = np.asarray(list(returns))  # shape: (n_runs, 5)
             means = arr.mean(axis=0)
 
             breakthrough_fitness_across_K.append(means[0])
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
             pairwise_diversity_across_K.append(means[3])
+            average_fitness_across_K.append(means[4])
 
         # Save results across K for each alpha condition.
         with open("g_breakthrough_fitness_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
@@ -125,6 +88,9 @@ if __name__ == '__main__':
 
         with open("g_pairwise_diversity_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
+
+        with open("g_average_fitness_across_K_alpha_{0}".format(alpha), 'wb') as out_file:
+            pickle.dump(average_fitness_across_K, out_file)
 
     t1 = time.time()
     print(time.strftime("%H:%M:%S", time.gmtime(t1-t0)))
