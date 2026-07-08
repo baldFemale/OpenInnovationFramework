@@ -65,14 +65,14 @@ def func(N=None, K=None, state_num=None, expertise_amount=None, agent_num=None, 
 
 if __name__ == '__main__':
     t0 = time.time()
-    landscape_iteration = 200
+    landscape_iteration = 500
     agent_num = 200
     search_iteration = 300
     N = 9
     state_num = 4
     expertise_amount = 12   # Equal Expertise
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
-    alpha_list = [0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175, 0.20, 0.25]
+    K_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    alpha_list = [0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175, 0.20, 0.225, 0.25]
     concurrency = 100
 
     for alpha in alpha_list:
