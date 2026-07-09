@@ -52,7 +52,7 @@ def func(N=None, K=None, agent_num=None, search_iteration=None,
     np.random.seed(None)
 
     try:
-        landscape = Landscape(N=N, K=K, state_num=4, alpha=0.1)
+        landscape = Landscape(N=N, K=K, state_num=4, alpha=0.25)
 
         crowd = Crowd(N=N, agent_num=agent_num, landscape=landscape, state_num=4,
                       generalist_expertise=0, specialist_expertise=12, label="S")
