@@ -56,6 +56,9 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
 
     crowd_sender.set_visibility_status(visibility_prob=visibility_prob)
 
+    # Search-process trajectory: cumulative mean TRUE fitness of adopted solutions.
+    adopted_solution_fitness_across_time = []
+
     for period in range(search_iteration):
         # Both crowds conduct their own independent search.
         crowd_sender.search()
@@ -72,6 +75,11 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
                 for domains, solution in crowd_sender.solution_pool
             ]
             crowd_receiver.learn_from_visible_pool()
+
+            adopted_solution_fitness_across_time.append(
+                np.mean(crowd_receiver.adopted_solution_fitness_history)
+                if crowd_receiver.adopted_solution_fitness_history else np.nan
+            )
 
     # DVs are measured only on the receiver crowd.
     performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -94,8 +102,25 @@ def func(N=None, K=None, agent_num=None, search_iteration=None, visibility_prob=
     diversity = len(full_solution_set)
     pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
+    # Search-process measure for visibility.
+    # Use TRUE fitness rather than cognitive fitness.
+    #
+    # adopted_solution_fitness: mean quality of the solutions actually adopted
+    # by receiver agents across all visibility events in this run. This is
+    # conditional on adoption; if no solution is adopted, the measure is
+    # undefined and is recorded as np.nan rather than as zero.
+    adopted_solution_fitness = (
+        np.mean(crowd_receiver.adopted_solution_fitness_history)
+        if crowd_receiver.adopted_solution_fitness_history else np.nan
+    )
+
     return_dict[loop] = [
-        breakthrough_fitness, breakthrough_rank, diversity, pairwise_diversity
+        breakthrough_fitness,
+        breakthrough_rank,
+        diversity,
+        pairwise_diversity,
+        adopted_solution_fitness,
+        adopted_solution_fitness_across_time,
     ]
     sema.release()
 
@@ -130,6 +155,8 @@ if __name__ == '__main__':
         breakthrough_rank_across_K = []
         diversity_across_K = []
         pairwise_diversity_across_K = []
+        adopted_solution_fitness_across_K = []
+        adopted_solution_fitness_across_time_across_K = []
 
         for K in K_list:
             manager = mp.Manager()
@@ -148,14 +175,35 @@ if __name__ == '__main__':
             for proc in jobs:
                 proc.join()
 
-            returns = return_dict.values()  # Don't need dict index, since it is repetition.
-            arr = np.asarray(list(returns))  # shape: (n_runs, 4)
-            means = arr.mean(axis=0)
+            returns = list(return_dict.values())  # Don't need dict index, since it is repetition.
+            arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (n_runs, 5)
+            time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
+
+            # The first four DVs are always defined. The visibility-process
+            # measure can be np.nan when a run contains no adoption
+            # (e.g., visibility_prob = 0), so average it safely.
+            means = arr[:, :4].mean(axis=0)
+
+            adopted_solution_fitness_mean = (
+                np.nan
+                if np.all(np.isnan(arr[:, 4]))
+                else np.nanmean(arr[:, 4])
+            )
+
+            # Average the cumulative adoption-quality trajectory across landscape repetitions.
+            if np.all(np.isnan(time_series_arr)):
+                adopted_solution_fitness_across_time_mean = time_series_arr[0].tolist()
+            else:
+                adopted_solution_fitness_across_time_mean = np.nanmean(time_series_arr, axis=0).tolist()
 
             breakthrough_fitness_across_K.append(means[0])
             breakthrough_rank_across_K.append(means[1])
             diversity_across_K.append(means[2])
             pairwise_diversity_across_K.append(means[3])
+            adopted_solution_fitness_across_K.append(adopted_solution_fitness_mean)
+            adopted_solution_fitness_across_time_across_K.append(
+                adopted_solution_fitness_across_time_mean
+            )
 
         # Save results across K for each visibility probability and visibility interval.
         with open("sg_visibility_prob_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
@@ -173,6 +221,14 @@ if __name__ == '__main__':
         with open("sg_visibility_prob_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
                 visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
+
+        with open("sg_visibility_prob_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(adopted_solution_fitness_across_K, out_file)
+
+        with open("sg_visibility_prob_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                visibility_prob, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()

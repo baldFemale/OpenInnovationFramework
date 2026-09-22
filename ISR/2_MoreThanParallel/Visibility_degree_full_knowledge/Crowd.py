@@ -14,6 +14,7 @@ class Crowd:
                  landscape: object, state_num: int, label: str):
         self.N = N
         self.agent_num = agent_num
+        self.landscape = landscape
         self.agents = []
         # Visibility sharing mode:
         # - "full": agents disclose their whole solution string.
@@ -32,6 +33,23 @@ class Crowd:
                                    specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
         self.solution_pool = []
+
+        # Visibility-process measurements.
+        # These are populated by learn_from_visible_pool().
+        #
+        # *_history stores every individual observation across the full run.
+        # *_across_time stores one mean value per visibility event, which can be
+        # used later to inspect how the search process evolves over time.
+        #
+        # shared_solution_fitness refers to the TRUE fitness of all complete
+        # solutions that become visible to the receiver.
+        # adopted_solution_fitness refers to the TRUE fitness of solutions that
+        # receivers actually adopt after evaluating them cognitively.
+        self.shared_solution_fitness_history = []
+        self.adopted_solution_fitness_history = []
+        self.shared_solution_fitness_across_time = []
+        self.adopted_solution_fitness_across_time = []
+        self.adoption_count_across_time = []
 
     def search(self):
         for agent in self.agents:
@@ -91,20 +109,86 @@ class Crowd:
         np.random.shuffle(self.solution_pool)  # shuffle the order; randomly imitate
 
     def learn_from_visible_pool(self):
-        # remove the lr parameter; all agents will learn if shared
+        """
+        Learn from the visible solution pool and record visibility-process quality.
+
+        Two true-fitness measures are recorded:
+
+        1. shared_solution_fitness:
+           True fitness of every COMPLETE solution in the visible pool. This
+           captures the objective quality of the opportunity set made visible.
+
+        2. adopted_solution_fitness:
+           True fitness of every solution that a receiver actually adopts.
+           Adoption is still determined by the receiver's cognitive fitness,
+           exactly as in the original learning rule. This measure therefore
+           captures the objective quality of the solutions selected through
+           imitation.
+
+        Notes
+        -----
+        Under full-solution visibility, an adopted solution is the sender's
+        complete shared solution. Under partial visibility, a shared fragment
+        does not have a standalone true fitness, so shared-solution fitness is
+        recorded only when the visible item covers all N domains. Adopted
+        solution fitness can still be recorded because learnt_solution is always
+        a complete state.
+        """
+        # Record the TRUE fitness of each complete solution made visible.
+        # This loop is outside the receiver-agent loop so each shared solution
+        # is counted once per visibility event rather than once per receiver.
+        shared_fitness_this_period = []
+        full_domain_set = set(range(self.N))
+        for domains, solution in self.solution_pool:
+            if len(domains) == self.N and set(domains) == full_domain_set:
+                shared_state = [None] * self.N
+                for domain, bit in zip(domains, solution):
+                    shared_state[domain] = bit
+                shared_fitness = self.landscape.query_second_fitness(
+                    state=shared_state
+                )
+                shared_fitness_this_period.append(shared_fitness)
+
+        self.shared_solution_fitness_history.extend(shared_fitness_this_period)
+        self.shared_solution_fitness_across_time.append(
+            np.mean(shared_fitness_this_period)
+            if shared_fitness_this_period else np.nan
+        )
+
+        # Keep the original learning rule: all agents inspect the randomized
+        # visible pool and adopt the first solution they perceive as superior.
+        adopted_fitness_this_period = []
         for agent in self.agents:
             for domains, solution in self.solution_pool:
                 learnt_solution = agent.state.copy()
                 for domain, bit in zip(domains, solution):
                     learnt_solution[domain] = bit
+
                 cog_solution = agent.state_2_cog_state(state=learnt_solution)
-                perception = agent.get_cog_fitness(cog_state=cog_solution, state=learnt_solution)
+                perception = agent.get_cog_fitness(
+                    cog_state=cog_solution, state=learnt_solution
+                )
+
                 if perception > agent.cog_fitness:
+                    # True fitness is measured only AFTER the cognitive
+                    # adoption decision, so it does not alter agent behavior.
+                    true_fitness = agent.landscape.query_second_fitness(
+                        state=learnt_solution
+                    )
                     agent.state = learnt_solution
                     agent.cog_state = cog_solution
                     agent.cog_fitness = perception
-                    agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
+                    agent.fitness = true_fitness
+
+                    adopted_fitness_this_period.append(true_fitness)
                     break
+
+        self.adopted_solution_fitness_history.extend(adopted_fitness_this_period)
+        self.adopted_solution_fitness_across_time.append(
+            np.mean(adopted_fitness_this_period)
+            if adopted_fitness_this_period else np.nan
+        )
+        self.adoption_count_across_time.append(len(adopted_fitness_this_period))
 
     def calculate_pairwise_solution_distance(self):
         """Average pairwise normalized Hamming distance across complete solutions."""
