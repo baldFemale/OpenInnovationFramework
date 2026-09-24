@@ -19,7 +19,7 @@ class Crowd:
         # - "full": agents disclose their whole solution string.
         # - "partial": agents disclose only the solution components in their knowledge domains.
         # The default is set to "full" to operationalize visibility as whole-solution visibility.
-        self.visibility_mode = "full"
+        self.visible_mode = "full"
 
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
