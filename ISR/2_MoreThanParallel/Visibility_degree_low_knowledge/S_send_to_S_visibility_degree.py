@@ -131,7 +131,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 200
+    landscape_iteration = 400
     search_iteration = 300
     N = 9
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
