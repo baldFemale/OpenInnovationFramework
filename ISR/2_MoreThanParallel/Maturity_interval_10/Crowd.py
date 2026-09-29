@@ -19,7 +19,7 @@ class Crowd:
         # - "full": agents disclose their whole solution string.
         # - "partial": agents disclose only the solution components in their knowledge domains.
         # The default is set to "full" to operationalize visibility as whole-solution visibility.
-        self.visibility_mode = "full"
+        self.visible_mode = "full"
 
         # self.lr = 1  # theoretically overlap with share_prob
         for _ in range(agent_num):
@@ -32,6 +32,7 @@ class Crowd:
                                    specialist_expertise=specialist_expertise)
                 self.agents.append(agent)
         self.solution_pool = []
+        self.adopted_solution_fitness_history = []
 
     def search(self):
         for agent in self.agents:
@@ -104,6 +105,7 @@ class Crowd:
                     agent.cog_state = cog_solution
                     agent.cog_fitness = perception
                     agent.fitness = agent.landscape.query_second_fitness(state=learnt_solution)
+                    self.adopted_solution_fitness_history.append(agent.fitness)
                     break
 
     def calculate_pairwise_solution_distance(self):
