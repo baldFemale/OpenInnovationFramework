@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision (**pending**): add the information cascade assumption; remove the separation between senders and receivers.">
-      <change afterPath="$PROJECT_DIR$/ISR/illustrations/visibility_distribution_illustration_larger_bold_text.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR/illustrations/visibility_distribution_illustration_refined.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge/evaluator_all_details.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge/evaluator_all_details.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge/evaluator_streamlined.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge/evaluator_streamlined.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +78,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR/2_MoreThanParallel/Maturity_interval_10",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Extent",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -87,18 +87,18 @@
     "python.lsp.tool.dont.ask.Basedpyright": "true",
     "python.lsp.tool.dont.ask.basedpyright": "true",
     "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
-    "settings.editor.selected.configurable": "advanced.settings",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" />
       <recent name="$PROJECT_DIR$/ISR/illustrations" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Timing" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Visibility_degree_low_knowledge" />
-      <recent name="$PROJECT_DIR$/ISR/1_Parallel_Search/Parallel_Search_K" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -547,7 +547,11 @@
       <workItem from="1790515161169" duration="2417000" />
       <workItem from="1790569819339" duration="5738000" />
       <workItem from="1790585629775" duration="3729000" />
-      <workItem from="1790682558412" duration="39000" />
+      <workItem from="1790682558412" duration="274000" />
+      <workItem from="1790739084143" duration="1402000" />
+      <workItem from="1790748632251" duration="27000" />
+      <workItem from="1791200014023" duration="899000" />
+      <workItem from="1791357837296" duration="2666000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -892,7 +896,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="613" />
+    <option name="localTasksCounter" value="614" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
