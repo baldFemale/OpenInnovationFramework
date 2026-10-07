@@ -36,28 +36,35 @@ class Solver:
         self.cog_fitness_across_time = [self.cog_fitness]
         self.fitness_across_time = [self.fitness]
 
-    def search(self) -> None:
-        next_state = self.state.copy()
+    def search(self, solution=None) -> bool:
+        """Try one local bit flip, or evaluate a supplied complete visible solution.
 
-        # Search only within the solver's knowledge domain.
-        index = np.random.choice(self.knowledge_domain)
-
-        free_space = ["0", "1"]
-        free_space.remove(next_state[index])
-        next_state[index] = np.random.choice(free_space)
+        Both moves use the receiver's knowledge and require strict perceived
+        improvement. Histories retain one entry per ordinary search opportunity.
+        """
+        local_search = solution is None
+        if local_search:
+            next_state = self.state.copy()
+            index = np.random.choice(self.knowledge_domain)
+            next_state[index] = "1" if next_state[index] == "0" else "0"
+        else:
+            next_state = list(solution)
 
         next_cog_fitness = self.landscape.query_scoped_fitness(
             state=next_state,
             knowledge_domain=self.knowledge_domain
         )
-
-        if next_cog_fitness > self.cog_fitness:
+        adopted = bool(next_cog_fitness > self.cog_fitness)
+        if adopted:
+            next_fitness = self.landscape.query_fitness(state=next_state)
             self.state = next_state
             self.cog_fitness = next_cog_fitness
-            self.fitness = self.landscape.query_fitness(state=self.state)
+            self.fitness = next_fitness
 
-        self.cog_fitness_across_time.append(self.cog_fitness)
-        self.fitness_across_time.append(self.fitness)
+        if local_search:
+            self.cog_fitness_across_time.append(self.cog_fitness)
+            self.fitness_across_time.append(self.fitness)
+        return adopted
 
     def describe(self) -> None:
         print("Solver Knowledge Domain: ", self.knowledge_domain)

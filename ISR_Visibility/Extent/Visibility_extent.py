@@ -37,87 +37,89 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     Both sender and receiver crowds contain the same type of bounded-knowledge
     solvers. All dependent variables are measured only on the receiver crowd.
     """
-    np.random.seed(None)
+    try:
+        np.random.seed(None)
 
-    if visibility_interval is None:
-        visibility_interval = 10
-    visibility_interval = int(visibility_interval)
-    if visibility_interval < 1:
-        raise ValueError("visibility_interval must be a positive integer.")
+        if visibility_interval is None:
+            visibility_interval = 10
+        visibility_interval = int(visibility_interval)
+        if visibility_interval < 1:
+            raise ValueError("visibility_interval must be a positive integer.")
 
-    landscape = Landscape(N=N, K=K)
+        landscape = Landscape(N=N, K=K)
 
-    # Sender crowd: solvers who independently search and make solutions visible
-    crowd_sender = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
-                         landscape=landscape)
+        # Sender crowd: solvers who independently search and make solutions visible
+        crowd_sender = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                             landscape=landscape)
 
-    # Receiver crowd: solvers who independently search and learn from visible sender solutions
-    crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
-                           landscape=landscape)
+        # Receiver crowd: solvers who independently search and learn from visible sender solutions
+        crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                               landscape=landscape)
 
-    crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
+        crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
-    # Search-process trajectory: cumulative mean true fitness of adopted solutions.
-    adopted_solution_fitness_across_time = []
+        # Search-process trajectory: cumulative mean true fitness of adopted solutions.
+        adopted_solution_fitness_across_time = []
 
-    for period in range(search_iteration):
-        # Both crowds conduct their own independent search.
-        crowd_sender.search()
-        crowd_receiver.search()
+        for period in range(search_iteration):
+            # Both crowds conduct their own independent search.
+            crowd_sender.search()
+            crowd_receiver.search()
 
-        if (period + 1) % visibility_interval == 0:
-            # Visible senders disclose their complete current solutions.
-            crowd_sender.get_visible_pool()
+            if (period + 1) % visibility_interval == 0:
+                # Visible senders disclose their complete current solutions.
+                crowd_sender.get_visible_pool()
 
-            # Receiver crowd learns only from sender's visible solutions.
-            crowd_receiver.solution_pool = [
-                solution.copy()
-                for solution in crowd_sender.solution_pool
-            ]
-            crowd_receiver.learn_from_visible_pool()
+                # Receiver crowd learns only from sender's visible solutions.
+                crowd_receiver.solution_pool = [
+                    solution.copy()
+                    for solution in crowd_sender.solution_pool
+                ]
+                crowd_receiver.learn_from_visible_pool()
 
-            adopted_solution_fitness_across_time.append(
-                np.mean(crowd_receiver.adopted_solution_fitness_history)
-                if crowd_receiver.adopted_solution_fitness_history else np.nan
-            )
+                adopted_solution_fitness_across_time.append(
+                    np.mean(crowd_receiver.adopted_solution_fitness_history)
+                    if crowd_receiver.adopted_solution_fitness_history else np.nan
+                )
 
-    # DVs are measured only on the receiver crowd.
-    performance_list = [agent.fitness for agent in crowd_receiver.agents]
-    fitness_rank_list = [
-        landscape.query_fitness_rank(state=agent.state)
-        for agent in crowd_receiver.agents
-    ]
+        # DVs are measured only on the receiver crowd.
+        performance_list = [agent.fitness for agent in crowd_receiver.agents]
+        fitness_rank_list = [
+            landscape.query_fitness_rank(state=agent.state)
+            for agent in crowd_receiver.agents
+        ]
 
-    breakthrough_fitness = max(performance_list)
-    breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
+        breakthrough_fitness = max(performance_list)
+        breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Calculate the number of unique complete solutions among receiver agents.
-    full_solution_set = set()
-    for agent in crowd_receiver.agents:
-        solution_str = "".join([str(bit) for bit in agent.state])
-        full_solution_set.add(solution_str)
+        # Calculate the number of unique complete solutions among receiver agents.
+        full_solution_set = set()
+        for agent in crowd_receiver.agents:
+            solution_str = "".join([str(bit) for bit in agent.state])
+            full_solution_set.add(solution_str)
 
-    unique_solution_count = len(full_solution_set)
+        unique_solution_count = len(full_solution_set)
 
-    # Average pairwise normalized Hamming distance among receiver agents.
-    pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
+        # Average pairwise normalized Hamming distance among receiver agents.
+        pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
-    # Search-process measure for visibility.
-    # Use true fitness rather than perceived fitness.
-    adopted_solution_fitness = (
-        np.mean(crowd_receiver.adopted_solution_fitness_history)
-        if crowd_receiver.adopted_solution_fitness_history else np.nan
-    )
+        # Search-process measure for visibility.
+        # Use true fitness rather than perceived fitness.
+        adopted_solution_fitness = (
+            np.mean(crowd_receiver.adopted_solution_fitness_history)
+            if crowd_receiver.adopted_solution_fitness_history else np.nan
+        )
 
-    return_dict[loop] = [
-        breakthrough_fitness,
-        breakthrough_rank,
-        unique_solution_count,
-        pairwise_diversity,
-        adopted_solution_fitness,
-        adopted_solution_fitness_across_time,
-    ]
-    sema.release()
+        return_dict[loop] = [
+            breakthrough_fitness,
+            breakthrough_rank,
+            unique_solution_count,
+            pairwise_diversity,
+            adopted_solution_fitness,
+            adopted_solution_fitness_across_time,
+        ]
+    finally:
+        sema.release()
 
 
 if __name__ == '__main__':
@@ -162,17 +164,37 @@ if __name__ == '__main__':
             jobs = []
 
             for loop in range(landscape_iteration):
-                sema.acquire()
+                # Check failed workers while waiting, including workers that
+                # were killed before they could release their semaphore.
+                while True:
+                    acquired = sema.acquire(timeout=0.5)
+                    failed_jobs = [(index, proc.exitcode)
+                                   for index, proc in enumerate(jobs)
+                                   if proc.exitcode not in (None, 0)]
+                    if failed_jobs:
+                        raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+                    if acquired:
+                        break
+
                 p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
                                                   visibility_extent, visibility_interval,
                                                   loop, return_dict, sema))
-                jobs.append(p)
                 p.start()
+                jobs.append(p)
 
             for proc in jobs:
-                proc.join()
+                while True:
+                    proc.join(timeout=0.5)
+                    failed_jobs = [(index, job.exitcode)
+                                   for index, job in enumerate(jobs)
+                                   if job.exitcode not in (None, 0)]
+                    if failed_jobs:
+                        raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+                    if not proc.is_alive():
+                        break
 
-            returns = list(return_dict.values())  # Don't need dict index, since it is repetition.
+            returns = list(return_dict.values())  # Repetition order does not affect the averages.
+
             arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (n_runs, 5)
             time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
 

@@ -72,7 +72,7 @@ class Crowd:
         """
         for agent in self.agents:
             for solution in self.solution_pool:
-                if agent.consider_solution(solution):
+                if agent.search(solution=solution):
                     self.adopted_solution_fitness_history.append(agent.fitness)
                     break
 
