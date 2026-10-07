@@ -163,37 +163,46 @@ if __name__ == '__main__':
             sema = Semaphore(concurrency)
             jobs = []
 
-            for loop in range(landscape_iteration):
-                # Check failed workers while waiting, including workers that
-                # were killed before they could release their semaphore.
-                while True:
-                    acquired = sema.acquire(timeout=0.5)
-                    failed_jobs = [(index, proc.exitcode)
-                                   for index, proc in enumerate(jobs)
-                                   if proc.exitcode not in (None, 0)]
-                    if failed_jobs:
-                        raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
-                    if acquired:
-                        break
+            try:
+                for loop in range(landscape_iteration):
+                    # Check failed workers while waiting, including workers that
+                    # were killed before they could release their semaphore.
+                    while True:
+                        acquired = sema.acquire(timeout=0.5)
+                        failed_jobs = [(index, proc.exitcode)
+                                       for index, proc in enumerate(jobs)
+                                       if proc.exitcode not in (None, 0)]
+                        if failed_jobs:
+                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+                        if acquired:
+                            break
 
-                p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                  visibility_extent, visibility_interval,
-                                                  loop, return_dict, sema))
-                p.start()
-                jobs.append(p)
+                    p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
+                                                      visibility_extent, visibility_interval,
+                                                      loop, return_dict, sema))
+                    p.start()
+                    jobs.append(p)
 
-            for proc in jobs:
-                while True:
-                    proc.join(timeout=0.5)
-                    failed_jobs = [(index, job.exitcode)
-                                   for index, job in enumerate(jobs)
-                                   if job.exitcode not in (None, 0)]
-                    if failed_jobs:
-                        raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
-                    if not proc.is_alive():
-                        break
+                for proc in jobs:
+                    while True:
+                        proc.join(timeout=0.5)
+                        failed_jobs = [(index, job.exitcode)
+                                       for index, job in enumerate(jobs)
+                                       if job.exitcode not in (None, 0)]
+                        if failed_jobs:
+                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+                        if not proc.is_alive():
+                            break
 
-            returns = list(return_dict.values())  # Repetition order does not affect the averages.
+                returns = list(return_dict.values())  # Repetition order does not affect the averages.
+            finally:
+                for proc in jobs:
+                    if proc.is_alive():
+                        proc.terminate()
+                for proc in jobs:
+                    proc.join()
+                    proc.close()
+                manager.shutdown()
 
             arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (n_runs, 5)
             time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
