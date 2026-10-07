@@ -1,89 +1,235 @@
-"""Conventional binary NK landscape with exhaustive fitness and rank caches."""
+# -*- coding: utf-8 -*-
+# @Time     : 12/14/2021 19:59
+# @Author   : Junyi
+# @FileName: Landscape.py
+# @Software  : PyCharm
+# Observing PEP 8 coding style
 
-from numbers import Integral
+from collections import defaultdict
+from itertools import product
 import numpy as np
 
 
-def require_integer(name, value, minimum, maximum=None):
-    if (isinstance(value, bool) or not isinstance(value, Integral)
-            or value < minimum or (maximum is not None and value > maximum)):
-        raise ValueError(f"{name} must be an integer in [{minimum}, {maximum}].")
-
-
 class Landscape:
-    def __init__(self, N: int, K: int, norm="MaxMin", rng=None):
-        require_integer("N", N, 1)
-        require_integer("K", K, 0, N - 1)
-        if norm not in (None, "MaxMin"):
-            raise ValueError("norm must be None or 'MaxMin'.")
-        self.N, self.K, self.norm = N, K, norm
-        self.rng = rng if rng is not None else np.random.default_rng()
-        self.IM = np.eye(N, dtype=int)
-        self.dependency_map = []
-        for row in range(N):
-            candidates = [column for column in range(N) if column != row]
-            dependencies = sorted(self.rng.choice(candidates, K, replace=False).tolist())
-            self.IM[row, dependencies] = 1
-            self.dependency_map.append(dependencies)
-        self.FC = self.rng.uniform(0, 1, size=(N, 2 ** (K + 1)))
+    def __init__(self, N: int, K: int, norm="MaxMin"):
+        """
+        :param N:
+        :param K:
+        :param norm: normalization methods
+        """
+        self.N = N
+        self.K = K
+        self.IM, self.dependency_map = np.eye(self.N), [[]] * self.N
+        self.FC = None
+
+        self.local_optima = {}
         self.fitness_cache = {}
         self.fitness_rank_cache = {}
-        self._store_caches()
 
-    def _store_caches(self):
-        # Enumerate configurations as integers to avoid a large list of bit tuples.
-        configurations = np.arange(2 ** self.N, dtype=np.uint64)
-        fitness = np.zeros(len(configurations), dtype=float)
-        for row, dependencies in enumerate(self.dependency_map):
-            indices = np.zeros(len(configurations), dtype=np.int64)
-            for dimension in [row] + dependencies:
-                bits = (configurations >> (self.N - 1 - dimension)) & 1
-                indices = 2 * indices + bits.astype(np.int64)
-            fitness += self.FC[row, indices]
-        fitness /= self.N
-        self.min_normalizer = float(fitness.min())
-        self.max_normalizer = float(fitness.max())
-        if self.norm == "MaxMin":
-            span = self.max_normalizer - self.min_normalizer
-            fitness = (fitness - self.min_normalizer) / span if span else np.zeros_like(fitness)
-        self.fitness_cache = {
-            format(index, f"0{self.N}b"): float(value)
-            for index, value in enumerate(fitness)
-        }
-        # Competition ranks: tied solutions share ranks, e.g. 1, 2, 2, 4.
-        previous = None
-        rank = 0
-        for position, (state, value) in enumerate(
-                sorted(self.fitness_cache.items(), key=lambda item: item[1], reverse=True), 1):
-            if value != previous:
-                rank, previous = position, value
-            self.fitness_rank_cache[state] = rank
+        self.max_normalizer, self.min_normalizer = 1, 0
+        self.norm = norm
+        self.initialize()  # Initialization and Normalization
 
-    def _state_key(self, state):
-        if len(state) != self.N or any(bit not in ("0", "1") for bit in state):
-            raise ValueError("state must contain exactly N binary string values.")
-        return "".join(state)
+    def create_IM(self):
+        if self.K == 0:
+            self.IM = np.eye(self.N)
 
-    def query_fitness(self, state):
-        """Mean of all contributions, optionally rescaled across the landscape."""
-        return self.fitness_cache[self._state_key(state)]
+        elif self.K >= (self.N - 1):
+            self.K = self.N - 1
+            self.IM = np.ones((self.N, self.N))
 
-    def query_fitness_rank(self, state):
-        return self.fitness_rank_cache[self._state_key(state)]
+        else:
+            # each row has a fixed number of dependency (i.e., K)
+            for i in range(self.N):
+                probs = [1 / (self.N - 1)] * i + [0] + [1 / (self.N - 1)] * (self.N - 1 - i)
+                ids = np.random.choice(self.N, self.K, p=probs, replace=False)
 
-    def query_scoped_fitness(self, state, knowledge_domain):
-        """Raw mean of known contributions, using the complete state contingencies.
+                for index in ids:
+                    self.IM[i][index] = 1
 
-        Perception is always on the raw contribution scale. Optional objective
-        normalization is a positive affine transform and does not affect choices.
+        for i in range(self.N):
+            temp = []
+
+            for j in range(self.N):
+                if (i != j) & (self.IM[i][j] == 1):
+                    temp.append(j)
+
+            self.dependency_map[i] = temp
+
+    def create_fitness_configuration(self):
+        FC = defaultdict(dict)
+
+        for row in range(self.N):
+            k = int(sum(self.IM[row]))  # typically k = K + 1
+
+            for column in range(pow(2, k)):
+                FC[row][column] = np.random.uniform(0, 1)
+
+        self.FC = FC
+
+    def calculate_fitness(self, state: list) -> float:
+        result = []
+        state = "".join(state)
+
+        for i in range(self.N):
+            dependency = self.dependency_map[i]
+            bin_index = "".join([state[j] for j in dependency])
+            bin_index = state[i] + bin_index
+            index = int(bin_index, 2)
+            result.append(self.FC[i][index])
+
+        return sum(result) / len(result)
+
+    def store_cache(self):
+        for state in product(["0", "1"], repeat=self.N):
+            bits = "".join(state)
+            self.fitness_cache[bits] = self.calculate_fitness(state)
+
+    def store_rank_cache(self):
         """
-        key = self._state_key(state)
-        domain = tuple(knowledge_domain)
-        if not domain or len(set(domain)) != len(domain):
-            raise ValueError("knowledge_domain must be nonempty and contain distinct dimensions.")
-        total = 0.0
-        for row in domain:
-            require_integer("knowledge dimension", row, 0, self.N - 1)
-            index = int(key[row] + "".join(key[j] for j in self.dependency_map[row]), 2)
-            total += self.FC[row, index]
-        return float(total / len(domain))
+        Store the rank of each solution on the binary NK landscape.
+
+        Rank 1 corresponds to the highest-fitness solution.
+        Ties receive the same competition rank, e.g., 1, 2, 2, 4.
+        """
+        self.fitness_rank_cache = {}
+
+        sorted_items = sorted(self.fitness_cache.items(),
+                              key=lambda item: item[1],
+                              reverse=True)
+
+        previous_fitness = None
+        current_rank = 0
+
+        for index, (state, fitness) in enumerate(sorted_items, start=1):
+            if fitness != previous_fitness:
+                current_rank = index
+                previous_fitness = fitness
+
+            self.fitness_rank_cache[state] = current_rank
+
+    def initialize(self):
+        self.create_IM()
+        self.create_fitness_configuration()
+        self.store_cache()
+
+        self.max_normalizer = max(self.fitness_cache.values())
+        self.min_normalizer = min(self.fitness_cache.values())
+
+        # normalization
+        if self.norm == "MaxMin":
+            for key in self.fitness_cache.keys():
+                self.fitness_cache[key] = (
+                    (self.fitness_cache[key] - self.min_normalizer)
+                    / (self.max_normalizer - self.min_normalizer)
+                )
+
+        self.store_rank_cache()
+
+    def query_fitness(self, state: list) -> float:
+        return self.fitness_cache["".join(state)]
+
+    def query_fitness_rank(self, state: list) -> int:
+        return self.fitness_rank_cache["".join(state)]
+
+    def query_scoped_fitness(self, state: list, knowledge_domain: list) -> float:
+        """
+        Remove the fitness contribution of the unknown domains.
+
+        Unknown domains still indirectly shape the known domains' fitness
+        contributions through the NK interdependency structure.
+        """
+        scoped_fitness = []
+        state = "".join(state)
+
+        for row in knowledge_domain:
+            dependency = self.dependency_map[row]
+            bin_index = "".join([state[j] for j in dependency])
+            bin_index = state[row] + bin_index
+            index = int(bin_index, 2)
+            scoped_fitness.append(self.FC[row][index])
+
+        return sum(scoped_fitness) / len(scoped_fitness)
+
+    def count_local_optima(self):
+        counter = 0
+
+        for key, value in self.fitness_cache.items():
+            neighbor_list = self.get_neighbor_list(key=key)
+            is_local_optima = True
+
+            for neighbor in neighbor_list:
+                if self.query_fitness(state=list(neighbor)) > value:
+                    is_local_optima = False
+                    break
+
+            if is_local_optima:
+                counter += 1
+                self.local_optima[key] = value
+
+        return counter
+
+    def get_neighbor_list(self, key: str) -> list:
+        """
+        :param key: string from the binary landscape cache, e.g., "0011"
+        :return: list of neighboring states with one bit flipped
+        """
+        neighbor_states = []
+
+        for i, char in enumerate(key):
+            if char == "0":
+                new_state = key[:i] + "1" + key[i + 1:]
+            else:
+                new_state = key[:i] + "0" + key[i + 1:]
+
+            neighbor_states.append(new_state)
+
+        return neighbor_states
+
+    @staticmethod
+    def get_hamming_distance(state_1: list, state_2: list) -> int:
+        distance = 0
+
+        for a, b in zip(state_1, state_2):
+            if a != b:
+                distance += 1
+
+        return distance
+
+    def describe(self):
+        print("LandScape shape of N={0}, K={1}".format(self.N, self.K))
+        print("Influential Matrix: \n", self.IM)
+        print("Influential Dependency Map: ", self.dependency_map)
+        print("Cache Samples:")
+
+        for key, value in self.fitness_cache.items():
+            print(key, value, "Rank:", self.fitness_rank_cache[key])
+            break
+
+
+if __name__ == '__main__':
+    # Test Example
+    import time
+
+    t0 = time.time()
+
+    N = 6
+    K = 2
+
+    np.random.seed(1000)
+    landscape = Landscape(N=N, K=K, norm="MaxMin")
+    landscape.describe()
+
+    max_state = max(landscape.fitness_cache, key=landscape.fitness_cache.get)
+    min_state = min(landscape.fitness_cache, key=landscape.fitness_cache.get)
+
+    print("Highest-fitness state:", max_state,
+          "Fitness:", landscape.query_fitness(list(max_state)),
+          "Rank:", landscape.query_fitness_rank(list(max_state)))
+
+    print("Lowest-fitness state:", min_state,
+          "Fitness:", landscape.query_fitness(list(min_state)),
+          "Rank:", landscape.query_fitness_rank(list(min_state)))
+
+    t1 = time.time()
+    print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

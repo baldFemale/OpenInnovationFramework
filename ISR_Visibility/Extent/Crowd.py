@@ -1,73 +1,109 @@
-"""Independent local search and optional within-crowd solution visibility."""
+# -*- coding: utf-8 -*-
+# @Time     : 6/22/2023 20:46
+# @Author   : Junyi
+# @FileName: Crowd.py
+# @Software  : PyCharm
+# Observing PEP 8 coding style
 
-import numpy as np
 from Solver import Solver
-from Landscape import require_integer
+import numpy as np
 
 
 class Crowd:
-    def __init__(self, N, agent_num, knowledge_breadth, landscape,
-                 rng=None, visibility_rng=None):
-        require_integer("agent_num", agent_num, 1)
-        self.N, self.agent_num = N, agent_num
-        self.rng = rng if rng is not None else np.random.default_rng()
-        self.visibility_rng = (visibility_rng if visibility_rng is not None
-                               else np.random.default_rng())
-        self.agents = [Solver(N, landscape, knowledge_breadth, rng=self.rng)
-                       for _ in range(agent_num)]
-        self.solution_pool = ()
+    def __init__(self, N: int, agent_num: int, knowledge_breadth: int,
+                 landscape: object):
+        self.N = N
+        self.agent_num = agent_num
+        self.agents = []
+
+        for _ in range(agent_num):
+            agent = Solver(N=N, landscape=landscape,
+                           knowledge_breadth=knowledge_breadth)
+            self.agents.append(agent)
+
+        self.solution_pool = []
         self.adopted_solution_fitness_history = []
 
     def search(self):
         for agent in self.agents:
             agent.search()
 
-    def set_visibility_status(self, visibility_extent):
-        """Assign round(extent * population) visible paths; retain until reassigned.
-
-        A full permutation uses the same random draws at every extent. With a
-        matched seed, smaller visible sets are subsets of larger visible sets.
+    def set_visibility_status(self, visibility_extent: float):
         """
-        if not np.isfinite(visibility_extent) or not 0 <= visibility_extent <= 1:
+        Fix solver-level visibility status for the whole experiment.
+
+        visibility_extent is interpreted as the proportion of solvers whose
+        solutions are structurally visible. Once assigned, visibility_status
+        does not change across visibility periods unless this method is called
+        again.
+        """
+        if visibility_extent < 0 or visibility_extent > 1:
             raise ValueError("visibility_extent must be between 0 and 1.")
+
         visible_num = int(round(visibility_extent * self.agent_num))
-        visible = set(self.visibility_rng.permutation(self.agent_num)[:visible_num])
+        visible_indices = np.random.choice(range(self.agent_num),
+                                           size=visible_num,
+                                           replace=False).tolist()
+
         for index, agent in enumerate(self.agents):
-            agent.visibility_status = index in visible
+            agent.visibility_status = index in visible_indices
 
     def get_visible_pool(self):
-        """Return immutable (sender index, complete state) snapshots in random order."""
-        order = self.visibility_rng.permutation(self.agent_num)
-        self.solution_pool = tuple(
-            (int(index), tuple(self.agents[index].state))
-            for index in order if self.agents[index].visibility_status)
-        return self.solution_pool
+        """
+        Construct the visible solution pool.
+
+        Each structurally visible solver discloses its complete current
+        solution. The order of visible solutions is randomized before
+        receivers evaluate them.
+        """
+        self.solution_pool = []
+
+        for agent in self.agents:
+            if agent.visibility_status:
+                solution = agent.state.copy()
+                self.solution_pool.append(solution)
+
+        np.random.shuffle(self.solution_pool)
 
     def learn_from_visible_pool(self):
-        """Each receiver accepts the first improving external solution, if any.
-
-        The fixed snapshot is never updated during this event. Pool order is
-        shared across receivers, as in the existing self-selection rule.
         """
-        adopted = []
-        for receiver_id, agent in enumerate(self.agents):
-            for sender_id, solution in self.solution_pool:
-                if sender_id == receiver_id:
-                    continue
+        Receiver solvers evaluate visible solutions using their own bounded
+        knowledge and adopt the first solution that improves perceived fitness.
+        """
+        for agent in self.agents:
+            for solution in self.solution_pool:
                 if agent.consider_solution(solution):
-                    adopted.append(agent.fitness)
+                    self.adopted_solution_fitness_history.append(agent.fitness)
                     break
-        self.adopted_solution_fitness_history.extend(adopted)
-        return adopted
 
-    def calculate_dispersion(self):
-        """Average pairwise normalized Hamming distance over complete solutions."""
-        if self.agent_num <= 1:
-            return 0.0
-        ones = np.sum([[bit == "1" for bit in agent.state] for agent in self.agents], axis=0)
-        different_pairs = np.sum(ones * (self.agent_num - ones))
-        pairs = self.agent_num * (self.agent_num - 1) / 2
-        return float(different_pairs / (pairs * self.N))
+    def calculate_pairwise_solution_distance(self):
+        """Average pairwise normalized Hamming distance across complete solutions."""
+        states = [agent.state for agent in self.agents]
+
+        if len(states) <= 1:
+            return 0
+
+        distance_list = []
+
+        for i in range(len(states)):
+            for j in range(i + 1, len(states)):
+                distance = (
+                    sum(
+                        1
+                        for bit_i, bit_j in zip(states[i], states[j])
+                        if bit_i != bit_j
+                    )
+                    / self.N
+                )
+                distance_list.append(distance)
+
+        return np.mean(distance_list)
 
     def unique_solution_count(self):
-        return len({tuple(agent.state) for agent in self.agents})
+        full_solution_set = set()
+
+        for agent in self.agents:
+            solution_str = "".join([str(bit) for bit in agent.state])
+            full_solution_set.add(solution_str)
+
+        return len(full_solution_set)

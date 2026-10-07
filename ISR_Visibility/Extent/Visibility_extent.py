@@ -5,7 +5,6 @@
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
-import copy
 import numpy as np
 from Landscape import Landscape
 from Crowd import Crowd
@@ -16,27 +15,27 @@ import pickle
 
 
 # mp version
-def func(N=None, K=None, agent_num=None, knowledge_breadth=None,
-         search_iteration=None, visibility_extent=None,
-         visibility_interval=10, loop=None, return_dict=None, sema=None):
+def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
+         visibility_extent=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
     """
-    Visibility-extent experiment with separate sender and receiver crowds.
+    Visibility-extent experiment with separated sender and receiver crowds.
 
-    Both crowds contain the same type of bounded-knowledge solvers and search
-    independently on the same binary NK landscape.
+    visibility_extent determines the proportion of sender agents whose
+    visibility_status is fixed as True for the whole run.
+    Every visibility interval, those visible senders disclose their current full solution.
 
-    visibility_extent determines the proportion of sender solvers whose current
-    solutions are structurally visible throughout the run.
+    Visibility condition:
+        visibility is activated every visibility_interval periods;
+        when activated, sender visibility is determined by visibility_extent.
 
-    Every visibility_interval periods:
-        1. the sender crowd constructs a pool of its visible current solutions;
-        2. the receiver crowd observes that pool;
-        3. receiver solvers self-selectively adopt visible solutions according
-           to their own bounded evaluation.
+    Interpretation:
+        visibility_extent = visibility extent
+        visibility_interval = visibility frequency
+            visibility_interval = 1 means visible every period.
+            visibility_interval = 5 means visible at periods 5, 10, 15, ...
 
-    Receiver learning does not feed back into the sender crowd.
-
-    All dependent variables are measured only on the receiver crowd.
+    Both sender and receiver crowds contain the same type of bounded-knowledge
+    solvers. All dependent variables are measured only on the receiver crowd.
     """
     np.random.seed(None)
 
@@ -46,43 +45,35 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None,
     if visibility_interval < 1:
         raise ValueError("visibility_interval must be a positive integer.")
 
-    # Conventional binary NK landscape
     landscape = Landscape(N=N, K=K)
 
-    # Two separate crowds with the same solver architecture and knowledge breadth.
-    crowd_sender = Crowd(
-        N=N,
-        agent_num=agent_num,
-        knowledge_breadth=knowledge_breadth,
-        landscape=landscape
-    )
+    # Sender crowd: solvers who independently search and make solutions visible
+    crowd_sender = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                         landscape=landscape)
 
-    crowd_receiver = Crowd(
-        N=N,
-        agent_num=agent_num,
-        knowledge_breadth=knowledge_breadth,
-        landscape=landscape
-    )
+    # Receiver crowd: solvers who independently search and learn from visible sender solutions
+    crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                           landscape=landscape)
 
-    # Only sender solutions become structurally visible.
-    crowd_sender.set_visibility_status(visibility_extent)
+    crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
-    # Search-process trajectory:
-    # cumulative mean objective fitness of solutions adopted by receivers.
+    # Search-process trajectory: cumulative mean true fitness of adopted solutions.
     adopted_solution_fitness_across_time = []
 
     for period in range(search_iteration):
-        # Both crowds conduct their own independent local search.
+        # Both crowds conduct their own independent search.
         crowd_sender.search()
         crowd_receiver.search()
 
         if (period + 1) % visibility_interval == 0:
-            # Sender crowd releases its currently visible complete solutions.
+            # Visible senders disclose their complete current solutions.
             crowd_sender.get_visible_pool()
 
-            # Receiver crowd observes only solutions from the sender crowd.
-            # Deep copy keeps receiver adoption from changing the sender pool.
-            crowd_receiver.solution_pool = copy.deepcopy(crowd_sender.solution_pool)
+            # Receiver crowd learns only from sender's visible solutions.
+            crowd_receiver.solution_pool = [
+                solution.copy()
+                for solution in crowd_sender.solution_pool
+            ]
             crowd_receiver.learn_from_visible_pool()
 
             adopted_solution_fitness_across_time.append(
@@ -90,30 +81,29 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None,
                 if crowd_receiver.adopted_solution_fitness_history else np.nan
             )
 
-    # ------------------------------------------------------------
-    # Dependent variables: receiver crowd only
-    # ------------------------------------------------------------
-
-    performance_list = [
-        agent.fitness
-        for agent in crowd_receiver.agents
-    ]
-
+    # DVs are measured only on the receiver crowd.
+    performance_list = [agent.fitness for agent in crowd_receiver.agents]
     fitness_rank_list = [
         landscape.query_fitness_rank(state=agent.state)
         for agent in crowd_receiver.agents
     ]
 
     breakthrough_fitness = max(performance_list)
-    breakthrough_rank = min(fitness_rank_list)
+    breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-    # Coverage / number of unique complete solutions.
-    unique_solution_count = crowd_receiver.unique_solution_count()
+    # Calculate the number of unique complete solutions among receiver agents.
+    full_solution_set = set()
+    for agent in crowd_receiver.agents:
+        solution_str = "".join([str(bit) for bit in agent.state])
+        full_solution_set.add(solution_str)
 
-    # Dispersion / average pairwise normalized Hamming distance.
-    dispersion = crowd_receiver.calculate_dispersion()
+    unique_solution_count = len(full_solution_set)
 
-    # Mean objective quality of solutions actually adopted from the sender crowd.
+    # Average pairwise normalized Hamming distance among receiver agents.
+    pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
+
+    # Search-process measure for visibility.
+    # Use true fitness rather than perceived fitness.
     adopted_solution_fitness = (
         np.mean(crowd_receiver.adopted_solution_fitness_history)
         if crowd_receiver.adopted_solution_fitness_history else np.nan
@@ -123,64 +113,45 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None,
         breakthrough_fitness,
         breakthrough_rank,
         unique_solution_count,
-        dispersion,
+        pairwise_diversity,
         adopted_solution_fitness,
         adopted_solution_fitness_across_time,
     ]
-
     sema.release()
 
 
 if __name__ == '__main__':
     import datetime
-
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    # ------------------------------------------------------------
-    # Experiment parameters
-    # ------------------------------------------------------------
-
     landscape_iteration = 400
     search_iteration = 300
-
-    # Binary N=18 has 2^18 = 262,144 possible solutions,
-    # matching the solution-space size of the previous four-state N=9 model.
-    N = 18
-
+    N = 20
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Number of problem dimensions each solver can deliberately search/evaluate.
-    knowledge_breadth = 6
+    # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
+    knowledge_breadth = 10
 
-    # Proportion of sender solvers whose current solutions are visible.
-    visibility_extent_list = [
-        0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
-        0.1, 0.2, 0.3, 0.4, 0.5, 0.6,
-        0.7, 0.8, 0.9, 1.0
-    ]
+    # Visibility extent: proportion of sender solutions that are visible to receivers.
+    # visibility_extent = 0.0 means no sender solutions are visible.
+    # visibility_extent = 1.0 means all sender solutions are visible.
+    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Sender solutions are released every x periods.
+    # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
     agent_num = 200
-
-    # N=18 requires substantially more memory than the old binary N=9 model.
-    # Increase concurrency only after checking memory use on the cluster.
-    concurrency = 4
-
-    # ------------------------------------------------------------
-    # Experiment
-    # ------------------------------------------------------------
+    concurrency = 100
 
     for visibility_extent in visibility_extent_list:
-
-        # DVs across K
+        # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
         unique_solution_count_across_K = []
-        dispersion_across_K = []
+        pairwise_diversity_across_K = []
         adopted_solution_fitness_across_K = []
         adopted_solution_fitness_across_time_across_K = []
 
@@ -192,134 +163,71 @@ if __name__ == '__main__':
 
             for loop in range(landscape_iteration):
                 sema.acquire()
-
-                p = mp.Process(
-                    target=func,
-                    args=(
-                        N,
-                        K,
-                        agent_num,
-                        knowledge_breadth,
-                        search_iteration,
-                        visibility_extent,
-                        visibility_interval,
-                        loop,
-                        return_dict,
-                        sema,
-                    )
-                )
-
+                p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
+                                                  visibility_extent, visibility_interval,
+                                                  loop, return_dict, sema))
                 jobs.append(p)
                 p.start()
 
             for proc in jobs:
                 proc.join()
 
-            returns = list(return_dict.values())
+            returns = list(return_dict.values())  # Don't need dict index, since it is repetition.
+            arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (n_runs, 5)
+            time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
 
-            # First five outcomes are scalar measures.
-            arr = np.asarray(
-                [item[:5] for item in returns],
-                dtype=float
-            )
-
-            # Sixth outcome is the adoption-quality trajectory.
-            time_series_arr = np.asarray(
-                [item[5] for item in returns],
-                dtype=float
-            )
-
-            # First four DVs are always defined.
+            # The first four DVs are always defined. The visibility-process
+            # measure can be np.nan when a run contains no adoption.
             means = arr[:, :4].mean(axis=0)
 
-            # Adoption quality is undefined when no visible solution is adopted.
             adopted_solution_fitness_mean = (
                 np.nan
                 if np.all(np.isnan(arr[:, 4]))
                 else np.nanmean(arr[:, 4])
             )
 
-            # Average cumulative adoption-quality trajectory across repetitions.
+            # Average the cumulative adoption-quality trajectory across landscape repetitions.
             if np.all(np.isnan(time_series_arr)):
                 adopted_solution_fitness_across_time_mean = time_series_arr[0].tolist()
             else:
-                adopted_solution_fitness_across_time_mean = np.nanmean(
-                    time_series_arr,
-                    axis=0
-                ).tolist()
+                adopted_solution_fitness_across_time_mean = np.nanmean(time_series_arr, axis=0).tolist()
 
             breakthrough_fitness_across_K.append(means[0])
             breakthrough_rank_across_K.append(means[1])
             unique_solution_count_across_K.append(means[2])
-            dispersion_across_K.append(means[3])
-            adopted_solution_fitness_across_K.append(
-                adopted_solution_fitness_mean
-            )
+            pairwise_diversity_across_K.append(means[3])
+            adopted_solution_fitness_across_K.append(adopted_solution_fitness_mean)
             adopted_solution_fitness_across_time_across_K.append(
                 adopted_solution_fitness_across_time_mean
             )
 
-        # ------------------------------------------------------------
-        # Save results
-        # ------------------------------------------------------------
-
-        with open(
-            "visibility_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
+        # Save results across K for each visibility extent and visibility interval.
+        with open("visibility_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open(
-            "visibility_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
+        with open("visibility_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open(
-            "visibility_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
+        with open("visibility_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open(
-            "visibility_extent_{0}_interval_{1}_dispersion_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
-            pickle.dump(dispersion_across_K, out_file)
+        with open("visibility_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open(
-            "visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
+        with open("visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open(
-            "visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num
-            ),
-            'wb'
-        ) as out_file:
-            pickle.dump(
-                adopted_solution_fitness_across_time_across_K,
-                out_file
-            )
+        with open("visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+            pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
     t1 = time.time()
-
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-
-    print(
-        "Visibility Extent with Interval {0}: ".format(visibility_interval),
-        time.strftime("%H:%M:%S", time.gmtime(t1 - t0))
-    )
+    print("Visibility Extent with Interval {0}: ".format(visibility_interval),
+          time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

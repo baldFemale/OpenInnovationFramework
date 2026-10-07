@@ -1,39 +1,90 @@
-"""One solver type: binary local search under a fixed, bounded knowledge scope."""
+# -*- coding: utf-8 -*-
+# @Time     : 12/14/2021 19:59
+# @Author   : Junyi
+# @FileName: Solver.py
+# @Software  : PyCharm
+# Observing PEP 8 coding style
 
 import numpy as np
-from Landscape import require_integer
+from Landscape import Landscape
 
 
 class Solver:
-    def __init__(self, N, landscape, knowledge_breadth, visibility_status=False, rng=None):
-        if N != landscape.N:
-            raise ValueError("N must match the landscape.")
-        require_integer("knowledge_breadth", knowledge_breadth, 1, N)
-        self.N = N
+    def __init__(self, N=None, landscape=None, knowledge_breadth=None,
+                 visibility_status=False):
+        """
+        :param N: problem dimension
+        :param landscape: assigned landscape
+        :param knowledge_breadth: number of problem dimensions within the solver's knowledge scope
+        :param visibility_status: whether this solver's solution is structurally visible
+        """
         self.landscape = landscape
-        self.rng = rng if rng is not None else np.random.default_rng()
-        self.knowledge_domain = tuple(sorted(
-            self.rng.choice(N, knowledge_breadth, replace=False).tolist()))
-        self.state = self.rng.choice(["0", "1"], N).tolist()
-        self.perceived_fitness = self.evaluate_solution(self.state)
-        self.fitness = landscape.query_fitness(self.state)
-        self.visibility_status = bool(visibility_status)
+        self.N = N
+        self.visibility_status = visibility_status
 
-    def evaluate_solution(self, state):
-        return self.landscape.query_scoped_fitness(state, self.knowledge_domain)
+        self.knowledge_domain = np.random.choice(range(self.N), knowledge_breadth,
+                                                 replace=False).tolist()
 
-    def consider_solution(self, state):
-        """Adopt a complete position only on strict perceived improvement."""
-        perception = self.evaluate_solution(state)
-        if perception <= self.perceived_fitness:
-            return False
-        self.state = list(state)
-        self.perceived_fitness = perception
-        self.fitness = self.landscape.query_fitness(self.state)
-        return True
+        self.state = np.random.choice(["0", "1"], self.N).tolist()
 
-    def search(self):
-        candidate = self.state.copy()
-        dimension = self.rng.choice(self.knowledge_domain)
-        candidate[dimension] = "1" if candidate[dimension] == "0" else "0"
-        return self.consider_solution(candidate)
+        self.cog_fitness = self.landscape.query_scoped_fitness(
+            state=self.state,
+            knowledge_domain=self.knowledge_domain
+        )
+        self.fitness = self.landscape.query_fitness(state=self.state)
+
+        self.cog_fitness_across_time = [self.cog_fitness]
+        self.fitness_across_time = [self.fitness]
+
+    def search(self) -> None:
+        next_state = self.state.copy()
+
+        # Search only within the solver's knowledge domain.
+        index = np.random.choice(self.knowledge_domain)
+
+        free_space = ["0", "1"]
+        free_space.remove(next_state[index])
+        next_state[index] = np.random.choice(free_space)
+
+        next_cog_fitness = self.landscape.query_scoped_fitness(
+            state=next_state,
+            knowledge_domain=self.knowledge_domain
+        )
+
+        if next_cog_fitness > self.cog_fitness:
+            self.state = next_state
+            self.cog_fitness = next_cog_fitness
+            self.fitness = self.landscape.query_fitness(state=self.state)
+
+        self.cog_fitness_across_time.append(self.cog_fitness)
+        self.fitness_across_time.append(self.fitness)
+
+    def describe(self) -> None:
+        print("Solver Knowledge Domain: ", self.knowledge_domain)
+        print("State: {0}, Fitness: {1}".format(self.state, self.fitness))
+        print("Cognitive Fitness: ", self.cog_fitness)
+
+
+if __name__ == '__main__':
+    # Test Example
+    import time
+
+    t0 = time.time()
+
+    np.random.seed(1000)
+    search_iteration = 100
+
+    N = 9
+    K = 2
+    knowledge_breadth = 3
+
+    landscape = Landscape(N=N, K=K)
+    solver = Solver(N=N, landscape=landscape,
+                    knowledge_breadth=knowledge_breadth)
+
+    for _ in range(search_iteration):
+        solver.search()
+        print(solver.state, solver.cog_fitness, solver.fitness)
+
+    t1 = time.time()
+    print(time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
