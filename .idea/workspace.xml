@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Solver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/evaluator_all_details.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/evaluator_visibility_extent.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Rank",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Extent",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,10 +95,10 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Rank" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Maturity" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -553,7 +553,8 @@
       <workItem from="1790748632251" duration="27000" />
       <workItem from="1791200014023" duration="899000" />
       <workItem from="1791357837296" duration="7727000" />
-      <workItem from="1791376431969" duration="1468000" />
+      <workItem from="1791376431969" duration="1855000" />
+      <workItem from="1791647360603" duration="957000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -898,7 +899,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="620" />
+    <option name="localTasksCounter" value="621" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

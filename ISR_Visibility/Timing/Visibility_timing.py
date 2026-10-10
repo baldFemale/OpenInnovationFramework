@@ -135,7 +135,7 @@ if __name__ == '__main__':
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
     # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 10
+    knowledge_breadth = 5
 
     # Visibility extent is fixed; visibility_start is the focal running parameter.
     visibility_extent = 1.0
@@ -144,7 +144,7 @@ if __name__ == '__main__':
     # Visibility starts at visibility_start, then repeats at the specified interval.
     visibility_interval = 10
 
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for visibility_start in visibility_start_list:

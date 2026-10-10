@@ -1,7 +1,7 @@
 #!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Author   : Junyi
-# @FileName: Visibility_maturity.py
+# @FileName: Visibility_rank.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,25 +16,31 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         uniform_sharing_prob=None, maturity_threshold=None, loop=None, return_dict=None, sema=None):
+         visibility_extent=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
     """
-    Maturity-based visibility experiment with separated sender and receiver crowds.
+    Rank-based visibility experiment with separated sender and receiver crowds.
 
-    Both crowds conduct ordinary local search every period. A sender discloses
-    its complete current solution when a fresh random draw is below
-    uniform_sharing_prob and its cog_fitness is at least maturity_threshold.
+    visibility_extent fixes the proportion of structurally visible senders for
+    the run. Both crowds search every period; disclosure occurs every
+    visibility_interval periods, after local search.
 
-    Maturity is evaluated using the sender's perceived fitness. Receivers
-    evaluate disclosed solutions using their own bounded knowledge.
-    Receiver solutions do not feed back into the sender pool.
+    Each receiver samples one complete visible solution with probability
+    proportional to sender objective fitness, plus a small positive constant.
+    As in the reference experiment, the receiver directly imitates it without
+    requiring perceived-fitness improvement and retains its knowledge domain.
 
-    uniform_sharing_prob is fixed across conditions; maturity_threshold is the
-    focal running parameter. All dependent variables concern the receiver crowd.
-    Adoption-quality trajectories contain one cumulative mean per period,
-    including np.nan until the first adoption.
+    Receiver solutions do not feed back into the sender pool. All dependent
+    variables concern the receiver crowd. Adoption-quality trajectories contain
+    one cumulative mean per visibility event, including np.nan before imitation.
     """
     try:
         np.random.seed(None)
+
+        if visibility_interval is None:
+            visibility_interval = 10
+        visibility_interval = int(visibility_interval)
+        if visibility_interval < 1:
+            raise ValueError("visibility_interval must be a positive integer.")
 
         landscape = Landscape(N=N, K=K)
 
@@ -46,7 +52,9 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
                                landscape=landscape)
 
-        # Search-process trajectory: cumulative mean true fitness of adopted solutions.
+        crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
+
+        # Search-process trajectory: cumulative mean true fitness of imitated solutions.
         adopted_solution_fitness_across_time = []
 
         for period in range(search_iteration):
@@ -54,25 +62,39 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
             crowd_sender.search()
             crowd_receiver.search()
 
-            # Disclose only sender solutions meeting the perceived maturity threshold.
-            crowd_sender.solution_pool = []
-            for agent in crowd_sender.agents:
-                if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.cog_fitness >= maturity_threshold):
-                    crowd_sender.solution_pool.append(agent.state.copy())
+            if (period + 1) % visibility_interval == 0:
+                # Fixed snapshot of structurally visible sender solutions and fitness.
+                visible_pool = []
+                for agent in crowd_sender.agents:
+                    if agent.visibility_status:
+                        visible_pool.append([agent.state.copy(), agent.fitness])
 
-            np.random.shuffle(crowd_sender.solution_pool)
+                if visible_pool:
+                    fitness_values = np.asarray(
+                        [fitness for _, fitness in visible_pool], dtype=float
+                    )
+                    # Fitness-proportional attention; the constant also handles zero fitness.
+                    imitation_weights = fitness_values + 1e-10
+                    imitation_probs = imitation_weights / imitation_weights.sum()
 
-            # Receiver solutions do not feed back into the sender pool.
-            crowd_receiver.solution_pool = [
-                solution.copy()
-                for solution in crowd_sender.solution_pool
-            ]
-            crowd_receiver.learn_from_visible_pool()
+                    for agent in crowd_receiver.agents:
+                        selected_index = np.random.choice(
+                            len(visible_pool), p=imitation_probs
+                        )
+                        solution, _ = visible_pool[selected_index]
 
-            adopted_solution_fitness_across_time.append(
-                np.mean(crowd_receiver.adopted_solution_fitness_history)
-                if crowd_receiver.adopted_solution_fitness_history else np.nan
-            )
+                        # Direct imitation, followed by evaluation with the receiver's knowledge.
+                        agent.state = solution.copy()
+                        agent.cog_fitness = agent.landscape.query_scoped_fitness(
+                            state=agent.state, knowledge_domain=agent.knowledge_domain
+                        )
+                        agent.fitness = agent.landscape.query_fitness(state=agent.state)
+                        crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
+
+                adopted_solution_fitness_across_time.append(
+                    np.mean(crowd_receiver.adopted_solution_fitness_history)
+                    if crowd_receiver.adopted_solution_fitness_history else np.nan
+                )
 
         # DVs are measured only on the receiver crowd.
         performance_list = [agent.fitness for agent in crowd_receiver.agents]
@@ -126,19 +148,19 @@ if __name__ == '__main__':
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
     # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 10
+    knowledge_breadth = 5
 
-    # Sharing probability is fixed; maturity_threshold is the focal running parameter.
-    uniform_sharing_prob = 1
+    # Visibility extent is the focal running parameter.
+    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08, 0.1, 0.2, 0.3, 0.4, 0.5,
+                              0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Minimum sender perceived fitness required for disclosure.
-    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                               0.5, 0.6, 0.7, 0.8, 0.9]
+    # Sender solutions are disclosed every visibility_interval periods.
+    visibility_interval = 10
 
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
-    for maturity_threshold in maturity_threshold_list:
+    for visibility_extent in visibility_extent_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -168,7 +190,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      uniform_sharing_prob, maturity_threshold,
+                                                      visibility_extent, visibility_interval,
                                                       loop, return_dict, sema))
                     p.start()
                     jobs.append(p)
@@ -222,33 +244,33 @@ if __name__ == '__main__':
                 adopted_solution_fitness_across_time_mean
             )
 
-        # Save results across K for each maturity threshold.
-        with open("maturity_threshold_{0}_breakthrough_fitness_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        # Save results across K for each visibility extent and visibility interval.
+        with open("rank_based_visibility_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("maturity_threshold_{0}_breakthrough_rank_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("maturity_threshold_{0}_unique_solution_count_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open("maturity_threshold_{0}_pairwise_diversity_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open("maturity_threshold_{0}_adopted_solution_fitness_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open("maturity_threshold_{0}_adopted_solution_fitness_across_time_across_K_size_{1}".format(
-                maturity_threshold, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Maturity-Based Visibility: ",
+    print("Rank-Based Visibility with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

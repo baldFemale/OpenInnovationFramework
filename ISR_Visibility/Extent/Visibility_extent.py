@@ -134,7 +134,7 @@ if __name__ == '__main__':
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
     # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 10
+    knowledge_breadth = 5
 
     # Visibility extent: proportion of sender solutions that are visible to receivers.
     # visibility_extent = 0.0 means no sender solutions are visible.
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for visibility_extent in visibility_extent_list:

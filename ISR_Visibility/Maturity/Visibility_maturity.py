@@ -126,7 +126,7 @@ if __name__ == '__main__':
     K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
     # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 10
+    knowledge_breadth = 5
 
     # Sharing probability is fixed; maturity_threshold is the focal running parameter.
     uniform_sharing_prob = 1
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
                                0.5, 0.6, 0.7, 0.8, 0.9]
 
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for maturity_threshold in maturity_threshold_list:
