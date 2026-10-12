@@ -104,7 +104,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         unique_solution_count = len(full_solution_set)
 
         # Average pairwise normalized Hamming distance among receiver agents.
-        pairwise_diversity = crowd_receiver.calculate_dispersion()
+        pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
         # Search-process measure for visibility.
         # Use true fitness rather than perceived fitness.

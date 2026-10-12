@@ -56,17 +56,18 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
             # Disclose only sender solutions meeting the perceived maturity threshold.
             crowd_sender.solution_pool = []
-            for agent in crowd_sender.agents:
-                if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.cog_fitness >= maturity_threshold):
-                    crowd_sender.solution_pool.append(agent.state.copy())
+            for sender_id, agent in enumerate(crowd_sender.agents):
+                if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.perceived_fitness >= maturity_threshold):
+                    crowd_sender.solution_pool.append((sender_id, tuple(agent.state)))
 
             np.random.shuffle(crowd_sender.solution_pool)
 
             # Receiver solutions do not feed back into the sender pool.
-            crowd_receiver.solution_pool = [
-                solution.copy()
-                for solution in crowd_sender.solution_pool
-            ]
+            # Offset sender IDs because the two crowds are distinct populations.
+            crowd_receiver.solution_pool = tuple(
+                (agent_num + sender_id, solution)
+                for sender_id, solution in crowd_sender.solution_pool
+            )
             crowd_receiver.learn_from_visible_pool()
 
             adopted_solution_fitness_across_time.append(
@@ -122,11 +123,14 @@ if __name__ == '__main__':
 
     landscape_iteration = 400
     search_iteration = 300
-    N = 20
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 5
+    # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
+    N = 18
+    K_list = list(range(9, N))  # K = 9, 10, ..., 17; Upper-complexity half
+
+    # 12/18 = 6/9 = 2/3, matching the old generalists' knowledge coverage.
+    # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
+    knowledge_breadth = 12
 
     # Sharing probability is fixed; maturity_threshold is the focal running parameter.
     uniform_sharing_prob = 1
@@ -135,7 +139,8 @@ if __name__ == '__main__':
     maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
                                0.5, 0.6, 0.7, 0.8, 0.9]
 
-    agent_num = 100
+    # Restore the original crowd size of 200 agents per crowd.
+    agent_num = 200
     concurrency = 100
 
     for maturity_threshold in maturity_threshold_list:

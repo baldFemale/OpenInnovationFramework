@@ -85,9 +85,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
                         # Direct imitation, followed by evaluation with the receiver's knowledge.
                         agent.state = solution.copy()
-                        agent.cog_fitness = agent.landscape.query_scoped_fitness(
-                            state=agent.state, knowledge_domain=agent.knowledge_domain
-                        )
+                        agent.perceived_fitness = agent.evaluate_solution(agent.state)
                         agent.fitness = agent.landscape.query_fitness(state=agent.state)
                         crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
 
@@ -144,20 +142,24 @@ if __name__ == '__main__':
 
     landscape_iteration = 400
     search_iteration = 300
-    N = 20
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 5
+    # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
+    N = 18
+    K_list = list(range(9, N))  # K = 9, 10, ..., 17; Upper-complexity half
+
+    # 12/18 = 6/9 = 2/3, matching the old generalists' knowledge coverage.
+    # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
+    knowledge_breadth = 12
 
     # Visibility extent is the focal running parameter.
-    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08, 0.1, 0.2, 0.3, 0.4, 0.5,
-                              0.6, 0.7, 0.8, 0.9, 1.0]
+    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    agent_num = 100
+    # Restore the original crowd size; 0.005 represents one visible sender.
+    agent_num = 200
     concurrency = 100
 
     for visibility_extent in visibility_extent_list:

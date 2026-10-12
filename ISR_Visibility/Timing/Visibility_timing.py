@@ -72,10 +72,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_sender.get_visible_pool()
 
                 # Receiver crowd learns only from sender's visible solutions.
-                crowd_receiver.solution_pool = [
-                    solution.copy()
-                    for solution in crowd_sender.solution_pool
-                ]
+                # Sender and receiver are distinct populations. Offset sender IDs
+                # so that the receiver's learning rule does not confuse an
+                # external sender with the receiver at the same numeric index.
+                crowd_receiver.solution_pool = tuple(
+                    (agent_num + sender_id, tuple(solution))
+                    for sender_id, solution in crowd_sender.solution_pool
+                )
                 crowd_receiver.learn_from_visible_pool()
 
                 adopted_solution_fitness_across_time.append(
@@ -131,11 +134,14 @@ if __name__ == '__main__':
 
     landscape_iteration = 400
     search_iteration = 300
-    N = 20
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 5
+    # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
+    N = 18
+    K_list = list(range(9, N))  # K = 9, 10, ..., 17; Upper-complexity half
+
+    # 12/18 = 6/9 = 2/3, matching the old generalists' knowledge coverage.
+    # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
+    knowledge_breadth = 12
 
     # Visibility extent is fixed; visibility_start is the focal running parameter.
     visibility_extent = 1.0
@@ -144,7 +150,8 @@ if __name__ == '__main__':
     # Visibility starts at visibility_start, then repeats at the specified interval.
     visibility_interval = 10
 
-    agent_num = 100
+    # Restore the original crowd size of 200 agents per crowd.
+    agent_num = 200
     concurrency = 100
 
     for visibility_start in visibility_start_list:
