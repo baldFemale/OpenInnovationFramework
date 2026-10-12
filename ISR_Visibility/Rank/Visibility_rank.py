@@ -16,18 +16,24 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         visibility_extent=None, visibility_interval=10, loop=None, return_dict=None, sema=None):
+         visibility_extent=None, rank_share_ratio=None, visibility_interval=10,
+         loop=None, return_dict=None, sema=None):
     """
     Rank-based visibility experiment with separated sender and receiver crowds.
 
-    visibility_extent fixes the proportion of structurally visible senders for
-    the run. Both crowds search every period; disclosure occurs every
-    visibility_interval periods, after local search.
+    visibility_extent fixes the proportion of eligible sender agents for the run.
+    rank_share_ratio determines the proportion of eligible sender solutions
+    released at each visibility event, selected from highest to lowest true
+    fitness rank (rank 1 is the best solution in the complete NK landscape).
 
-    Each receiver samples one complete visible solution with probability
-    proportional to sender objective fitness, plus a small positive constant.
-    As in the reference experiment, the receiver directly imitates it without
-    requiring perceived-fitness improvement and retains its knowledge domain.
+        rank_share_ratio = 0.0: no solutions released (independent-search baseline).
+        rank_share_ratio = 0.005 with 200 senders: the highest-ranked solution.
+        rank_share_ratio = 1.0: solutions of every available rank are released.
+
+    Sender solutions are re-ranked at every visibility event. Both crowds
+    search every period; disclosure occurs every visibility_interval periods.
+    Each receiver samples one disclosed solution with probability proportional
+    to its true fitness and imitates it directly, as in the reference design.
 
     Receiver solutions do not feed back into the sender pool. All dependent
     variables concern the receiver crowd. Adoption-quality trajectories contain
@@ -41,6 +47,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         visibility_interval = int(visibility_interval)
         if visibility_interval < 1:
             raise ValueError("visibility_interval must be a positive integer.")
+        if rank_share_ratio is None or not 0 <= rank_share_ratio <= 1:
+            raise ValueError("rank_share_ratio must be between 0 and 1.")
 
         landscape = Landscape(N=N, K=K)
 
@@ -63,17 +71,25 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
             crowd_receiver.search()
 
             if (period + 1) % visibility_interval == 0:
-                # Fixed snapshot of structurally visible sender solutions and fitness.
-                visible_pool = []
+                # Rank the eligible sender solutions by their TRUE landscape fitness rank.
+                # Lower rank numbers indicate better solutions (rank 1 = global best).
+                ranked_pool = []
                 for agent in crowd_sender.agents:
                     if agent.visibility_status:
-                        visible_pool.append([agent.state.copy(), agent.fitness])
+                        fitness_rank = landscape.query_fitness_rank(state=agent.state)
+                        ranked_pool.append([agent.state.copy(), agent.fitness, fitness_rank])
+
+                # Randomize ties, then select the top fraction of available senders.
+                np.random.shuffle(ranked_pool)
+                ranked_pool.sort(key=lambda item: item[2])
+                visible_num = int(round(rank_share_ratio * len(ranked_pool)))
+                visible_pool = ranked_pool[:visible_num]
 
                 if visible_pool:
                     fitness_values = np.asarray(
-                        [fitness for _, fitness in visible_pool], dtype=float
+                        [fitness for _, fitness, _ in visible_pool], dtype=float
                     )
-                    # Fitness-proportional attention; the constant also handles zero fitness.
+                    # Preserve fitness-proportional imitation within the released pool.
                     imitation_weights = fitness_values + 1e-10
                     imitation_probs = imitation_weights / imitation_weights.sum()
 
@@ -81,11 +97,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                         selected_index = np.random.choice(
                             len(visible_pool), p=imitation_probs
                         )
-                        solution, _ = visible_pool[selected_index]
+                        solution, _, _ = visible_pool[selected_index]
 
                         # Direct imitation, followed by evaluation with the receiver's knowledge.
                         agent.state = solution.copy()
-                        agent.perceived_fitness = agent.evaluate_solution(agent.state)
+                        agent.cog_fitness = agent.landscape.query_scoped_fitness(
+                            state=agent.state, knowledge_domain=agent.knowledge_domain
+                        )
                         agent.fitness = agent.landscape.query_fitness(state=agent.state)
                         crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
 
@@ -151,18 +169,22 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # Visibility extent is the focal running parameter.
-    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
-                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # All sender paths are eligible; fitness rank determines which are released.
+    visibility_extent = 1.0
+
+    # Fraction of sender solutions released, ordered by true fitness rank.
+    # With 200 senders: 0.0 releases none, 0.005 releases the top 1, 1.0 releases all.
+    rank_share_ratio_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+                             0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    # Restore the original crowd size; 0.005 represents one visible sender.
+    # Restore the original crowd size; rank_share_ratio=0.005 selects the top sender.
     agent_num = 200
     concurrency = 100
 
-    for visibility_extent in visibility_extent_list:
+    for rank_share_ratio in rank_share_ratio_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -192,7 +214,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      visibility_extent, visibility_interval,
+                                                      visibility_extent, rank_share_ratio, visibility_interval,
                                                       loop, return_dict, sema))
                     p.start()
                     jobs.append(p)
@@ -246,29 +268,29 @@ if __name__ == '__main__':
                 adopted_solution_fitness_across_time_mean
             )
 
-        # Save results across K for each visibility extent and visibility interval.
-        with open("rank_based_visibility_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        # Save results across K for each rank-share ratio and visibility interval.
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("rank_based_visibility_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("rank_based_visibility_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open("rank_based_visibility_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open("rank_based_visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open("rank_based_visibility_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
-                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
+        with open("rank_based_visibility_share_ratio_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                rank_share_ratio, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
     t1 = time.time()
