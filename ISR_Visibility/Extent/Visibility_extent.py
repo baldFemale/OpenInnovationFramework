@@ -71,13 +71,9 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_sender.get_visible_pool()
 
                 # Receiver crowd learns only from sender's visible solutions.
-                # Sender and receiver are distinct populations. Offset sender IDs
-                # so that the receiver's learning rule does not confuse an
-                # external sender with the receiver at the same numeric index.
-                crowd_receiver.solution_pool = tuple(
-                    (agent_num + sender_id, tuple(solution))
-                    for sender_id, solution in crowd_sender.solution_pool
-                )
+                crowd_receiver.solution_pool = [
+                    solution.copy() for solution in crowd_sender.solution_pool
+                ]
                 crowd_receiver.learn_from_visible_pool()
 
                 adopted_solution_fitness_across_time.append(

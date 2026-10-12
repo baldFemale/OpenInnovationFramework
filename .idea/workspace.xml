@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -553,7 +552,7 @@
       <workItem from="1791357837296" duration="7727000" />
       <workItem from="1791376431969" duration="1855000" />
       <workItem from="1791647360603" duration="1090000" />
-      <workItem from="1791812084507" duration="2417000" />
+      <workItem from="1791812084507" duration="3117000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -898,7 +897,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="623" />
+    <option name="localTasksCounter" value="624" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

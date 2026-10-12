@@ -57,17 +57,15 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
             # Disclose only sender solutions meeting the perceived maturity threshold.
             crowd_sender.solution_pool = []
             for sender_id, agent in enumerate(crowd_sender.agents):
-                if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.perceived_fitness >= maturity_threshold):
+                if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.cog_fitness >= maturity_threshold):
                     crowd_sender.solution_pool.append((sender_id, tuple(agent.state)))
 
             np.random.shuffle(crowd_sender.solution_pool)
 
             # Receiver solutions do not feed back into the sender pool.
-            # Offset sender IDs because the two crowds are distinct populations.
-            crowd_receiver.solution_pool = tuple(
-                (agent_num + sender_id, solution)
-                for sender_id, solution in crowd_sender.solution_pool
-            )
+            crowd_receiver.solution_pool = [
+                solution.copy() for solution in crowd_sender.solution_pool
+            ]
             crowd_receiver.learn_from_visible_pool()
 
             adopted_solution_fitness_across_time.append(
