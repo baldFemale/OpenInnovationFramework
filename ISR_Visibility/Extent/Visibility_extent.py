@@ -71,10 +71,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_sender.get_visible_pool()
 
                 # Receiver crowd learns only from sender's visible solutions.
-                crowd_receiver.solution_pool = [
-                    solution.copy()
-                    for solution in crowd_sender.solution_pool
-                ]
+                # Sender and receiver are distinct populations. Offset sender IDs
+                # so that the receiver's learning rule does not confuse an
+                # external sender with the receiver at the same numeric index.
+                crowd_receiver.solution_pool = tuple(
+                    (agent_num + sender_id, tuple(solution))
+                    for sender_id, solution in crowd_sender.solution_pool
+                )
                 crowd_receiver.learn_from_visible_pool()
 
                 adopted_solution_fitness_across_time.append(
@@ -101,7 +104,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         unique_solution_count = len(full_solution_set)
 
         # Average pairwise normalized Hamming distance among receiver agents.
-        pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
+        pairwise_diversity = crowd_receiver.calculate_dispersion()
 
         # Search-process measure for visibility.
         # Use true fitness rather than perceived fitness.
@@ -130,11 +133,14 @@ if __name__ == '__main__':
 
     landscape_iteration = 400
     search_iteration = 300
-    N = 20
-    K_list = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    # Each solver can deliberately evaluate and modify knowledge_breadth dimensions.
-    knowledge_breadth = 5
+    # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
+    N = 18
+    K_list = list(range(9, N))  # K = 9, 10, ..., 17; Upper-complexity half
+
+    # 12/18 = 6/9 = 2/3, matching the old generalists' knowledge coverage.
+    # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
+    knowledge_breadth = 12
 
     # Visibility extent: proportion of sender solutions that are visible to receivers.
     # visibility_extent = 0.0 means no sender solutions are visible.
@@ -145,7 +151,11 @@ if __name__ == '__main__':
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
-    agent_num = 100
+    # Restore the original crowd size; 0.005 now represents one visible sender.
+    agent_num = 200
+
+    # Limit simultaneous workers because high-K landscapes may be memory-heavy.
+    # Increase this only if the compute node has sufficient available memory.
     concurrency = 100
 
     for visibility_extent in visibility_extent_list:
