@@ -127,7 +127,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 400
+    landscape_iteration = 600
     search_iteration = 300
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
@@ -141,14 +141,14 @@ if __name__ == '__main__':
     # Visibility extent: proportion of sender solutions that are visible to receivers.
     # visibility_extent = 0.0 means no sender solutions are visible.
     # visibility_extent = 1.0 means all sender solutions are visible.
-    visibility_extent_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
+    visibility_extent_list = [0.0, 0.01, 0.02, 0.04, 0.08,
                               0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
     # Restore the original crowd size; 0.005 now represents one visible sender.
-    agent_num = 200
+    agent_num = 100
 
     # Limit simultaneous workers because high-K landscapes may be memory-heavy.
     # Increase this only if the compute node has sufficient available memory.
@@ -171,15 +171,24 @@ if __name__ == '__main__':
 
             try:
                 for loop in range(landscape_iteration):
-                    # Check failed workers while waiting, including workers that
-                    # were killed before they could release their semaphore.
+                    # Close completed processes as the experiment runs.
+                    # Otherwise, keeping all 600 Process objects open can
+                    # exhaust the operating system's file-descriptor limit.
                     while True:
                         acquired = sema.acquire(timeout=0.5)
-                        failed_jobs = [(index, proc.exitcode)
-                                       for index, proc in enumerate(jobs)
-                                       if proc.exitcode not in (None, 0)]
-                        if failed_jobs:
-                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+
+                        for index, proc in jobs[:]:
+                            if proc.exitcode is not None:
+                                proc.join()
+                                exitcode = proc.exitcode
+                                proc.close()
+                                jobs.remove((index, proc))
+
+                                if exitcode != 0:
+                                    raise RuntimeError(
+                                        "Repetition {0} failed with exit code {1}".format(index, exitcode)
+                                    )
+
                         if acquired:
                             break
 
@@ -187,25 +196,35 @@ if __name__ == '__main__':
                                                       visibility_extent, visibility_interval,
                                                       loop, return_dict, sema))
                     p.start()
-                    jobs.append(p)
+                    jobs.append((loop, p))
 
-                for proc in jobs:
-                    while True:
-                        proc.join(timeout=0.5)
-                        failed_jobs = [(index, job.exitcode)
-                                       for index, job in enumerate(jobs)
-                                       if job.exitcode not in (None, 0)]
-                        if failed_jobs:
-                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
-                        if not proc.is_alive():
-                            break
+                # Collect and close the processes that are still running.
+                while jobs:
+                    for index, proc in jobs[:]:
+                        if proc.exitcode is not None:
+                            proc.join()
+                            exitcode = proc.exitcode
+                            proc.close()
+                            jobs.remove((index, proc))
 
-                returns = list(return_dict.values())  # Repetition order does not affect the averages.
+                            if exitcode != 0:
+                                raise RuntimeError(
+                                    "Repetition {0} failed with exit code {1}".format(index, exitcode)
+                                )
+
+                    if jobs:
+                        time.sleep(0.5)
+
+                if len(return_dict) != landscape_iteration:
+                    raise RuntimeError("Missing results: expected {0}, received {1}".format(
+                        landscape_iteration, len(return_dict)))
+
+                returns = [return_dict[index] for index in range(landscape_iteration)]
             finally:
-                for proc in jobs:
+                for index, proc in jobs:
                     if proc.is_alive():
                         proc.terminate()
-                for proc in jobs:
+                for index, proc in jobs:
                     proc.join()
                     proc.close()
                 manager.shutdown()

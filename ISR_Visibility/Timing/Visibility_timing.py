@@ -128,7 +128,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 400
+    landscape_iteration = 600
     search_iteration = 300
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     visibility_interval = 10
 
     # Restore the original crowd size of 200 agents per crowd.
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for visibility_start in visibility_start_list:

@@ -158,7 +158,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 400
+    landscape_iteration = 600
     search_iteration = 300
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
@@ -174,14 +174,12 @@ if __name__ == '__main__':
 
     # Fraction of sender solutions released, ordered by true fitness rank.
     # With 200 senders: 0.0 releases none, 0.005 releases the top 1, 1.0 releases all.
-    rank_share_ratio_list = [0.0, 0.005, 0.01, 0.02, 0.04, 0.08,
-                             0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-
+    rank_share_ratio_list = [0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
     # Restore the original crowd size; rank_share_ratio=0.005 selects the top sender.
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for rank_share_ratio in rank_share_ratio_list:

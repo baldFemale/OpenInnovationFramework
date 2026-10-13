@@ -58,7 +58,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
             crowd_sender.solution_pool = []
             for sender_id, agent in enumerate(crowd_sender.agents):
                 if (np.random.uniform(0, 1) < uniform_sharing_prob) and (agent.cog_fitness >= maturity_threshold):
-                    crowd_sender.solution_pool.append((sender_id, tuple(agent.state)))
+                    crowd_sender.solution_pool.append(agent.state.copy())
 
             np.random.shuffle(crowd_sender.solution_pool)
 
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 400
+    landscape_iteration = 600
     search_iteration = 300
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
@@ -134,11 +134,10 @@ if __name__ == '__main__':
     uniform_sharing_prob = 1
 
     # Minimum sender perceived fitness required for disclosure.
-    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4,
-                               0.5, 0.6, 0.7, 0.8, 0.9]
+    maturity_threshold_list = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
     # Restore the original crowd size of 200 agents per crowd.
-    agent_num = 200
+    agent_num = 100
     concurrency = 100
 
     for maturity_threshold in maturity_threshold_list:
