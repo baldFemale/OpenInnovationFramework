@@ -199,15 +199,24 @@ if __name__ == '__main__':
 
             try:
                 for loop in range(landscape_iteration):
-                    # Check failed workers while waiting, including workers that
-                    # were killed before they could release their semaphore.
+                    # Close completed processes as the experiment runs.
+                    # Otherwise, keeping all 600 Process objects open can
+                    # exhaust the operating system's file-descriptor limit.
                     while True:
                         acquired = sema.acquire(timeout=0.5)
-                        failed_jobs = [(index, proc.exitcode)
-                                       for index, proc in enumerate(jobs)
-                                       if proc.exitcode not in (None, 0)]
-                        if failed_jobs:
-                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
+
+                        for index, proc in jobs[:]:
+                            if proc.exitcode is not None:
+                                proc.join()
+                                exitcode = proc.exitcode
+                                proc.close()
+                                jobs.remove((index, proc))
+
+                                if exitcode != 0:
+                                    raise RuntimeError(
+                                        "Repetition {0} failed with exit code {1}".format(index, exitcode)
+                                    )
+
                         if acquired:
                             break
 
@@ -215,25 +224,35 @@ if __name__ == '__main__':
                                                       visibility_extent, rank_share_ratio, visibility_interval,
                                                       loop, return_dict, sema))
                     p.start()
-                    jobs.append(p)
+                    jobs.append((loop, p))
 
-                for proc in jobs:
-                    while True:
-                        proc.join(timeout=0.5)
-                        failed_jobs = [(index, job.exitcode)
-                                       for index, job in enumerate(jobs)
-                                       if job.exitcode not in (None, 0)]
-                        if failed_jobs:
-                            raise RuntimeError("Failed repetitions: {0}".format(failed_jobs))
-                        if not proc.is_alive():
-                            break
+                # Collect and close the processes that are still running.
+                while jobs:
+                    for index, proc in jobs[:]:
+                        if proc.exitcode is not None:
+                            proc.join()
+                            exitcode = proc.exitcode
+                            proc.close()
+                            jobs.remove((index, proc))
 
-                returns = list(return_dict.values())  # Repetition order does not affect the averages.
+                            if exitcode != 0:
+                                raise RuntimeError(
+                                    "Repetition {0} failed with exit code {1}".format(index, exitcode)
+                                )
+
+                    if jobs:
+                        time.sleep(0.5)
+
+                if len(return_dict) != landscape_iteration:
+                    raise RuntimeError("Missing results: expected {0}, received {1}".format(
+                        landscape_iteration, len(return_dict)))
+
+                returns = [return_dict[index] for index in range(landscape_iteration)]
             finally:
-                for proc in jobs:
+                for index, proc in jobs:
                     if proc.is_alive():
                         proc.terminate()
-                for proc in jobs:
+                for index, proc in jobs:
                     proc.join()
                     proc.close()
                 manager.shutdown()
