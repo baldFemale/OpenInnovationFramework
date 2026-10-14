@@ -16,7 +16,7 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         visibility_extent=None, rank_share_ratio=None, visibility_interval=10,
+         visibility_extent=None, rank_share_ratio=None, visibility_interval=10, solver_reset_num=1,
          loop=None, return_dict=None, sema=None):
     """
     Rank-based visibility experiment with separated sender and receiver crowds.
@@ -38,6 +38,10 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     Receiver solutions do not feed back into the sender pool. All dependent
     variables concern the receiver crowd. Adoption-quality trajectories contain
     one cumulative mean per visibility event, including np.nan before imitation.
+
+    solver_reset_num controls how many independent sender/receiver crowds
+    are generated and run on the same landscape. The landscape is generated
+    only once per landscape repetition.
     """
     try:
         np.random.seed(None)
@@ -50,104 +54,114 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         if rank_share_ratio is None or not 0 <= rank_share_ratio <= 1:
             raise ValueError("rank_share_ratio must be between 0 and 1.")
 
+        solver_reset_num = int(solver_reset_num)
+        if solver_reset_num < 1:
+            raise ValueError("solver_reset_num must be a positive integer.")
+
+        # Generate the landscape once, then restart the crowds on the same landscape.
         landscape = Landscape(N=N, K=K)
+        solver_reset_returns = []
 
-        # Sender crowd: solvers who independently search and make solutions visible
-        crowd_sender = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
-                             landscape=landscape)
+        for solver_reset in range(solver_reset_num):
+            # Sender crowd: solvers who independently search and make solutions visible
+            crowd_sender = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                                 landscape=landscape)
 
-        # Receiver crowd: solvers who independently search and learn from visible sender solutions
-        crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
-                               landscape=landscape)
+            # Receiver crowd: solvers who independently search and learn from visible sender solutions
+            crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
+                                   landscape=landscape)
 
-        crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
+            crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
-        # Search-process trajectory: cumulative mean true fitness of imitated solutions.
-        adopted_solution_fitness_across_time = []
+            # Search-process trajectory: cumulative mean true fitness of imitated solutions.
+            adopted_solution_fitness_across_time = []
 
-        for period in range(search_iteration):
-            # Both crowds conduct their own independent search.
-            crowd_sender.search()
-            crowd_receiver.search()
+            for period in range(search_iteration):
+                # Both crowds conduct their own independent search.
+                crowd_sender.search()
+                crowd_receiver.search()
 
-            if (period + 1) % visibility_interval == 0:
-                # Rank the eligible sender solutions by their TRUE landscape fitness rank.
-                # Lower rank numbers indicate better solutions (rank 1 = global best).
-                ranked_pool = []
-                for agent in crowd_sender.agents:
-                    if agent.visibility_status:
-                        fitness_rank = landscape.query_fitness_rank(state=agent.state)
-                        ranked_pool.append([agent.state.copy(), agent.fitness, fitness_rank])
+                if (period + 1) % visibility_interval == 0:
+                    # Rank the eligible sender solutions by their TRUE landscape fitness rank.
+                    # Lower rank numbers indicate better solutions (rank 1 = global best).
+                    ranked_pool = []
+                    for agent in crowd_sender.agents:
+                        if agent.visibility_status:
+                            fitness_rank = landscape.query_fitness_rank(state=agent.state)
+                            ranked_pool.append([agent.state.copy(), agent.fitness, fitness_rank])
 
-                # Randomize ties, then select the top fraction of available senders.
-                np.random.shuffle(ranked_pool)
-                ranked_pool.sort(key=lambda item: item[2])
-                visible_num = int(round(rank_share_ratio * len(ranked_pool)))
-                visible_pool = ranked_pool[:visible_num]
+                    # Randomize ties, then select the top fraction of available senders.
+                    np.random.shuffle(ranked_pool)
+                    ranked_pool.sort(key=lambda item: item[2])
+                    visible_num = int(round(rank_share_ratio * len(ranked_pool)))
+                    visible_pool = ranked_pool[:visible_num]
 
-                if visible_pool:
-                    fitness_values = np.asarray(
-                        [fitness for _, fitness, _ in visible_pool], dtype=float
+                    if visible_pool:
+                        fitness_values = np.asarray(
+                            [fitness for _, fitness, _ in visible_pool], dtype=float
+                        )
+                        # Preserve fitness-proportional imitation within the released pool.
+                        imitation_weights = fitness_values + 1e-10
+                        imitation_probs = imitation_weights / imitation_weights.sum()
+
+                        for agent in crowd_receiver.agents:
+                            selected_index = np.random.choice(
+                                len(visible_pool), p=imitation_probs
+                            )
+                            solution, _, _ = visible_pool[selected_index]
+
+                            # Direct imitation, followed by evaluation with the receiver's knowledge.
+                            agent.state = solution.copy()
+                            agent.cog_fitness = agent.landscape.query_scoped_fitness(
+                                state=agent.state, knowledge_domain=agent.knowledge_domain
+                            )
+                            agent.fitness = agent.landscape.query_fitness(state=agent.state)
+                            crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
+
+                    adopted_solution_fitness_across_time.append(
+                        np.mean(crowd_receiver.adopted_solution_fitness_history)
+                        if crowd_receiver.adopted_solution_fitness_history else np.nan
                     )
-                    # Preserve fitness-proportional imitation within the released pool.
-                    imitation_weights = fitness_values + 1e-10
-                    imitation_probs = imitation_weights / imitation_weights.sum()
 
-                    for agent in crowd_receiver.agents:
-                        selected_index = np.random.choice(
-                            len(visible_pool), p=imitation_probs
-                        )
-                        solution, _, _ = visible_pool[selected_index]
+            # DVs are measured only on the receiver crowd.
+            performance_list = [agent.fitness for agent in crowd_receiver.agents]
+            fitness_rank_list = [
+                landscape.query_fitness_rank(state=agent.state)
+                for agent in crowd_receiver.agents
+            ]
 
-                        # Direct imitation, followed by evaluation with the receiver's knowledge.
-                        agent.state = solution.copy()
-                        agent.cog_fitness = agent.landscape.query_scoped_fitness(
-                            state=agent.state, knowledge_domain=agent.knowledge_domain
-                        )
-                        agent.fitness = agent.landscape.query_fitness(state=agent.state)
-                        crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
+            breakthrough_fitness = max(performance_list)
+            breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
 
-                adopted_solution_fitness_across_time.append(
-                    np.mean(crowd_receiver.adopted_solution_fitness_history)
-                    if crowd_receiver.adopted_solution_fitness_history else np.nan
-                )
+            # Calculate the number of unique complete solutions among receiver agents.
+            full_solution_set = set()
+            for agent in crowd_receiver.agents:
+                solution_str = "".join([str(bit) for bit in agent.state])
+                full_solution_set.add(solution_str)
 
-        # DVs are measured only on the receiver crowd.
-        performance_list = [agent.fitness for agent in crowd_receiver.agents]
-        fitness_rank_list = [
-            landscape.query_fitness_rank(state=agent.state)
-            for agent in crowd_receiver.agents
-        ]
+            unique_solution_count = len(full_solution_set)
 
-        breakthrough_fitness = max(performance_list)
-        breakthrough_rank = min(fitness_rank_list)  # smaller rank means better solution; rank 1 is global best
+            # Average pairwise normalized Hamming distance among receiver agents.
+            pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
 
-        # Calculate the number of unique complete solutions among receiver agents.
-        full_solution_set = set()
-        for agent in crowd_receiver.agents:
-            solution_str = "".join([str(bit) for bit in agent.state])
-            full_solution_set.add(solution_str)
+            # Search-process measure for visibility.
+            # Use true fitness rather than perceived fitness.
+            adopted_solution_fitness = (
+                np.mean(crowd_receiver.adopted_solution_fitness_history)
+                if crowd_receiver.adopted_solution_fitness_history else np.nan
+            )
 
-        unique_solution_count = len(full_solution_set)
+            solver_reset_returns.append([
+                breakthrough_fitness,
+                breakthrough_rank,
+                unique_solution_count,
+                pairwise_diversity,
+                adopted_solution_fitness,
+                adopted_solution_fitness_across_time,
+            ])
 
-        # Average pairwise normalized Hamming distance among receiver agents.
-        pairwise_diversity = crowd_receiver.calculate_pairwise_solution_distance()
-
-        # Search-process measure for visibility.
-        # Use true fitness rather than perceived fitness.
-        adopted_solution_fitness = (
-            np.mean(crowd_receiver.adopted_solution_fitness_history)
-            if crowd_receiver.adopted_solution_fitness_history else np.nan
-        )
-
-        return_dict[loop] = [
-            breakthrough_fitness,
-            breakthrough_rank,
-            unique_solution_count,
-            pairwise_diversity,
-            adopted_solution_fitness,
-            adopted_solution_fitness_across_time,
-        ]
+        # One landscape repetition returns solver_reset_num sets of outcomes.
+        return_dict[loop] = solver_reset_returns
     finally:
         sema.release()
 
@@ -159,6 +173,7 @@ if __name__ == '__main__':
     t0 = time.time()
 
     landscape_iteration = 600
+    solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
@@ -221,7 +236,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      visibility_extent, rank_share_ratio, visibility_interval,
+                                                      visibility_extent, rank_share_ratio, visibility_interval, solver_reset_num,
                                                       loop, return_dict, sema))
                     p.start()
                     jobs.append((loop, p))
@@ -247,7 +262,7 @@ if __name__ == '__main__':
                     raise RuntimeError("Missing results: expected {0}, received {1}".format(
                         landscape_iteration, len(return_dict)))
 
-                returns = [return_dict[index] for index in range(landscape_iteration)]
+                landscape_returns = [return_dict[index] for index in range(landscape_iteration)]
             finally:
                 for index, proc in jobs:
                     if proc.is_alive():
@@ -257,7 +272,14 @@ if __name__ == '__main__':
                     proc.close()
                 manager.shutdown()
 
-            arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (n_runs, 5)
+            # Flatten the two repetition layers into individual runs for averaging.
+            # Each landscape contributes the same number of solver resets.
+            returns = [item for landscape_results in landscape_returns for item in landscape_results]
+            if len(returns) != landscape_iteration * solver_reset_num:
+                raise RuntimeError("Missing solver resets: expected {0}, received {1}".format(
+                    landscape_iteration * solver_reset_num, len(returns)))
+
+            arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (landscape_iteration * solver_reset_num, 5)
             time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
 
             # The first four DVs are always defined. The visibility-process
@@ -270,7 +292,7 @@ if __name__ == '__main__':
                 else np.nanmean(arr[:, 4])
             )
 
-            # Average the cumulative adoption-quality trajectory across landscape repetitions.
+            # Average the cumulative adoption-quality trajectory across landscapes and solver resets.
             if np.all(np.isnan(time_series_arr)):
                 adopted_solution_fitness_across_time_mean = time_series_arr[0].tolist()
             else:
