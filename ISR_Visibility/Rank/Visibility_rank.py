@@ -191,7 +191,7 @@ if __name__ == '__main__':
     # With 200 senders: 0.0 releases none, 0.005 releases the top 1, 1.0 releases all.
     rank_share_ratio_list = [0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
-    visibility_interval = 10
+    visibility_interval = 50
 
     # Restore the original crowd size; rank_share_ratio=0.005 selects the top sender.
     agent_num = 100
