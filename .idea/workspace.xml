@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_independent_figures.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Evaluator.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Evaluator_independent_figures.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Visibility_extent_top_k_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/slurm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Visibility_maturity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,10 +100,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility/Maturity" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Top-k-rank" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Rank" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
-      <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Maturity_interval_10" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
@@ -562,7 +565,10 @@
       <workItem from="1791947775487" duration="768000" />
       <workItem from="1791966154760" duration="4654000" />
       <workItem from="1792152768358" duration="587000" />
-      <workItem from="1792312106179" duration="8917000" />
+      <workItem from="1792312106179" duration="9015000" />
+      <workItem from="1792413654734" duration="4441000" />
+      <workItem from="1792760246635" duration="7000" />
+      <workItem from="1792760450794" duration="4752000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -907,7 +913,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="629" />
+    <option name="localTasksCounter" value="630" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
