@@ -161,7 +161,7 @@ if __name__ == '__main__':
     visibility_interval = 10
 
     # Minimum sender perceived fitness required for disclosure.
-    maturity_threshold_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9]
+    maturity_threshold_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 1.0]
 
     # Restore the original crowd size of 200 agents per crowd.
     agent_num = 100

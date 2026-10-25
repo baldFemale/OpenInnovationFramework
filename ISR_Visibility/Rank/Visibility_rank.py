@@ -27,13 +27,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     fitness rank (rank 1 is the best solution in the complete NK landscape).
 
         rank_share_ratio = 0.0: no solutions released (independent-search baseline).
-        rank_share_ratio = 0.005 with 200 senders: the highest-ranked solution.
+        rank_share_ratio = 0.01 with 100 senders: the highest-ranked solution.
         rank_share_ratio = 1.0: solutions of every available rank are released.
 
     Sender solutions are re-ranked at every visibility event. Both crowds
     search every period; disclosure occurs every visibility_interval periods.
-    Each receiver samples one disclosed solution with probability proportional
-    to its true fitness and imitates it directly, as in the reference design.
+    Receivers evaluate disclosed solutions through their own bounded knowledge
+    and adopt only perceived improvements, as in the visibility-extent experiment.
 
     Receiver solutions do not feed back into the sender pool. All dependent
     variables concern the receiver crowd. Adoption-quality trajectories contain
@@ -73,7 +73,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
-            # Search-process trajectory: cumulative mean true fitness of imitated solutions.
+            # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
 
             for period in range(search_iteration):
@@ -96,27 +96,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                     visible_num = int(round(rank_share_ratio * len(ranked_pool)))
                     visible_pool = ranked_pool[:visible_num]
 
-                    if visible_pool:
-                        fitness_values = np.asarray(
-                            [fitness for _, fitness, _ in visible_pool], dtype=float
-                        )
-                        # Preserve fitness-proportional imitation within the released pool.
-                        imitation_weights = fitness_values + 1e-10
-                        imitation_probs = imitation_weights / imitation_weights.sum()
-
-                        for agent in crowd_receiver.agents:
-                            selected_index = np.random.choice(
-                                len(visible_pool), p=imitation_probs
-                            )
-                            solution, _, _ = visible_pool[selected_index]
-
-                            # Direct imitation, followed by evaluation with the receiver's knowledge.
-                            agent.state = solution.copy()
-                            agent.cog_fitness = agent.landscape.query_scoped_fitness(
-                                state=agent.state, knowledge_domain=agent.knowledge_domain
-                            )
-                            agent.fitness = agent.landscape.query_fitness(state=agent.state)
-                            crowd_receiver.adopted_solution_fitness_history.append(agent.fitness)
+                    # Preserve the receiver learning rule from the extent experiment.
+                    # Shuffle after top-rank selection so exposure order is not rank-ordered.
+                    np.random.shuffle(visible_pool)
+                    crowd_receiver.solution_pool = [
+                        solution.copy() for solution, _, _ in visible_pool
+                    ]
+                    crowd_receiver.learn_from_visible_pool()
 
                     adopted_solution_fitness_across_time.append(
                         np.mean(crowd_receiver.adopted_solution_fitness_history)
@@ -188,12 +174,12 @@ if __name__ == '__main__':
     visibility_extent = 1.0
 
     # Fraction of sender solutions released, ordered by true fitness rank.
-    # With 200 senders: 0.0 releases none, 0.005 releases the top 1, 1.0 releases all.
+    # With 100 senders: 0.0 releases none, 0.01 releases the top 1, 1.0 releases all.
     rank_share_ratio_list = [0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
-    visibility_interval = 50
+    visibility_interval = 10
 
-    # Restore the original crowd size; rank_share_ratio=0.005 selects the top sender.
+    # With 100 senders, rank_share_ratio=0.01 selects the top sender.
     agent_num = 100
     concurrency = 100
 
