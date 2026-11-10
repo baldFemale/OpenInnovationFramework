@@ -5,21 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Solver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Visibility_novelty.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/slurm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Solver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Visibility_similarity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/slurm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k/Evaluator_visibility_extent_top_k.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Novelty_based/Visibility_novelty_selection_strength.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Novelty_based/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Visibility_rank_selection_strength.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Evaluator_Visibility_Similarity.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Visibility_similarity_selection_strength.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Novelty_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Novelty_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Novelty_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Evaluator_Visibility_Rank.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Evaluator_Visibility_Rank_Regular_Steps.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/Evaluator_Visibility_Similarity.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/slurm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_independent_figures.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_independent_figures.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank_Regular_Steps.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank_Regular_Steps.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Novelty_based/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Novelty_based/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Novelty_based/Solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/Visibility_novelty.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Novelty_based/Visibility_novelty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Novelty_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Novelty_based/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Evaluator_Visibility_Rank.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Evaluator_Visibility_Rank_Regular_Steps.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Evaluator_Visibility_Rank_Regular_Steps.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/Visibility_rank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Rank_based/Visibility_rank.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Rank/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Landscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Landscape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/Visibility_similarity.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_num/Similarity_based/Visibility_similarity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Similarity_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/slurm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +110,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Novelty_based",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_fixed_num/Similarity_based",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -103,18 +126,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Novelty_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_extent/Novelty_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_extent" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Similarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Top-k-rank/Extent_top_k" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Rank" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_extent" />
       <recent name="$PROJECT_DIR$/ISR/2_MoreThanParallel/Binary_Visibility" />
       <recent name="$PROJECT_DIR$/ISR/Parallel_Search" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Baseline\Baseline" />
       <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism" />
-      <recent name="E:\Python_Workplace\OpenInnovationFramework\Mechanism\Joint_Satisfaction_Use_Satisfying" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -579,7 +602,7 @@
       <workItem from="1793643325341" duration="1774000" />
       <workItem from="1794065217165" duration="582000" />
       <workItem from="1794102758408" duration="5181000" />
-      <workItem from="1794204556949" duration="4052000" />
+      <workItem from="1794204556949" duration="11528000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -924,7 +947,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="635" />
+    <option name="localTasksCounter" value="636" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
