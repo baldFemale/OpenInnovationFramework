@@ -570,7 +570,7 @@
       <workItem from="1794364736395" duration="1859000" />
       <workItem from="1794376594351" duration="3475000" />
       <workItem from="1794482106117" duration="4207000" />
-      <workItem from="1794534976001" duration="10394000" />
+      <workItem from="1794534976001" duration="12102000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -915,7 +915,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="643" />
+    <option name="localTasksCounter" value="644" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
