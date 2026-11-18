@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Evaluator_Visibility_Integrated_Selection.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Evaluator_Visibility_Integrated_Selection.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Evaluator_maturity.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +254,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-73a66231627c-5bd6d13a2a75-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-262.10968.92" />
+        <option value="bundled-python-sdk-3c73f5f83ce7-5c0e4880bfa8-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-262.12573.39" />
       </set>
     </attachedChunks>
   </component>
@@ -572,7 +572,15 @@
       <workItem from="1794482106117" duration="4207000" />
       <workItem from="1794534976001" duration="15096000" />
       <workItem from="1794569415511" duration="16000" />
-      <workItem from="1794569435182" duration="202000" />
+      <workItem from="1794569435182" duration="1042000" />
+      <workItem from="1794635922692" duration="9000" />
+      <workItem from="1794640344032" duration="1537000" />
+      <workItem from="1794989406865" duration="149000" />
+      <workItem from="1795001837433" duration="16000" />
+      <workItem from="1795001862781" duration="45000" />
+      <workItem from="1795004222367" duration="877000" />
+      <workItem from="1795005172483" duration="108000" />
+      <workItem from="1795005366919" duration="1602000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -917,7 +925,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="647" />
+    <option name="localTasksCounter" value="648" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
