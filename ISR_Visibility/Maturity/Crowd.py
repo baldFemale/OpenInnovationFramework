@@ -11,7 +11,7 @@ import numpy as np
 
 class Crowd:
     def __init__(self, N: int, agent_num: int, knowledge_breadth: int,
-                 landscape: object):
+                 landscape: object, generative_sample_size=0, generative_rng=None):
         self.N = N
         self.agent_num = agent_num
         self.agents = []
@@ -23,6 +23,15 @@ class Crowd:
 
         self.solution_pool = []
         self.adopted_solution_fitness_history = []
+
+        # Uniform reservoir of adoption events; measurement is opt-in.
+        if generative_sample_size < 0:
+            raise ValueError("generative_sample_size must be nonnegative.")
+        self.generative_sample_size = int(generative_sample_size)
+        self.generative_samples = []
+        self.generative_rng = (
+            generative_rng if generative_rng is not None else np.random.default_rng()
+        ) if self.generative_sample_size else None
 
     def search(self):
         for agent in self.agents:
@@ -74,7 +83,29 @@ class Crowd:
             for solution in self.solution_pool:
                 if agent.search(solution=solution):
                     self.adopted_solution_fitness_history.append(agent.fitness)
+                    if self.generative_sample_size:
+                        # Sample events uniformly, irrespective of adoption time.
+                        count = len(self.adopted_solution_fitness_history)
+                        event = (agent, agent.state.copy())
+                        if len(self.generative_samples) < self.generative_sample_size:
+                            self.generative_samples.append(event)
+                        else:
+                            index = self.generative_rng.integers(count)
+                            if index < self.generative_sample_size:
+                                self.generative_samples[index] = event
                     break
+
+    def calculate_generative_potential(self, horizon=30, replications=30):
+        """Mean generative potential across sampled adoption events (NaN if none)."""
+        if not self.generative_samples:
+            return np.nan
+        return np.mean([
+            agent.estimate_generative_potential(
+                starting_state=state, horizon=horizon,
+                replications=replications, rng=self.generative_rng
+            )
+            for agent, state in self.generative_samples
+        ])
 
     def calculate_pairwise_solution_distance(self):
         """Average pairwise normalized Hamming distance across complete solutions."""

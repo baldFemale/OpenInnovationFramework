@@ -66,6 +66,52 @@ class Solver:
             self.fitness_across_time.append(self.fitness)
         return adopted
 
+    def estimate_generative_potential(self, starting_state, horizon=30,
+                                      replications=30, rng=None) -> float:
+        """Expected best objective-fitness gain from independent local search.
+
+        Use this solver's fixed knowledge domain and the original landscape.
+        All continuation states are local copies; the solver is unchanged.
+        """
+        if horizon < 0 or replications < 1:
+            raise ValueError("horizon must be nonnegative and replications must be positive.")
+        if horizon == 0:
+            return 0.0
+        if rng is None:
+            rng = np.random.default_rng()  # Independent of the main search RNG.
+
+        initial_state = list(starting_state)
+        initial_fitness = self.landscape.query_fitness(state=initial_state)
+        initial_cog_fitness = self.landscape.query_scoped_fitness(
+            state=initial_state, knowledge_domain=self.knowledge_domain
+        )
+
+        total_gain = 0.0
+        for _ in range(replications):
+            state = initial_state.copy()
+            cog_fitness = initial_cog_fitness
+            best_fitness = initial_fitness
+
+            for _ in range(horizon):
+                # The original heuristic: flip one known bit and accept only
+                # a strict improvement in perceived (scoped) fitness.
+                next_state = state.copy()
+                index = rng.choice(self.knowledge_domain)
+                next_state[index] = "1" if next_state[index] == "0" else "0"
+                next_cog_fitness = self.landscape.query_scoped_fitness(
+                    state=next_state, knowledge_domain=self.knowledge_domain
+                )
+                if next_cog_fitness > cog_fitness:
+                    state = next_state
+                    cog_fitness = next_cog_fitness
+                    best_fitness = max(
+                        best_fitness, self.landscape.query_fitness(state=state)
+                    )
+
+            total_gain += best_fitness - initial_fitness
+
+        return total_gain / replications
+
     def describe(self) -> None:
         print("Solver Knowledge Domain: ", self.knowledge_domain)
         print("State: {0}, Fitness: {1}".format(self.state, self.fitness))

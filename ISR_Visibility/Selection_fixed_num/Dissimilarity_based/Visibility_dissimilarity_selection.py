@@ -18,7 +18,9 @@ import pickle
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
          visibility_extent=None, novelty_selection_strength=None, recommendation_num=10,
          visibility_interval=10, solver_reset_num=1,
-         loop=None, return_dict=None, sema=None):
+         loop=None, return_dict=None, sema=None,
+         generative_horizon=30, generative_replications=30,
+         generative_sample_size=5, generative_seed=20261119):
     """
     Novelty-based selection with separated sender and recipient crowds.
 
@@ -74,8 +76,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                  landscape=landscape)
 
             # Receiver crowd: solvers who independently search and learn from visible sender solutions
+            # Separate measurement RNG preserves the original search trajectory.
+            generative_rng = np.random.default_rng(
+                [generative_seed, K, loop if loop is not None else 0, solver_reset]
+            )
             crowd_receiver = Crowd(N=N, agent_num=agent_num, knowledge_breadth=knowledge_breadth,
-                                   landscape=landscape)
+                                   landscape=landscape, generative_sample_size=generative_sample_size,
+                                   generative_rng=generative_rng)
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
@@ -130,6 +137,16 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                         for index in selected_indices:
                             if recipient.search(solution=sender_pool[index]):
                                 crowd_receiver.adopted_solution_fitness_history.append(recipient.fitness)
+                                if crowd_receiver.generative_sample_size:
+                                    # Uniformly sample successful adoptions without affecting search.
+                                    count = len(crowd_receiver.adopted_solution_fitness_history)
+                                    event = (recipient, recipient.state.copy())
+                                    if len(crowd_receiver.generative_samples) < crowd_receiver.generative_sample_size:
+                                        crowd_receiver.generative_samples.append(event)
+                                    else:
+                                        sample_index = crowd_receiver.generative_rng.integers(count)
+                                        if sample_index < crowd_receiver.generative_sample_size:
+                                            crowd_receiver.generative_samples[sample_index] = event
                                 break
 
                     adopted_solution_fitness_across_time.append(
@@ -165,6 +182,11 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 if crowd_receiver.adopted_solution_fitness_history else np.nan
             )
 
+            # Independent post-run continuations measure recipient-specific potential.
+            generative_potential = crowd_receiver.calculate_generative_potential(
+                horizon=generative_horizon, replications=generative_replications
+            )
+
             solver_reset_returns.append([
                 breakthrough_fitness,
                 breakthrough_rank,
@@ -172,6 +194,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 pairwise_diversity,
                 adopted_solution_fitness,
                 adopted_solution_fitness_across_time,
+                generative_potential,
             ])
 
         # One landscape repetition returns solver_reset_num sets of outcomes.
@@ -189,6 +212,12 @@ if __name__ == '__main__':
     landscape_iteration = 600
     solver_reset_num = 10  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
+
+    # Generative potential: independent local-search continuations after adoption.
+    generative_horizon = 30  # Number of additional search opportunities per continuation.
+    generative_replications = 30  # Monte Carlo continuations per sampled adoption.
+    generative_sample_size = 5  # Uniformly sampled adoptions per run (all if fewer).
+    generative_seed = 20261119  # Independent measurement RNG; original search is unchanged.
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
     N = 18
@@ -221,6 +250,7 @@ if __name__ == '__main__':
         pairwise_diversity_across_K = []
         adopted_solution_fitness_across_K = []
         adopted_solution_fitness_across_time_across_K = []
+        generative_potential_across_K = []
 
         for K in K_list:
             manager = mp.Manager()
@@ -254,7 +284,11 @@ if __name__ == '__main__':
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
                                                       visibility_extent, novelty_selection_strength, recommendation_num,
                                                       visibility_interval, solver_reset_num,
-                                                      loop, return_dict, sema))
+                                                      loop, return_dict, sema),
+                                   kwargs=dict(generative_horizon=generative_horizon,
+                                               generative_replications=generative_replications,
+                                               generative_sample_size=generative_sample_size,
+                                               generative_seed=generative_seed))
                     p.start()
                     jobs.append((loop, p))
 
@@ -298,6 +332,7 @@ if __name__ == '__main__':
 
             arr = np.asarray([item[:5] for item in returns], dtype=float)  # shape: (landscape_iteration * solver_reset_num, 5)
             time_series_arr = np.asarray([item[5] for item in returns], dtype=float)
+            generative_potential_arr = np.asarray([item[6] for item in returns], dtype=float)
 
             # The first four DVs are always defined. The visibility-process
             # measure can be np.nan when a run contains no adoption.
@@ -307,6 +342,12 @@ if __name__ == '__main__':
                 np.nan
                 if np.all(np.isnan(arr[:, 4]))
                 else np.nanmean(arr[:, 4])
+            )
+
+            # Equal-weight mean across runs, ignoring runs without adoptions.
+            generative_potential_mean = (
+                np.nan if np.all(np.isnan(generative_potential_arr))
+                else np.nanmean(generative_potential_arr)
             )
 
             # Average the cumulative adoption-quality trajectory across landscapes and solver resets.
@@ -323,8 +364,9 @@ if __name__ == '__main__':
             adopted_solution_fitness_across_time_across_K.append(
                 adopted_solution_fitness_across_time_mean
             )
+            generative_potential_across_K.append(generative_potential_mean)
 
-        # Save six DVs for each selection strength, fixed pool size, and interval.
+        # Save existing DVs plus generative potential for each selection condition.
         filename_prefix = "visibility_novelty_selection_strength_{0}_recommendation_num_{1}_interval_{2}".format(
             novelty_selection_strength, recommendation_num, visibility_interval
         )
@@ -352,6 +394,10 @@ if __name__ == '__main__':
         with open("{0}_adopted_solution_fitness_across_time_across_K_size_{1}".format(
                 filename_prefix, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
+
+        with open("{0}_generative_potential_across_K_size_{1}".format(
+                filename_prefix, agent_num), 'wb') as out_file:
+            pickle.dump(generative_potential_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
