@@ -6,21 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Visibility_extent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Maturity/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Maturity/Solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Visibility_dissimilarity_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/Visibility_dissimilarity_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Visibility_rank_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/Visibility_rank_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Crowd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Visibility_similarity_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/Visibility_similarity_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Visibility_timing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Crowd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Crowd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Solver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +53,65 @@
 }</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.0" />
+      <entry key="H2" value="1.0" />
+      <entry key="H4" value="1.0" />
+      <entry key="D1" value="1.0" />
+      <entry key="W1" value="1.0" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.7474246243174691" />
+      <entry key="MS500" value="0.94343825089536" />
+      <entry key="S2" value="0.9855493369393707" />
+      <entry key="S5" value="0.9941944812159504" />
+      <entry key="S10" value="0.9970930153280337" />
+      <entry key="S30" value="0.9990300646389034" />
+      <entry key="S60" value="0.9995149146655609" />
+      <entry key="M2" value="0.9997574279121715" />
+      <entry key="M5" value="0.9999029641030088" />
+      <entry key="M10" value="0.9999514808744516" />
+      <entry key="M15" value="0.9999676536547282" />
+      <entry key="M30" value="0.9999838266965763" />
+      <entry key="H1" value="0.9999919133155909" />
+      <entry key="H2" value="0.999995956649621" />
+      <entry key="H4" value="0.9999979783227669" />
+      <entry key="D1" value="0.9999996630535106" />
+      <entry key="W1" value="0.9999999518647803" />
+    </decayedShown>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -107,8 +156,8 @@
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Maturity" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Regression/Dissimilarity_Onset" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_flexible_extent" />
@@ -597,7 +646,7 @@
       <workItem from="1795005366919" duration="1772000" />
       <workItem from="1795066108322" duration="1130000" />
       <workItem from="1795088537904" duration="210000" />
-      <workItem from="1795088770889" duration="3548000" />
+      <workItem from="1795088770889" duration="4648000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -942,7 +991,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="650" />
+    <option name="localTasksCounter" value="651" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
