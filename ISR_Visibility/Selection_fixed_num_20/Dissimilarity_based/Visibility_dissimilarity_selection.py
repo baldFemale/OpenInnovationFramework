@@ -1,7 +1,7 @@
 #!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Author   : Junyi
-# @FileName: Visibility_rank_selection_strength.py
+# @FileName: Visibility_novelty_selection_strength.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,27 +16,27 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         visibility_extent=None, rank_selection_strength=None, recommendation_num=10,
+         visibility_extent=None, novelty_selection_strength=None, recommendation_num=10,
          visibility_interval=10, solver_reset_num=1,
          loop=None, return_dict=None, sema=None,
          generative_horizon=30, generative_replications=30,
          generative_sample_size=5, generative_seed=20261119):
     """
-    Performance-based selection with separated sender and recipient crowds.
+    Novelty-based selection with separated sender and recipient crowds.
 
     visibility_extent = 1.0 makes all sender solutions eligible throughout a run.
     At each visibility event, every recipient receives recommendation_num = 10
-    sender entries. rank_selection_strength controls the composition of
-    that fixed pool: a fraction is selected by true NK landscape fitness rank
-    (lower numerical ranks are better), and the rest is sampled randomly
-    from the remaining sender entries.
+    sender entries. novelty_selection_strength controls the composition of
+    that fixed pool: a fraction is selected by descending Hamming distance
+    from the recipient's current complete configuration, and the rest is
+    sampled randomly from the remaining sender entries.
 
-        rank_selection_strength = 0.0: 10 random sender entries (benchmark).
-        rank_selection_strength = 1.0: 10 highest-performing sender entries.
+        novelty_selection_strength = 0.0: 10 random sender entries (benchmark).
+        novelty_selection_strength = 1.0: 10 most novel sender entries.
 
     Both crowds conduct local search every period. Every visibility_interval
-    periods, sender ranks are recomputed after local search. Fitness-rank ties
-    are broken randomly; recommendations are shuffled before evaluation.
+    periods, recommendations are recomputed after local search. Novelty ties
+    are broken randomly; selected recommendations are shuffled before evaluation.
     Recipients adopt at most the first perceived improvement, without feedback
     to senders. Search-apart (zero exposure) is not part of this experiment.
 
@@ -52,15 +52,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         visibility_interval = int(visibility_interval)
         if visibility_interval < 1:
             raise ValueError("visibility_interval must be a positive integer.")
-        if rank_selection_strength is None or not 0 <= rank_selection_strength <= 1:
-            raise ValueError("rank_selection_strength must be between 0 and 1.")
+        if novelty_selection_strength is None or not 0 <= novelty_selection_strength <= 1:
+            raise ValueError("novelty_selection_strength must be between 0 and 1.")
         if visibility_extent != 1.0:
             raise ValueError("visibility_extent must equal 1.0 for this selection experiment.")
-        if recommendation_num != 10:
-            raise ValueError("recommendation_num must equal 10 for this selection experiment.")
 
-        rank_selection_num = int(round(rank_selection_strength * recommendation_num))
-        random_selection_num = recommendation_num - rank_selection_num
+        novelty_selection_num = int(round(novelty_selection_strength * recommendation_num))
+        random_selection_num = recommendation_num - novelty_selection_num
 
         solver_reset_num = int(solver_reset_num)
         if solver_reset_num < 1:
@@ -101,27 +99,30 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                     if len(sender_pool) < recommendation_num:
                         raise ValueError("Eligible sender pool is smaller than recommendation_num.")
 
-                    # Sender fitness rankings are common to all recipients.
-                    # Lower true NK fitness ranks indicate better solutions.
-                    if rank_selection_num > 0:
-                        fitness_ranks = np.asarray([
-                            landscape.query_fitness_rank(state=state) for state in sender_pool
-                        ])
+                    # Compute personalized novelty rankings only when needed.
+                    if novelty_selection_num > 0:
+                        sender_states = np.asarray(sender_pool, dtype=np.uint8)
+                        recipient_states = np.asarray(
+                            [agent.state for agent in crowd_receiver.agents], dtype=np.uint8
+                        )
+                        distances = np.count_nonzero(
+                            recipient_states[:, None, :] != sender_states[None, :, :], axis=2
+                        )
 
-                    for recipient in crowd_receiver.agents:
-                        # Random initial order breaks ties in true fitness ranks.
+                    for recipient_index, recipient in enumerate(crowd_receiver.agents):
+                        # A random initial order breaks Hamming-distance ties.
                         candidate_indices = np.random.permutation(len(sender_pool))
-                        if rank_selection_num > 0:
+                        if novelty_selection_num > 0:
                             candidate_indices = candidate_indices[np.argsort(
-                                fitness_ranks[candidate_indices], kind='stable'
+                                -distances[recipient_index, candidate_indices], kind='stable'
                             )]
 
-                        # First select the highest-performing entries, then sample randomly
+                        # First select the most novel entries, then sample randomly
                         # from those not selected. Each sender appears at most once.
-                        selected_indices = candidate_indices[:rank_selection_num].copy()
+                        selected_indices = candidate_indices[:novelty_selection_num].copy()
                         if random_selection_num > 0:
                             random_indices = np.random.choice(
-                                candidate_indices[rank_selection_num:],
+                                candidate_indices[novelty_selection_num:],
                                 size=random_selection_num, replace=False
                             )
                             selected_indices = np.concatenate((selected_indices, random_indices))
@@ -224,22 +225,22 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # All sender paths are eligible; recommendation pools are recipient-specific.
+    # All sender paths are eligible; recommendations are personalized to each recipient.
     visibility_extent = 1.0
 
     # Fix the number of recommended sender entries in every treatment.
-    recommendation_num = 10
-    # Select this fraction of the 10 entries by true fitness rank, the rest randomly.
+    recommendation_num = 20
+    # Select this fraction of the 10 entries by novelty, the rest randomly.
     # Strength 0.0 is random visibility (not search-apart).
-    rank_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    novelty_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    # Sender ranks are shared, but recommendations are sampled separately per recipient.
+    # Recommendations are ranked for each recipient independently.
     agent_num = 100
     concurrency = 100
 
-    for rank_selection_strength in rank_selection_strength_list:
+    for novelty_selection_strength in novelty_selection_strength_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -279,7 +280,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      visibility_extent, rank_selection_strength, recommendation_num,
+                                                      visibility_extent, novelty_selection_strength, recommendation_num,
                                                       visibility_interval, solver_reset_num,
                                                       loop, return_dict, sema),
                                    kwargs=dict(generative_horizon=generative_horizon,
@@ -364,8 +365,8 @@ if __name__ == '__main__':
             generative_potential_across_K.append(generative_potential_mean)
 
         # Save existing DVs plus generative potential for each selection condition.
-        filename_prefix = "visibility_rank_selection_strength_{0}_recommendation_num_{1}_interval_{2}".format(
-            rank_selection_strength, recommendation_num, visibility_interval
+        filename_prefix = "visibility_novelty_selection_strength_{0}_recommendation_num_{1}_interval_{2}".format(
+            novelty_selection_strength, recommendation_num, visibility_interval
         )
 
         with open("{0}_breakthrough_fitness_across_K_size_{1}".format(
@@ -399,6 +400,6 @@ if __name__ == '__main__':
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Rank-Based Selection with {0} Recommendations and Interval {1}: ".format(
+    print("Novelty-Based Selection with {0} Recommendations and Interval {1}: ".format(
         recommendation_num, visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
