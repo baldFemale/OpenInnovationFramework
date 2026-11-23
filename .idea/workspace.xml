@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenInnovationFramework.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/2-dimentional_lanscape.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/2-dimentional_lanscape.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/Landscape_Metaphor.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/Landscape_Metaphor.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/Landscape_Metaphor.md" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/Landscape_Metaphor.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/Landscape_Metaphor_files/Landscape_Metaphor_0_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/Landscape_Metaphor_files/Landscape_Metaphor_0_0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/visibility_distribution_illustration.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/visibility_distribution_illustration.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/visibility_distribution_illustration_larger_bold_text.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/visibility_distribution_illustration_larger_bold_text.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR/illustrations/visibility_distribution_illustration_refined.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/illustrations/visibility_distribution_illustration_refined.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength_Updated.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +134,7 @@
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Robustness/Bidirectional_visibility&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -156,11 +150,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Bidirectional_visibility" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Dissimilarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility" />
@@ -653,7 +647,10 @@
       <workItem from="1795164072393" duration="101000" />
       <workItem from="1795164180607" duration="4249000" />
       <workItem from="1795181872571" duration="291000" />
-      <workItem from="1795182185119" duration="1771000" />
+      <workItem from="1795182185119" duration="2872000" />
+      <workItem from="1795421100155" duration="537000" />
+      <workItem from="1795421662471" duration="647000" />
+      <workItem from="1795423895074" duration="512000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -998,7 +995,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="654" />
+    <option name="localTasksCounter" value="655" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
