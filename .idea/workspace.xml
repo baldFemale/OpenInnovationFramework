@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Crowd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Landscape.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Solver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Visibility_rank_selection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/slurm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing_Updated.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_Visibility_Extent_Updated.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_Visibility_Extent_Updated.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Visibility_rank_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Visibility_rank_selection_full.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/slurm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,23 +53,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0093578898972446" />
-      <entry key="MS500" value="1.46958304560001" />
-      <entry key="S2" value="2.461908461784729" />
-      <entry key="S5" value="3.145370448566151" />
-      <entry key="S10" value="3.5129299153549027" />
-      <entry key="S30" value="3.821631546561295" />
-      <entry key="S60" value="3.9086126884719423" />
-      <entry key="M2" value="3.9537391201148457" />
-      <entry key="M5" value="3.9813573482848565" />
-      <entry key="M10" value="3.990655441123526" />
-      <entry key="M15" value="3.993765117536922" />
-      <entry key="M30" value="3.996879967283255" />
-      <entry key="H1" value="3.9984644068864115" />
-      <entry key="H2" value="4.007892206521806" />
-      <entry key="H4" value="4.160910994686634" />
-      <entry key="D1" value="5.843000075798613" />
-      <entry key="W1" value="6.79829834957931" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.000275665414412" />
+      <entry key="S2" value="1.3554270931770747" />
+      <entry key="S5" value="2.667462051253727" />
+      <entry key="S10" value="3.8621222243662245" />
+      <entry key="S30" value="5.142538285094609" />
+      <entry key="S60" value="5.549822992213242" />
+      <entry key="M2" value="5.769258560566702" />
+      <entry key="M5" value="5.906307465060274" />
+      <entry key="M10" value="5.952917716147818" />
+      <entry key="M15" value="5.968559110937155" />
+      <entry key="M30" value="5.9842531425251435" />
+      <entry key="H1" value="5.992144996175277" />
+      <entry key="H2" value="6.0047255352410485" />
+      <entry key="H4" value="6.159278980190721" />
+      <entry key="D1" value="7.842639299245623" />
+      <entry key="W1" value="8.798239609233033" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -98,23 +91,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7087936482380135" />
-      <entry key="MS500" value="1.3682312538580303" />
-      <entry key="S2" value="2.400891467413373" />
-      <entry key="S5" value="3.1004925313698424" />
-      <entry key="S10" value="3.4837173056556834" />
-      <entry key="S30" value="3.809840190275231" />
-      <entry key="S60" value="3.9024169292256663" />
-      <entry key="M2" value="3.9505625594167255" />
-      <entry key="M5" value="3.980067353117151" />
-      <entry key="M10" value="3.9900071736286025" />
-      <entry key="M15" value="3.9933322094618475" />
-      <entry key="M30" value="3.9966631475957506" />
-      <entry key="H1" value="3.998355905245992" />
-      <entry key="H2" value="4.007837891723252" />
-      <entry key="H4" value="4.160883469115911" />
-      <entry key="D1" value="5.842994821801702" />
-      <entry key="W1" value="6.798297544979606" />
+      <entry key="MS100" value="0.5509525579383053" />
+      <entry key="MS500" value="0.8878715194836908" />
+      <entry key="S2" value="1.3188163344257857" />
+      <entry key="S5" value="2.6360126891555455" />
+      <entry key="S10" value="3.8364285448205093" />
+      <entry key="S30" value="5.1298680437863045" />
+      <entry key="S60" value="5.54278761230293" />
+      <entry key="M2" value="5.765548046096428" />
+      <entry key="M5" value="5.904774518919571" />
+      <entry key="M10" value="5.952142906068663" />
+      <entry key="M15" value="5.968040702082593" />
+      <entry key="M30" value="5.9839929996334105" />
+      <entry key="H1" value="5.9920146891106825" />
+      <entry key="H2" value="6.004660281723164" />
+      <entry key="H4" value="6.159245976350525" />
+      <entry key="D1" value="7.842633130968753" />
+      <entry key="W1" value="8.798238673986896" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -660,7 +653,7 @@
       <workItem from="1795423895074" duration="512000" />
       <workItem from="1795424779306" duration="2653000" />
       <workItem from="1795437498198" duration="118000" />
-      <workItem from="1795437957093" duration="2651000" />
+      <workItem from="1795437957093" duration="3135000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -1005,7 +998,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="657" />
+    <option name="localTasksCounter" value="658" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
