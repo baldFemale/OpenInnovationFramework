@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_Visibility_Extent_Updated.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Visibility_rank_selection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing_Updated.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_independent_figures.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_Visibility_Extent_Updated.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Extent/Evaluator_Visibility_Extent_Updated.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Timing/Evaluator_Visibility_Timing.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +141,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Extent",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_full_visibility",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -152,11 +157,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Bidirectional_visibility" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Similarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num/Rank_based" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility" />
@@ -653,7 +658,9 @@
       <workItem from="1795421100155" duration="537000" />
       <workItem from="1795421662471" duration="647000" />
       <workItem from="1795423895074" duration="512000" />
-      <workItem from="1795424779306" duration="2212000" />
+      <workItem from="1795424779306" duration="2653000" />
+      <workItem from="1795437498198" duration="118000" />
+      <workItem from="1795437957093" duration="2651000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -998,7 +1005,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="656" />
+    <option name="localTasksCounter" value="657" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
