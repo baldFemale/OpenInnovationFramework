@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 6/22/2023 20:46
 # @Author   : Junyi
-# @FileName: Crowd.py
+# @FileName: Crowd_imitation.py
 # @Software  : PyCharm
 # Observing PEP 8 coding style
 
@@ -74,14 +74,30 @@ class Crowd:
 
         np.random.shuffle(self.solution_pool)
 
-    def learn_from_visible_pool(self):
+    def learn_from_visible_pool(self, imitation_breadth=1.0):
         """
-        Receiver solvers evaluate visible solutions using their own bounded
-        knowledge and adopt the first solution that improves perceived fitness.
+        Copy a proportion of the N dimensions from each evaluated visible solution.
+        Receivers evaluate one recombinant candidate per visible solution and
+        adopt the first candidate that improves perceived fitness.
+        imitation_breadth=1.0 preserves the original whole-solution adoption.
         """
+        if not 0.0 <= imitation_breadth <= 1.0:
+            raise ValueError("imitation_breadth must be between 0 and 1.")
+        copy_num = int(imitation_breadth * self.N)
+        if copy_num == 0:
+            return  # No decisions can change through visibility.
+
         for agent in self.agents:
             for solution in self.solution_pool:
-                if agent.search(solution=solution):
+                if copy_num == self.N:
+                    candidate = solution  # Original behavior; no additional RNG draws.
+                else:
+                    candidate = agent.state.copy()
+                    copied_dimensions = np.random.choice(self.N, size=copy_num, replace=False)
+                    for dimension in copied_dimensions:
+                        candidate[dimension] = solution[dimension]
+
+                if agent.search(solution=candidate):
                     self.adopted_solution_fitness_history.append(agent.fitness)
                     if self.generative_sample_size:
                         # Sample events uniformly, irrespective of adoption time.
