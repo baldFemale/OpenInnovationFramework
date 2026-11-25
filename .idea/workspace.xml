@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper" />
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper">
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Evaluator_Visibility_Timing_Updated.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Visibility_timing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/Visibility_timing_robustness.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,22 +59,22 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0001923972494524" />
-      <entry key="S2" value="1.1354763553722893" />
-      <entry key="S5" value="1.7058041434407252" />
-      <entry key="S10" value="2.390998110372315" />
-      <entry key="S30" value="3.2977874349435568" />
-      <entry key="S60" value="3.631670504531406" />
-      <entry key="M2" value="4.04382178393862" />
-      <entry key="M5" value="5.575459784578661" />
-      <entry key="M10" value="7.111436775785266" />
-      <entry key="M15" value="7.879247085526833" />
-      <entry key="M30" value="8.827694043491025" />
-      <entry key="H1" value="9.382808048959093" />
-      <entry key="H2" value="9.691425299830223" />
-      <entry key="H4" value="9.99653466073487" />
-      <entry key="D1" value="11.80780102893963" />
-      <entry key="W1" value="12.792650737354396" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.000000112989009" />
+      <entry key="S60" value="1.000750984277881" />
+      <entry key="M2" value="1.0642251375136444" />
+      <entry key="M5" value="2.1478969600739233" />
+      <entry key="M10" value="4.389110728734256" />
+      <entry key="M15" value="5.962509508317731" />
+      <entry key="M30" value="8.34707004073557" />
+      <entry key="H1" value="9.977307228103747" />
+      <entry key="H2" value="10.94148437071431" />
+      <entry key="H4" value="11.60385205820518" />
+      <entry key="D1" value="13.730414357939578" />
+      <entry key="W1" value="14.780714464241385" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -87,23 +96,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9460576467255959" />
-      <entry key="MS500" value="0.9891604019076478" />
-      <entry key="S2" value="1.1321907529587638" />
-      <entry key="S5" value="1.7036468684913317" />
-      <entry key="S10" value="2.38943890682779" />
-      <entry key="S30" value="3.2970635784475464" />
-      <entry key="S60" value="3.631260645307644" />
-      <entry key="M2" value="4.043458588664298" />
-      <entry key="M5" value="5.574943986866347" />
-      <entry key="M10" value="7.110983075908179" />
-      <entry key="M15" value="7.8788787276841985" />
-      <entry key="M30" value="8.827469004228877" />
-      <entry key="H1" value="9.382683540845322" />
-      <entry key="H2" value="9.691359758844671" />
-      <entry key="H4" value="9.996500691470965" />
-      <entry key="D1" value="11.80779458300548" />
-      <entry key="W1" value="12.792649759147574" />
+      <entry key="MS100" value="0.63287829698514" />
+      <entry key="MS500" value="0.9125654885434519" />
+      <entry key="S2" value="0.9773857664108053" />
+      <entry key="S5" value="0.9908921869169763" />
+      <entry key="S10" value="0.9954356769359718" />
+      <entry key="S30" value="0.9984763512606424" />
+      <entry key="S60" value="0.9999886922033722" />
+      <entry key="M2" value="1.0638372215651926" />
+      <entry key="M5" value="2.147642738551645" />
+      <entry key="M10" value="4.388830923909267" />
+      <entry key="M15" value="5.962240325614707" />
+      <entry key="M30" value="8.346868040477434" />
+      <entry key="H1" value="9.977182039011286" />
+      <entry key="H2" value="10.94141447721804" />
+      <entry key="H4" value="11.603814778982755" />
+      <entry key="D1" value="13.730407190217703" />
+      <entry key="W1" value="14.780713378032592" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -117,40 +126,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2-dimentional_lanscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Landscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visibility_distribution_illustration.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_full_visibility&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;python.lsp.tool.dont.ask.Basedpyright&quot;: &quot;true&quot;,
-    &quot;python.lsp.tool.dont.ask.basedpyright&quot;: &quot;true&quot;,
-    &quot;python.packages.toolwindow.project.migrated.to.right.top.v2&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor": "Run",
+    "Python.2-dimentional_lanscape.executor": "Run",
+    "Python.Landscape.executor": "Run",
+    "Python.visibility_distribution_illustration.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Robustness/Timing_under_diff_extent",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "python.lsp.tool.dont.ask.Basedpyright": "true",
+    "python.lsp.tool.dont.ask.basedpyright": "true",
+    "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Timing" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Extent" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Bidirectional_visibility" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility" />
@@ -650,6 +659,8 @@
       <workItem from="1795424779306" duration="2653000" />
       <workItem from="1795437498198" duration="118000" />
       <workItem from="1795437957093" duration="3666000" />
+      <workItem from="1795527435581" duration="30000" />
+      <workItem from="1795588525547" duration="663000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -994,7 +1005,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="660" />
+    <option name="localTasksCounter" value="661" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
