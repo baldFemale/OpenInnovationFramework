@@ -25,8 +25,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     Performance-based selection with separated sender and recipient crowds.
 
     visibility_extent = 1.0 makes all senders eligible for rule-based selection.
-    At each visibility event, every recipient receives recommendation_num sender
-    entries (10 by default). A fraction is selected by true NK landscape fitness
+    At each visibility event, all recipients receive one common pool of
+    recommendation_num sender entries (10 by default). A fraction is selected by true NK landscape fitness
     rank (lower numerical ranks are better), and the remainder comes from a
     common random ordering of sender identities fixed at each crowd reset.
     Ranked entries are skipped when filling the remaining slots, without duplicates.
@@ -36,7 +36,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
     Both crowds conduct local search every period. Every visibility_interval
     periods, sender ranks are recomputed after local search. Fitness-rank ties
-    are broken randomly; recommendations are shuffled before evaluation.
+    are broken randomly once per event; the common recommendation pool is
+    shuffled once per event and evaluated in the same order by all recipients.
     Recipients adopt at most the first perceived improvement, without feedback
     to senders. Search-apart (zero exposure) is not part of this experiment.
 
@@ -106,52 +107,40 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                     # Refresh solutions, not the identities or fixed random ordering.
                     sender_pool = [agent.state.copy() for agent in eligible_senders]
 
-                    # Sender fitness rankings are common to all recipients.
+                    # Construct one common recommendation pool per visibility event.
                     # Lower true NK fitness ranks indicate better solutions.
                     if rank_selection_num > 0:
                         fitness_ranks = np.asarray([
                             landscape.query_fitness_rank(state=state) for state in sender_pool
                         ])
+                        # Break fitness-rank ties randomly once for all recipients.
+                        candidate_indices = np.random.permutation(len(sender_pool))
+                        candidate_indices = candidate_indices[np.argsort(
+                            fitness_ranks[candidate_indices], kind='stable'
+                        )]
+                        selected_indices = candidate_indices[:rank_selection_num].copy()
+                    else:
+                        selected_indices = np.empty(0, dtype=int)
 
-                    for recipient in crowd_receiver.agents:
-                        if rank_selection_num > 0:
-                            # Preserve random tie-breaking for performance-based selection.
-                            candidate_indices = np.random.permutation(len(sender_pool))
-                            candidate_indices = candidate_indices[np.argsort(
-                                fitness_ranks[candidate_indices], kind='stable'
-                            )]
-                            selected_indices = candidate_indices[:rank_selection_num].copy()
-                        else:
-                            selected_indices = np.empty(0, dtype=int)
+                    # Fill non-ranked slots from the same fixed random ordering.
+                    # Skip ranked senders to preserve the recommendation count.
+                    if random_selection_num > 0:
+                        remaining_indices = fixed_random_order[
+                            ~np.isin(fixed_random_order, selected_indices)
+                        ]
+                        random_indices = remaining_indices[:random_selection_num]
+                        selected_indices = np.concatenate((selected_indices, random_indices))
 
-                        # Fill non-ranked slots from the same fixed random ordering.
-                        # Skip ranked senders to preserve the recommendation count.
-                        if random_selection_num > 0:
-                            remaining_indices = fixed_random_order[
-                                ~np.isin(fixed_random_order, selected_indices)
-                            ]
-                            random_indices = remaining_indices[:random_selection_num]
-                            selected_indices = np.concatenate((selected_indices, random_indices))
+                    if len(selected_indices) != recommendation_num:
+                        raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
 
-                        if len(selected_indices) != recommendation_num:
-                            raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
-
-                        # Selection determines pool membership, not evaluation order.
-                        np.random.shuffle(selected_indices)
-                        for index in selected_indices:
-                            if recipient.search(solution=sender_pool[index]):
-                                crowd_receiver.adopted_solution_fitness_history.append(recipient.fitness)
-                                if crowd_receiver.generative_sample_size:
-                                    # Uniformly sample successful adoptions without affecting search.
-                                    count = len(crowd_receiver.adopted_solution_fitness_history)
-                                    event = (recipient, recipient.state.copy())
-                                    if len(crowd_receiver.generative_samples) < crowd_receiver.generative_sample_size:
-                                        crowd_receiver.generative_samples.append(event)
-                                    else:
-                                        sample_index = crowd_receiver.generative_rng.integers(count)
-                                        if sample_index < crowd_receiver.generative_sample_size:
-                                            crowd_receiver.generative_samples[sample_index] = event
-                                break
+                    # Shuffle once per event, not once per recipient, as in the extent experiment.
+                    # Selection determines pool membership, not evaluation order.
+                    np.random.shuffle(selected_indices)
+                    crowd_receiver.solution_pool = [
+                        sender_pool[index].copy() for index in selected_indices
+                    ]
+                    crowd_receiver.learn_from_visible_pool()
 
                     adopted_solution_fitness_across_time.append(
                         np.mean(crowd_receiver.adopted_solution_fitness_history)
@@ -213,8 +202,8 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 600
-    solver_reset_num = 10  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
+    landscape_iteration = 400
+    solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
     # Generative potential: independent local-search continuations after adoption.
@@ -242,7 +231,7 @@ if __name__ == '__main__':
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    # Sender ranks and the fixed random ordering are shared across recipients.
+    # Sender ranks, selected pool, and evaluation order are shared across recipients.
     agent_num = 100
     concurrency = 100
 

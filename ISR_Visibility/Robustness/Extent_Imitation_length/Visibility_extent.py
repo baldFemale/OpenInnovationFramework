@@ -7,7 +7,7 @@
 
 import numpy as np
 from Landscape import Landscape
-from Crowd import Crowd
+from Crowd_imitation import Crowd
 import multiprocessing as mp
 import time
 from multiprocessing import Semaphore

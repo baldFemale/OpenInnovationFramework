@@ -25,18 +25,21 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     Similarity-based selection with separated sender and recipient crowds.
 
     visibility_extent = 1.0 makes all sender solutions eligible throughout a run.
-    At each visibility event, every recipient receives recommendation_num = 10
-    sender entries. similarity_selection_strength controls the composition of
-    that fixed pool: a fraction is selected by ascending Hamming distance
-    from the recipient's current complete configuration, and the rest is
-    sampled randomly from the remaining sender entries.
+    At each visibility event, every recipient receives recommendation_num
+    sender entries (10 by default). similarity_selection_strength controls the composition of
+    that pool: a fixed random subset of sender identities is shared by all
+    recipients throughout each crowd reset. The remaining slots are filled
+    for each recipient by ascending Hamming distance from its current
+    complete configuration, excluding those fixed random senders.
 
-        similarity_selection_strength = 0.0: 10 random sender entries (benchmark).
-        similarity_selection_strength = 1.0: 10 most similar sender entries.
+        similarity_selection_strength = 0.0: the same random senders for all recipients and periods.
+        similarity_selection_strength = 1.0: the most similar senders for each recipient.
 
     Both crowds conduct local search every period. Every visibility_interval
-    periods, recommendations are recomputed after local search. Similarity ties
-    are broken randomly; selected recommendations are shuffled before evaluation.
+    periods, recommendations are recomputed after local search. Distance ties
+    are broken randomly. A common random permutation of recommendation slots
+    is drawn once per event, so random senders share the same evaluation order
+    and positions across recipients; the rule-selected identities are personalized.
     Recipients adopt at most the first perceived improvement, without feedback
     to senders. Search-apart (zero exposure) is not part of this experiment.
 
@@ -57,6 +60,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         if visibility_extent != 1.0:
             raise ValueError("visibility_extent must equal 1.0 for this selection experiment.")
 
+        if not 1 <= recommendation_num <= agent_num:
+            raise ValueError("recommendation_num must be between 1 and agent_num.")
         similarity_selection_num = int(round(similarity_selection_strength * recommendation_num))
         random_selection_num = recommendation_num - similarity_selection_num
 
@@ -84,6 +89,17 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
+            # Reserve a common random subset once per crowd reset.
+            # Its identities stay fixed across recipients and visibility events.
+            eligible_senders = [agent for agent in crowd_sender.agents
+                                if agent.visibility_status]
+            if len(eligible_senders) < recommendation_num:
+                raise ValueError("Eligible sender pool is smaller than recommendation_num.")
+            fixed_random_order = np.random.permutation(len(eligible_senders))
+            fixed_random_indices = fixed_random_order[:random_selection_num]
+            # Exclude reserved random senders from personalized selection.
+            rule_eligible_indices = fixed_random_order[random_selection_num:]
+
             # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
 
@@ -93,11 +109,12 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_receiver.search()
 
                 if (period + 1) % visibility_interval == 0:
-                    # All structurally visible senders are eligible for recommendation.
-                    sender_pool = [agent.state.copy() for agent in crowd_sender.agents
-                                   if agent.visibility_status]
-                    if len(sender_pool) < recommendation_num:
-                        raise ValueError("Eligible sender pool is smaller than recommendation_num.")
+                    # Refresh solutions while retaining the fixed sender identities.
+                    sender_pool = [agent.state.copy() for agent in eligible_senders]
+
+                    # Shuffle recommendation slots once per visibility event.
+                    # At s = 0, all recipients see exactly the same ordered pool.
+                    evaluation_order = np.random.permutation(recommendation_num)
 
                     # Compute personalized similarity rankings only when needed.
                     if similarity_selection_num > 0:
@@ -110,28 +127,23 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                         )
 
                     for recipient_index, recipient in enumerate(crowd_receiver.agents):
-                        # A random initial order breaks Hamming-distance ties.
-                        candidate_indices = np.random.permutation(len(sender_pool))
+                        # Rank only senders not already in the shared random subset.
                         if similarity_selection_num > 0:
+                            candidate_indices = np.random.permutation(rule_eligible_indices)
                             candidate_indices = candidate_indices[np.argsort(
                                 distances[recipient_index, candidate_indices], kind='stable'
                             )]
+                            rule_indices = candidate_indices[:similarity_selection_num]
+                        else:
+                            rule_indices = np.empty(0, dtype=int)
 
-                        # First select the most similar entries, then sample randomly
-                        # from those not selected. Each sender appears at most once.
-                        selected_indices = candidate_indices[:similarity_selection_num].copy()
-                        if random_selection_num > 0:
-                            random_indices = np.random.choice(
-                                candidate_indices[similarity_selection_num:],
-                                size=random_selection_num, replace=False
-                            )
-                            selected_indices = np.concatenate((selected_indices, random_indices))
-
+                        # The random component is identical for every recipient.
+                        selected_indices = np.concatenate((fixed_random_indices, rule_indices))
                         if len(selected_indices) != recommendation_num:
-                            raise RuntimeError("Recommendation count must remain exactly 10.")
+                            raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
 
-                        # Selection determines pool membership, not evaluation order.
-                        np.random.shuffle(selected_indices)
+                        # Common slot order; no recipient-specific evaluation shuffle.
+                        selected_indices = selected_indices[evaluation_order]
                         for index in selected_indices:
                             if recipient.search(solution=sender_pool[index]):
                                 crowd_receiver.adopted_solution_fitness_history.append(recipient.fitness)
@@ -207,8 +219,8 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 600
-    solver_reset_num = 10  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
+    landscape_iteration = 400
+    solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
     # Generative potential: independent local-search continuations after adoption.
@@ -229,14 +241,14 @@ if __name__ == '__main__':
     visibility_extent = 1.0
 
     # Fix the number of recommended sender entries in every treatment.
-    recommendation_num = 20
-    # Select this fraction of the 10 entries by similarity, the rest randomly.
-    # Strength 0.0 is random visibility (not search-apart).
+    recommendation_num = 10
+    # Select this fraction of entries by similarity; reserve the rest as fixed random senders.
+    # Strength 0.0 reproduces the fixed-sender visibility design (not search-apart).
     similarity_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    # Recommendations are ranked for each recipient independently.
+    # Rule-based rankings are personalized; random senders are shared and fixed.
     agent_num = 100
     concurrency = 100
 
