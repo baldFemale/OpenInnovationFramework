@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point">
+    <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point&#10;add more robustness">
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Evaluator_Visibility_Rank_Selection_Fixed_Random.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/Visibility_extent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/Visibility_extent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/slurm" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Evaluator_Visibility_Rank_Selection_Full.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based/Evaluator_Visibility_Rank_Selection_Full.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,61 +53,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000002731127495" />
-      <entry key="S5" value="1.002368948040603" />
-      <entry key="S10" value="1.0501949310195025" />
-      <entry key="S30" value="2.4043745777910797" />
-      <entry key="S60" value="7.07654879430671" />
-      <entry key="M2" value="14.491812401637468" />
-      <entry key="M5" value="23.18760866283581" />
-      <entry key="M10" value="27.537586434270064" />
-      <entry key="M15" value="29.524540840065725" />
-      <entry key="M30" value="33.05347664959275" />
-      <entry key="H1" value="37.06920880346934" />
-      <entry key="H2" value="40.59561638586797" />
-      <entry key="H4" value="43.12161624952289" />
-      <entry key="D1" value="47.21527890600621" />
-      <entry key="W1" value="48.7011367846516" />
+      <entry key="MS100" value="1.3880952883543287" />
+      <entry key="MS500" value="2.3270662162444298" />
+      <entry key="S2" value="3.742664436140859" />
+      <entry key="S5" value="4.406916651928709" />
+      <entry key="S10" value="4.6864632504612675" />
+      <entry key="S30" value="5.112190881008021" />
+      <entry key="S60" value="7.0915133631437195" />
+      <entry key="M2" value="12.953856926909936" />
+      <entry key="M5" value="23.254810478582204" />
+      <entry key="M10" value="29.435421728920485" />
+      <entry key="M15" value="32.26377178205654" />
+      <entry key="M30" value="36.76308751294632" />
+      <entry key="H1" value="41.33855827399175" />
+      <entry key="H2" value="45.193595623423256" />
+      <entry key="H4" value="47.90758269333292" />
+      <entry key="D1" value="52.176142991517715" />
+      <entry key="W1" value="53.6953681247484" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="2.754553387185517E-250" />
-      <entry key="S10" value="2.432480944130536E-125" />
-      <entry key="S30" value="5.5192510080953696E-42" />
-      <entry key="S60" value="4.0033160846955414E-21" />
-      <entry key="M2" value="1.090987173516395E-10" />
-      <entry key="M5" value="1.9994519371148117E-4" />
-      <entry key="M10" value="0.0244868448870883" />
-      <entry key="M15" value="0.12161216271393674" />
-      <entry key="M30" value="0.6040039665832815" />
-      <entry key="H1" value="1.3461026573578458" />
-      <entry key="H2" value="2.0095514611449623" />
-      <entry key="H4" value="2.4553309988900005" />
-      <entry key="D1" value="2.901478564131559" />
-      <entry key="W1" value="2.9857232903539224" />
+      <entry key="S5" value="1.6717823029312727E-256" />
+      <entry key="S10" value="1.895019623150701E-128" />
+      <entry key="S30" value="5.078493495729252E-43" />
+      <entry key="S60" value="1.2143594560415488E-21" />
+      <entry key="M2" value="6.008738908144665E-11" />
+      <entry key="M5" value="1.575057614140382E-4" />
+      <entry key="M10" value="0.02173329464633803" />
+      <entry key="M15" value="0.11231527817262893" />
+      <entry key="M30" value="0.5804578692499494" />
+      <entry key="H1" value="1.3196040442909847" />
+      <entry key="H2" value="1.989673704480982" />
+      <entry key="H4" value="2.443157196000805" />
+      <entry key="D1" value="2.8990759538471185" />
+      <entry key="W1" value="2.985369969185996" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9395227492140118" />
-      <entry key="MS500" value="0.9876008614453725" />
-      <entry key="S2" value="0.9968859697657935" />
-      <entry key="S5" value="1.0011200915300593" />
-      <entry key="S10" value="1.0495505691813578" />
-      <entry key="S30" value="2.4040028316272846" />
-      <entry key="S60" value="7.07609675735667" />
-      <entry key="M2" value="14.49136740451787" />
-      <entry key="M5" value="23.187522837967137" />
-      <entry key="M10" value="27.561872315302676" />
-      <entry key="M15" value="29.645927593885133" />
-      <entry key="M30" value="33.657144072628476" />
-      <entry key="H1" value="38.41496446978766" />
-      <entry key="H2" value="42.604911953241526" />
-      <entry key="H4" value="45.57679082930877" />
-      <entry key="D1" value="50.11672598961822" />
-      <entry key="W1" value="51.68685539094874" />
+      <entry key="MS100" value="0.7538942072817786" />
+      <entry key="MS500" value="2.132494926634605" />
+      <entry key="S2" value="3.6655317686227686" />
+      <entry key="S5" value="4.369140089538802" />
+      <entry key="S10" value="4.666022403527705" />
+      <entry key="S30" value="5.104951481302104" />
+      <entry key="S60" value="7.087721455197099" />
+      <entry key="M2" value="12.951771144313291" />
+      <entry key="M5" value="23.2540033670882" />
+      <entry key="M10" value="29.4566063661072" />
+      <entry key="M15" value="32.375631901538036" />
+      <entry key="M30" value="37.34309840723807" />
+      <entry key="H1" value="42.65776036735206" />
+      <entry key="H2" value="47.18298506629607" />
+      <entry key="H4" value="50.35056879530856" />
+      <entry key="D1" value="55.07518491570501" />
+      <entry key="W1" value="56.680733042541824" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -121,39 +121,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2-dimentional_lanscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Landscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visibility_distribution_illustration.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Robustness&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;python.lsp.tool.dont.ask.Basedpyright&quot;: &quot;true&quot;,
-    &quot;python.lsp.tool.dont.ask.basedpyright&quot;: &quot;true&quot;,
-    &quot;python.packages.toolwindow.project.migrated.to.right.top.v2&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor": "Run",
+    "Python.2-dimentional_lanscape.executor": "Run",
+    "Python.Landscape.executor": "Run",
+    "Python.visibility_distribution_illustration.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_full_visibility/Rank_based",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "python.lsp.tool.dont.ask.Basedpyright": "true",
+    "python.lsp.tool.dont.ask.basedpyright": "true",
+    "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Similarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -658,6 +658,7 @@
       <workItem from="1795588525547" duration="2002000" />
       <workItem from="1795598885319" duration="5135000" />
       <workItem from="1795606353589" duration="927000" />
+      <workItem from="1795692996146" duration="295000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -1002,7 +1003,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="664" />
+    <option name="localTasksCounter" value="665" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1020,7 +1021,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape&#10;--1) No sub-space -&gt; Random neighbors&#10;--2) Two sub-spaces -&gt; simply clustering neighbors&#10;--3) Four sub-spaces -&gt; regularly clustering neighbors" />
     <MESSAGE value="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape" />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception." />
     <MESSAGE value="1. Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape; revise the way to generate landscape, binary first and then quaternary&#10;&#10;2. Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation; perhaps removed.&#10;--adopt the shelter &quot;*&quot; element design, resonating with the myopia induced ambiguity.&#10;&#10;3. Introduce the different sub-area in the landscape, removed.&#10;&#10;4. Adjust the ambiguity design&#10;--the average pooling algorithm now is much more informative and consistent with neighborhood perception. removed&#10;--use the binary-to-quaternary diverging to implement the average pooling reversely" />
@@ -1045,7 +1045,8 @@
     <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision (**pending**): add the information cascade assumption; remove the separation between senders and receivers." />
     <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper" />
     <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point" />
-    <option name="LAST_COMMIT_MESSAGE" value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point" />
+    <MESSAGE value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point&#10;add more robustness" />
+    <option name="LAST_COMMIT_MESSAGE" value="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point&#10;add more robustness" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OpenInnovationFramework$Socialized_Agent.coverage" NAME="Socialized_Agent Coverage Results" MODIFIED="1647452244072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Socialized_innovation_crowdsourcing" />
