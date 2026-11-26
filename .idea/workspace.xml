@@ -5,9 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point&#10;add more robustness">
-      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Fixed_Random.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Visibility_dissimilarity_selection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Evaluator_Visibility_Integrated_Selection.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Visibility_rank_selection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Crowd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Evaluator_Visibility_Similarity.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Evaluator_Visibility_Similarity_Selection.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Landscape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Solver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Visibility_similarity_selection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/slurm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Crowd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Solver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/Visibility_dissimilarity_selection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Dissimilarity_based/slurm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Evaluator_Visibility_Integrated_Selection.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Crowd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Solver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/Visibility_rank_selection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Rank_based/slurm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Crowd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Evaluator_Visibility_Similarity.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Evaluator_Visibility_Similarity_Selection.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Landscape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Solver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/Visibility_similarity_selection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_20/Similarity_based/slurm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based/Evaluator_Visibility_Dissimilarity_Full.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based/Evaluator_Visibility_Dissimilarity_Full_updated.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,61 +92,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.3880952883543287" />
-      <entry key="MS500" value="2.3270662162444298" />
-      <entry key="S2" value="3.742664436140859" />
-      <entry key="S5" value="4.406916651928709" />
-      <entry key="S10" value="4.6864632504612675" />
-      <entry key="S30" value="5.112190881008021" />
-      <entry key="S60" value="7.0915133631437195" />
-      <entry key="M2" value="12.953856926909936" />
-      <entry key="M5" value="23.254810478582204" />
-      <entry key="M10" value="29.435421728920485" />
-      <entry key="M15" value="32.26377178205654" />
-      <entry key="M30" value="36.76308751294632" />
-      <entry key="H1" value="41.33855827399175" />
-      <entry key="H2" value="45.193595623423256" />
-      <entry key="H4" value="47.90758269333292" />
-      <entry key="D1" value="52.176142991517715" />
-      <entry key="W1" value="53.6953681247484" />
+      <entry key="MS100" value="2.159181606320139" />
+      <entry key="MS500" value="3.244683847596457" />
+      <entry key="S2" value="4.709091101592676" />
+      <entry key="S5" value="5.3910611060525575" />
+      <entry key="S10" value="5.6780249935343" />
+      <entry key="S30" value="6.109120769314462" />
+      <entry key="S60" value="8.089383649256973" />
+      <entry key="M2" value="13.95191163828246" />
+      <entry key="M5" value="24.253413539994067" />
+      <entry key="M10" value="30.43453760874997" />
+      <entry key="M15" value="33.26312573063205" />
+      <entry key="M30" value="37.76271943812675" />
+      <entry key="H1" value="42.3383513310839" />
+      <entry key="H2" value="46.193482502572046" />
+      <entry key="H4" value="48.907522736276505" />
+      <entry key="D1" value="53.176132108308124" />
+      <entry key="W1" value="54.695366524734176" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="1.6717823029312727E-256" />
-      <entry key="S10" value="1.895019623150701E-128" />
-      <entry key="S30" value="5.078493495729252E-43" />
-      <entry key="S60" value="1.2143594560415488E-21" />
-      <entry key="M2" value="6.008738908144665E-11" />
-      <entry key="M5" value="1.575057614140382E-4" />
-      <entry key="M10" value="0.02173329464633803" />
-      <entry key="M15" value="0.11231527817262893" />
-      <entry key="M30" value="0.5804578692499494" />
-      <entry key="H1" value="1.3196040442909847" />
-      <entry key="H2" value="1.989673704480982" />
-      <entry key="H4" value="2.443157196000805" />
-      <entry key="D1" value="2.8990759538471185" />
-      <entry key="W1" value="2.985369969185996" />
+      <entry key="S5" value="1.6657674351466812E-256" />
+      <entry key="S10" value="1.8916075271612108E-128" />
+      <entry key="S30" value="5.07544362090458E-43" />
+      <entry key="S60" value="1.2139947612204865E-21" />
+      <entry key="M2" value="6.007836572143161E-11" />
+      <entry key="M5" value="1.5749629989311219E-4" />
+      <entry key="M10" value="0.02173264186669228" />
+      <entry key="M15" value="0.11231302916572591" />
+      <entry key="M30" value="0.5804520576617519" />
+      <entry key="H1" value="1.3195974382865776" />
+      <entry key="H2" value="1.989668724271287" />
+      <entry key="H4" value="2.4431541383530258" />
+      <entry key="D1" value="2.8990753491406487" />
+      <entry key="W1" value="2.985369880227961" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7538942072817786" />
-      <entry key="MS500" value="2.132494926634605" />
-      <entry key="S2" value="3.6655317686227686" />
-      <entry key="S5" value="4.369140089538802" />
-      <entry key="S10" value="4.666022403527705" />
-      <entry key="S30" value="5.104951481302104" />
-      <entry key="S60" value="7.087721455197099" />
-      <entry key="M2" value="12.951771144313291" />
-      <entry key="M5" value="23.2540033670882" />
-      <entry key="M10" value="29.4566063661072" />
-      <entry key="M15" value="32.375631901538036" />
-      <entry key="M30" value="37.34309840723807" />
-      <entry key="H1" value="42.65776036735206" />
-      <entry key="H2" value="47.18298506629607" />
-      <entry key="H4" value="50.35056879530856" />
-      <entry key="D1" value="55.07518491570501" />
-      <entry key="W1" value="56.680733042541824" />
+      <entry key="MS100" value="1.4646558644564098" />
+      <entry key="MS500" value="3.021598919450763" />
+      <entry key="S2" value="4.623679911052909" />
+      <entry key="S5" value="5.349822581691697" />
+      <entry key="S10" value="5.655820391852863" />
+      <entry key="S30" value="6.101285170053635" />
+      <entry key="S60" value="8.085292561417559" />
+      <entry key="M2" value="13.94967599829668" />
+      <entry key="M5" value="24.2525464060327" />
+      <entry key="M10" value="30.455691573709736" />
+      <entry key="M15" value="33.37496358616937" />
+      <entry key="M30" value="38.34271451322963" />
+      <entry key="H1" value="43.65754181440155" />
+      <entry key="H2" value="48.182864462918324" />
+      <entry key="H4" value="51.350504529303535" />
+      <entry key="D1" value="56.07517321921011" />
+      <entry key="W1" value="57.680731323771724" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -314,7 +353,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-9e1d95ea72ba-e0583fc556d1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-263.7307.329" />
+        <option value="bundled-python-sdk-342d7f33e45b-e0583fc556d1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-263.7307.351" />
       </set>
     </attachedChunks>
   </component>
@@ -659,6 +698,9 @@
       <workItem from="1795598885319" duration="5135000" />
       <workItem from="1795606353589" duration="927000" />
       <workItem from="1795692996146" duration="528000" />
+      <workItem from="1795693629738" duration="78000" />
+      <workItem from="1795693724849" duration="1741000" />
+      <workItem from="1795698201230" duration="660000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -1003,7 +1045,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="666" />
+    <option name="localTasksCounter" value="667" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

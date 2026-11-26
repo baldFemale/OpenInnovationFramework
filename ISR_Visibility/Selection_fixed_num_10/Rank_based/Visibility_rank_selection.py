@@ -24,15 +24,15 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
     """
     Performance-based selection with separated sender and recipient crowds.
 
-    visibility_extent = 1.0 makes all sender solutions eligible throughout a run.
-    At each visibility event, every recipient receives recommendation_num = 10
-    sender entries. rank_selection_strength controls the composition of
-    that fixed pool: a fraction is selected by true NK landscape fitness rank
-    (lower numerical ranks are better), and the rest is sampled randomly
-    from the remaining sender entries.
+    visibility_extent = 1.0 makes all senders eligible for rule-based selection.
+    At each visibility event, every recipient receives recommendation_num sender
+    entries (10 by default). A fraction is selected by true NK landscape fitness
+    rank (lower numerical ranks are better), and the remainder comes from a
+    common random ordering of sender identities fixed at each crowd reset.
+    Ranked entries are skipped when filling the remaining slots, without duplicates.
 
-        rank_selection_strength = 0.0: 10 random sender entries (benchmark).
-        rank_selection_strength = 1.0: 10 highest-performing sender entries.
+        rank_selection_strength = 0.0: the same random senders throughout a run.
+        rank_selection_strength = 1.0: the highest-performing senders at each event.
 
     Both crowds conduct local search every period. Every visibility_interval
     periods, sender ranks are recomputed after local search. Fitness-rank ties
@@ -57,6 +57,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         if visibility_extent != 1.0:
             raise ValueError("visibility_extent must equal 1.0 for this selection experiment.")
 
+        if not 1 <= recommendation_num <= agent_num:
+            raise ValueError("recommendation_num must be between 1 and agent_num.")
         rank_selection_num = int(round(rank_selection_strength * recommendation_num))
         random_selection_num = recommendation_num - rank_selection_num
 
@@ -84,6 +86,14 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
 
+            # Fix a common random ordering of sender identities for this run.
+            # The first recommendation_num senders form the s = 0 baseline.
+            eligible_senders = [agent for agent in crowd_sender.agents
+                                if agent.visibility_status]
+            if len(eligible_senders) < recommendation_num:
+                raise ValueError("Eligible sender pool is smaller than recommendation_num.")
+            fixed_random_order = np.random.permutation(len(eligible_senders))
+
             # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
 
@@ -93,11 +103,8 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_receiver.search()
 
                 if (period + 1) % visibility_interval == 0:
-                    # All structurally visible senders are eligible for recommendation.
-                    sender_pool = [agent.state.copy() for agent in crowd_sender.agents
-                                   if agent.visibility_status]
-                    if len(sender_pool) < recommendation_num:
-                        raise ValueError("Eligible sender pool is smaller than recommendation_num.")
+                    # Refresh solutions, not the identities or fixed random ordering.
+                    sender_pool = [agent.state.copy() for agent in eligible_senders]
 
                     # Sender fitness rankings are common to all recipients.
                     # Lower true NK fitness ranks indicate better solutions.
@@ -107,25 +114,27 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                         ])
 
                     for recipient in crowd_receiver.agents:
-                        # Random initial order breaks ties in true fitness ranks.
-                        candidate_indices = np.random.permutation(len(sender_pool))
                         if rank_selection_num > 0:
+                            # Preserve random tie-breaking for performance-based selection.
+                            candidate_indices = np.random.permutation(len(sender_pool))
                             candidate_indices = candidate_indices[np.argsort(
                                 fitness_ranks[candidate_indices], kind='stable'
                             )]
+                            selected_indices = candidate_indices[:rank_selection_num].copy()
+                        else:
+                            selected_indices = np.empty(0, dtype=int)
 
-                        # First select the highest-performing entries, then sample randomly
-                        # from those not selected. Each sender appears at most once.
-                        selected_indices = candidate_indices[:rank_selection_num].copy()
+                        # Fill non-ranked slots from the same fixed random ordering.
+                        # Skip ranked senders to preserve the recommendation count.
                         if random_selection_num > 0:
-                            random_indices = np.random.choice(
-                                candidate_indices[rank_selection_num:],
-                                size=random_selection_num, replace=False
-                            )
+                            remaining_indices = fixed_random_order[
+                                ~np.isin(fixed_random_order, selected_indices)
+                            ]
+                            random_indices = remaining_indices[:random_selection_num]
                             selected_indices = np.concatenate((selected_indices, random_indices))
 
                         if len(selected_indices) != recommendation_num:
-                            raise RuntimeError("Recommendation count must remain exactly 10.")
+                            raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
 
                         # Selection determines pool membership, not evaluation order.
                         np.random.shuffle(selected_indices)
@@ -222,18 +231,18 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # All sender paths are eligible; recommendation pools are recipient-specific.
+    # All sender paths remain eligible for rule-based selection.
     visibility_extent = 1.0
 
-    # Fix the number of recommended sender entries in every treatment.
-    recommendation_num = 20
-    # Select this fraction of the 10 entries by true fitness rank, the rest randomly.
-    # Strength 0.0 is random visibility (not search-apart).
+    # With 100 senders, 10 recommendations correspond to effective extent 0.1.
+    recommendation_num = 10
+    # Select this fraction by true fitness rank; fill the rest from the fixed order.
+    # Strength 0.0 reproduces the fixed-sender visibility design (not search-apart).
     rank_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
     # Sender solutions are disclosed every visibility_interval periods.
     visibility_interval = 10
 
-    # Sender ranks are shared, but recommendations are sampled separately per recipient.
+    # Sender ranks and the fixed random ordering are shared across recipients.
     agent_num = 100
     concurrency = 100
 
@@ -362,7 +371,7 @@ if __name__ == '__main__':
             generative_potential_across_K.append(generative_potential_mean)
 
         # Save existing DVs plus generative potential for each selection condition.
-        filename_prefix = "visibility_rank_selection_strength_{0}_recommendation_num_{1}_interval_{2}".format(
+        filename_prefix = "visibility_rank_selection_fixed_random_strength_{0}_recommendation_num_{1}_interval_{2}".format(
             rank_selection_strength, recommendation_num, visibility_interval
         )
 
