@@ -1,7 +1,7 @@
 #!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Author   : Junyi
-# @FileName: Visibility_dissimilarity_selection.py
+# @FileName: Visibility_dissimilarity_selection_hard.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -21,20 +21,20 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
          generative_horizon=30, generative_replications=30,
          generative_sample_size=5, generative_seed=20261119):
     """
-    Dissimilarity-based soft selection with separated sender and receiver crowds.
+    Dissimilarity-based hard selection with separated sender and receiver crowds.
 
-    As in the extent experiment, visibility_extent fixes the proportion of
-    randomly designated visible senders throughout each crowd reset. At each
-    visibility event, all their current complete solutions remain accessible.
-    Only the evaluation order changes: each recipient evaluates solutions from
-    most to least dissimilar to its current complete configuration (descending
-    Hamming distance), with rankings recomputed at every visibility event.
+    At each visibility event, each recipient receives the most distant proportion
+    (visibility_extent) of all senders' current complete solutions, measured
+    by Hamming distance to the recipient's current complete configuration.
+    The number of visible sender entries is fixed, but their identities can
+    vary across recipients and visibility events. No fixed visible subset is
+    imposed. All sender solutions are eligible, not necessarily accessible.
 
-    A common initial pool shuffle randomly breaks distance ties through stable
-    sorting. Every recipient has access to the same sender pool, but its
-    evaluation order is personalized. Recipients adopt at most the first
-    perceived improvement, using the same adoption and measurement logic as
-    the extent experiment.
+    A common initial shuffle breaks distance ties at the selection cutoff.
+    An independent common random sender order determines evaluation order
+    within each selected subset, so dissimilarity determines membership only.
+    Recipients adopt at most the first perceived improvement. At full
+    visibility, all recipients evaluate the same randomly ordered full pool.
 
     All dependent variables and aggregation procedures match the extent
     experiment. No selection-strength or recommendation-count parameter is used.
@@ -47,6 +47,10 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         visibility_interval = int(visibility_interval)
         if visibility_interval < 1:
             raise ValueError("visibility_interval must be a positive integer.")
+
+        if visibility_extent is None or not 0 <= visibility_extent <= 1:
+            raise ValueError("visibility_extent must be between 0 and 1.")
+        visible_num = int(round(visibility_extent * agent_num))
 
         solver_reset_num = int(solver_reset_num)
         if solver_reset_num < 1:
@@ -70,8 +74,6 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                    landscape=landscape, generative_sample_size=generative_sample_size,
                                    generative_rng=generative_rng)
 
-            crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
-
             # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
 
@@ -81,24 +83,44 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_receiver.search()
 
                 if (period + 1) % visibility_interval == 0:
-                    # Visible senders disclose their complete current solutions.
-                    crowd_sender.get_visible_pool()
+                    # Snapshot all candidate solutions, not just visible ones.
+                    # Personalized visibility cannot be represented by a single
+                    # sender-level visibility_status flag.
+                    if visible_num > 0:
+                        sender_pool = [agent.state.copy() for agent in crowd_sender.agents]
+                        # Common initial shuffle for randomized cutoff ties.
+                        np.random.shuffle(sender_pool)
 
-                    # The shuffled pool is shared by all recipients; only its
-                    # evaluation order is personalized. No sender is excluded.
-                    sender_pool = crowd_sender.solution_pool
-                    if len(sender_pool) > 0:
-                        sender_states = np.asarray(sender_pool, dtype=np.uint8)
-                        recipient_states = np.asarray(
-                            [agent.state for agent in crowd_receiver.agents], dtype=np.uint8
-                        )
-                        distances = np.count_nonzero(
-                            recipient_states[:, None, :] != sender_states[None, :, :], axis=2
-                        )
+                        if visible_num < agent_num:
+                            sender_states = np.asarray(sender_pool, dtype=np.uint8)
+                            recipient_states = np.asarray(
+                                [agent.state for agent in crowd_receiver.agents], dtype=np.uint8
+                            )
+                            distances = np.count_nonzero(
+                                recipient_states[:, None, :] != sender_states[None, :, :], axis=2
+                            )
 
-                        # Descending Hamming distance: most dissimilar first.
-                        # Stable sorting retains the common randomized pool order for ties.
-                        evaluation_orders = np.argsort(-distances, axis=1, kind='stable')
+                            # Hard selection: keep only the farthest visible_num entries.
+                            selected_indices = np.argsort(
+                                -distances, axis=1, kind='stable'
+                            )[:, :visible_num]
+
+                            # Independently randomize evaluation priority once per event.
+                            # Recipients share the random relative order of overlapping senders.
+                            # Dissimilarity determines membership, not evaluation order.
+                            random_priority = np.random.permutation(agent_num)
+                            evaluation_orders = np.take_along_axis(
+                                selected_indices,
+                                np.argsort(random_priority[selected_indices], axis=1),
+                                axis=1
+                            )
+                        else:
+                            # At full visibility, all recipients receive the same
+                            # randomly ordered full pool, as in the extent experiment.
+                            evaluation_orders = np.broadcast_to(
+                                np.arange(agent_num), (len(crowd_receiver.agents), agent_num)
+                            )
+
                         for recipient_index, recipient in enumerate(crowd_receiver.agents):
                             for index in evaluation_orders[recipient_index]:
                                 if recipient.search(solution=sender_pool[index]):
@@ -193,10 +215,10 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # Match the extent experiment's grid. With 100 senders, v=0.0 and
-    # v=0.01 expose zero and one sender, respectively; prioritization has no effect.
-    # Reuse those two existing random-evaluation results when plotting.
-    visibility_extent_list = [0.02, 0.04, 0.08,
+    # Match the extent and rank-based hard-selection grids. At v=0.01,
+    # the farthest sender is selected dynamically, so this case must be run.
+    # At v=0, reuse search-apart results; retain v=1 as a boundary check.
+    visibility_extent_list = [0.01, 0.02, 0.04, 0.08,
                               0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: sender solutions become visible every x periods.
@@ -332,37 +354,37 @@ if __name__ == '__main__':
             )
             generative_potential_across_K.append(generative_potential_mean)
 
-        # Save dissimilarity-based results using the extent experiment's metric suffixes.
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+        # Save dissimilarity-based hard-selection results using the extent experiment's metric suffixes.
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
-        with open("visibility_dissimilarity_selection_extent_{0}_interval_{1}_generative_potential_across_K_size_{2}".format(
+        with open("visibility_dissimilarity_selection_hard_extent_{0}_interval_{1}_generative_potential_across_K_size_{2}".format(
                 visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(generative_potential_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Dissimilarity-Based Selection across Visibility Extent with Interval {0}: ".format(visibility_interval),
+    print("Dissimilarity-Based Hard Selection across Visibility Extent with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
