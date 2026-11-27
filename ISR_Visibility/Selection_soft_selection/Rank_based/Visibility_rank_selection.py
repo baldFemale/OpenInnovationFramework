@@ -1,7 +1,7 @@
 #!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Author   : Junyi
-# @FileName: Visibility_rank_selection_strength.py
+# @FileName: Visibility_rank_selection.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,34 +16,25 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         visibility_extent=None, rank_selection_strength=None, recommendation_num=10,
-         visibility_interval=10, solver_reset_num=1,
+         visibility_extent=None, visibility_interval=10, solver_reset_num=1,
          loop=None, return_dict=None, sema=None,
          generative_horizon=30, generative_replications=30,
          generative_sample_size=5, generative_seed=20261119):
     """
-    Performance-based selection with separated sender and recipient crowds.
+    Performance-based prioritization with separated sender and receiver crowds.
 
-    visibility_extent = 1.0 makes all senders eligible for rule-based selection.
-    At each visibility event, all recipients receive one common pool of
-    recommendation_num sender entries (10 by default). A fraction is selected by true NK landscape fitness
-    rank (lower numerical ranks are better), and the remainder comes from a
-    common random ordering of sender identities fixed at each crowd reset.
-    Ranked entries are skipped when filling the remaining slots, without duplicates.
+    As in the extent experiment, visibility_extent fixes the proportion of
+    randomly designated visible senders throughout each crowd reset. At each
+    visibility event, all their current complete solutions remain accessible.
+    The only treatment change is their evaluation order: highest to lowest
+    objective fitness (ascending numerical NK fitness rank).
 
-        rank_selection_strength = 0.0: the same random senders throughout a run.
-        rank_selection_strength = 1.0: the highest-performing senders at each event.
+    The initial pool shuffle randomly breaks equal-rank ties. The ranked pool
+    is shared by all recipients, who adopt at most the first perceived
+    improvement using the unchanged crowd learning method.
 
-    Both crowds conduct local search every period. Every visibility_interval
-    periods, sender ranks are recomputed after local search. Fitness-rank ties
-    are broken randomly once per event; the common recommendation pool is
-    shuffled once per event and evaluated in the same order by all recipients.
-    Recipients adopt at most the first perceived improvement, without feedback
-    to senders. Search-apart (zero exposure) is not part of this experiment.
-
-    All DVs concern the recipient crowd. Adoption-fitness trajectories contain
-    a cumulative mean at each visibility event, or np.nan before any adoption.
-    solver_reset_num reruns independent crowds on each shared NK landscape.
+    All dependent variables and aggregation procedures match the extent
+    experiment. No selection-strength or recommendation-count parameter is used.
     """
     try:
         np.random.seed(None)
@@ -53,15 +44,6 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         visibility_interval = int(visibility_interval)
         if visibility_interval < 1:
             raise ValueError("visibility_interval must be a positive integer.")
-        if rank_selection_strength is None or not 0 <= rank_selection_strength <= 1:
-            raise ValueError("rank_selection_strength must be between 0 and 1.")
-        if visibility_extent != 1.0:
-            raise ValueError("visibility_extent must equal 1.0 for this selection experiment.")
-
-        if not 1 <= recommendation_num <= agent_num:
-            raise ValueError("recommendation_num must be between 1 and agent_num.")
-        rank_selection_num = int(round(rank_selection_strength * recommendation_num))
-        random_selection_num = recommendation_num - rank_selection_num
 
         solver_reset_num = int(solver_reset_num)
         if solver_reset_num < 1:
@@ -77,7 +59,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                  landscape=landscape)
 
             # Receiver crowd: solvers who independently search and learn from visible sender solutions
-            # Separate measurement RNG preserves the original search trajectory.
+            # Separate RNG: generative measurement cannot change search trajectories.
             generative_rng = np.random.default_rng(
                 [generative_seed, K, loop if loop is not None else 0, solver_reset]
             )
@@ -86,14 +68,6 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                    generative_rng=generative_rng)
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
-
-            # Fix a common random ordering of sender identities for this run.
-            # The first recommendation_num senders form the s = 0 baseline.
-            eligible_senders = [agent for agent in crowd_sender.agents
-                                if agent.visibility_status]
-            if len(eligible_senders) < recommendation_num:
-                raise ValueError("Eligible sender pool is smaller than recommendation_num.")
-            fixed_random_order = np.random.permutation(len(eligible_senders))
 
             # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
@@ -104,42 +78,16 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_receiver.search()
 
                 if (period + 1) % visibility_interval == 0:
-                    # Refresh solutions, not the identities or fixed random ordering.
-                    sender_pool = [agent.state.copy() for agent in eligible_senders]
+                    # Visible senders disclose their complete current solutions.
+                    crowd_sender.get_visible_pool()
 
-                    # Construct one common recommendation pool per visibility event.
-                    # Lower true NK fitness ranks indicate better solutions.
-                    if rank_selection_num > 0:
-                        fitness_ranks = np.asarray([
-                            landscape.query_fitness_rank(state=state) for state in sender_pool
-                        ])
-                        # Break fitness-rank ties randomly once for all recipients.
-                        candidate_indices = np.random.permutation(len(sender_pool))
-                        candidate_indices = candidate_indices[np.argsort(
-                            fitness_ranks[candidate_indices], kind='stable'
-                        )]
-                        selected_indices = candidate_indices[:rank_selection_num].copy()
-                    else:
-                        selected_indices = np.empty(0, dtype=int)
-
-                    # Fill non-ranked slots from the same fixed random ordering.
-                    # Skip ranked senders to preserve the recommendation count.
-                    if random_selection_num > 0:
-                        remaining_indices = fixed_random_order[
-                            ~np.isin(fixed_random_order, selected_indices)
-                        ]
-                        random_indices = remaining_indices[:random_selection_num]
-                        selected_indices = np.concatenate((selected_indices, random_indices))
-
-                    if len(selected_indices) != recommendation_num:
-                        raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
-
-                    # Shuffle once per event, not once per recipient, as in the extent experiment.
-                    # Selection determines pool membership, not evaluation order.
-                    np.random.shuffle(selected_indices)
-                    crowd_receiver.solution_pool = [
-                        sender_pool[index].copy() for index in selected_indices
-                    ]
+                    # Stable sorting preserves the initial random order for ties.
+                    # Lower numerical NK ranks indicate higher objective fitness.
+                    # Keep every visible entry; change evaluation priority only.
+                    crowd_receiver.solution_pool = sorted(
+                        (solution.copy() for solution in crowd_sender.solution_pool),
+                        key=lambda solution: landscape.query_fitness_rank(state=solution)
+                    )
                     crowd_receiver.learn_from_visible_pool()
 
                     adopted_solution_fitness_across_time.append(
@@ -175,7 +123,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 if crowd_receiver.adopted_solution_fitness_history else np.nan
             )
 
-            # Independent post-run continuations measure recipient-specific potential.
+            # Post-run independent continuations do not modify the observed paths.
             generative_potential = crowd_receiver.calculate_generative_potential(
                 horizon=generative_horizon, replications=generative_replications
             )
@@ -206,11 +154,11 @@ if __name__ == '__main__':
     solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
-    # Generative potential: independent local-search continuations after adoption.
-    generative_horizon = 30  # Number of additional search opportunities per continuation.
-    generative_replications = 30  # Monte Carlo continuations per sampled adoption.
+    # Generative potential: H independent local-search opportunities per continuation.
+    generative_horizon = 30
+    generative_replications = 30  # Independent Monte Carlo continuations per sampled event.
     generative_sample_size = 5  # Uniformly sampled adoptions per run (all if fewer).
-    generative_seed = 20261119  # Independent measurement RNG; original search is unchanged.
+    generative_seed = 20261119  # Dedicated RNG; does not seed the original simulation.
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
     N = 18
@@ -220,22 +168,23 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # All sender paths remain eligible for rule-based selection.
-    visibility_extent = 1.0
+    # Match the extent experiment's grid. With 100 senders, v=0.0 and
+    # v=0.01 expose zero and one sender, respectively; ranking has no effect.
+    # Reuse those two existing random-evaluation results when plotting.
+    visibility_extent_list = [0.02, 0.04, 0.08,
+                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # With 100 senders, 10 recommendations correspond to effective extent 0.1.
-    recommendation_num = 10
-    # Select this fraction by true fitness rank; fill the rest from the fixed order.
-    # Strength 0.0 reproduces the fixed-sender visibility design (not search-apart).
-    rank_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
-    # Sender solutions are disclosed every visibility_interval periods.
+    # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
-    # Sender ranks, selected pool, and evaluation order are shared across recipients.
+    # With 100 senders, extent 0.01 represents one visible sender.
     agent_num = 100
+
+    # Limit simultaneous workers because high-K landscapes may be memory-heavy.
+    # Increase this only if the compute node has sufficient available memory.
     concurrency = 100
 
-    for rank_selection_strength in rank_selection_strength_list:
+    for visibility_extent in visibility_extent_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -275,8 +224,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      visibility_extent, rank_selection_strength, recommendation_num,
-                                                      visibility_interval, solver_reset_num,
+                                                      visibility_extent, visibility_interval, solver_reset_num,
                                                       loop, return_dict, sema),
                                    kwargs=dict(generative_horizon=generative_horizon,
                                                generative_replications=generative_replications,
@@ -336,8 +284,8 @@ if __name__ == '__main__':
                 if np.all(np.isnan(arr[:, 4]))
                 else np.nanmean(arr[:, 4])
             )
-
-            # Equal-weight mean across runs, ignoring runs without adoptions.
+            # Same aggregation as adopted quality: event mean within each run,
+            # then equal-weight mean across runs with at least one adoption.
             generative_potential_mean = (
                 np.nan if np.all(np.isnan(generative_potential_arr))
                 else np.nanmean(generative_potential_arr)
@@ -359,42 +307,37 @@ if __name__ == '__main__':
             )
             generative_potential_across_K.append(generative_potential_mean)
 
-        # Save existing DVs plus generative potential for each selection condition.
-        filename_prefix = "visibility_rank_selection_fixed_random_strength_{0}_recommendation_num_{1}_interval_{2}".format(
-            rank_selection_strength, recommendation_num, visibility_interval
-        )
-
-        with open("{0}_breakthrough_fitness_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        # Save rank-based results using the extent experiment's metric suffixes.
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("{0}_breakthrough_rank_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("{0}_unique_solution_count_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open("{0}_pairwise_diversity_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open("{0}_adopted_solution_fitness_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open("{0}_adopted_solution_fitness_across_time_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
-        with open("{0}_generative_potential_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_rank_selection_extent_{0}_interval_{1}_generative_potential_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(generative_potential_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Rank-Based Selection with {0} Recommendations and Interval {1}: ".format(
-        recommendation_num, visibility_interval),
+    print("Rank-Based Selection across Visibility Extent with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))

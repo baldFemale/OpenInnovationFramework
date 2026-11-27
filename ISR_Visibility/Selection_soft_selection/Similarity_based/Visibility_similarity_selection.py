@@ -1,7 +1,7 @@
 #!/usr/bin/env py39
 # -*- coding: utf-8 -*-
 # @Author   : Junyi
-# @FileName: Visibility_similarity_selection_strength.py
+# @FileName: Visibility_similarity_selection.py
 # @Software : PyCharm
 # Observing PEP 8 coding style
 
@@ -16,36 +16,28 @@ import pickle
 
 # mp version
 def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteration=None,
-         visibility_extent=None, similarity_selection_strength=None, recommendation_num=10,
-         visibility_interval=10, solver_reset_num=1,
+         visibility_extent=None, visibility_interval=10, solver_reset_num=1,
          loop=None, return_dict=None, sema=None,
          generative_horizon=30, generative_replications=30,
          generative_sample_size=5, generative_seed=20261119):
     """
-    Similarity-based selection with separated sender and recipient crowds.
+    Similarity-based soft selection with separated sender and receiver crowds.
 
-    visibility_extent = 1.0 makes all sender solutions eligible throughout a run.
-    At each visibility event, every recipient receives recommendation_num
-    sender entries (10 by default). similarity_selection_strength controls the composition of
-    that pool: a fixed random subset of sender identities is shared by all
-    recipients throughout each crowd reset. The remaining slots are filled
-    for each recipient by ascending Hamming distance from its current
-    complete configuration, excluding those fixed random senders.
+    As in the extent experiment, visibility_extent fixes the proportion of
+    randomly designated visible senders throughout each crowd reset. At each
+    visibility event, all their current complete solutions remain accessible.
+    Only the evaluation order changes: each recipient evaluates solutions from
+    most to least similar to its current complete configuration (ascending
+    Hamming distance), with rankings recomputed at every visibility event.
 
-        similarity_selection_strength = 0.0: the same random senders for all recipients and periods.
-        similarity_selection_strength = 1.0: the most similar senders for each recipient.
+    A common initial pool shuffle randomly breaks distance ties through stable
+    sorting. Every recipient has access to the same sender pool, but its
+    evaluation order is personalized. Recipients adopt at most the first
+    perceived improvement, using the same adoption and measurement logic as
+    the extent experiment.
 
-    Both crowds conduct local search every period. Every visibility_interval
-    periods, recommendations are recomputed after local search. Distance ties
-    are broken randomly. A common random permutation of recommendation slots
-    is drawn once per event, so random senders share the same evaluation order
-    and positions across recipients; the rule-selected identities are personalized.
-    Recipients adopt at most the first perceived improvement, without feedback
-    to senders. Search-apart (zero exposure) is not part of this experiment.
-
-    All DVs concern the recipient crowd. Adoption-fitness trajectories contain
-    a cumulative mean at each visibility event, or np.nan before any adoption.
-    solver_reset_num reruns independent crowds on each shared NK landscape.
+    All dependent variables and aggregation procedures match the extent
+    experiment. No selection-strength or recommendation-count parameter is used.
     """
     try:
         np.random.seed(None)
@@ -55,15 +47,6 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
         visibility_interval = int(visibility_interval)
         if visibility_interval < 1:
             raise ValueError("visibility_interval must be a positive integer.")
-        if similarity_selection_strength is None or not 0 <= similarity_selection_strength <= 1:
-            raise ValueError("similarity_selection_strength must be between 0 and 1.")
-        if visibility_extent != 1.0:
-            raise ValueError("visibility_extent must equal 1.0 for this selection experiment.")
-
-        if not 1 <= recommendation_num <= agent_num:
-            raise ValueError("recommendation_num must be between 1 and agent_num.")
-        similarity_selection_num = int(round(similarity_selection_strength * recommendation_num))
-        random_selection_num = recommendation_num - similarity_selection_num
 
         solver_reset_num = int(solver_reset_num)
         if solver_reset_num < 1:
@@ -79,7 +62,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                  landscape=landscape)
 
             # Receiver crowd: solvers who independently search and learn from visible sender solutions
-            # Separate measurement RNG preserves the original search trajectory.
+            # Separate RNG: generative measurement cannot change search trajectories.
             generative_rng = np.random.default_rng(
                 [generative_seed, K, loop if loop is not None else 0, solver_reset]
             )
@@ -88,17 +71,6 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                                    generative_rng=generative_rng)
 
             crowd_sender.set_visibility_status(visibility_extent=visibility_extent)
-
-            # Reserve a common random subset once per crowd reset.
-            # Its identities stay fixed across recipients and visibility events.
-            eligible_senders = [agent for agent in crowd_sender.agents
-                                if agent.visibility_status]
-            if len(eligible_senders) < recommendation_num:
-                raise ValueError("Eligible sender pool is smaller than recommendation_num.")
-            fixed_random_order = np.random.permutation(len(eligible_senders))
-            fixed_random_indices = fixed_random_order[:random_selection_num]
-            # Exclude reserved random senders from personalized selection.
-            rule_eligible_indices = fixed_random_order[random_selection_num:]
 
             # Search-process trajectory: cumulative mean true fitness of adopted solutions.
             adopted_solution_fitness_across_time = []
@@ -109,15 +81,13 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 crowd_receiver.search()
 
                 if (period + 1) % visibility_interval == 0:
-                    # Refresh solutions while retaining the fixed sender identities.
-                    sender_pool = [agent.state.copy() for agent in eligible_senders]
+                    # Visible senders disclose their complete current solutions.
+                    crowd_sender.get_visible_pool()
 
-                    # Shuffle recommendation slots once per visibility event.
-                    # At s = 0, all recipients see exactly the same ordered pool.
-                    evaluation_order = np.random.permutation(recommendation_num)
-
-                    # Compute personalized similarity rankings only when needed.
-                    if similarity_selection_num > 0:
+                    # The shuffled pool is shared by all recipients; only its
+                    # evaluation order is personalized. No sender is excluded.
+                    sender_pool = crowd_sender.solution_pool
+                    if len(sender_pool) > 0:
                         sender_states = np.asarray(sender_pool, dtype=np.uint8)
                         recipient_states = np.asarray(
                             [agent.state for agent in crowd_receiver.agents], dtype=np.uint8
@@ -126,38 +96,24 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                             recipient_states[:, None, :] != sender_states[None, :, :], axis=2
                         )
 
-                    for recipient_index, recipient in enumerate(crowd_receiver.agents):
-                        # Rank only senders not already in the shared random subset.
-                        if similarity_selection_num > 0:
-                            candidate_indices = np.random.permutation(rule_eligible_indices)
-                            candidate_indices = candidate_indices[np.argsort(
-                                distances[recipient_index, candidate_indices], kind='stable'
-                            )]
-                            rule_indices = candidate_indices[:similarity_selection_num]
-                        else:
-                            rule_indices = np.empty(0, dtype=int)
-
-                        # The random component is identical for every recipient.
-                        selected_indices = np.concatenate((fixed_random_indices, rule_indices))
-                        if len(selected_indices) != recommendation_num:
-                            raise RuntimeError("Recommendation count must remain exactly recommendation_num.")
-
-                        # Common slot order; no recipient-specific evaluation shuffle.
-                        selected_indices = selected_indices[evaluation_order]
-                        for index in selected_indices:
-                            if recipient.search(solution=sender_pool[index]):
-                                crowd_receiver.adopted_solution_fitness_history.append(recipient.fitness)
-                                if crowd_receiver.generative_sample_size:
-                                    # Uniformly sample successful adoptions without affecting search.
-                                    count = len(crowd_receiver.adopted_solution_fitness_history)
-                                    event = (recipient, recipient.state.copy())
-                                    if len(crowd_receiver.generative_samples) < crowd_receiver.generative_sample_size:
-                                        crowd_receiver.generative_samples.append(event)
-                                    else:
-                                        sample_index = crowd_receiver.generative_rng.integers(count)
-                                        if sample_index < crowd_receiver.generative_sample_size:
-                                            crowd_receiver.generative_samples[sample_index] = event
-                                break
+                        # Ascending Hamming distance: most similar first.
+                        # Stable sorting retains the common randomized pool order for ties.
+                        evaluation_orders = np.argsort(distances, axis=1, kind='stable')
+                        for recipient_index, recipient in enumerate(crowd_receiver.agents):
+                            for index in evaluation_orders[recipient_index]:
+                                if recipient.search(solution=sender_pool[index]):
+                                    crowd_receiver.adopted_solution_fitness_history.append(recipient.fitness)
+                                    if crowd_receiver.generative_sample_size:
+                                        # Uniformly sample successful adoptions without affecting search.
+                                        count = len(crowd_receiver.adopted_solution_fitness_history)
+                                        event = (recipient, recipient.state.copy())
+                                        if len(crowd_receiver.generative_samples) < crowd_receiver.generative_sample_size:
+                                            crowd_receiver.generative_samples.append(event)
+                                        else:
+                                            sample_index = crowd_receiver.generative_rng.integers(count)
+                                            if sample_index < crowd_receiver.generative_sample_size:
+                                                crowd_receiver.generative_samples[sample_index] = event
+                                    break
 
                     adopted_solution_fitness_across_time.append(
                         np.mean(crowd_receiver.adopted_solution_fitness_history)
@@ -192,7 +148,7 @@ def func(N=None, K=None, agent_num=None, knowledge_breadth=None, search_iteratio
                 if crowd_receiver.adopted_solution_fitness_history else np.nan
             )
 
-            # Independent post-run continuations measure recipient-specific potential.
+            # Post-run independent continuations do not modify the observed paths.
             generative_potential = crowd_receiver.calculate_generative_potential(
                 horizon=generative_horizon, replications=generative_replications
             )
@@ -223,11 +179,11 @@ if __name__ == '__main__':
     solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
-    # Generative potential: independent local-search continuations after adoption.
-    generative_horizon = 30  # Number of additional search opportunities per continuation.
-    generative_replications = 30  # Monte Carlo continuations per sampled adoption.
+    # Generative potential: H independent local-search opportunities per continuation.
+    generative_horizon = 30
+    generative_replications = 30  # Independent Monte Carlo continuations per sampled event.
     generative_sample_size = 5  # Uniformly sampled adoptions per run (all if fewer).
-    generative_seed = 20261119  # Independent measurement RNG; original search is unchanged.
+    generative_seed = 20261119  # Dedicated RNG; does not seed the original simulation.
 
     # Binary NK landscape: 2^18 = 4^9, matching the old problem-space size.
     N = 18
@@ -237,22 +193,23 @@ if __name__ == '__main__':
     # The expected pairwise knowledge overlap is 12^2 / 18 = 8 dimensions.
     knowledge_breadth = 12
 
-    # All sender paths are eligible; recommendations are personalized to each recipient.
-    visibility_extent = 1.0
+    # Match the extent experiment's grid. With 100 senders, v=0.0 and
+    # v=0.01 expose zero and one sender, respectively; prioritization has no effect.
+    # Reuse those two existing random-evaluation results when plotting.
+    visibility_extent_list = [0.02, 0.04, 0.08,
+                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Fix the number of recommended sender entries in every treatment.
-    recommendation_num = 10
-    # Select this fraction of entries by similarity; reserve the rest as fixed random senders.
-    # Strength 0.0 reproduces the fixed-sender visibility design (not search-apart).
-    similarity_selection_strength_list = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
-    # Sender solutions are disclosed every visibility_interval periods.
+    # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
 
-    # Rule-based rankings are personalized; random senders are shared and fixed.
+    # With 100 senders, extent 0.01 represents one visible sender.
     agent_num = 100
+
+    # Limit simultaneous workers because high-K landscapes may be memory-heavy.
+    # Increase this only if the compute node has sufficient available memory.
     concurrency = 100
 
-    for similarity_selection_strength in similarity_selection_strength_list:
+    for visibility_extent in visibility_extent_list:
         # DVs
         breakthrough_fitness_across_K = []
         breakthrough_rank_across_K = []
@@ -292,8 +249,7 @@ if __name__ == '__main__':
                             break
 
                     p = mp.Process(target=func, args=(N, K, agent_num, knowledge_breadth, search_iteration,
-                                                      visibility_extent, similarity_selection_strength, recommendation_num,
-                                                      visibility_interval, solver_reset_num,
+                                                      visibility_extent, visibility_interval, solver_reset_num,
                                                       loop, return_dict, sema),
                                    kwargs=dict(generative_horizon=generative_horizon,
                                                generative_replications=generative_replications,
@@ -353,8 +309,8 @@ if __name__ == '__main__':
                 if np.all(np.isnan(arr[:, 4]))
                 else np.nanmean(arr[:, 4])
             )
-
-            # Equal-weight mean across runs, ignoring runs without adoptions.
+            # Same aggregation as adopted quality: event mean within each run,
+            # then equal-weight mean across runs with at least one adoption.
             generative_potential_mean = (
                 np.nan if np.all(np.isnan(generative_potential_arr))
                 else np.nanmean(generative_potential_arr)
@@ -376,42 +332,37 @@ if __name__ == '__main__':
             )
             generative_potential_across_K.append(generative_potential_mean)
 
-        # Save existing DVs plus generative potential for each selection condition.
-        filename_prefix = "visibility_similarity_selection_strength_{0}_recommendation_num_{1}_interval_{2}".format(
-            similarity_selection_strength, recommendation_num, visibility_interval
-        )
-
-        with open("{0}_breakthrough_fitness_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        # Save similarity-based results using the extent experiment's metric suffixes.
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_breakthrough_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_fitness_across_K, out_file)
 
-        with open("{0}_breakthrough_rank_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_breakthrough_rank_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(breakthrough_rank_across_K, out_file)
 
-        with open("{0}_unique_solution_count_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_unique_solution_count_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(unique_solution_count_across_K, out_file)
 
-        with open("{0}_pairwise_diversity_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_pairwise_diversity_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(pairwise_diversity_across_K, out_file)
 
-        with open("{0}_adopted_solution_fitness_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_K, out_file)
 
-        with open("{0}_adopted_solution_fitness_across_time_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_adopted_solution_fitness_across_time_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(adopted_solution_fitness_across_time_across_K, out_file)
 
-        with open("{0}_generative_potential_across_K_size_{1}".format(
-                filename_prefix, agent_num), 'wb') as out_file:
+        with open("visibility_similarity_selection_extent_{0}_interval_{1}_generative_potential_across_K_size_{2}".format(
+                visibility_extent, visibility_interval, agent_num), 'wb') as out_file:
             pickle.dump(generative_potential_across_K, out_file)
 
     t1 = time.time()
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
-    print("Similarity-Based Selection with {0} Recommendations and Interval {1}: ".format(
-        recommendation_num, visibility_interval),
+    print("Similarity-Based Selection across Visibility Extent with Interval {0}: ".format(visibility_interval),
           time.strftime("%H:%M:%S", time.gmtime(t1 - t0)))
