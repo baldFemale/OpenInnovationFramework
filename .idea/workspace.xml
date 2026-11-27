@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb406d9-bb38-413e-84bd-f568027309a1" name="变更" comment="1st revision: crowd separation&#10;2nd revision: partial visibility -&gt; full visibility&#10;3rd revision: improve solver knowledge (pending)&#10;4th revision: fix visible solvers across time; add pairwise diversity; default visibility interval;&#10;5th revision: add a performance-based visibility&#10;6th revision: add a High-Medium-Low knowledge Experiment (Medium changed to G18-S16)&#10;7th revision: use conventional NK for the visibility design paper; save the generalist-specialist for follow-up paper&#10;8th revision: refine the selection rule; align onset and selection with the extent=1.0 point&#10;add more robustness">
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Bidirectional_visibility/Evaluator_Visibility_Extent_Bidirectional.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Evaluator_Visibility_Dissimilarity_Selection.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Evaluator_Visibility_Dissimilarity_Selection_updated.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/Visibility_extent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Robustness/Extent_Imitation_length/Visibility_extent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Visibility_dissimilarity_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Visibility_dissimilarity_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Visibility_rank_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Visibility_rank_selection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Visibility_similarity_selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Visibility_similarity_selection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based/Evaluator_Visibility_Novelty_Selection_Strength.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based/Evaluator_Visibility_Rank_Selection.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Evaluator_Visibility_Similarity.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Evaluator_Visibility_Similarity_Selection.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based/Evaluator_Visibility_Similarity_Selection.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,61 +58,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="2.169856275557884E-283" />
-      <entry key="S5" value="2.495007209688511E-113" />
-      <entry key="S10" value="1.221507323475508E-56" />
-      <entry key="S30" value="7.886390949204383E-19" />
-      <entry key="S60" value="2.9064658783389606E-9" />
-      <entry key="M2" value="2.6445916052263976E-4" />
-      <entry key="M5" value="0.31322962538127336" />
-      <entry key="M10" value="3.458690392273507" />
-      <entry key="M15" value="7.8041638174836745" />
-      <entry key="M30" value="18.291314701310107" />
-      <entry key="H1" value="29.466243430224875" />
-      <entry key="H2" value="38.53684175816593" />
-      <entry key="H4" value="44.67076325364904" />
-      <entry key="D1" value="52.37909968259618" />
-      <entry key="W1" value="54.577492373755284" />
-    </decayedCancelled>
-    <decayedSelected>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
       <entry key="S5" value="1.0" />
       <entry key="S10" value="1.0" />
       <entry key="S30" value="1.0" />
-      <entry key="S60" value="1.0" />
-      <entry key="M2" value="1.000000000000001" />
-      <entry key="M5" value="1.000002034043865" />
-      <entry key="M10" value="1.0024697756407326" />
-      <entry key="M15" value="1.0263507791043212" />
-      <entry key="M30" value="1.2811564265944926" />
-      <entry key="H1" value="1.9184008853435435" />
-      <entry key="H2" value="2.6598780742314716" />
-      <entry key="H4" value="3.231508651440847" />
-      <entry key="D1" value="3.85562245089034" />
-      <entry key="W1" value="3.9789361005067727" />
+      <entry key="S60" value="1.0000000000302525" />
+      <entry key="M2" value="1.0000269809231512" />
+      <entry key="M5" value="1.1257019766720684" />
+      <entry key="M10" value="3.1910451424409256" />
+      <entry key="M15" value="6.756424360971215" />
+      <entry key="M30" value="16.70934705988792" />
+      <entry key="H1" value="28.307464561062627" />
+      <entry key="H2" value="38.09833536249498" />
+      <entry key="H4" value="44.82909714898134" />
+      <entry key="D1" value="53.21330946614079" />
+      <entry key="W1" value="55.552780465136614" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.2233918609622865E-238" />
+      <entry key="S2" value="3.3257637608703236E-60" />
+      <entry key="S5" value="1.6171732862025656E-24" />
+      <entry key="S10" value="1.271681283263446E-12" />
+      <entry key="S30" value="1.0834098002367946E-4" />
+      <entry key="S60" value="0.010408697325971172" />
+      <entry key="M2" value="0.10202302350926087" />
+      <entry key="M5" value="0.4013101640765746" />
+      <entry key="M10" value="0.6350543943650507" />
+      <entry key="M15" value="0.7570459521239105" />
+      <entry key="M30" value="1.1003107907785974" />
+      <entry key="H1" value="1.777853505978118" />
+      <entry key="H2" value="2.5605899269178396" />
+      <entry key="H4" value="3.1706220423758897" />
+      <entry key="D1" value="3.8434186427955677" />
+      <entry key="W1" value="3.977134495100612" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0010466537720080988" />
-      <entry key="MS500" value="0.2534898699475073" />
-      <entry key="S2" value="0.7095616781001912" />
-      <entry key="S5" value="0.8717582395370622" />
-      <entry key="S10" value="0.9336799449153131" />
-      <entry key="S30" value="0.9773857664108053" />
-      <entry key="S60" value="0.9886282274721511" />
-      <entry key="M2" value="0.9945622718389495" />
-      <entry key="M5" value="1.3109336548382489" />
-      <entry key="M10" value="4.459951365907274" />
-      <entry key="M15" value="8.829640940492046" />
-      <entry key="M30" value="19.571868618718195" />
-      <entry key="H1" value="31.38417048960764" />
-      <entry key="H2" value="41.19638529683815" />
-      <entry key="H4" value="47.90206683695664" />
-      <entry key="D1" value="56.234680466149065" />
-      <entry key="W1" value="58.55642226940686" />
+      <entry key="MS100" value="0.045122787360078" />
+      <entry key="MS500" value="0.5381200623918986" />
+      <entry key="S2" value="0.8564850682199088" />
+      <entry key="S5" value="0.9399135670034672" />
+      <entry key="S10" value="0.9694913960452508" />
+      <entry key="S30" value="0.9898311474965852" />
+      <entry key="S60" value="1.0051396957432033" />
+      <entry key="M2" value="1.0988896072196153" />
+      <entry key="M5" value="1.525057673870923" />
+      <entry key="M10" value="3.824817511703473" />
+      <entry key="M15" value="7.51248169232419" />
+      <entry key="M30" value="17.808968273809604" />
+      <entry key="H1" value="30.08479289281507" />
+      <entry key="H2" value="40.658560209462856" />
+      <entry key="H4" value="47.99949647081178" />
+      <entry key="D1" value="57.05668298741675" />
+      <entry key="W1" value="59.529908245895356" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -123,40 +126,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2-dimentional_lanscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Landscape.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visibility_distribution_illustration.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_full_visibility/Dissimilarity_based&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;python.lsp.tool.dont.ask.Basedpyright&quot;: &quot;true&quot;,
-    &quot;python.lsp.tool.dont.ask.basedpyright&quot;: &quot;true&quot;,
-    &quot;python.packages.toolwindow.project.migrated.to.right.top.v2&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for snake_game.tests.test_game_logic.GameLogicTests.test_collision_ends_game.executor": "Run",
+    "Python.2-dimentional_lanscape.executor": "Run",
+    "Python.Landscape.executor": "Run",
+    "Python.visibility_distribution_illustration.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/junyi/Documents/GitHub/OpenInnovationFramework/ISR_Visibility/Selection_fixed_num_10/Similarity_based",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "python.lsp.tool.dont.ask.Basedpyright": "true",
+    "python.lsp.tool.dont.ask.basedpyright": "true",
+    "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.interpreter.PyAllInterpretersConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Similarity_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Dissimilarity_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_fixed_num_10/Rank_based" />
+      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Bidirectional_visibility" />
       <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Dissimilarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Rank_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Selection_full_visibility/Similarity_based" />
-      <recent name="$PROJECT_DIR$/ISR_Visibility/Robustness/Timing_under_diff_extent" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ISR_Visibility" />
@@ -663,7 +666,8 @@
       <workItem from="1795692996146" duration="528000" />
       <workItem from="1795693629738" duration="78000" />
       <workItem from="1795693724849" duration="1741000" />
-      <workItem from="1795698201230" duration="2504000" />
+      <workItem from="1795698201230" duration="5209000" />
+      <workItem from="1795768229457" duration="1591000" />
     </task>
     <task id="LOCAL-00137" summary="Simplify the model, Only two class:&#10;--Agent class for G/S/T&#10;--Landscape class for 4-state landscape&#10;&#10;Agents all search on the finest landscape, just perceiving it from different perspectives.&#10;--adopt the default element design, resonating with the mindset and cognitive fixation&#10;&#10;Introduce the different sub-area in the landscape">
       <created>1685784426269</created>
@@ -1008,7 +1012,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687528133782</updated>
     </task>
-    <option name="localTasksCounter" value="668" />
+    <option name="localTasksCounter" value="669" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
