@@ -183,7 +183,7 @@ if __name__ == '__main__':
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     t0 = time.time()
 
-    landscape_iteration = 400
+    landscape_iteration = 200
     solver_reset_num = 5  # Fresh sender/receiver crowds per landscape. Set to 1 for the original design.
     search_iteration = 300
 
@@ -204,8 +204,7 @@ if __name__ == '__main__':
     # Visibility extent: proportion of sender solutions that are visible to receivers.
     # visibility_extent = 0.0 means no sender solutions are visible.
     # visibility_extent = 1.0 means all sender solutions are visible.
-    visibility_extent_list = [0.0, 0.01, 0.02, 0.04, 0.08,
-                              0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    visibility_extent_list = [0.0, 0.04, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
     # Visibility frequency: sender solutions become visible every x periods.
     visibility_interval = 10
